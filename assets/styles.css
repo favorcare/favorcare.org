@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — the single source of truth is DESIGN.md.
+ * Tailwind v4 reads these `@theme` variables and generates utilities
+ * (e.g. `--color-primary` → `bg-primary` / `text-primary`).
+ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #ffb428;
+  --color-on-primary: #000000;
+  --color-primary-container: #ffd966;
+  --color-on-primary-container: #4d3200;
+
+  --color-secondary: #720eec;
+  --color-on-secondary: #fcfbfe;
+  --color-secondary-container: #eae6f5;
+  --color-on-secondary-container: #2d0a5c;
+
+  --color-tertiary: #00d084;
+  --color-on-tertiary: #ffffff;
+
+  --color-surface: #ffffff;
+  --color-surface-dim: #f5f5f5;
+  --color-surface-bright: #fafafa;
+  --color-surface-container-lowest: #eeeeee;
+  --color-surface-container-low: #e9e6ed;
+  --color-surface-container: #e0dce4;
+  --color-surface-container-high: #d4cfd7;
+  --color-surface-container-highest: #cfc8d0;
+
+  --color-on-surface: #171717;
+  --color-on-surface-variant: #515151;
+
+  --color-outline: #767676;
+  --color-outline-variant: #abb8c3;
+
+  --color-error: #cf2e2e;
+  --color-on-error: #ffffff;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+  }
+}

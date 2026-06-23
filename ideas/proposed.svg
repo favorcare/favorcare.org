@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4800 3400" font-family="Helvetica, Arial, sans-serif">
+  <!-- ============================================================
+       FAVOR CARE — WEBSITE INFORMATION ARCHITECTURE
+       Miro-ready editable SVG. Every shape is a discrete element.
+       Inspired by best practices from: The Children's Society,
+       Farm Africa, WaterAid, Obama Foundation, SolarAid, Eden,
+       Surfers Against Sewage, Age of Union, Waves for Water.
+       ============================================================ -->
+
+  <defs>
+    <!-- Connector arrow -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2D2A26"/>
+    </marker>
+    <!-- Drop shadow for cards -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="4" result="off"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="4800" height="3400" fill="#FAF7F2"/>
+
+  <!-- ============================================================
+       TITLE BLOCK
+       ============================================================ -->
+  <g id="title-block">
+    <rect x="80" y="60" width="4640" height="200" fill="#1F3A5F" rx="12"/>
+    <text x="120" y="140" font-size="58" font-weight="700" fill="#FAF7F2" letter-spacing="-1">FAVOR CARE — Information Architecture &amp; Page Templates</text>
+    <text x="120" y="190" font-size="26" font-weight="400" fill="#E8C547">Restructured website journey · Donation paths · Storytelling · Volunteer flows</text>
+    <text x="120" y="225" font-size="20" font-weight="300" fill="#FAF7F2" opacity="0.75">Benchmarked against Children's Society, Farm Africa, WaterAid, Obama Foundation, SolarAid &amp; Eden Reforestation Projects</text>
+    <text x="4700" y="140" font-size="20" font-weight="500" fill="#FAF7F2" text-anchor="end" opacity="0.7">v1.0 · Miro-ready sitemap</text>
+    <text x="4700" y="170" font-size="20" font-weight="500" fill="#FAF7F2" text-anchor="end" opacity="0.7">Prepared for: favorcare.org</text>
+  </g>
+
+  <!-- ============================================================
+       LEGEND
+       ============================================================ -->
+  <g id="legend" transform="translate(80, 290)">
+    <rect width="4640" height="90" fill="#FFFFFF" stroke="#E5DED2" stroke-width="2" rx="8"/>
+    <text x="30" y="38" font-size="20" font-weight="700" fill="#2D2A26">LEGEND</text>
+
+    <rect x="160" y="22" width="34" height="34" fill="#1F3A5F" rx="4"/>
+    <text x="205" y="44" font-size="18" fill="#2D2A26">Homepage</text>
+
+    <rect x="370" y="22" width="34" height="34" fill="#C73E3A" rx="4"/>
+    <text x="415" y="44" font-size="18" fill="#2D2A26">Primary Nav</text>
+
+    <rect x="600" y="22" width="34" height="34" fill="#E8C547" rx="4"/>
+    <text x="645" y="44" font-size="18" fill="#2D2A26">Sub-page</text>
+
+    <rect x="800" y="22" width="34" height="34" fill="#5A8C7B" rx="4"/>
+    <text x="845" y="44" font-size="18" fill="#2D2A26">Conversion / CTA hub</text>
+
+    <rect x="1100" y="22" width="34" height="34" fill="#F4F1EA" stroke="#9C8C7A" stroke-width="2" rx="4"/>
+    <text x="1145" y="44" font-size="18" fill="#2D2A26">Utility / Footer page</text>
+
+    <line x1="1400" y1="39" x2="1460" y2="39" stroke="#2D2A26" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="1480" y="44" font-size="18" fill="#2D2A26">Navigation link</text>
+
+    <line x1="1690" y1="39" x2="1750" y2="39" stroke="#C73E3A" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+    <text x="1770" y="44" font-size="18" fill="#2D2A26">Conversion path</text>
+
+    <text x="2030" y="44" font-size="18" font-weight="600" fill="#2D2A26">Page templates → see annotated cards in lower section</text>
+
+    <text x="30" y="78" font-size="15" fill="#5C5852" font-style="italic">All shapes are individual SVG elements — text, fills and connectors stay editable when imported into Miro.</text>
+  </g>
+
+  <!-- ============================================================
+       PERSISTENT GLOBAL ELEMENTS (Header / Footer)
+       ============================================================ -->
+  <g id="global-header" transform="translate(80, 410)">
+    <rect width="4640" height="100" fill="#2D2A26" rx="8"/>
+    <text x="30" y="40" font-size="20" font-weight="700" fill="#E8C547">PERSISTENT GLOBAL HEADER (every page)</text>
+    <text x="30" y="72" font-size="17" fill="#FAF7F2">Logo · Mega-menu (5 items) · Search · Prayer Hub · DONATE button (sticky, high-contrast) · Language/Region toggle</text>
+    <rect x="3950" y="25" width="180" height="50" fill="#C73E3A" rx="6"/>
+    <text x="4040" y="58" font-size="20" font-weight="700" fill="#FAF7F2" text-anchor="middle">DONATE</text>
+    <rect x="4150" y="25" width="200" height="50" fill="#5A8C7B" rx="6"/>
+    <text x="4250" y="58" font-size="20" font-weight="700" fill="#FAF7F2" text-anchor="middle">PRAYER HUB</text>
+  </g>
+
+  <!-- ============================================================
+       LEVEL 0 — HOMEPAGE
+       ============================================================ -->
+  <g id="homepage">
+    <rect x="2100" y="560" width="600" height="160" fill="#1F3A5F" rx="14" filter="url(#cardShadow)"/>
+    <text x="2400" y="615" font-size="32" font-weight="700" fill="#FAF7F2" text-anchor="middle">HOMEPAGE</text>
+    <text x="2400" y="650" font-size="18" fill="#E8C547" text-anchor="middle">favorcare.org</text>
+    <text x="2400" y="680" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.85">Hero video · Mission statement · Impact stats</text>
+    <text x="2400" y="702" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.85">Featured campaign · Story spotlight · CTAs</text>
+  </g>
+
+  <!-- ============================================================
+       LEVEL 1 — PRIMARY NAVIGATION (5 sections, Obama Foundation principle)
+       ============================================================ -->
+  <g id="primary-nav">
+    <!-- Section 1: Our Mission -->
+    <rect x="180" y="820" width="780" height="130" fill="#C73E3A" rx="10" filter="url(#cardShadow)"/>
+    <text x="570" y="870" font-size="28" font-weight="700" fill="#FAF7F2" text-anchor="middle">1 · OUR MISSION</text>
+    <text x="570" y="905" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.9">Who we are, what we believe, why it matters</text>
+    <text x="570" y="930" font-size="14" fill="#E8C547" text-anchor="middle" font-style="italic">Replaces vague "About"</text>
+
+    <!-- Section 2: What We Do -->
+    <rect x="1080" y="820" width="780" height="130" fill="#C73E3A" rx="10" filter="url(#cardShadow)"/>
+    <text x="1470" y="870" font-size="28" font-weight="700" fill="#FAF7F2" text-anchor="middle">2 · WHAT WE DO</text>
+    <text x="1470" y="905" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.9">Programs organized by pillar of impact</text>
+    <text x="1470" y="930" font-size="14" fill="#E8C547" text-anchor="middle" font-style="italic">Program-led, like Farm Africa</text>
+
+    <!-- Section 3: Stories & Impact -->
+    <rect x="1980" y="820" width="780" height="130" fill="#C73E3A" rx="10" filter="url(#cardShadow)"/>
+    <text x="2370" y="870" font-size="28" font-weight="700" fill="#FAF7F2" text-anchor="middle">3 · STORIES &amp; IMPACT</text>
+    <text x="2370" y="905" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.9">Real lives, measurable change, news</text>
+    <text x="2370" y="930" font-size="14" fill="#E8C547" text-anchor="middle" font-style="italic">Editorial layer, like WaterAid</text>
+
+    <!-- Section 4: Get Involved -->
+    <rect x="2880" y="820" width="780" height="130" fill="#C73E3A" rx="10" filter="url(#cardShadow)"/>
+    <text x="3270" y="870" font-size="28" font-weight="700" fill="#FAF7F2" text-anchor="middle">4 · GET INVOLVED</text>
+    <text x="3270" y="905" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.9">Volunteer, partner, fundraise, pray</text>
+    <text x="3270" y="930" font-size="14" fill="#E8C547" text-anchor="middle" font-style="italic">Action-led, like SolarAid</text>
+
+    <!-- Section 5: Donate (CTA hub) -->
+    <rect x="3780" y="820" width="780" height="130" fill="#5A8C7B" rx="10" filter="url(#cardShadow)"/>
+    <text x="4170" y="870" font-size="28" font-weight="700" fill="#FAF7F2" text-anchor="middle">5 · DONATE</text>
+    <text x="4170" y="905" font-size="16" fill="#FAF7F2" text-anchor="middle" opacity="0.9">Conversion hub — multi-path giving</text>
+    <text x="4170" y="930" font-size="14" fill="#E8C547" text-anchor="middle" font-style="italic">Persistent CTA, like Children's Society</text>
+  </g>
+
+  <!-- Connectors: Homepage → Primary Nav -->
+  <g stroke="#2D2A26" stroke-width="2.5" fill="none">
+    <path d="M 2400 720 L 2400 770 L 570 770 L 570 820" marker-end="url(#arrow)"/>
+    <path d="M 2400 720 L 2400 770 L 1470 770 L 1470 820" marker-end="url(#arrow)"/>
+    <path d="M 2400 720 L 2400 820" marker-end="url(#arrow)"/>
+    <path d="M 2400 720 L 2400 770 L 3270 770 L 3270 820" marker-end="url(#arrow)"/>
+    <path d="M 2400 720 L 2400 770 L 4170 770 L 4170 820" stroke="#C73E3A" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ============================================================
+       LEVEL 2 — SUB-PAGES under each primary section
+       ============================================================ -->
+
+  <!-- ============= 1. OUR MISSION sub-pages ============= -->
+  <g id="mission-subs">
+    <rect x="200" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="360" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Our Story</text>
+    <text x="360" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">Origin · Faith foundation · Founders</text>
+
+    <rect x="540" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="700" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Vision &amp; Values</text>
+    <text x="700" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">Hope · Dignity · Sustainable change</text>
+
+    <rect x="200" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="360" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Leadership &amp; Team</text>
+    <text x="360" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Board · Staff · Advisory council</text>
+
+    <rect x="540" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="700" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Accountability</text>
+    <text x="700" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Annual reports · Financials · Governance</text>
+
+    <rect x="370" y="1230" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="530" y="1265" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Where We Work</text>
+    <text x="530" y="1295" font-size="13" fill="#2D2A26" text-anchor="middle">Map of communities served</text>
+  </g>
+
+  <!-- ============= 2. WHAT WE DO sub-pages ============= -->
+  <g id="programs-subs">
+    <rect x="1100" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="1260" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Education</text>
+    <text x="1260" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">Redemptio Christian School hub</text>
+
+    <rect x="1440" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="1600" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Prison Ministry</text>
+    <text x="1600" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">CIW · Care packs · Worship</text>
+
+    <rect x="1100" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="1260" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Community Health</text>
+    <text x="1260" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Medical clinics · Wellness drives</text>
+
+    <rect x="1440" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="1600" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Disaster Relief</text>
+    <text x="1600" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Typhoon &amp; emergency response</text>
+
+    <rect x="1270" y="1230" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="1430" y="1265" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Community Development</text>
+    <text x="1430" y="1295" font-size="13" fill="#2D2A26" text-anchor="middle">Long-term projects · Livelihood</text>
+  </g>
+
+  <!-- ============= 3. STORIES & IMPACT sub-pages ============= -->
+  <g id="stories-subs">
+    <rect x="2000" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="2160" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Stories Hub</text>
+    <text x="2160" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">Filter by program · region · year</text>
+
+    <rect x="2340" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="2500" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Featured Stories</text>
+    <text x="2500" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">Long-form · video · testimonials</text>
+
+    <rect x="2000" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="2160" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Impact Numbers</text>
+    <text x="2160" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Live counter dashboard</text>
+
+    <rect x="2340" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="2500" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">News &amp; Updates</text>
+    <text x="2500" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Press · Media kit · Announcements</text>
+
+    <rect x="2170" y="1230" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="2330" y="1265" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Annual Report</text>
+    <text x="2330" y="1295" font-size="13" fill="#2D2A26" text-anchor="middle">Interactive year-in-review</text>
+  </g>
+
+  <!-- ============= 4. GET INVOLVED sub-pages ============= -->
+  <g id="involved-subs">
+    <rect x="2900" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="3060" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Volunteer</text>
+    <text x="3060" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">Roles · Apply · Onboarding</text>
+
+    <rect x="3240" y="1010" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="3400" y="1045" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Corporate Partners</text>
+    <text x="3400" y="1075" font-size="13" fill="#2D2A26" text-anchor="middle">₱50M school sponsor pitch</text>
+
+    <rect x="2900" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="3060" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Fundraise For Us</text>
+    <text x="3060" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Toolkit · Events · Birthdays</text>
+
+    <rect x="3240" y="1120" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="3400" y="1155" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">Prayer Hub</text>
+    <text x="3400" y="1185" font-size="13" fill="#2D2A26" text-anchor="middle">Submit · Subscribe · Pray with us</text>
+
+    <rect x="3070" y="1230" width="320" height="90" fill="#E8C547" rx="8" filter="url(#cardShadow)"/>
+    <text x="3230" y="1265" font-size="18" font-weight="700" fill="#2D2A26" text-anchor="middle">In-Kind Donations</text>
+    <text x="3230" y="1295" font-size="13" fill="#2D2A26" text-anchor="middle">Care-pack drop-off · Wishlist</text>
+  </g>
+
+  <!-- ============= 5. DONATE sub-pages (Conversion Hub) ============= -->
+  <g id="donate-subs">
+    <rect x="3800" y="1010" width="320" height="90" fill="#5A8C7B" rx="8" filter="url(#cardShadow)"/>
+    <text x="3960" y="1045" font-size="18" font-weight="700" fill="#FAF7F2" text-anchor="middle">One-time Gift</text>
+    <text x="3960" y="1075" font-size="13" fill="#FAF7F2" text-anchor="middle">Quick checkout · Multi-currency</text>
+
+    <rect x="4140" y="1010" width="320" height="90" fill="#5A8C7B" rx="8" filter="url(#cardShadow)"/>
+    <text x="4300" y="1045" font-size="18" font-weight="700" fill="#FAF7F2" text-anchor="middle">Monthly Giving</text>
+    <text x="4300" y="1075" font-size="13" fill="#FAF7F2" text-anchor="middle">"Become a Carer" subscription</text>
+
+    <rect x="3800" y="1120" width="320" height="90" fill="#5A8C7B" rx="8" filter="url(#cardShadow)"/>
+    <text x="3960" y="1155" font-size="18" font-weight="700" fill="#FAF7F2" text-anchor="middle">Sponsor a Child</text>
+    <text x="3960" y="1185" font-size="13" fill="#FAF7F2" text-anchor="middle">Redemptio School direct sponsor</text>
+
+    <rect x="4140" y="1120" width="320" height="90" fill="#5A8C7B" rx="8" filter="url(#cardShadow)"/>
+    <text x="4300" y="1155" font-size="18" font-weight="700" fill="#FAF7F2" text-anchor="middle">Give in Kind</text>
+    <text x="4300" y="1185" font-size="13" fill="#FAF7F2" text-anchor="middle">Care packs · Equipment · Goods</text>
+
+    <rect x="3970" y="1230" width="320" height="90" fill="#5A8C7B" rx="8" filter="url(#cardShadow)"/>
+    <text x="4130" y="1265" font-size="18" font-weight="700" fill="#FAF7F2" text-anchor="middle">Legacy &amp; Major Gifts</text>
+    <text x="4130" y="1295" font-size="13" fill="#FAF7F2" text-anchor="middle">Wills · Bequests · Major donors</text>
+  </g>
+
+  <!-- Connectors: Primary nav → Sub-pages (one diagonal trunk per section) -->
+  <g stroke="#2D2A26" stroke-width="1.5" fill="none" opacity="0.55">
+    <line x1="570" y1="950" x2="570" y2="985"/>
+    <line x1="1470" y1="950" x2="1470" y2="985"/>
+    <line x1="2370" y1="950" x2="2370" y2="985"/>
+    <line x1="3270" y1="950" x2="3270" y2="985"/>
+    <line x1="4170" y1="950" x2="4170" y2="985"/>
+    <line x1="200" y1="985" x2="860" y2="985"/>
+    <line x1="1100" y1="985" x2="1760" y2="985"/>
+    <line x1="2000" y1="985" x2="2660" y2="985"/>
+    <line x1="2900" y1="985" x2="3560" y2="985"/>
+    <line x1="3800" y1="985" x2="4460" y2="985"/>
+    <line x1="200" y1="985" x2="200" y2="1010"/>
+    <line x1="540" y1="985" x2="540" y2="1010"/>
+    <line x1="860" y1="985" x2="860" y2="1010"/>
+    <line x1="1100" y1="985" x2="1100" y2="1010"/>
+    <line x1="1440" y1="985" x2="1440" y2="1010"/>
+    <line x1="1760" y1="985" x2="1760" y2="1010"/>
+    <line x1="2000" y1="985" x2="2000" y2="1010"/>
+    <line x1="2340" y1="985" x2="2340" y2="1010"/>
+    <line x1="2660" y1="985" x2="2660" y2="1010"/>
+    <line x1="2900" y1="985" x2="2900" y2="1010"/>
+    <line x1="3240" y1="985" x2="3240" y2="1010"/>
+    <line x1="3560" y1="985" x2="3560" y2="1010"/>
+    <line x1="3800" y1="985" x2="3800" y2="1010"/>
+    <line x1="4140" y1="985" x2="4140" y2="1010"/>
+    <line x1="4460" y1="985" x2="4460" y2="1010"/>
+  </g>
+
+  <!-- ============================================================
+       UTILITY / FOOTER PAGES
+       ============================================================ -->
+  <g id="utility-pages">
+    <rect x="80" y="1380" width="4640" height="140" fill="#FFFFFF" stroke="#9C8C7A" stroke-width="2" rx="10"/>
+    <text x="120" y="1420" font-size="22" font-weight="700" fill="#2D2A26">UTILITY &amp; FOOTER PAGES (accessible globally from footer)</text>
+
+    <g font-size="15" fill="#2D2A26">
+      <rect x="120" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="260" y="1480" text-anchor="middle">Contact Us</text>
+
+      <rect x="420" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="560" y="1480" text-anchor="middle">Newsletter Sign-up</text>
+
+      <rect x="720" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="860" y="1480" text-anchor="middle">FAQ</text>
+
+      <rect x="1020" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="1160" y="1480" text-anchor="middle">Careers</text>
+
+      <rect x="1320" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="1460" y="1480" text-anchor="middle">Press / Media Kit</text>
+
+      <rect x="1620" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="1760" y="1480" text-anchor="middle">Privacy Policy</text>
+
+      <rect x="1920" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="2060" y="1480" text-anchor="middle">Terms &amp; Conditions</text>
+
+      <rect x="2220" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="2360" y="1480" text-anchor="middle">Accessibility Statement</text>
+
+      <rect x="2520" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="2660" y="1480" text-anchor="middle">Donation Policy</text>
+
+      <rect x="2820" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="2960" y="1480" text-anchor="middle">Search Results</text>
+
+      <rect x="3120" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="3260" y="1480" text-anchor="middle">404 / Error</text>
+
+      <rect x="3420" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="3560" y="1480" text-anchor="middle">Thank-you (post-donation)</text>
+
+      <rect x="3720" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="3860" y="1480" text-anchor="middle">Donor Account / Login</text>
+
+      <rect x="4020" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="4160" y="1480" text-anchor="middle">Regional Hubs (BNE, etc.)</text>
+
+      <rect x="4320" y="1450" width="280" height="50" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="4460" y="1480" text-anchor="middle">Sitemap.xml</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION DIVIDER
+       ============================================================ -->
+  <g id="page-template-divider">
+    <line x1="80" y1="1580" x2="4720" y2="1580" stroke="#1F3A5F" stroke-width="3"/>
+    <rect x="80" y="1600" width="4640" height="80" fill="#1F3A5F" rx="10"/>
+    <text x="120" y="1655" font-size="32" font-weight="700" fill="#FAF7F2">PAGE TEMPLATES — Wireframe specs for the 6 most critical pages</text>
+  </g>
+
+  <!-- ============================================================
+       PAGE TEMPLATE 1 — HOMEPAGE
+       Inspired by: Obama Foundation hero · WaterAid stats · Farm Africa scroll-zoom
+       ============================================================ -->
+  <g id="tpl-homepage" transform="translate(80, 1720)">
+    <rect width="1500" height="780" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="3" rx="14" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="1500" height="60" fill="#1F3A5F" rx="14"/>
+    <text x="30" y="40" font-size="22" font-weight="700" fill="#FAF7F2">TEMPLATE A · HOMEPAGE</text>
+    <text x="1470" y="40" font-size="14" fill="#E8C547" text-anchor="end">inspired by Obama Foundation + WaterAid + Farm Africa</text>
+
+    <!-- Wireframe blocks -->
+    <g transform="translate(40, 90)">
+      <!-- Header bar -->
+      <rect width="1420" height="40" fill="#2D2A26" rx="4"/>
+      <text x="20" y="26" font-size="13" fill="#E8C547">Logo</text>
+      <text x="600" y="26" font-size="13" fill="#FAF7F2" text-anchor="middle">Mission · Programs · Stories · Get Involved · Donate</text>
+      <rect x="1280" y="6" width="120" height="28" fill="#C73E3A" rx="4"/>
+      <text x="1340" y="26" font-size="13" font-weight="700" fill="#FAF7F2" text-anchor="middle">DONATE</text>
+
+      <!-- Hero -->
+      <rect y="55" width="1420" height="220" fill="#1F3A5F" rx="6"/>
+      <text x="40" y="115" font-size="22" font-weight="700" fill="#FAF7F2">HERO · Full-bleed video loop (muted, 8s)</text>
+      <text x="40" y="145" font-size="16" fill="#E8C547">"Giving hope for a better future to those in need."</text>
+      <text x="40" y="175" font-size="13" fill="#FAF7F2">Sub: One-line outcome statement (community + impact)</text>
+      <rect x="40" y="200" width="170" height="42" fill="#C73E3A" rx="4"/>
+      <text x="125" y="226" font-size="14" font-weight="700" fill="#FAF7F2" text-anchor="middle">DONATE NOW</text>
+      <rect x="225" y="200" width="200" height="42" fill="none" stroke="#FAF7F2" stroke-width="2" rx="4"/>
+      <text x="325" y="226" font-size="14" font-weight="700" fill="#FAF7F2" text-anchor="middle">SEE OUR WORK</text>
+      <text x="1380" y="260" font-size="11" fill="#FAF7F2" text-anchor="end" opacity="0.7">↓ scroll cue</text>
+
+      <!-- Impact stats strip (WaterAid) -->
+      <rect y="290" width="1420" height="80" fill="#E8C547" rx="6"/>
+      <text x="710" y="316" font-size="13" font-weight="700" fill="#2D2A26" text-anchor="middle">IMPACT STATS — animated count-up on scroll</text>
+      <text x="180" y="350" font-size="22" font-weight="700" fill="#2D2A26" text-anchor="middle">185</text>
+      <text x="180" y="365" font-size="11" fill="#2D2A26" text-anchor="middle">students at Redemptio</text>
+      <text x="510" y="350" font-size="22" font-weight="700" fill="#2D2A26" text-anchor="middle">1,000+</text>
+      <text x="510" y="365" font-size="11" fill="#2D2A26" text-anchor="middle">CIW care packs / yr</text>
+      <text x="840" y="350" font-size="22" font-weight="700" fill="#2D2A26" text-anchor="middle">12</text>
+      <text x="840" y="365" font-size="11" fill="#2D2A26" text-anchor="middle">communities served</text>
+      <text x="1170" y="350" font-size="22" font-weight="700" fill="#2D2A26" text-anchor="middle">20+ yrs</text>
+      <text x="1170" y="365" font-size="11" fill="#2D2A26" text-anchor="middle">of faithful service</text>
+
+      <!-- Mission narrative -->
+      <rect y="385" width="690" height="170" fill="#FAF7F2" stroke="#9C8C7A" rx="6"/>
+      <text x="20" y="415" font-size="14" font-weight="700" fill="#2D2A26">SECTION · OUR MISSION</text>
+      <text x="20" y="440" font-size="11" fill="#5C5852">Two-column: short narrative + portrait of beneficiary</text>
+      <text x="20" y="460" font-size="11" fill="#5C5852">(Farm Africa scroll-zoom on a single keyword)</text>
+      <rect x="20" y="490" width="140" height="36" fill="none" stroke="#1F3A5F" stroke-width="2" rx="4"/>
+      <text x="90" y="513" font-size="12" font-weight="700" fill="#1F3A5F" text-anchor="middle">READ OUR STORY →</text>
+
+      <!-- Featured campaign card -->
+      <rect x="710" y="385" width="710" height="170" fill="#C73E3A" rx="6"/>
+      <text x="730" y="415" font-size="14" font-weight="700" fill="#E8C547">FEATURED CAMPAIGN</text>
+      <text x="730" y="442" font-size="18" font-weight="700" fill="#FAF7F2">Build a school that can hold 500 kids</text>
+      <text x="730" y="468" font-size="12" fill="#FAF7F2">₱50M corporate sponsorship campaign · Progress bar</text>
+      <rect x="730" y="485" width="500" height="14" fill="#FAF7F2" opacity="0.3" rx="3"/>
+      <rect x="730" y="485" width="160" height="14" fill="#E8C547" rx="3"/>
+      <text x="730" y="520" font-size="11" fill="#FAF7F2">₱16M raised of ₱50M goal · 32% complete</text>
+      <rect x="1240" y="500" width="160" height="36" fill="#E8C547" rx="4"/>
+      <text x="1320" y="523" font-size="13" font-weight="700" fill="#2D2A26" text-anchor="middle">SPONSOR →</text>
+
+      <!-- 4 Pillars card row -->
+      <rect y="570" width="345" height="100" fill="#5A8C7B" rx="6"/>
+      <text x="20" y="598" font-size="13" font-weight="700" fill="#FAF7F2">EDUCATION</text>
+      <text x="20" y="618" font-size="10" fill="#FAF7F2">Redemptio Christian School</text>
+      <text x="325" y="660" font-size="11" font-weight="700" fill="#E8C547" text-anchor="end">Explore →</text>
+
+      <rect x="358" y="570" width="345" height="100" fill="#5A8C7B" rx="6"/>
+      <text x="378" y="598" font-size="13" font-weight="700" fill="#FAF7F2">PRISON MINISTRY</text>
+      <text x="378" y="618" font-size="10" fill="#FAF7F2">CIW worship · care packs</text>
+      <text x="683" y="660" font-size="11" font-weight="700" fill="#E8C547" text-anchor="end">Explore →</text>
+
+      <rect x="716" y="570" width="345" height="100" fill="#5A8C7B" rx="6"/>
+      <text x="736" y="598" font-size="13" font-weight="700" fill="#FAF7F2">COMMUNITY HEALTH</text>
+      <text x="736" y="618" font-size="10" fill="#FAF7F2">Free medical clinics</text>
+      <text x="1041" y="660" font-size="11" font-weight="700" fill="#E8C547" text-anchor="end">Explore →</text>
+
+      <rect x="1074" y="570" width="345" height="100" fill="#5A8C7B" rx="6"/>
+      <text x="1094" y="598" font-size="13" font-weight="700" fill="#FAF7F2">DISASTER RELIEF</text>
+      <text x="1094" y="618" font-size="10" fill="#FAF7F2">Typhoon &amp; emergency aid</text>
+      <text x="1399" y="660" font-size="11" font-weight="700" fill="#E8C547" text-anchor="end">Explore →</text>
+    </g>
+
+    <!-- Annotation -->
+    <text x="40" y="755" font-size="12" font-style="italic" fill="#5C5852">Below this fold: Story spotlight (Obama-style split scroll) → Prayer Hub join → Recent news → Newsletter sign-up → Footer</text>
+  </g>
+
+  <!-- ============================================================
+       PAGE TEMPLATE 2 — DONATION HUB
+       Inspired by: SolarAid · Children's Society contextualised CTAs
+       ============================================================ -->
+  <g id="tpl-donate" transform="translate(1620, 1720)">
+    <rect width="1500" height="780" fill="#FFFFFF" stroke="#5A8C7B" stroke-width="3" rx="14" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="1500" height="60" fill="#5A8C7B" rx="14"/>
+    <text x="30" y="40" font-size="22" font-weight="700" fill="#FAF7F2">TEMPLATE B · DONATION HUB</text>
+    <text x="1470" y="40" font-size="14" fill="#E8C547" text-anchor="end">inspired by SolarAid + Children's Society + WaterAid</text>
+
+    <g transform="translate(40, 90)">
+      <!-- Header -->
+      <rect width="1420" height="40" fill="#2D2A26" rx="4"/>
+      <text x="710" y="26" font-size="13" fill="#FAF7F2" text-anchor="middle">Donate / Choose how you want to give</text>
+
+      <!-- Hero -->
+      <rect y="55" width="1420" height="120" fill="#1F3A5F" rx="6"/>
+      <text x="40" y="100" font-size="22" font-weight="700" fill="#FAF7F2">Your gift, in their hands within days.</text>
+      <text x="40" y="130" font-size="13" fill="#E8C547">Pick the path that fits you. Every option is secure, multi-currency, and tax-receipted.</text>
+
+      <!-- 4-path conversion grid (the heart of the page) -->
+      <text x="0" y="210" font-size="14" font-weight="700" fill="#2D2A26">CHOOSE YOUR GIVING PATH</text>
+
+      <!-- Path 1 - One-time -->
+      <rect y="225" width="340" height="280" fill="#FAF7F2" stroke="#5A8C7B" stroke-width="2" rx="6"/>
+      <text x="20" y="255" font-size="16" font-weight="700" fill="#1F3A5F">ONE-TIME GIFT</text>
+      <text x="20" y="280" font-size="11" fill="#5C5852">Quick, secure, no commitment</text>
+      <line x1="20" y1="295" x2="320" y2="295" stroke="#9C8C7A"/>
+      <text x="20" y="325" font-size="11" fill="#2D2A26">₱500  →  10 care packs for CIW</text>
+      <text x="20" y="350" font-size="11" fill="#2D2A26">₱2,500 →  1 student's books for a term</text>
+      <text x="20" y="375" font-size="11" fill="#2D2A26">₱10,000 → mobile clinic for 50 patients</text>
+      <text x="20" y="400" font-size="11" fill="#2D2A26">₱50,000 → emergency relief kits ×100</text>
+      <rect x="20" y="430" width="140" height="36" fill="#5A8C7B" rx="4"/>
+      <text x="90" y="453" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">GIVE ONCE →</text>
+      <text x="20" y="486" font-size="9" fill="#5C5852" font-style="italic">Stripe / GCash / PayPal</text>
+
+      <!-- Path 2 - Monthly (CARERS) -->
+      <rect x="360" y="225" width="340" height="280" fill="#E8C547" stroke="#1F3A5F" stroke-width="2" rx="6"/>
+      <rect x="360" y="225" width="340" height="28" fill="#1F3A5F" rx="6"/>
+      <text x="530" y="245" font-size="11" font-weight="700" fill="#E8C547" text-anchor="middle">⭐ MOST IMPACTFUL · RECOMMENDED</text>
+      <text x="380" y="280" font-size="16" font-weight="700" fill="#1F3A5F">BECOME A CARER</text>
+      <text x="380" y="305" font-size="11" fill="#2D2A26">Monthly giving — sustained impact</text>
+      <line x1="380" y1="320" x2="680" y2="320" stroke="#1F3A5F"/>
+      <text x="380" y="350" font-size="11" fill="#2D2A26">₱500/mo  →  feed 1 child for a month</text>
+      <text x="380" y="375" font-size="11" fill="#2D2A26">₱1,500/mo → uniform + supplies / yr</text>
+      <text x="380" y="400" font-size="11" fill="#2D2A26">₱5,000/mo → full tuition coverage</text>
+      <text x="380" y="425" font-size="11" fill="#2D2A26">Custom amount also available</text>
+      <rect x="380" y="445" width="180" height="36" fill="#C73E3A" rx="4"/>
+      <text x="470" y="468" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">JOIN THE CARERS →</text>
+
+      <!-- Path 3 - Sponsor a Child -->
+      <rect x="720" y="225" width="340" height="280" fill="#FAF7F2" stroke="#5A8C7B" stroke-width="2" rx="6"/>
+      <text x="740" y="255" font-size="16" font-weight="700" fill="#1F3A5F">SPONSOR A CHILD</text>
+      <text x="740" y="280" font-size="11" fill="#5C5852">Direct connection · Redemptio School</text>
+      <line x1="740" y1="295" x2="1040" y2="295" stroke="#9C8C7A"/>
+      <rect x="740" y="310" width="280" height="80" fill="#1F3A5F" opacity="0.1" rx="4"/>
+      <text x="880" y="340" font-size="11" fill="#2D2A26" text-anchor="middle">[grid of student profile photos —]</text>
+      <text x="880" y="358" font-size="11" fill="#2D2A26" text-anchor="middle">[name · age · grade · short story]</text>
+      <text x="880" y="376" font-size="11" fill="#2D2A26" text-anchor="middle">[updates &amp; letters from your child]</text>
+      <text x="740" y="415" font-size="11" fill="#2D2A26">From ₱2,000 / month per child</text>
+      <text x="740" y="435" font-size="11" fill="#2D2A26">Includes: tuition, meals, uniform, books</text>
+      <rect x="740" y="450" width="180" height="36" fill="#5A8C7B" rx="4"/>
+      <text x="830" y="473" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">CHOOSE A CHILD →</text>
+
+      <!-- Path 4 - Major Gifts / Corporate -->
+      <rect x="1080" y="225" width="340" height="280" fill="#FAF7F2" stroke="#5A8C7B" stroke-width="2" rx="6"/>
+      <text x="1100" y="255" font-size="16" font-weight="700" fill="#1F3A5F">CORPORATE &amp; MAJOR GIFTS</text>
+      <text x="1100" y="280" font-size="11" fill="#5C5852">For organisations, foundations, partners</text>
+      <line x1="1100" y1="295" x2="1400" y2="295" stroke="#9C8C7A"/>
+      <text x="1100" y="325" font-size="11" fill="#2D2A26">• ₱50M school expansion campaign</text>
+      <text x="1100" y="350" font-size="11" fill="#2D2A26">• Naming rights · Classroom · Wing</text>
+      <text x="1100" y="375" font-size="11" fill="#2D2A26">• Matching gifts &amp; payroll giving</text>
+      <text x="1100" y="400" font-size="11" fill="#2D2A26">• Legacy gifts / bequests</text>
+      <text x="1100" y="425" font-size="11" fill="#2D2A26">Direct line to our development team</text>
+      <rect x="1100" y="445" width="200" height="36" fill="#1F3A5F" rx="4"/>
+      <text x="1200" y="468" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">REQUEST A MEETING →</text>
+
+      <!-- Trust strip -->
+      <rect y="525" width="1420" height="100" fill="#F4F1EA" stroke="#9C8C7A" rx="6"/>
+      <text x="20" y="555" font-size="13" font-weight="700" fill="#2D2A26">WHY TRUST FAVOR CARE WITH YOUR GIFT?</text>
+      <text x="20" y="585" font-size="11" fill="#5C5852">✓ Audited annual financials  ·  ✓ SEC-registered foundation  ·  ✓ 90%+ of every gift goes direct to programs</text>
+      <text x="20" y="608" font-size="11" fill="#5C5852">✓ Tax-deductible receipts (PH, US, AU)  ·  ✓ Real photos &amp; impact reports for every donor  ·  ✓ Faith-led, community-rooted</text>
+      <rect x="1200" y="540" width="200" height="60" fill="#FFFFFF" stroke="#5A8C7B" rx="4"/>
+      <text x="1300" y="568" font-size="11" font-weight="700" fill="#5A8C7B" text-anchor="middle">[trust badges]</text>
+      <text x="1300" y="588" font-size="10" fill="#5C5852" text-anchor="middle">SEC · BIR · Charity Nav</text>
+    </g>
+
+    <text x="40" y="755" font-size="12" font-style="italic" fill="#5C5852">Critical UX: every donation amount is contextualised with what it does — Children's Society principle. Multi-currency built-in.</text>
+  </g>
+
+  <!-- ============================================================
+       PAGE TEMPLATE 3 — PROGRAM PAGE (e.g. Education / Redemptio)
+       Inspired by: Eden Reforestation Projects (project deep-dives) + Farm Africa
+       ============================================================ -->
+  <g id="tpl-program" transform="translate(3160, 1720)">
+    <rect width="1560" height="780" fill="#FFFFFF" stroke="#C73E3A" stroke-width="3" rx="14" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="1560" height="60" fill="#C73E3A" rx="14"/>
+    <text x="30" y="40" font-size="22" font-weight="700" fill="#FAF7F2">TEMPLATE C · PROGRAM PAGE  (e.g. Redemptio School)</text>
+    <text x="1530" y="40" font-size="14" fill="#E8C547" text-anchor="end">inspired by Eden + Farm Africa</text>
+
+    <g transform="translate(40, 90)">
+      <!-- Hero -->
+      <rect width="1480" height="200" fill="#1F3A5F" rx="6"/>
+      <text x="40" y="80" font-size="11" fill="#E8C547">WHAT WE DO  ›  EDUCATION</text>
+      <text x="40" y="120" font-size="26" font-weight="700" fill="#FAF7F2">Redemptio Christian School</text>
+      <text x="40" y="155" font-size="14" fill="#FAF7F2" opacity="0.9">Free Christian education for kids on the Taytay floodway. We believe education breaks poverty.</text>
+      <rect x="40" y="170" width="160" height="36" fill="#E8C547" rx="4"/>
+      <text x="120" y="193" font-size="13" font-weight="700" fill="#1F3A5F" text-anchor="middle">SPONSOR A CHILD →</text>
+
+      <!-- 2-col body -->
+      <rect y="220" width="980" height="180" fill="#FAF7F2" stroke="#9C8C7A" rx="6"/>
+      <text x="20" y="250" font-size="14" font-weight="700" fill="#2D2A26">THE CHALLENGE</text>
+      <text x="20" y="278" font-size="11" fill="#5C5852">Short narrative — who, where, what's at stake.</text>
+      <text x="20" y="300" font-size="11" fill="#5C5852">Anchored by 1 photograph + 1 quote pull-out.</text>
+      <text x="20" y="335" font-size="14" font-weight="700" fill="#2D2A26">OUR APPROACH</text>
+      <text x="20" y="362" font-size="11" fill="#5C5852">3 short paragraphs · what we actually do day-to-day.</text>
+      <text x="20" y="384" font-size="11" fill="#5C5852">Plus inline photo gallery (4 thumbs).</text>
+
+      <!-- Right: Quick facts panel -->
+      <rect x="1000" y="220" width="480" height="180" fill="#E8C547" rx="6"/>
+      <text x="1020" y="250" font-size="13" font-weight="700" fill="#2D2A26">QUICK FACTS</text>
+      <text x="1020" y="280" font-size="11" fill="#2D2A26">📍  Brgy. San Juan, Taytay, Rizal</text>
+      <text x="1020" y="305" font-size="11" fill="#2D2A26">👧 185 students enrolled (target: 500)</text>
+      <text x="1020" y="330" font-size="11" fill="#2D2A26">📚 Preschool → Grade 3 (expanding to G6)</text>
+      <text x="1020" y="355" font-size="11" fill="#2D2A26">🎯 ₱50M campaign · 32% raised</text>
+      <text x="1020" y="380" font-size="11" fill="#2D2A26">✝️ Christian curriculum + character formation</text>
+
+      <!-- Story spotlight -->
+      <rect y="420" width="1480" height="130" fill="#5A8C7B" rx="6"/>
+      <text x="20" y="450" font-size="13" font-weight="700" fill="#E8C547">STUDENT STORY · spotlight (rotates)</text>
+      <text x="20" y="490" font-size="20" font-style="italic" font-weight="700" fill="#FAF7F2">"Before Redemptio, I never thought I'd learn to read."</text>
+      <text x="20" y="520" font-size="13" fill="#FAF7F2" opacity="0.85">— Maria, Grade 2  ·  Her mom is a sari-sari store helper. Tap to read her full story.</text>
+
+      <!-- Triple CTA strip - the 3 priority actions -->
+      <rect y="570" width="480" height="100" fill="#FAF7F2" stroke="#C73E3A" stroke-width="2" rx="6"/>
+      <text x="20" y="600" font-size="13" font-weight="700" fill="#C73E3A">DONATE TO THIS PROGRAM</text>
+      <text x="20" y="624" font-size="11" fill="#5C5852">Fund a student's books, uniform, or meals.</text>
+      <rect x="20" y="638" width="140" height="28" fill="#C73E3A" rx="4"/>
+      <text x="90" y="657" font-size="11" font-weight="700" fill="#FAF7F2" text-anchor="middle">GIVE NOW →</text>
+
+      <rect x="500" y="570" width="480" height="100" fill="#FAF7F2" stroke="#1F3A5F" stroke-width="2" rx="6"/>
+      <text x="520" y="600" font-size="13" font-weight="700" fill="#1F3A5F">VOLUNTEER WITH US</text>
+      <text x="520" y="624" font-size="11" fill="#5C5852">Tutor, mentor, or run an event at the school.</text>
+      <rect x="520" y="638" width="140" height="28" fill="#1F3A5F" rx="4"/>
+      <text x="590" y="657" font-size="11" font-weight="700" fill="#FAF7F2" text-anchor="middle">SIGN UP →</text>
+
+      <rect x="1000" y="570" width="480" height="100" fill="#FAF7F2" stroke="#5A8C7B" stroke-width="2" rx="6"/>
+      <text x="1020" y="600" font-size="13" font-weight="700" fill="#5A8C7B">PARTNER (CORPORATE)</text>
+      <text x="1020" y="624" font-size="11" fill="#5C5852">Sponsor a classroom or fund the new wing.</text>
+      <rect x="1020" y="638" width="140" height="28" fill="#5A8C7B" rx="4"/>
+      <text x="1090" y="657" font-size="11" font-weight="700" fill="#FAF7F2" text-anchor="middle">PARTNER →</text>
+    </g>
+
+    <text x="40" y="755" font-size="12" font-style="italic" fill="#5C5852">Same template applies to Prison Ministry · Health · Disaster Relief · Community Dev. Filter system across program pages (Farm Africa).</text>
+  </g>
+
+  <!-- ============================================================
+       PAGE TEMPLATE 4 — STORY DETAIL PAGE
+       Inspired by: Obama Foundation split-screen scroll · WaterAid storytelling
+       ============================================================ -->
+  <g id="tpl-story" transform="translate(80, 2540)">
+    <rect width="1500" height="780" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="3" rx="14" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="1500" height="60" fill="#1F3A5F" rx="14"/>
+    <text x="30" y="40" font-size="22" font-weight="700" fill="#FAF7F2">TEMPLATE D · STORY DETAIL</text>
+    <text x="1470" y="40" font-size="14" fill="#E8C547" text-anchor="end">inspired by Obama Foundation split-scroll + WaterAid</text>
+
+    <g transform="translate(40, 90)">
+      <!-- Hero with portrait -->
+      <rect width="1420" height="220" fill="#2D2A26" rx="6"/>
+      <text x="40" y="60" font-size="11" fill="#E8C547">STORIES  ›  EDUCATION  ›  MARIA'S STORY</text>
+      <text x="40" y="105" font-size="26" font-weight="700" fill="#FAF7F2">"I want to be a nurse one day."</text>
+      <text x="40" y="135" font-size="14" fill="#FAF7F2" opacity="0.9">How Maria, age 8, went from missing school to leading her class.</text>
+      <text x="40" y="170" font-size="11" fill="#E8C547">Published Nov 2025  ·  5 min read  ·  Photos by [photographer]</text>
+      <text x="40" y="200" font-size="11" fill="#FAF7F2">[author byline]</text>
+      <rect x="1100" y="40" width="280" height="160" fill="#1F3A5F" stroke="#E8C547" stroke-width="2" rx="4"/>
+      <text x="1240" y="125" font-size="11" fill="#E8C547" text-anchor="middle">[hero portrait photo]</text>
+
+      <!-- Split-scroll body (Obama Foundation pattern) -->
+      <rect y="335" width="690" height="320" fill="#FAF7F2" stroke="#9C8C7A" rx="6"/>
+      <text x="20" y="365" font-size="12" font-weight="700" fill="#5C5852">LEFT PANEL · sticky narrative (anchors as user scrolls)</text>
+      <text x="20" y="395" font-size="13" fill="#2D2A26">Long-form reading column. Pull-quotes inline.</text>
+      <text x="20" y="420" font-size="13" fill="#2D2A26">Single column · 60–70 char width · serif body font.</text>
+      <text x="20" y="445" font-size="13" fill="#2D2A26">Sub-headings break the read into 3–4 chapters:</text>
+      <text x="40" y="470" font-size="12" fill="#5C5852">1. Before Redemptio</text>
+      <text x="40" y="490" font-size="12" fill="#5C5852">2. The first day</text>
+      <text x="40" y="510" font-size="12" fill="#5C5852">3. Today &amp; the future</text>
+      <rect x="20" y="535" width="640" height="100" fill="#E8C547" rx="4"/>
+      <text x="40" y="565" font-size="14" font-style="italic" fill="#2D2A26">"My favourite part is reading time.</text>
+      <text x="40" y="585" font-size="14" font-style="italic" fill="#2D2A26">My teacher gave me a book about</text>
+      <text x="40" y="605" font-size="14" font-style="italic" fill="#2D2A26">a girl who became a doctor."</text>
+      <text x="40" y="625" font-size="11" fill="#5C5852">— Maria, Grade 2</text>
+
+      <!-- Right panel - scrolls separately -->
+      <rect x="710" y="335" width="710" height="320" fill="#1F3A5F" rx="6"/>
+      <text x="730" y="365" font-size="12" font-weight="700" fill="#E8C547">RIGHT PANEL · supporting media (scrolls)</text>
+      <rect x="730" y="385" width="670" height="180" fill="#2D2A26" rx="4"/>
+      <text x="1065" y="478" font-size="11" fill="#FAF7F2" text-anchor="middle">[gallery of in-context photos]</text>
+      <text x="1065" y="498" font-size="11" fill="#FAF7F2" text-anchor="middle">[short looping b-roll]</text>
+      <text x="730" y="595" font-size="11" fill="#FAF7F2">Captions: who, when, where</text>
+      <text x="730" y="620" font-size="11" fill="#E8C547">Tap any image to expand.</text>
+
+      <!-- Story-end CTA — the conversion moment -->
+      <rect y="675" width="1420" height="60" fill="#C73E3A" rx="6"/>
+      <text x="40" y="710" font-size="14" font-weight="700" fill="#FAF7F2">Maria's story can be another child's story. Sponsor a Redemptio student today.</text>
+      <rect x="1230" y="688" width="160" height="36" fill="#E8C547" rx="4"/>
+      <text x="1310" y="711" font-size="13" font-weight="700" fill="#1F3A5F" text-anchor="middle">SPONSOR →</text>
+    </g>
+
+    <text x="40" y="755" font-size="12" font-style="italic" fill="#5C5852">Every story page ends with a contextual CTA tied to the program in the story. Related stories carousel below the fold.</text>
+  </g>
+
+  <!-- ============================================================
+       PAGE TEMPLATE 5 — GET INVOLVED HUB
+       Inspired by: SolarAid action-led structure · Surfers Against Sewage interactive
+       ============================================================ -->
+  <g id="tpl-involved" transform="translate(1620, 2540)">
+    <rect width="1500" height="780" fill="#FFFFFF" stroke="#C73E3A" stroke-width="3" rx="14" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="1500" height="60" fill="#C73E3A" rx="14"/>
+    <text x="30" y="40" font-size="22" font-weight="700" fill="#FAF7F2">TEMPLATE E · GET INVOLVED HUB</text>
+    <text x="1470" y="40" font-size="14" fill="#E8C547" text-anchor="end">inspired by SolarAid + Surfers Against Sewage</text>
+
+    <g transform="translate(40, 90)">
+      <!-- Hero -->
+      <rect width="1420" height="120" fill="#2D2A26" rx="6"/>
+      <text x="40" y="60" font-size="22" font-weight="700" fill="#E8C547">There's a place for you here.</text>
+      <text x="40" y="92" font-size="13" fill="#FAF7F2">Pick how you want to show up — every gift of time, skill or prayer matters.</text>
+
+      <!-- Self-segmenting question -->
+      <rect y="140" width="1420" height="60" fill="#E8C547" rx="6"/>
+      <text x="710" y="178" font-size="15" font-weight="700" fill="#2D2A26" text-anchor="middle">I want to help by...</text>
+
+      <!-- 5 action cards -->
+      <rect y="220" width="270" height="280" fill="#FAF7F2" stroke="#1F3A5F" stroke-width="2" rx="6"/>
+      <rect y="220" width="270" height="50" fill="#1F3A5F" rx="6"/>
+      <text x="135" y="252" font-size="14" font-weight="700" fill="#FAF7F2" text-anchor="middle">VOLUNTEERING</text>
+      <text x="20" y="295" font-size="11" fill="#2D2A26">Roles you can do:</text>
+      <text x="20" y="320" font-size="11" fill="#5C5852">• Sunday CIW worship</text>
+      <text x="20" y="342" font-size="11" fill="#5C5852">• School tutoring</text>
+      <text x="20" y="364" font-size="11" fill="#5C5852">• Medical clinic support</text>
+      <text x="20" y="386" font-size="11" fill="#5C5852">• Disaster relief</text>
+      <text x="20" y="408" font-size="11" fill="#5C5852">• Skill-based pro bono</text>
+      <rect x="20" y="440" width="200" height="36" fill="#1F3A5F" rx="4"/>
+      <text x="120" y="463" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">FIND A ROLE →</text>
+
+      <rect x="290" y="220" width="270" height="280" fill="#FAF7F2" stroke="#5A8C7B" stroke-width="2" rx="6"/>
+      <rect x="290" y="220" width="270" height="50" fill="#5A8C7B" rx="6"/>
+      <text x="425" y="252" font-size="14" font-weight="700" fill="#FAF7F2" text-anchor="middle">FUNDRAISING</text>
+      <text x="310" y="295" font-size="11" fill="#2D2A26">Run your own campaign:</text>
+      <text x="310" y="320" font-size="11" fill="#5C5852">• Birthday fundraiser</text>
+      <text x="310" y="342" font-size="11" fill="#5C5852">• Run / walk / ride</text>
+      <text x="310" y="364" font-size="11" fill="#5C5852">• School / church drive</text>
+      <text x="310" y="386" font-size="11" fill="#5C5852">• Workplace giving</text>
+      <text x="310" y="408" font-size="11" fill="#5C5852">+ free toolkit &amp; templates</text>
+      <rect x="310" y="440" width="200" height="36" fill="#5A8C7B" rx="4"/>
+      <text x="410" y="463" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">START FUNDRAISING →</text>
+
+      <rect x="580" y="220" width="270" height="280" fill="#FAF7F2" stroke="#C73E3A" stroke-width="2" rx="6"/>
+      <rect x="580" y="220" width="270" height="50" fill="#C73E3A" rx="6"/>
+      <text x="715" y="252" font-size="14" font-weight="700" fill="#FAF7F2" text-anchor="middle">CORPORATE</text>
+      <text x="600" y="295" font-size="11" fill="#2D2A26">For organisations:</text>
+      <text x="600" y="320" font-size="11" fill="#5C5852">• ₱50M school sponsor</text>
+      <text x="600" y="342" font-size="11" fill="#5C5852">• Naming rights</text>
+      <text x="600" y="364" font-size="11" fill="#5C5852">• Payroll giving</text>
+      <text x="600" y="386" font-size="11" fill="#5C5852">• CSR partnerships</text>
+      <text x="600" y="408" font-size="11" fill="#5C5852">• Team volunteer days</text>
+      <rect x="600" y="440" width="220" height="36" fill="#C73E3A" rx="4"/>
+      <text x="710" y="463" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">DOWNLOAD DECK →</text>
+
+      <rect x="870" y="220" width="270" height="280" fill="#FAF7F2" stroke="#E8C547" stroke-width="2" rx="6"/>
+      <rect x="870" y="220" width="270" height="50" fill="#E8C547" rx="6"/>
+      <text x="1005" y="252" font-size="14" font-weight="700" fill="#2D2A26" text-anchor="middle">PRAYER HUB</text>
+      <text x="890" y="295" font-size="11" fill="#2D2A26">Pray with us:</text>
+      <text x="890" y="320" font-size="11" fill="#5C5852">• Submit a prayer request</text>
+      <text x="890" y="342" font-size="11" fill="#5C5852">• Subscribe to weekly list</text>
+      <text x="890" y="364" font-size="11" fill="#5C5852">• Join the Prayer Wall</text>
+      <text x="890" y="386" font-size="11" fill="#5C5852">• Pray with CIW women</text>
+      <text x="890" y="408" font-size="11" fill="#5C5852">+ devotional resources</text>
+      <rect x="890" y="440" width="200" height="36" fill="#E8C547" rx="4"/>
+      <text x="990" y="463" font-size="12" font-weight="700" fill="#2D2A26" text-anchor="middle">JOIN THE HUB →</text>
+
+      <rect x="1160" y="220" width="270" height="280" fill="#FAF7F2" stroke="#9C8C7A" stroke-width="2" rx="6"/>
+      <rect x="1160" y="220" width="270" height="50" fill="#9C8C7A" rx="6"/>
+      <text x="1295" y="252" font-size="14" font-weight="700" fill="#FAF7F2" text-anchor="middle">IN-KIND GOODS</text>
+      <text x="1180" y="295" font-size="11" fill="#2D2A26">Drop off at HQ (Tue–Fri):</text>
+      <text x="1180" y="320" font-size="11" fill="#5C5852">• Toiletries, soap, shampoo</text>
+      <text x="1180" y="342" font-size="11" fill="#5C5852">• Toothpaste, detergent</text>
+      <text x="1180" y="364" font-size="11" fill="#5C5852">• Medicines for clinics</text>
+      <text x="1180" y="386" font-size="11" fill="#5C5852">• School supplies</text>
+      <text x="1180" y="408" font-size="11" fill="#5C5852">+ live wishlist + map</text>
+      <rect x="1180" y="440" width="200" height="36" fill="#9C8C7A" rx="4"/>
+      <text x="1280" y="463" font-size="12" font-weight="700" fill="#FAF7F2" text-anchor="middle">VIEW WISHLIST →</text>
+
+      <!-- Newsletter strip -->
+      <rect y="520" width="1420" height="100" fill="#1F3A5F" rx="6"/>
+      <text x="40" y="555" font-size="14" font-weight="700" fill="#E8C547">CARERS NEWSLETTER</text>
+      <text x="40" y="585" font-size="11" fill="#FAF7F2">Monthly stories, prayer points, and ways to act. Unsubscribe anytime.</text>
+      <rect x="850" y="555" width="380" height="40" fill="#FAF7F2" rx="4"/>
+      <text x="870" y="582" font-size="12" fill="#9C8C7A">your@email.com</text>
+      <rect x="1240" y="555" width="160" height="40" fill="#E8C547" rx="4"/>
+      <text x="1320" y="582" font-size="13" font-weight="700" fill="#1F3A5F" text-anchor="middle">SUBSCRIBE →</text>
+    </g>
+
+    <text x="40" y="755" font-size="12" font-style="italic" fill="#5C5852">Every card has its own application/intake form. Live volunteer count + most-needed roles surfaced dynamically.</text>
+  </g>
+
+  <!-- ============================================================
+       PAGE TEMPLATE 6 — IMPACT / WHERE WE WORK (interactive map)
+       Inspired by: Surfers Against Sewage interactive map · Eden project pages
+       ============================================================ -->
+  <g id="tpl-impact" transform="translate(3160, 2540)">
+    <rect width="1560" height="780" fill="#FFFFFF" stroke="#5A8C7B" stroke-width="3" rx="14" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="1560" height="60" fill="#5A8C7B" rx="14"/>
+    <text x="30" y="40" font-size="22" font-weight="700" fill="#FAF7F2">TEMPLATE F · IMPACT &amp; WHERE WE WORK</text>
+    <text x="1530" y="40" font-size="14" fill="#E8C547" text-anchor="end">inspired by Surfers Against Sewage map + Eden</text>
+
+    <g transform="translate(40, 90)">
+      <!-- Hero -->
+      <rect width="1480" height="100" fill="#2D2A26" rx="6"/>
+      <text x="40" y="50" font-size="22" font-weight="700" fill="#E8C547">Our impact, in real numbers and real places.</text>
+      <text x="40" y="80" font-size="13" fill="#FAF7F2">Filter by program, year, or community to see exactly where your support goes.</text>
+
+      <!-- Filter bar -->
+      <rect y="210" width="1480" height="50" fill="#E8C547" rx="6"/>
+      <text x="20" y="240" font-size="13" font-weight="700" fill="#2D2A26">FILTER:</text>
+      <rect x="100" y="220" width="140" height="30" fill="#FAF7F2" stroke="#1F3A5F" rx="4"/>
+      <text x="170" y="240" font-size="11" fill="#1F3A5F" text-anchor="middle">All Programs ▾</text>
+      <rect x="250" y="220" width="140" height="30" fill="#FAF7F2" stroke="#1F3A5F" rx="4"/>
+      <text x="320" y="240" font-size="11" fill="#1F3A5F" text-anchor="middle">All Regions ▾</text>
+      <rect x="400" y="220" width="140" height="30" fill="#FAF7F2" stroke="#1F3A5F" rx="4"/>
+      <text x="470" y="240" font-size="11" fill="#1F3A5F" text-anchor="middle">All Years ▾</text>
+
+      <!-- Interactive map -->
+      <rect y="280" width="900" height="320" fill="#1F3A5F" rx="6"/>
+      <text x="20" y="310" font-size="12" font-weight="700" fill="#E8C547">INTERACTIVE MAP — Philippines + global hubs</text>
+      <text x="450" y="445" font-size="14" fill="#FAF7F2" text-anchor="middle">[Click pins to read what's happening there]</text>
+      <text x="450" y="470" font-size="11" fill="#E8C547" text-anchor="middle">Mandaluyong HQ · CIW · Taytay (Redemptio) · Brisbane · USA</text>
+      <circle cx="380" cy="380" r="10" fill="#E8C547"/>
+      <circle cx="430" cy="420" r="10" fill="#C73E3A"/>
+      <circle cx="500" cy="395" r="10" fill="#5A8C7B"/>
+      <circle cx="600" cy="350" r="10" fill="#E8C547"/>
+      <circle cx="700" cy="500" r="10" fill="#C73E3A"/>
+
+      <!-- Stats panel -->
+      <rect x="920" y="280" width="560" height="320" fill="#FAF7F2" stroke="#9C8C7A" rx="6"/>
+      <text x="940" y="310" font-size="12" font-weight="700" fill="#2D2A26">CUMULATIVE IMPACT (animated count-up)</text>
+      <text x="940" y="355" font-size="32" font-weight="700" fill="#C73E3A">185</text>
+      <text x="940" y="378" font-size="11" fill="#5C5852">Students at Redemptio Christian School</text>
+      <text x="940" y="415" font-size="32" font-weight="700" fill="#1F3A5F">12,000+</text>
+      <text x="940" y="438" font-size="11" fill="#5C5852">Care packs delivered to CIW since 2002</text>
+      <text x="940" y="475" font-size="32" font-weight="700" fill="#5A8C7B">8,500+</text>
+      <text x="940" y="498" font-size="11" fill="#5C5852">Free medical clinic patients served</text>
+      <text x="940" y="535" font-size="32" font-weight="700" fill="#E8C547">23</text>
+      <text x="940" y="558" font-size="11" fill="#5C5852">Disaster response deployments</text>
+      <text x="940" y="585" font-size="11" fill="#9C8C7A" font-style="italic">Last updated: [auto-stamp]</text>
+
+      <!-- Bottom CTA: download report -->
+      <rect y="620" width="1480" height="60" fill="#C73E3A" rx="6"/>
+      <text x="40" y="657" font-size="14" font-weight="700" fill="#FAF7F2">Want the full picture? Download the 2025 Annual Report.</text>
+      <rect x="1280" y="635" width="160" height="36" fill="#E8C547" rx="4"/>
+      <text x="1360" y="658" font-size="13" font-weight="700" fill="#1F3A5F" text-anchor="middle">GET REPORT (PDF) →</text>
+    </g>
+
+    <text x="40" y="755" font-size="12" font-style="italic" fill="#5C5852">Click any pin → opens program detail. Each filter combination has a shareable URL. All numbers update from the same source as the homepage stats strip.</text>
+  </g>
+
+  <!-- ============================================================
+       BOTTOM — KEY USER JOURNEYS (the 3 priorities)
+       ============================================================ -->
+  <g id="journeys" transform="translate(80, 3360)">
+    <text x="0" y="-25" font-size="0" fill="#000">.</text>
+  </g>
+
+</svg>
