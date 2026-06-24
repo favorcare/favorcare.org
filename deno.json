@@ -1,7 +1,7 @@
 {
   "nodeModulesDir": "manual",
   "tasks": {
-    "check": "deno fmt --check . && deno lint . && deno check",
+    "check": "deno fmt --check && deno lint . && deno check",
     "dev": "vite",
     "build": "vite build",
     "start": "deno serve -A _fresh/server.js",
@@ -16,12 +16,20 @@
     }
   },
   "exclude": [
-    "**/_fresh/*"
+    "**/_fresh/*",
+    "static"
   ],
   "fmt": {
-    "exclude": [
-      "static/",
-      "favorcare-sitemap.svg"
+    "include": [
+      "components/",
+      "islands/",
+      "routes/",
+      "assets/",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.css",
+      "**/*.md",
+      "**/*.json"
     ]
   },
   "imports": {

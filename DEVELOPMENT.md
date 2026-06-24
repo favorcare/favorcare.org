@@ -104,9 +104,8 @@ details.
 
 ## Forward roadmap
 
-The full site is defined in [**favorcare-sitemap.svg**](favorcare-sitemap.svg).
-Today only the homepage (`TEMPLATE A`) exists. Planned routes, in priority
-order:
+The full site is defined in [**ideas/proposed.svg**](ideas/proposed.svg). Today
+only the homepage (`TEMPLATE A`) exists. Planned routes, in priority order:
 
 **Primary nav pages**
 

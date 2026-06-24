@@ -4,7 +4,7 @@ import { Button } from "../components/Button.tsx";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 
-// All copy + numbers below come from favorcare-sitemap.svg (TEMPLATE A · Homepage).
+// All copy + numbers below come from ideas/proposed.svg (TEMPLATE A · Homepage).
 
 const STATS = [
   { value: "185", label: "Students at Redemptio" },

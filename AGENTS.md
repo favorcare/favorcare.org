@@ -23,8 +23,8 @@ deno task check  # fmt --check + lint + deno check  (run before claiming done)
 
 - **[DESIGN.md](DESIGN.md)** — design system. All colors, type, radii, and
   component styles. **Reuse tokens, don't hardcode hex.**
-- **[favorcare-sitemap.svg](favorcare-sitemap.svg)** — information architecture.
-  The 5-item nav, page tree, page templates (TEMPLATE A = homepage), real impact
+- **[ideas/proposed.svg](ideas/proposed.svg)** — information architecture. The
+  5-item nav, page tree, page templates (TEMPLATE A = homepage), real impact
   numbers, programs, and the brand voice. **Reuse real content, don't invent
   copy or stats.**
 
