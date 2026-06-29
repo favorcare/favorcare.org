@@ -12,6 +12,8 @@
   --color-on-primary: #000000;
   --color-primary-container: #ffd966;
   --color-on-primary-container: #4d3200;
+  --color-primary-hover: #ff9500;
+  --color-primary-active: #e6a000;
 
   --color-secondary: #720eec;
   --color-on-secondary: #fcfbfe;
@@ -44,6 +46,8 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
   --radius-full: 9999px;
+
+  --shadow-glow: 0 4px 12px rgba(255, 180, 40, 0.25);
 }
 
 @layer base {

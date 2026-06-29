@@ -1,17 +1,25 @@
 import type { ComponentChildren } from "preact";
 
-type Variant = "primary" | "secondary";
+type Variant = "primary" | "secondary" | "donate" | "inverted";
 
-// Button styles per DESIGN.md: primary = full-radius gold CTA, secondary = outlined.
+// Button styles per DESIGN.md:
+//  - primary  = full-radius gold CTA (hero, section CTAs)
+//  - secondary = outlined gold (supporting actions)
+//  - donate   = compact gold (header bar; button-donate, h-44)
+//  - inverted = dark on gold ( DonateCTA section)
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-primary text-on-primary rounded-full font-bold hover:bg-[#ff9500] hover:shadow-[0_4px_12px_rgba(255,180,40,0.25)] active:bg-[#e6a000]",
+    "min-h-12 px-6 rounded-full font-bold text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active hover:shadow-glow",
   secondary:
-    "border-2 border-primary text-primary rounded hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container",
+    "min-h-12 px-6 rounded font-semibold border-2 border-primary text-primary hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container",
+  donate:
+    "min-h-11 px-5 rounded font-bold text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active",
+  inverted:
+    "min-h-12 px-6 rounded-full font-bold text-primary bg-on-primary hover:bg-on-primary/90",
 };
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 min-h-12 px-6 font-semibold transition-colors";
+  "inline-flex items-center justify-center gap-2 transition-all";
 
 export interface ButtonProps {
   variant?: Variant;

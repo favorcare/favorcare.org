@@ -1,14 +1,8 @@
 import { Button } from "./Button.tsx";
+import { Navbar } from "./Navbar.tsx";
+import MobileNav from "../islands/MobileNav.tsx";
 
-// Primary navigation — sitemap's 5 items, anchored to on-page sections.
-const NAV = [
-  { label: "Our Mission", href: "#mission" },
-  { label: "What We Do", href: "#programs" },
-  { label: "Stories & Impact", href: "#impact" },
-  { label: "Get Involved", href: "#involved" },
-  { label: "Donate", href: "#donate" },
-];
-
+// Sticky site header: logo + primary nav + Donate CTA + mobile menu.
 export function Header() {
   return (
     <header class="sticky top-0 z-50 border-b border-outline-variant/40 bg-surface/90 backdrop-blur">
@@ -17,25 +11,12 @@ export function Header() {
           <img src="/logo-black.svg" alt="Favor Care" class="h-8" />
         </a>
 
-        <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {NAV.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              class="text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary"
-            >
-              {item.label}
-            </a>
-          ))}
-          <a
-            href="#involved"
-            class="text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary"
-          >
-            Prayer Hub
-          </a>
-        </nav>
+        <Navbar />
 
-        <Button href="#donate" class="px-5">Donate</Button>
+        <div class="flex items-center gap-1">
+          <Button href="#donate" variant="donate">Donate</Button>
+          <MobileNav />
+        </div>
       </div>
     </header>
   );

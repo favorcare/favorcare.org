@@ -26,6 +26,8 @@ colors:
   on-primary: "#000000"
   primary-container: "#ffd966"
   on-primary-container: "#4d3200"
+  primary-hover: "#ff9500"
+  primary-active: "#e6a000"
   inverse-primary: "#ff9500"
   secondary: "#720eec"
   on-secondary: "#fcfbfe"
@@ -123,6 +125,7 @@ elevation:
   sm: 0 1px 2px rgba(0, 0, 0, 0.06)
   md: 0 4px 12px rgba(0, 0, 0, 0.08)
   lg: 0 16px 40px rgba(0, 0, 0, 0.12)
+  glow: 0 4px 12px rgba(255, 180, 40, 0.25)
 layout:
   containerMaxWidth: 1280px
   gridColumns: 12

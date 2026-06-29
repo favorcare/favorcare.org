@@ -1,24 +1,7 @@
-const QUICK_LINKS = [
-  { label: "Our Mission", href: "#mission" },
-  { label: "What We Do", href: "#programs" },
-  { label: "Stories & Impact", href: "#impact" },
-  { label: "Get Involved", href: "#involved" },
-  { label: "Donate", href: "#donate" },
-];
+import { FooterLinkList } from "./FooterLinkList.tsx";
+import { NAV, UTILITY_LINKS } from "./navigation.ts";
 
-// Utility & footer pages from the sitemap — placeholder routes for now.
-const UTILITY_LINKS = [
-  "Contact Us",
-  "Newsletter",
-  "FAQ",
-  "Careers",
-  "Press / Media Kit",
-  "Privacy Policy",
-  "Terms & Conditions",
-  "Accessibility Statement",
-  "Donation Policy",
-];
-
+// Site footer: brand blurb + accreditation badges + link columns + legal line.
 export function Footer() {
   return (
     <footer class="bg-on-surface text-surface">
@@ -45,41 +28,8 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h3 class="text-xs font-semibold uppercase tracking-wider text-surface/60">
-              Explore
-            </h3>
-            <ul class="mt-4 space-y-2 text-sm">
-              {QUICK_LINKS.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    class="text-surface/80 transition-colors hover:text-primary"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-xs font-semibold uppercase tracking-wider text-surface/60">
-              Organization
-            </h3>
-            <ul class="mt-4 space-y-2 text-sm">
-              {UTILITY_LINKS.map((l) => (
-                <li key={l}>
-                  <a
-                    href="#"
-                    class="text-surface/80 transition-colors hover:text-primary"
-                  >
-                    {l}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterLinkList title="Explore" links={NAV} />
+          <FooterLinkList title="Organization" links={UTILITY_LINKS} />
         </div>
 
         <div class="mt-12 border-t border-surface/10 pt-6 text-sm text-surface/60">
