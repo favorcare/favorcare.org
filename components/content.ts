@@ -25,7 +25,7 @@ export interface WayItem {
 
 export const HERO = {
   eyebrow: "Favor Care · Philippines",
-  title: "Giving hope for a better future to those in need.",
+  title: "Giving hope for a better future to those in need - Nap.",
   subtitle:
     "A faith-driven Philippine nonprofit bringing education, health, and hope to families in need — for 8 years.",
   primary: { label: "Donate now", href: "#donate" },
