@@ -32,9 +32,11 @@ export function Campaign(
             {title}
           </h3>
           <p class="mt-2 text-on-surface-variant">{body}</p>
-          <div class="mt-6">
-            <ProgressBar value={percent} raised={raised} goal={goal} />
-          </div>
+          {(raised || goal) && (
+            <div class="mt-6">
+              <ProgressBar value={percent} raised={raised} goal={goal} />
+            </div>
+          )}
           {cta && (
             <div class="mt-8">
               <Button href={cta.href}>{cta.label}</Button>
