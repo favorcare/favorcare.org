@@ -7,7 +7,7 @@ export interface NavLink {
 }
 
 export const NAV: NavLink[] = [
-  { label: "Our Mission", href: "#mission" },
+  { label: "Who We Are", href: "/about" },
   { label: "What We Do", href: "#programs" },
   { label: "Stories & Impact", href: "#impact" },
   { label: "Get Involved", href: "#involved" },
