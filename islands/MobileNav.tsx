@@ -18,7 +18,7 @@ export default function MobileNav({ links = NAV }: MobileNavProps) {
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen(!open)}
-        class="inline-flex h-12 w-12 items-center justify-center rounded text-on-surface transition-colors hover:bg-surface-container-low"
+        class="inline-flex h-12 w-12 items-center justify-center rounded text-on-primary transition-colors hover:bg-on-primary/10"
       >
         {open
           ? (
@@ -52,7 +52,7 @@ export default function MobileNav({ links = NAV }: MobileNavProps) {
       </button>
 
       {open && (
-        <div class="absolute inset-x-0 top-16 border-b border-outline-variant/40 bg-surface shadow-md">
+        <div class="absolute inset-x-0 top-20 border-b border-outline-variant/40 bg-surface shadow-md">
           <nav
             class="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4"
             aria-label="Mobile"

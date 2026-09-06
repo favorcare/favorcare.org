@@ -6,7 +6,9 @@ export interface NavbarProps {
   class?: string;
 }
 
-// Desktop primary navigation. Hidden below `md` — see MobileNav island for small screens.
+// Desktop primary navigation, on the gold header: black links with an underline
+// that fades in on hover (mirrors the original's pointer-underline animation).
+// Hidden below `md` — see MobileNav island for small screens.
 export function Navbar({ links = NAV, class: extra }: NavbarProps) {
   return (
     <nav
@@ -17,7 +19,7 @@ export function Navbar({ links = NAV, class: extra }: NavbarProps) {
         <a
           key={item.href}
           href={item.href}
-          class="text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary"
+          class="relative py-2 text-sm font-semibold text-on-primary transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-current after:opacity-0 after:transition-opacity after:duration-200 hover:after:opacity-100"
         >
           {item.label}
         </a>

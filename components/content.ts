@@ -26,7 +26,7 @@ export interface WayItem {
 
 export const HERO = {
   eyebrow: "Favor Care Foundation · DSWD & PCNC Accredited",
-  title: "Care that travels the last mile",
+  title: "Giving hope for a better future to those in need.",
   subtitle:
     "A faith-based humanitarian foundation delivering healthcare, education, disaster relief, and community development across Metro Manila and surrounding provinces.",
   primary: { label: "Donate now", href: "#donate" },
