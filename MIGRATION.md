@@ -72,21 +72,28 @@ _(Passed 2026-10-11: all routes 200 on dev server, zero WP hotlinks.)_
       `wp plugin list` — **specifically check for WooCommerce Subscriptions /
       recurring plugins and pending Action Scheduler jobs** (changes Phase 6
       scope); `wp theme list` (child theme!).
-- [ ] Inventory posts: pages, posts, `product`, `elementor_library`
+- [x] Inventory posts: pages, posts, `product`, `elementor_library`
       (header/footer/popups live here with `elementor_conditions` meta),
       `elementor_font`; decide The Events Calendar's `/events/` (missing from
-      sitemap).
-- [ ] `wp db export` full dump (archive) + targeted extracts of `wp_postmeta`
+      sitemap). _(Census complete 2026-10-11: 82 posts of interest, 63
+      elementor-edited, 55 published — see `migration/component-map.md`.
+      `/events/` decision still open.)_
+- [x] `wp db export` full dump (archive) + targeted extracts of `wp_postmeta`
       (`_elementor_data`, `_nyp` name-your-price meta, Yoast title/metadesc),
-      `wp_options` (Elementor kit, MC4WP config), users table.
-- [ ] Expanded file sync (not just uploads): all of
+      `wp_options` (Elementor kit, MC4WP config), users table. _(241M dump, 134
+      tables, extracted to JSON by `migration/scripts/extract-elementor.ts` —
+      kit tokens, per-page trees, census, yoast, nyp, snippets, redirects.)_
+- [x] Expanded file sync (not just uploads): all of
       `wp-content/uploads/elementor/` (incl. `css/post-*.css` — the compiled
-      per-page CSS is the clone's crown jewel, and `google-fonts/dmsans.css`),
-      mu-plugins, child theme, `.htaccess`/nginx rules; export Cloudflare zone
-      rules.
+      per-page CSS is the clone's crown jewel), mu-plugins, child theme,
+      `.htaccess`/nginx rules; export Cloudflare zone rules. _(uploads 1.5G
+      pulled; `google-fonts/` dirs arrived EMPTY — canonical staging loads
+      Inter/Inter Tight from Google Fonts, no self-hosted fonts. CF zone rules
+      export still pending — dashboard task.)_
 - [ ] No "freeze" fiction — weekly idempotent deltas: rclone sync +
       `post_modified > last-sync` DB delta; final delta at cutover with
-      `migration/inventory.md` diff.
+      `migration/inventory.md` diff. _(Mechanism documented in the runbook;
+      delta re-runs only needed if content changes before cutover.)_
 - [x] Deliverable: `migration/inventory.md` — every WP URL → Fresh route →
       decision (clone/redirect/410). _(Skeleton pre-filled 2026-10-11 from
       recon + live crawl; dump pending.)_
@@ -112,7 +119,10 @@ _(Passed 2026-10-11: all routes 200 on dev server, zero WP hotlinks.)_
   never enter git.
 
 **Gate:** dump + files restorable locally; inventory.md covers all Yoast-sitemap
-URLs + `/events/`.
+URLs + `/events/`. _(Passed 2026-10-11: 241M dump parsed end-to-end by
+`migration/scripts/extract-elementor.ts` — kit tokens, 63 elementor trees,
+census, NYP pricing, snippets, redirects all extracted. `/events/` decision
+remains open in `migration/inventory.md`.)_
 
 ## Phase 2 — R2 asset pipeline
 
