@@ -1,116 +1,115 @@
 ---
-version: alpha
+version: "2.0 (WordPress base)"
 name: Favor Care
 description: >-
-  A faith-driven nonprofit design system centered on warmth, accessibility, and hopeful action. The brand combines a
-  vibrant golden accent with deep, grounded neutrals to communicate both urgency and compassion in service delivery.
+  Design system transcribed from the live WordPress/Elementor site (canonical
+  staging install, kit #66) so the Fresh rebuild is a 1:1 visual clone.
+  Extracted 2026-10-11 from the DB dump (`_elementor_page_settings`) and the
+  compiled kit CSS (`post-66.css`); see MIGRATION.md Phase 3. The previous
+  gold/purple system is archived at ideas/design-v1.md.
 logo:
-  src: https://favorcare.org/wp-content/uploads/2022/12/cropped-cropped-FAVOR-CARE-LOGO-BLACK-1-180x180.png
+  src: /logo-black.svg
 colors:
+  background: "#ffffff"
+  on-background: "#2d2d2d"
   surface: "#ffffff"
-  surface-dim: "#f5f5f5"
-  surface-bright: "#fafafa"
-  surface-container-lowest: "#eeeeee"
-  surface-container-low: "#e9e6ed"
-  surface-container: "#e0dce4"
-  surface-container-high: "#d4cfd7"
-  surface-container-highest: "#cfc8d0"
-  on-surface: "#171717"
-  on-surface-variant: "#515151"
-  inverse-surface: "#2b2b2b"
-  inverse-on-surface: "#f5f5f5"
-  outline: "#767676"
-  outline-variant: "#abb8c3"
-  surface-tint: "#ffb428"
-  primary: "#ffb428"
-  on-primary: "#000000"
-  primary-container: "#ffd966"
-  on-primary-container: "#4d3200"
-  primary-hover: "#ff9500"
-  primary-active: "#e6a000"
-  inverse-primary: "#ff9500"
-  secondary: "#720eec"
-  on-secondary: "#fcfbfe"
-  secondary-container: "#eae6f5"
-  on-secondary-container: "#2d0a5c"
-  tertiary: "#00d084"
+  surface-dim: "#fbf9ed"
+  surface-bright: "#ffffff"
+  surface-container-lowest: "#faf7ee"
+  surface-container-low: "#f5f1e6"
+  surface-container: "#efe9db"
+  surface-container-high: "#e6dcd0"
+  surface-container-highest: "#dcd2bf"
+  on-surface: "#2d2d2d"
+  on-surface-variant: "#55524c"
+  outline: "#6b675f"
+  outline-variant: "#c9c2b4"
+  primary: "#191718"
+  on-primary: "#ffffff"
+  primary-container: "#2d2d2d"
+  on-primary-container: "#e6dcd0"
+  primary-hover: "#000000"
+  primary-active: "#2d2d2d"
+  secondary: "#e6dcd0"
+  on-secondary: "#191718"
+  secondary-container: "#fbf9ed"
+  on-secondary-container: "#2d2d2d"
+  tertiary: "#c85553"
   on-tertiary: "#ffffff"
-  tertiary-container: "#7bdcb5"
-  on-tertiary-container: "#003d28"
+  tertiary-container: "#f1dedd"
+  on-tertiary-container: "#6b2c2a"
+  link: "#c8221f"
+  link-hover: "#ffb428"
+  yellow: "#ffb428"
+  light: "#fbf9ed"
   error: "#cf2e2e"
   on-error: "#ffffff"
   error-container: "#f9dedc"
   on-error-container: "#410e0b"
-  primary-fixed: "#ffd966"
-  primary-fixed-dim: "#ffb428"
-  on-primary-fixed: "#2d1f00"
-  on-primary-fixed-variant: "#6b4c00"
-  secondary-fixed: "#eae6f5"
-  secondary-fixed-dim: "#cfc8d8"
-  on-secondary-fixed: "#1a0033"
-  on-secondary-fixed-variant: "#4d2a7f"
-  tertiary-fixed: "#7bdcb5"
-  tertiary-fixed-dim: "#5bc9a0"
-  on-tertiary-fixed: "#001f15"
-  on-tertiary-fixed-variant: "#004d37"
-  background: "#ffffff"
-  on-background: "#171717"
-  surface-variant: "#e9e6ed"
 typography:
-  display:
-    fontFamily: Inter
-    fontSize: 70px
-    fontWeight: "700"
-    lineHeight: 78px
-    letterSpacing: "-0.04em"
-  headline-lg:
-    fontFamily: Inter
-    fontSize: 40px
+  font: Inter (Google Fonts, weights 300–700; Inter Tight available for display)
+  hero:
+    fontSize: 7.5rem
     fontWeight: "600"
-    lineHeight: 48px
-    letterSpacing: "-0.02em"
-  headline-md:
-    fontFamily: Inter
-    fontSize: 28px
+    lineHeight: 0.9
+    letterSpacing: -6.8px
+    mobile: 3.44rem / ls -3px / lh 0.9
+  section-title:
+    fontSize: 5rem
     fontWeight: "600"
-    lineHeight: 36px
-    letterSpacing: "-0.01em"
-  title-lg:
-    fontFamily: Inter
-    fontSize: 20px
+    lineHeight: 0.9
+    letterSpacing: -3.8px
+    mobile: 3.125rem / ls -3px
+  group-title:
+    fontSize: 3.125rem
     fontWeight: "600"
-    lineHeight: 28px
-    letterSpacing: 0em
+    lineHeight: 0.9
+    letterSpacing: -2px
+    mobile: 2.2rem / ls -2px
+  subtitle:
+    fontSize: 1.875rem
+    fontWeight: "500"
+    lineHeight: 1.3
+    letterSpacing: -2.8px
+  subtitle-quiet:
+    fontSize: 1.875rem
+    fontWeight: normal
+    lineHeight: 1.3
+    letterSpacing: -1.8px
+  hero-subtitle:
+    fontSize: 1.375rem
+    fontWeight: normal
+    lineHeight: 1.3
+    letterSpacing: -0.5px
+  point:
+    fontSize: 1.25rem
+    fontWeight: "600"
+    letterSpacing: -0.5px
   body-lg:
-    fontFamily: Inter
-    fontSize: 18px
-    fontWeight: "400"
-    lineHeight: 28px
-    letterSpacing: 0.01em
+    fontSize: 1.125rem
+    lineHeight: 1.5
+    letterSpacing: -0.3px
   body-md:
-    fontFamily: Inter
-    fontSize: 16px
-    fontWeight: "400"
-    lineHeight: 24px
-    letterSpacing: 0.01em
+    fontSize: 1rem
+    lineHeight: 1.5
+    letterSpacing: -0.3px
+  button-label:
+    fontSize: 1.375rem
+    fontWeight: "700"
+    mobile: 1.125rem
   label-md:
-    fontFamily: Inter
     fontSize: 14px
     fontWeight: "600"
-    lineHeight: 20px
-    letterSpacing: 0.02em
   label-sm:
-    fontFamily: Inter
     fontSize: 12px
     fontWeight: "500"
-    lineHeight: 16px
-    letterSpacing: 0.03em
+  h-tags: h2 2em Inter · h3 2rem/300 · h4 2rem · h5/h6 1em/bold
 rounded:
-  sm: 0.25rem
-  DEFAULT: 0.5rem
-  md: 0.75rem
-  lg: 1rem
-  xl: 1.5rem
+  sm: 0rem
+  DEFAULT: 0rem
+  md: 0rem
+  lg: 0rem
+  xl: 0rem
   full: 9999px
 spacing:
   unit: 8px
@@ -120,238 +119,128 @@ spacing:
   lg: 40px
   xl: 64px
   gutter: 24px
-  container-max: 1280px
+  container-max: 1140px
 elevation:
   sm: 0 1px 2px rgba(0, 0, 0, 0.06)
   md: 0 4px 12px rgba(0, 0, 0, 0.08)
   lg: 0 16px 40px rgba(0, 0, 0, 0.12)
-  glow: 0 4px 12px rgba(255, 180, 40, 0.25)
+  card: 0 1px 3px rgba(25, 23, 24, 0.08)
 layout:
-  containerMaxWidth: 1280px
+  contentContainerMaxWidth: 1140px
+  breakpoints: 768 / 1025 (Elementor); Tailwind 768 / 1024 accepted
   gridColumns: 12
 components:
-  button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.full}"
-    padding: 16px 24px
-    height: 48px
-    fontWeight: "700"
-  button-primary-hover:
-    backgroundColor: "#ff9500"
-    textColor: "{colors.on-primary}"
-    boxShadow: 0 4px 12px rgba(255, 180, 40, 0.25)
-  button-primary-active:
-    backgroundColor: "#e6a000"
-    textColor: "{colors.on-primary}"
-  button-secondary:
+  button:
     backgroundColor: transparent
-    textColor: "{colors.primary}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.DEFAULT}"
-    padding: 18px 22px
-    height: 48px
-    border: 2px solid {colors.primary}
-  button-secondary-hover:
-    backgroundColor: "{colors.primary-container}"
-    textColor: "{colors.on-primary-container}"
-  button-donate:
+    textColor: "#000000"
+    border: none
+    rounded: 0
+    label: "{typography.button-label}"
+    hover:
+      backgroundColor: "#000000"
+      textColor: "#ffffff"
+  button-solid:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
-    typography: "{typography.label-md}"
-    rounded: "{rounded.DEFAULT}"
-    padding: 12px 20px
-    height: 44px
-    fontWeight: "700"
-    border: none
-  button-donate-hover:
-    backgroundColor: "#ff9500"
-    boxShadow: 0 3px 8px rgba(0, 0, 0, 0.15)
+    rounded: 0
   card:
     backgroundColor: "{colors.surface}"
-    rounded: "{rounded.DEFAULT}"
+    rounded: 0
     padding: "{spacing.md}"
-    boxShadow: "{elevation.sm}"
-    border: 1px solid {colors.surface-container-high}
-  card-hover:
-    backgroundColor: "{colors.surface-bright}"
-    boxShadow: "{elevation.md}"
-    transform: translateY(-2px)
+    boxShadow: "{elevation.card}"
+    border: 1px solid "{colors.surface-container-high}"
   input-field:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.on-surface}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.DEFAULT}"
-    padding: 8px 16px
-    border: 1px solid {colors.outline-variant}
-    height: 40px
-  input-field-focus:
-    borderColor: "{colors.primary}"
-    boxShadow: 0 0 0 3px rgba(255, 180, 40, 0.1)
-  modal-overlay:
-    backgroundColor: rgba(0, 0, 0, 0.5)
-    backdropFilter: blur(4px)
-  modal-content:
-    backgroundColor: "{colors.surface}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.lg}"
-    boxShadow: "{elevation.lg}"
-    border: 1px solid {colors.surface-container-high}
-  badge-primary:
-    backgroundColor: "{colors.primary-container}"
-    textColor: "{colors.on-primary-container}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    padding: 4px 12px
-  badge-secondary:
+    border: 1px solid "{colors.outline-variant}"
+    rounded: 0
+  badge:
     backgroundColor: "{colors.secondary-container}"
     textColor: "{colors.on-secondary-container}"
-    typography: "{typography.label-sm}"
-    rounded: "{rounded.full}"
-    padding: 4px 12px
-  list-item:
-    backgroundColor: transparent
-    rounded: "{rounded.md}"
-    padding: "{spacing.sm}"
-    textColor: "{colors.on-surface}"
-  list-item-hover:
-    backgroundColor: "{colors.surface-container-low}"
-    textColor: "{colors.primary}"
-  divider:
-    backgroundColor: "{colors.outline-variant}"
-    height: 1px
-    margin: "{spacing.md} 0"
+    rounded: 0
+  link:
+    color: "{colors.link}"
+    hover: "{colors.link-hover}"
 ---
 
 ## Overview
 
-Favor Care's design system embodies **Compassionate Minimalism**—a philosophy
-that strips away visual noise to center human connection and actionable hope.
-The brand serves faith-driven communities and donors seeking transparent,
-impactful giving; the interface evokes warmth through a signature golden accent
-(#ffb428) paired with deep, trustworthy neutrals (charcoal #171717, soft
-lavender #e9e6ed). Every interaction is designed to feel both urgent and
-welcoming, reflecting the organization's dual mission: immediate care delivery
-and long-term community transformation.
-
-The voice is direct, humble, and outcome-focused. Favor Care speaks in concrete
-terms—not "support our vision" but "join 2,400 children in school this year."
-Tone avoids sentimentality; instead, it grounds hope in measurable action.
-Example: "We've served 15,000 families. Your gift feeds one child for a month."
-The typography system (Inter for clarity, Favorvetica for brand moments)
-reinforces this balance: professional enough for donors, warm enough for
-families.
+This system is a **transcription, not an invention**: every value comes from the
+WordPress site Favor Care actually ships (Elementor kit #66 on the canonical
+staging install). The look is editorial and stark — near-black and warm beige
+dominate, terracotta accents, dark-red links that flash yellow on hover, very
+large tightly-tracked Inter headlines (letter-spacing down to −6.8px), light
+weights at large sizes, and **square corners everywhere**.
 
 ## Colors
 
-The color palette is built on **trust-first hierarchy**. Primary (#ffb428) is
-the call-to-action gold—warm, optimistic, and impossible to miss on buttons,
-links, and accent moments. It appears sparingly to maintain impact; overuse
-dilutes urgency. On-primary text is always pure black (#000000) for maximum
-contrast (WCAG AAA at 18.5:1 ratio) and legibility in high-stakes donation
-flows.
+Eight source colors from the kit, confirmed against the compiled CSS
+(`--e-global-color-*`): primary `#191718` (near-black), secondary `#E6DCD0`
+(beige), text `#2D2D2D`, accent `#C85553` (terracotta), black `#000000`, white
+`#FFFFFF`, Link Yellow `#FFB428`, Light `#FBF9ED` (cream).
 
-Secondary (#720eec, a deep purple) supports brand moments and secondary CTAs,
-creating visual rhythm without competing for attention. Tertiary (#00d084, a
-healing green) signals positive outcomes, success states, and growth—used in
-progress indicators and confirmation messages. The surface stack (white #ffffff
-through lavender #cfc8d0) provides breathing room; on-surface text (#171717)
-maintains readability
+Roles: **primary** carries the header bar, footer, dark sections and solid CTAs
+(on-primary is white). **Secondary/beige** and the cream ramp
+(`surface-container-*`) carry light section backgrounds. **Tertiary
+(terracotta)** is the accent for highlights and hover moments. Links are dark
+red `#C8221F`, hovering to Link Yellow `#FFB428`. The kit also sets a black
+`body_background`; page templates override it — pages are white.
+
+Note: `tertiary-container`/`on-tertiary-container` are derived tints (the kit
+has no terracotta container pair).
 
 ## Typography
 
-Inter is the system typeface—geometric, neutral, and highly legible at small
-sizes (12px label-sm through 70px display). The type scale follows a 1.4x
-multiplier, creating clear visual hierarchy without jarring jumps. Display
-(70px, 700 weight, -0.04em tracking) anchors hero sections and major
-announcements; headline-lg (40px, 600 weight) breaks content into scannable
-sections; body-md (16px, 400 weight, 24px line-height) is the default reading
-size, set to 1.5 line-height for accessibility. Label-md (14px, 600 weight,
-0.02em tracking) appears on buttons and form labels, with tighter letter-spacing
-to signal interaction. On small labels over busy backgrounds (e.g., badges over
-image overlays), apply text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) to preserve
-legibility. Favorvetica (custom brand
+Inter only, loaded from Google Fonts (weights 300–700; Inter Tight is referenced
+by some WP pages and stays available). The canonical scale is the ten named
+styles the WP designers used — HERO Text (7.5rem/600/−6.8px), Section Title
+(5rem), Group Title (3.125rem), Sub-title (1.875rem), Hero Subtitle (1.375rem),
+Point (1.25rem), Body Main / Body Text 18px (1–1.125rem, lh 1.5). Signature
+rules: display sizes use **negative letter-spacing** and line-heights of
+0.9–1.3; h3 is weight 300 at 2rem; body keeps ≥1.5 line-height for
+accessibility.
 
 ## Layout
 
-The layout system uses a 12-column grid with a 1280px max-width container,
-centered with auto margins. Gutter spacing is 24px (md token) between columns;
-section separation uses lg spacing (40px) to create breathing room between
-content blocks. The page rhythm follows a 8px base unit: all padding, margins,
-and gaps are multiples of 8px (4px, 12px, 24px, 40px, 64px). Hero sections span
-full-width with a 40px horizontal gutter on mobile, 64px on desktop. Card grids
-use 24px gap between items; on mobile (< 768px), cards stack single-column with
-12px margin-bottom. Input fields and form groups use 12px vertical spacing;
-button groups use 8px horizontal spacing. The container-max-width of 1280px
-ensures readability on ultra-wide displays while maintaining focus on content.
+Content column max **1140px** (Elementor default; page cloning moves components
+from `max-w-7xl` to `max-w-6xl`). Breakpoints 768/1025 — Tailwind's 768/1024 is
+accepted (1px difference). 12-column mental model, 24px gutters, 8px base unit.
 
 ## Elevation & Depth
 
-Depth is conveyed through a three-tier shadow system and subtle transforms.
-Level 1 (Base/Surface): no shadow; flat, grounded appearance for primary content
-areas. Level 2 (Standard Card): box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), used
-on cards, modals, and lifted containers; this creates gentle separation without
-drama. Level 3 (Elevated/Hover): box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12),
-applied on hover states and modal overlays to signal interactivity. Buttons
-receive a micro-lift on hover: transform: translateY(-2px) paired with the Level
-2 shadow, creating tactile feedback. Modals use
+Flat. One card shadow (`0 1px 3px rgba(25,23,24,0.08)`) and the neutral sm/md/lg
+trio for overlays. No glows.
 
 ## Shapes
 
-The shape philosophy is **Approachable Precision**—rounded corners signal warmth
-and accessibility, while measured radii prevent a childish or overly soft
-appearance. Buttons use full radius (9999px / border-radius: 50vh) to feel
-inviting and clickable; this is the most rounded element in the system. Cards
-and modals use lg radius (1rem / 16px) for a modern, professional look. Input
-fields and smaller components use DEFAULT radius (0.5rem / 8px) for subtle
-softness. Dividers and minimal UI elements use sm radius (0.25rem / 4px) or no
-radius at all. The rationale: full-radius buttons stand out
+**Fully square** (user decision, matching WP): buttons, cards, images, badges,
+inputs — radius 0. `rounded-full` remains defined only for avatars, the progress
+meter, and overlay close controls.
 
 ## Components
 
-### Action Elements
-
-Buttons are the primary interaction pattern. **Button-primary** (bg: #ffb428,
-text: #000000, padding: 16px 24px, height: 48px, border-radius: 9999px) is the
-dominant CTA—used for "Donate," "Join," and high-priority actions. On hover,
-shift to #ff9500 and apply box-shadow: 0 4px 12px rgba(255, 180, 40, 0.25) to
-signal interactivity. On active, darken to #e6a000 with no shadow.
-Button-secondary uses a transparent background with a 2px solid primary border;
-on hover, fill with primary-container (#ffd966) and shift text to
-on-primary-container (#4d3200). All buttons use Inter 600 weight, label-md size
-(14px), with 0.02em letter-spacing. Buttons must have a minimum 48px height for
-touch targets; use padding to achieve this rather than line-height alone.
-
-### Containers & Sur
+Buttons: transparent with black text, hover fills black with white text (the WP
+default), label 1.375rem/700 (1.125rem mobile); solid variant = primary bg +
+white text; all square, min-height 48px. Links: `#C8221F` → `#FFB428` hover.
+Cards: white, 1px beige border, card shadow, square. Inputs: white,
+outline-variant border, square. Badges: cream bg, dark text, square.
 
 ## Do's and Don'ts
 
 **Do**
 
-- Do use primary gold (#ffb428) exclusively for high-priority CTAs—donate
-  buttons, "Join" links, and urgent calls-to-action. Overuse dilutes impact.
-- Do maintain 24px gutter spacing between major content sections; this breathing
-  room is essential to the brand's calm, trustworthy feel.
-- Do apply Inter 600 weight to all interactive elements (buttons, links, form
-  labels) to signal clickability without relying on color alone.
-- Do test all color combinations against WCAG AA contrast minimums; primary +
-  on-primary achieves AAA (18.5:1), a benchmark for accessible design.
-- Do use the full-radius button style (border-radius: 9999px) exclusively for
-  primary actions; reserve lg-radius (16px) for cards and containers.
+- Do keep display type tightly tracked (negative letter-spacing) — it is the
+  brand's typographic signature.
+- Do pair near-black with beige/cream for section rhythm; terracotta sparingly.
+- Do use Link Yellow `#FFB428` for link hovers and accents on dark backgrounds.
+- Do keep body text ≥ 16px with ≥ 1.5 line-height (accessibility floor carried
+  over from v1).
 
 **Don't**
 
-- Don't use secondary purple (#720eec) or tertiary green (#00d084) as primary
-  CTAs; these are supporting accents and will confuse users about action
-  priority.
-- Don't apply shadows exceeding 40px blur radius; the system uses a maximum of 0
-  16px 40px rgba(0, 0, 0, 0.12) to maintain a light, accessible interface.
-- Don't mix border-radius values arbitrarily—use the defined scale (sm, DEFAULT,
-  md, lg, xl, full) to maintain visual consistency and reduce cognitive load.
-- Don't set body text smaller than 16px or line-height below 1.5; this is the
-  minimum for accessibility and readability, especially for older donors and
-  mobile users.
-- Don't use Favorvetica (brand serif) below 28px or in body copy; it's reserved
-  for hero moments and accreditation badges to preserve legibility and brand
-  distinctiveness.
+- Don't use Link Yellow `#FFB428` for body text on white — it fails contrast; it
+  is a hover/accent-on-dark color only.
+- Don't round corners on components; the system is square (`rounded-full` is
+  reserved for avatars, the progress meter, and overlay close buttons).
+- Don't use the v1 gold/purple/green palette or glow shadows — those are retired
+  with `ideas/design-v1.md`.
+- Don't add shadows beyond the defined set; depth is minimal by design.

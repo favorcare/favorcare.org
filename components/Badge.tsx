@@ -3,7 +3,7 @@ import { cx } from "./cx.ts";
 
 export type BadgeVariant = "primary" | "secondary" | "neutral";
 
-// Pill colors per DESIGN.md badge-primary / badge-secondary.
+// Chip colors per DESIGN.md v2 badge variants (square).
 const VARIANTS: Record<BadgeVariant, string> = {
   primary: "bg-primary-container text-on-primary-container",
   secondary: "bg-secondary-container text-on-secondary-container",
@@ -16,14 +16,14 @@ export interface BadgeProps {
   children?: ComponentChildren;
 }
 
-// A compact pill label — tag, status, program category. label-sm type.
+// A compact square chip label — tag, status, program category. label-sm type.
 export function Badge(
   { variant = "primary", class: extra, children }: BadgeProps,
 ) {
   return (
     <span
       class={cx(
-        "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium",
+        "inline-flex items-center rounded px-3 py-1 text-xs font-medium",
         VARIANTS[variant],
         extra,
       )}

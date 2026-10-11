@@ -34,7 +34,7 @@ function DonateCta() {
     <div class="group relative">
       <a
         href="/givenow"
-        class="inline-flex min-h-12 items-center justify-center rounded bg-on-primary px-5 font-bold uppercase text-white transition-colors hover:bg-on-primary/90"
+        class="inline-flex min-h-12 items-center justify-center rounded bg-on-primary px-5 font-bold uppercase text-primary transition-colors hover:bg-on-primary/90"
       >
         Donate
       </a>

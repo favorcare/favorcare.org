@@ -290,7 +290,7 @@ export default define.page(function Storybook() {
                     ["sm", "shadow-sm"],
                     ["md", "shadow-md"],
                     ["lg", "shadow-lg"],
-                    ["glow", "shadow-glow"],
+                    ["card", "shadow-card"],
                   ].map(([name, cls]) => (
                     <div key={name} class="text-center">
                       <div
@@ -467,7 +467,7 @@ export default define.page(function Storybook() {
                   <Button href="#tokens">Primary</Button>
                   <Button variant="secondary" href="#tokens">Secondary</Button>
                   <Button variant="donate" href="#tokens">Donate</Button>
-                  <span class="inline-flex rounded-full bg-primary p-1">
+                  <span class="inline-flex bg-primary p-1">
                     <Button variant="inverted" href="#tokens">Inverted</Button>
                   </span>
                 </div>

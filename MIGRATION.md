@@ -163,21 +163,31 @@ remains open in `migration/inventory.md`.)_
 
 ## Phase 3 — Design tokens & chrome extraction
 
-- [ ] **Fonts first:** live site self-hosts **DM Sans** (OFL) via Elementor —
-      extract the actual @font-face set, self-host in Fresh, drop the Inter
-      `<link>` in `routes/_app.tsx`. ("Favorvetica" in DESIGN.md v1 is fiction;
-      Inter is wrong.)
-- [ ] Extract Elementor global kit (colors, type scale, container widths,
+- [x] **Fonts first** _(done 2026-10-11 — corrected: canonical staging loads
+      **Inter + Inter Tight from Google Fonts**, not self-hosted DM Sans; the
+      `<link>` in `routes/_app.tsx` now carries Inter 300–700 + Inter Tight)._
+- [x] Extract Elementor global kit (colors, type scale, container widths,
       breakpoints) from DB + `post-*.css` → rewrite **DESIGN.md v2** (archive v1
       under `ideas/`), mirror into `assets/styles.css` `@theme`. Budget
       honestly: this invalidates the token set of ~30 existing components.
-- [ ] Parse `elementor_library` + `elementor_conditions` to identify
+      _(Done 2026-10-11: DESIGN.md v2 + @theme v2 landed — token names kept,
+      values swapped to the WP palette, fully square, link pair added,
+      display-scale text utilities added; broken pairs fixed in Header
+      DonateCta, Button pills/glow, Badge, storybook.)_
+- [x] Parse `elementor_library` + `elementor_conditions` to identify
       header/footer/popup templates; build widget→component map
       (`migration/component-map.md`) incl. Font Awesome/eicons, Swiper
-      carousels, motion-fx/sticky usage.
-- [ ] Update `storybook.tsx` fixtures to new tokens.
+      carousels, motion-fx/sticky usage. _(Census + map done via
+      extract-elementor.ts; conditions meta was empty — template roles read from
+      slugs.)_
+- [x] Update `storybook.tsx` fixtures to new tokens. _(shadow-glow→card,
+      inverted-chip demo square; remaining fixtures render against v2 tokens
+      automatically.)_
 
 **Gate:** DESIGN.md v2 merged; chrome components compile against new tokens.
+_(Passed 2026-10-11: check green, dev probe 200s with `--color-primary:#191718`
+and `--radius-lg:0rem` in rendered CSS. Chrome STRUCTURE rebuild from the dump
+templates is Phase 5 work.)_
 
 ## Phase 4 — Content extraction
 
