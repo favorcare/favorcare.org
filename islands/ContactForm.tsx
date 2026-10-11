@@ -5,10 +5,13 @@ import { TextareaField } from "../components/TextareaField.tsx";
 import { CONTACT } from "../components/content.ts";
 
 // Contact form island — labels match the WP form (FIRST NAME / LAST NAME /
-// EMAIL / PHONE / newsletter checkbox / LEAVE US A MESSAGE! / SEND). The
-// site has no form backend yet, so submit composes a mailto: to Favor
-// Care's inbox carrying the typed fields.
-export default function ContactForm() {
+// EMAIL / PHONE / LEAVE US A MESSAGE! / SEND). The home-page variant shows
+// the SUBSCRIBE TO OUR MONTHLY EMAIL NEWSLETTER! checkbox (as on WP); the
+// contact-page form does not. No form backend yet, so submit composes a
+// mailto: to Favor Care's inbox carrying the typed fields.
+export default function ContactForm({ newsletter = false }: {
+  newsletter?: boolean;
+}) {
   const onSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -56,16 +59,18 @@ export default function ContactForm() {
         placeholder="PHONE"
         ariaLabel="Phone"
       />
-      <div class="sm:col-span-2">
-        <label class="flex min-h-12 items-center gap-3 text-sm font-semibold text-on-surface">
-          <input
-            type="checkbox"
-            name="newsletter"
-            class="h-5 w-5 accent-[#191718]"
-          />
-          SUBSCRIBE TO OUR MONTHLY EMAIL NEWSLETTER!
-        </label>
-      </div>
+      {newsletter && (
+        <div class="sm:col-span-2">
+          <label class="flex min-h-12 items-center gap-3 text-sm font-semibold text-on-surface">
+            <input
+              type="checkbox"
+              name="newsletter"
+              class="h-5 w-5 accent-[#191718]"
+            />
+            SUBSCRIBE TO OUR MONTHLY EMAIL NEWSLETTER!
+          </label>
+        </div>
+      )}
       <div class="sm:col-span-2">
         <TextareaField
           name="message"

@@ -162,7 +162,7 @@ export default define.page(function Home() {
               </p>
             </div>
             <div class="mx-auto mt-10 max-w-2xl">
-              <ContactForm />
+              <ContactForm newsletter />
             </div>
             <div class="mx-auto mt-14 max-w-2xl text-center">
               <h3 class="text-xl font-semibold">
