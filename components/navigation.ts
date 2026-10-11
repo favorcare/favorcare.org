@@ -13,13 +13,13 @@ export const NAV: NavLink[] = [
   { label: "What We Do", href: "/what-we-do" },
   { label: "Get Involved", href: "/get-involved" },
   { label: "Contact Us", href: "/contact" },
-  { label: "News & Updates", href: "/news-updates" },
+  { label: "News & Updates", href: "/posts" },
 ];
 
 // Utility / footer pages from the sitemap — remaining routes are placeholders.
 export const UTILITY_LINKS: NavLink[] = [
   { label: "Contact Us", href: "/contact" },
-  { label: "Newsletter", href: "/contact" },
+  { label: "Newsletter", href: "/contact#newsletter" },
   { label: "FAQ", href: "/contact" },
   { label: "Careers", href: "#" },
   { label: "Press / Media Kit", href: "#" },
