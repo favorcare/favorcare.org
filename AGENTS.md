@@ -36,6 +36,11 @@ When a token changes, update **DESIGN.md** first, then mirror it in
 - **No automatic git commands.** Do not run `git add`, `git commit`, `git push`,
   or other state-changing git commands unless explicitly asked. Read-only
   inspection (`git status`, `git diff`, `git log`) is fine.
+- **Never SSH into the WordPress box (or any server the user operates).** The
+  human runs every server-side command themselves; provide annotated,
+  copy-pasteable command blocks with per-command explanations and a never-run
+  list instead. Reading output the user pastes back is the only server
+  interaction. See `migration/runbooks/` for the established format.
 - **Fresh 2 file-system routing.** `routes/` → pages; `routes/_app.tsx` is the
   root layout. Use `define.page` / `define.handlers` / `define.middleware` from
   `utils.ts` (typed via the shared `State`).
