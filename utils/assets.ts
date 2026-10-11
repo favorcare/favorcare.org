@@ -5,7 +5,7 @@
 // `deno task assets:pull`).
 //
 // Production: the Deno Deploy project sets ASSET_BASE_URL to the Cloudflare
-// R2 custom domain (e.g. https://assets.favorcare.org) and the same path
+// R2 custom domain (e.g. https://assets.staging.favorcare.media) and the same path
 // resolves against the bucket — images are gitignored and never deployed
 // with the app (see MIGRATION.md, Phase 2).
 //
