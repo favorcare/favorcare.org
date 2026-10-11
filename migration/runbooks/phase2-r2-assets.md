@@ -16,9 +16,13 @@ local `rclone copy` toward R2.
    shown once, store them somewhere safe (they are NOT the rclone config's only
    copy; treat like passwords).
 3. **Attach the public domain**: bucket → _Settings_ → _Public Access_ → _Custom
-   Domain_ → `assets.favorcare.org`. It must be a hostname in the
-   `favorcare.org` zone (it is) — Cloudflare creates the DNS record and serves
-   the bucket through its CDN automatically.
+   Domain_ → `assets.staging.favorcare.media`. It must be a hostname in a zone
+   in this same Cloudflare account (`favorcare.media` — where the worker's
+   workers.dev subdomain lives). Cloudflare creates the DNS record and serves
+   the bucket through its CDN automatically. **"For now" domain**: at cutover
+   (MIGRATION.md Phase 8) we additionally attach `assets.favorcare.org` from the
+   `favorcare.org` zone, flip `ASSET_BASE_URL`, and swap the URLs — the bucket
+   and objects never move.
 4. Note your **Account ID** (dashboard right sidebar, or R2 overview page).
 
 ## Part B — local rclone setup (one-time)
@@ -63,10 +67,10 @@ deletes (we never use `--delete`).
 ## Part D — verify
 
 ```sh
-curl -I https://assets.favorcare.org/wp-content/uploads/2022/10/PCNC.png
+curl -I https://assets.staging.favorcare.media/wp-content/uploads/2022/10/PCNC.png
 # → HTTP/2 200  (content-type: image/png)
 
-curl -I https://assets.favorcare.org/images/posts/antipolo-team.jpg
+curl -I https://assets.staging.favorcare.media/images/posts/antipolo-team.jpg
 # → HTTP/2 200
 ```
 
@@ -76,8 +80,8 @@ If the custom domain was just attached, give the DNS/SSL a minute or two.
 
 Once prod is ready to serve from R2 (MIGRATION.md Phase 2, before cutover):
 
-1. Set `ASSET_BASE_URL=https://assets.favorcare.org` on the Deno Deploy project
-   — every `asset()` URL flips to the CDN.
+1. Set `ASSET_BASE_URL=https://assets.staging.favorcare.media` on the Deno
+   Deploy project — every `asset()` URL flips to the CDN.
 2. Verify the deployed site's images still load.
 3. Only then untrack local copies: `git rm -r --cached static/images`.
 
@@ -87,7 +91,7 @@ Until step 1 runs, the site is unchanged — local dev keeps using
 ## After this
 
 Tell the agent the bucket is live. Page-clone PRs will then reference
-`https://assets.favorcare.org/wp-content/uploads/…` URLs directly in cloned
-content (works in dev and prod, and stops depending on the WP box staying up).
-The legacy same-path Cloudflare route for `favorcare.org/wp-content/*` is
+`https://assets.staging.favorcare.media/wp-content/uploads/…` URLs directly in
+cloned content (works in dev and prod, and stops depending on the WP box staying
+up). The legacy same-path Cloudflare route for `favorcare.org/wp-content/*` is
 configured at cutover (Phase 8), not now.
