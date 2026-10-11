@@ -19,7 +19,7 @@ export default define.page(function GiveNowPage() {
         />
       </Head>
       <Header />
-      <main>
+      <main id="main-content" tabindex="-1">
         <Hero {...GIVENOW.hero} />
         <GiveMethods
           id="give"

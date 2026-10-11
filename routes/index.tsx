@@ -21,7 +21,7 @@ export default define.page(function Home() {
         </title>
       </Head>
       <Header />
-      <main>
+      <main id="main-content" tabindex="-1">
         {/* Hero: dark, kicker + display headline (text-hero token scale). */}
         <section class="bg-primary py-24 text-center md:py-36">
           <Container>

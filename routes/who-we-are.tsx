@@ -21,7 +21,7 @@ export default define.page(function WhoWeArePage() {
         <meta name="description" content={ABOUT.hero.subtitle} />
       </Head>
       <Header />
-      <main>
+      <main id="main-content" tabindex="-1">
         <Hero {...ABOUT.hero} />
 
         <Section>
