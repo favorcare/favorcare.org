@@ -500,18 +500,11 @@ export const WHAT_WE_DO = {
 };
 
 export const CONTACT = {
-  hero: {
-    eyebrow: "Contact us",
-    title: "We’d love to hear from you!",
-    subtitle:
-      "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
-  },
-  details: {
-    email: "info@favorcare.org",
-    address: "Level 6, East Wing, Shangri-La Plaza, Mandaluyong City",
-    hours: "Tuesday to Friday, 10am to 5pm",
-  },
-  form: { recipient: "info@favorcare.org" },
+  // Cloned from the WP  page (post 1845): form (no newsletter
+  // checkbox here — that variant is the home page form), 5 FAQs (verbatim,
+  // rendered desktop order), Carers Newsletter block (the #newsletter
+  // anchor target), we'd-love block + map.
+  heroTitle: "Contact us",
   faqs: [
     {
       q: "Where does Favor Care operate?",
@@ -531,15 +524,30 @@ export const CONTACT = {
     },
     {
       q: "Where can I get updates on the work of Favor Care?",
-      a: "You may sign up to receive our regular newsletter Favor Carers to know more about our projects, activities and advocacies.",
-      link: { label: "Carers Newsletter", href: "#carers" },
+      a: "You may sign up at Carers Newsletter to receive our regular newsletter Favor Carers to know more about our projects, activities and advocacies.",
     },
-  ] satisfies FaqItem[],
+  ],
+  newsletter: {
+    title: "Sign up for our Carers Newsletter!",
+    placeholder: "EMAIL ADDRESS",
+    cta: "SUBSCRIBE",
+  },
+  love: {
+    title: "We’d love to hear from you!",
+    body:
+      "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
+    email: "info@favorcare.org",
+  },
+  // Google Maps embed query from the WP widget address field.
+  mapQuery: "Favor Church, EDSA Shangri-La, Mandaluyong City",
+  form: { recipient: "info@favorcare.org" },
 } satisfies {
-  hero: { eyebrow: string; title: string; subtitle: string };
-  details: { email: string; address: string; hours: string };
+  heroTitle: string;
+  faqs: { q: string; a: string }[];
+  newsletter: { title: string; placeholder: string; cta: string };
+  love: { title: string; body: string; email: string };
+  mapQuery: string;
   form: { recipient: string };
-  faqs: FaqItem[];
 };
 
 export const GIVENOW = {
