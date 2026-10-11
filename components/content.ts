@@ -74,6 +74,70 @@ export interface GiveRegion {
   methods: GiveMethod[];
 }
 
+// Homepage v2 — cloned from the WP `favor-care-homepage` page (post 6002).
+// Copy is verbatim from the source (reference text + widget trees); images
+// point at WP media until the R2 URL flip (MIGRATION.md Phase 2).
+export const HOME = {
+  hero: {
+    kicker: "JOIN THE PRAYER HUB",
+    headline: "Giving hope for a better future to those in need.",
+  },
+  careUpdates: {
+    label: "Care Updates:",
+    body:
+      "Favor Care is currently seeking Corporate Sponsorship to raise ₱50 million to expand the school — purchasing an additional lot of land, and for the construction of school facilities that will allow us to expand into Grades 1-3 and eventually 4-6, significantly increasing school intake and providing education to children who would otherwise have no access to it. Currently, the school has 185 students. With the added classrooms, Redemptio Christian School can provide free education to over 500 students.",
+    cta: { label: "See Event", href: "/pampanga-2024" },
+  },
+  about: {
+    eyebrow: "ABOUT US",
+    title: "Building hope and transforming lives",
+    body:
+      "Through our dedicated efforts in education, societal integration, disaster relief, and community development, we empower individuals and communities to overcome adversity.",
+    body2:
+      "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
+    cta: { label: "LEARN MORE", href: "/who-we-are" },
+  },
+  whatWeDo: {
+    eyebrow: "WHAT WE DO",
+    title: "We address the needs that are right in front of us.",
+    body:
+      "Favor Care serves different communities through innovative projects and partnerships. By focusing on these critical areas, we strive to make a meaningful impact and inspire hope for a better future for them.",
+    // Order matches the rendered page.
+    programs: [
+      "Community Development",
+      "Trainings",
+      "Partnership Resourcing",
+      "Education",
+      "Societal Reintegration",
+      "Disaster Relief",
+    ],
+  },
+  stories: {
+    title: "Stories of changed lives",
+    intro:
+      "From empowering individuals with education and skills to fostering inclusive communities and providing vital relief during crises, our efforts have made a tangible impact.",
+    body:
+      "The story of people touched through Favor Care. Be it a bar of soap or a can of sardines they receive, or medical attention for a skin problem, a newly rebuilt house gutted down by fire or a prayer for blessing, God moves in their heart. And they are never the same again.",
+    image:
+      "https://staging.favorcare.org/wp-content/uploads/2024/05/DSCF0091-scaled-e1714462620229-1024x682.jpg",
+    imageAlt: "A Favor Care community outreach",
+  },
+  takeAction: {
+    title: "Take Action",
+    body:
+      "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
+    cta: { label: "GET INVOLVED", href: "/get-involved" },
+  },
+  contact: {
+    title: "Get in touch with us",
+    body:
+      "Reach out to Favor Care and discover how you can contribute to building a better tomorrow.",
+    loveTitle: "We'd love to hear from you!",
+    loveBody:
+      "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
+  },
+};
+
 export const HERO = {
   eyebrow: "Favor Care Foundation · DSWD & PCNC Accredited",
   title: "Giving hope for a better future to those in need.",
