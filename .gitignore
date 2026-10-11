@@ -105,3 +105,5 @@ migration/data/
 # committed before this rule remain tracked until Phase 2 untracks them;
 # new images are published with `deno task assets:push`.
 static/images/
+dist/
+.vite/
