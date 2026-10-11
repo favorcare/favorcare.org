@@ -688,26 +688,50 @@ export const POPUPS = {
 };
 
 export const GET_INVOLVED = {
+  // Cloned from the WP  page (post 1840): hero + three cards.
+  // Links verbatim: newsletter -> contact#newsletter, volunteer -> the
+  // fluro.io signup form, donate -> /givenow.
   hero: {
-    eyebrow: "Get involved",
-    title: "There are several ways for you to be involved.",
+    title: "Get Involved",
     subtitle:
-      "From volunteering and fundraising to spreading awareness and participating in our programs — your support helps us create meaningful impact.",
-    primary: { label: "Donate now", href: "/givenow" },
-    secondary: { label: "Become a volunteer", href: "#ways" },
+      "Join us in caring for the poor and less privileged! There are several ways for you to be involved. Your partnership will go a long way.",
+    image:
+      "https://staging.favorcare.org/wp-content/uploads/2024/06/Aetas-3-scaled.jpg",
   },
-  ways: {
-    title: "Ways you can help",
-    subtitle:
-      "Your partnership will go a long way. Every gift of time, skill, or prayer matters.",
-  },
+  cards: [
+    {
+      title: "Carers Newsletter",
+      body:
+        "Learn more about the latest on Favor Care when you sign up to receive our regular newsletter Favor Carers.",
+      cta: { label: "SUBSCRIBE", href: "/contact#newsletter" },
+      image: null,
+    },
+    {
+      title: "Volunteer",
+      body:
+        "Sign up as a Favor Care volunteer for our Sunday services at Favor-CIW, community medical clinic and other programs and activities.",
+      cta: {
+        label: "SERVE",
+        href: "https://share.fluro.io/form/6359f65f3e1dcf00252046d6",
+        external: true,
+      },
+      image:
+        "https://staging.favorcare.org/wp-content/uploads/2024/06/Favor-Care-volunteers-repacking-rice-2-scaled.jpeg",
+    },
+    {
+      title: "Donate",
+      body:
+        "Your donation makes a world of difference. Every donation brings hope and creates opportunities for a better future.",
+      cta: { label: "GIVE", href: "/givenow" },
+      image: null,
+    },
+  ],
 } satisfies {
-  hero: {
-    eyebrow: string;
+  hero: { title: string; subtitle: string; image: string };
+  cards: {
     title: string;
-    subtitle: string;
-    primary: Cta;
-    secondary: Cta;
-  };
-  ways: { title: string; subtitle: string };
+    body: string;
+    cta: { label: string; href: string; external?: boolean };
+    image: string | null;
+  }[];
 };
