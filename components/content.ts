@@ -589,6 +589,40 @@ export const GIVENOW = {
   };
 };
 
+// Site-wide popups cloned from the WP elementor_library templates
+// (1424-prayer-hub-popup, 7283-accreditation, 7426-volunteer-disclaimer).
+// Copy is verbatim from the source, including its quirks.
+export const POPUPS = {
+  prayerHub: {
+    title: "PRAYER HUB",
+    kicker: "Join us every Thursday, 7:00-7:15pm on Zoom",
+    body:
+      "The Prayer Hub is our regularly weekly 15-minute corporate prayer time to intercede for our programs and activities. We also take time for urgent calls to pray for those affected by disasters, both here and elsewhere in the world.",
+    cta: {
+      label: "PRAY WITH US",
+      href: "https://us02web.zoom.us/j/9566304454",
+      external: true,
+    },
+  },
+  volunteer: {
+    title: "Volunteer Commitment",
+    body:
+      "Before submitting the form, please take the time to review our Volunteer Commitment and Lifestyle Guidelines to see how you are aligned to our values.",
+    cta: {
+      label: "REVIEW GUIDELINES",
+      // /commitment page not yet rebuilt — points at the WP original for now.
+      href: "https://staging.favorcare.org/commitment",
+      external: true,
+    },
+  },
+  accreditation: {
+    title: "We’re officially PCNC and DSWD Accredited!",
+    body:
+      "Our accreditation affirms our commitment to transparency, integrity, and impact. Thank you for partnering with us as we serve communities with excellence.",
+    cta: { label: "DONATE", href: "/givenow" },
+  },
+};
+
 export const GET_INVOLVED = {
   hero: {
     eyebrow: "Get involved",
