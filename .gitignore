@@ -94,4 +94,4 @@ vendor/
 .gstack/
 .claude/
 docs/
-.firecrawl/
+.firecrawl/.zcode/
