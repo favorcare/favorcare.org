@@ -3,7 +3,6 @@ import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { Button } from "../components/Button.tsx";
-import { Section } from "../components/layout/Section.tsx";
 import { Container } from "../components/layout/Container.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
 import { HOME } from "../components/content.ts";
@@ -21,7 +20,7 @@ export default define.page(function Home() {
         </title>
       </Head>
       <Header />
-      <main id="main-content" tabindex="-1">
+      <main id="main-content" tabIndex={-1}>
         {/* Hero: dark, kicker + display headline (text-hero token scale). */}
         <section class="bg-primary py-24 text-center md:py-36">
           <Container>

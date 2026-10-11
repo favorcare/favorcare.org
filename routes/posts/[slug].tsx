@@ -32,7 +32,7 @@ export default define.page<typeof handler>(({ data }) => {
         <meta property="og:image" content={post.cover} />
       </Head>
       <Header />
-      <main id="main-content" tabindex="-1">
+      <main id="main-content" tabIndex={-1}>
         {/* Hero */}
         <Section class="pt-12 md:pt-16">
           <Container>
