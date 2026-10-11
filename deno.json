@@ -7,6 +7,8 @@
     "start": "deno serve -A _fresh/server.js",
     "assets:pull": "deno run -A scripts/assets.ts pull",
     "assets:push": "deno run -A scripts/assets.ts push",
+    "clone:reference": "deno run -A scripts/clone-diff.ts reference",
+    "clone:diff": "deno run -A scripts/clone-diff.ts diff",
     "update": "deno run -A -r jsr:@fresh/update ."
   },
   "lint": {
@@ -37,6 +39,7 @@
   "imports": {
     "@/": "./",
     "fresh": "jsr:@fresh/core@^2.3.3",
+    "playwright": "npm:playwright@^1.64.0",
     "preact": "npm:preact@^10.29.1",
     "@preact/signals": "npm:@preact/signals@^2.9.0",
     "@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.1.2",
