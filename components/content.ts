@@ -426,89 +426,75 @@ export const ABOUT = {
 };
 
 export const WHAT_WE_DO = {
+  // Cloned from the WP `what-we-do` page (post 1835): hero + six program
+  // blocks (label / summary / body, copy verbatim) + Donate + Take Action.
+  // No images on this page. Two Education extras ("Give the gift of
+  // Education", Legacy Offering 2022 / 2023 feeding paragraphs) are hidden
+  // on desktop in WP — skipped per the canonical-variant policy.
   hero: {
-    eyebrow: "What we do",
     title: "What we do",
     subtitle:
       "Through sustainable community development projects, we aim to create resilient communities, addressing social, economic, and environmental challenges.",
-    primary: { label: "Give now", href: "/givenow" },
-    secondary: { label: "Get involved", href: "/get-involved" },
   },
   programs: [
     {
-      title: "Education",
+      label: "Education:",
       summary:
         "We offer quality education for kids in economically deprived communities.",
-      paragraphs: [
+      body:
         "Redemptio Christian School caters to preschoolers along the floodway in Barangay San Juan, Taytay, Rizal. We give free books, uniforms and other educational materials. Their physical health, together with the rest of their family, is also taken care of through our community medical clinic.",
-      ],
-      subHeading: "Give the gift of education",
-      subParagraphs: [
-        "During Favor Church’s Legacy Offering 2022, we announced Favor Care’s partnership with Redemptio Christian School based in Taytay, Rizal, Philippines. We believe that we can change a generation and a nation through education. As an organization, we believe that we can help break dysfunctional patterns and poverty mentality, and create a brighter future for our nation’s youth and their families. We’ve always been passionate about providing quality Christian education for those who can’t afford it, and now, we’re taking our commitment to new levels.",
-        "In 2023, we were able to feed and provide multiple community medical clinics for our students and their family members. We also bought world-class curriculum modules for our students. Our vision is to build an even bigger building to increase the number of grade levels and students that can be accommodated per level, giving more children an opportunity to receive great education they could otherwise not afford.",
-      ],
     },
     {
-      title: "Societal Reintegration",
+      label: "Societal Reintegration:",
       summary:
         "We help inmates prepare for their release from their prison term.",
-      paragraphs: [
-        "“What’s in store for me when I’m out?” is a question that haunts those who are awaiting release from prison. Around a thousand Persons Deprived of Liberty (PDL), commonly known as inmates, at the Correctional Institution for Women in Mandaluyong City are part of Favor Church-CIW and each Sunday, they attend services held at the maximum, medium and minimum camps. This serves as a venue for them to start a vibrant journey with God. They can experience real freedom and a new perspective that allows them to look beyond their present circumstances to the exciting life that awaits them outside. Their physical and emotional needs are also looked after through our community medical clinic and livelihood trainings to prepare them in their journey back to society.",
-      ],
+      body:
+        "\u201cWhat\u2019s in store for me when I\u2019m out?\u201d is a question that haunts those who are awaiting release from prison. Around a thousand Persons Deprived of Liberty (PDL), commonly known as inmates, at the Correctional Institution for Women in Mandaluyong City are part of Favor Church-CIW and each Sunday, they attend services held at the maximum, medium and minimum camps. This serves as a venue for them to start a vibrant journey with God. They can experience real freedom and a new perspective that allows them to look beyond their present circumstances to the exciting life that awaits them outside. Their physical and emotional needs are also looked after through our community medical clinic and livelihood trainings to prepare them in their journey back to society.",
     },
     {
-      title: "Disaster Relief",
+      label: "Disaster Relief:",
       summary:
         "We provide quick response and prompt assistance to disaster victims to help mitigate the devastating impact of such calamities.",
-      paragraphs: [
+      body:
         "Early this year, a fire hit a community in Taytay, Rizal, damaging the homes of 47 families, including three students from Redemptio Christian School. The next day, Favor Care distributed food packs and sleeping implements to all the victim families. We also helped rebuild the homes of the preschoolers, with one of them, from the ground up. We also provided sewing machines to another family, whose livelihood was lost to the fire.",
-      ],
     },
     {
-      title: "Community Development",
+      label: "Community Development:",
       summary:
         "We initiate programs and activities to help improve the quality of life of less-resourced communities.",
-      paragraphs: [
-        "Health is wealth. No more is this true than in financially-challenged places where medical attention is not a priority nor an option. Our community medical clinic helped treat the lingering skin problems of the women in CIW, along with their other health concerns. “Masaya Maging Magulang,” a positive parenting seminar for the parents and guardians of students from Redemptio Christian School, served as a safe space for them to share their challenges of disciplining their children amidst their unfortunate circumstances. All these and other projects in the pipeline are aimed at ministering to the people’s basic needs and giving them a taste of the abundant life God has promised even for the here and now.",
-      ],
+      body:
+        "Health is wealth. No more is this true than in financially-challenged places where medical attention is not a priority nor an option. Our community medical clinic helped treat the lingering skin problems of the women in CIW, along with their other health concerns. \u201cMasaya Maging Magulang,\u201d a positive parenting seminar for the parents and guardians of students from Redemptio Christian School, served as a safe space for them to share their challenges of disciplining their children amidst their unfortunate circumstances. All these and other projects in the pipeline are aimed at ministering to the people\u2019s basic needs and giving them a taste of the abundant life God has promised even for the here and now.",
     },
     {
-      title: "Training",
+      label: "Training:",
       summary:
         "We offer training programs to empower communities to respond to the needs within their context; as well as build capacity among our volunteers, enabling them to efficiently respond to emergency situations.",
-      paragraphs: [
+      body:
         "Favor Care organizes training as part of our capacity-building and to equip our volunteers to efficiently respond to the needs around us. Seminars, such as parenting, for instance, also address needs in the communities we are reaching. Also part of this are the conferences we organize for pastors and church leaders, to make them more effective in the task of Kingdom building.",
-      ],
     },
     {
-      title: "Partnership Resourcing",
+      label: "Partnership Resourcing:",
       summary:
         "We partner with other organizations for optimal resource sharing, which results in wider reach and greater impact in the communities.",
-      paragraphs: [
+      body:
         "One organization cannot accomplish the task alone. This is why networking is very important. As much as Favor Care is blessed through the generosity of others, we are helping other like-minded organizations in terms of funding support, manpower resources and expertise so they too can accomplish their mandate.",
-      ],
     },
-  ] satisfies ProgramDetailItem[],
+  ],
   donate: {
-    title: "Your generosity can change lives.",
-    body: "Every contribution helps create a brighter future.",
-    cta: { label: "Give", href: "/givenow" },
+    title: "Donate",
+    body:
+      "Your generosity can change lives. Every contribution helps create a brighter future.",
+    cta: { label: "GIVE", href: "/givenow" },
   },
   takeAction: {
     title: "Take Action",
     body:
       "Join us in creating opportunities. Together, we can transform lives.",
-    cta: { label: "Get involved", href: "/get-involved" },
+    cta: { label: "GET INVOLVED", href: "/get-involved" },
   },
 } satisfies {
-  hero: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    primary: Cta;
-    secondary: Cta;
-  };
-  programs: ProgramDetailItem[];
+  hero: { title: string; subtitle: string };
+  programs: { label: string; summary: string; body: string }[];
   donate: { title: string; body: string; cta: Cta };
   takeAction: { title: string; body: string; cta: Cta };
 };
