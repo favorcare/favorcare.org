@@ -33,6 +33,9 @@ When a token changes, update **DESIGN.md** first, then mirror it in
 
 ## Conventions
 
+- **No automatic git commands.** Do not run `git add`, `git commit`, `git push`,
+  or other state-changing git commands unless explicitly asked. Read-only
+  inspection (`git status`, `git diff`, `git log`) is fine.
 - **Fresh 2 file-system routing.** `routes/` → pages; `routes/_app.tsx` is the
   root layout. Use `define.page` / `define.handlers` / `define.middleware` from
   `utils.ts` (typed via the shared `State`).
