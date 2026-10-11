@@ -5,7 +5,8 @@ import { Footer } from "../components/Footer.tsx";
 import { Button } from "../components/Button.tsx";
 import { Container } from "../components/layout/Container.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
-import { HOME } from "../components/content.ts";
+import Popup from "../islands/Popup.tsx";
+import { HOME, POPUPS } from "../components/content.ts";
 
 // Homepage cloned from the WP `favor-care-homepage` page (post 6002):
 // hero → care updates banner → about → what we do (6 areas) → stories →
@@ -21,12 +22,23 @@ export default define.page(function Home() {
       </Head>
       <Header />
       <main id="main-content" tabIndex={-1}>
-        {/* Hero: dark, kicker + display headline (text-hero token scale). */}
+        {
+          /* Hero: dark, Prayer Hub kicker (opens the popup, as on WP) +
+            display headline. */
+        }
         <section class="bg-primary py-24 text-center md:py-36">
           <Container>
-            <p class="text-xs font-semibold uppercase tracking-wider text-white/70">
-              {HOME.hero.kicker}
-            </p>
+            <Popup
+              trigger={HOME.hero.kicker}
+              triggerClass="text-xs font-semibold uppercase tracking-wider text-white/70 underline hover:text-yellow"
+              title={POPUPS.prayerHub.title}
+              cta={POPUPS.prayerHub.cta}
+            >
+              <p class="font-semibold text-on-surface">
+                {POPUPS.prayerHub.kicker}
+              </p>
+              <p class="mt-2">{POPUPS.prayerHub.body}</p>
+            </Popup>
             <h1 class="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[7.5rem]">
               {HOME.hero.headline}
             </h1>
