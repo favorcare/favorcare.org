@@ -304,33 +304,29 @@ export const NEWSLETTER = {
 } satisfies { title: string; body: string };
 
 export const ABOUT = {
+  // Cloned from the WP `about` page (post 1831): hero, mission/vision,
+  // core values, 4-photo gallery, team of five, take action. No
+  // accountability or banner sections on the canonical (staging) page.
   hero: {
-    eyebrow: "Who we are",
+    eyebrow: "About us",
     title: "Explore our journey and join us in making a difference.",
     subtitle:
       "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
-    primary: { label: "Get involved", href: "/get-involved" },
-    secondary: { label: "Give now", href: "/givenow" },
-    image: asset("/images/pages/who-we-are/hero.jpg"),
+    image: "https://staging.favorcare.org/wp-content/uploads/2024/07/kids2.png",
   },
-  banner: {
-    src: asset("/images/pages/who-we-are/vmg-image1.jpg"),
-    alt:
-      "Favor Care volunteers in matching yellow shirts gather for a group photo at a community outreach",
+  mission: {
+    label: "Mission",
+    body:
+      "To develop and fund projects for the marginalized that address needs of homelessness, hunger, poverty, and education in the Philippines.",
+    image:
+      "https://staging.favorcare.org/wp-content/uploads/2025/09/FVR06030-scaled-e1757008150302.jpg",
   },
-  missionImage: {
-    src: asset("/images/pages/who-we-are/vmg-mission.png"),
-    alt: "Two smiling boys look out from the window of their home",
+  vision: {
+    label: "Vision",
+    body:
+      "To create a better future by giving hope and opportunities to those who are trapped by poverty and circumstances beyond their control.",
   },
-  visionImage: {
-    src: asset("/images/pages/who-we-are/vmg-vision.jpg"),
-    alt:
-      "A Favor Care volunteer hands an aid bag to a smiling elderly man at a community outreach",
-  },
-  mission:
-    "To develop and fund projects for the marginalized that address needs of homelessness, hunger, poverty, and education in the Philippines.",
-  vision:
-    "To create a better future by giving hope and opportunities to those who are trapped by poverty and circumstances beyond their control.",
+  valuesTitle: "Core Values",
   values: [
     "Generosity",
     "Compassion",
@@ -343,6 +339,29 @@ export const ABOUT = {
     "Inclusivity",
     "Faith-based",
   ],
+  // Canonical 4 images (the tree repeats them per breakpoint).
+  gallery: [
+    {
+      src:
+        "https://staging.favorcare.org/wp-content/uploads/2024/06/FCX09979-scaled.jpg",
+      alt: "Favor Care volunteers gathered on outreach",
+    },
+    {
+      src:
+        "https://staging.favorcare.org/wp-content/uploads/2024/05/Dental-Mission-11-scaled.jpg",
+      alt: "Dental mission outreach",
+    },
+    {
+      src:
+        "https://staging.favorcare.org/wp-content/uploads/2024/06/Favor-Care-volunteer-huddle-at-Shang-1-scaled.jpeg",
+      alt: "Volunteer huddle at Shangri-La Plaza",
+    },
+    {
+      src:
+        "https://staging.favorcare.org/wp-content/uploads/2024/06/Outreach-to-the-Aetas-in-the-Mountains-9-scaled.jpg",
+      alt: "Outreach to the Aetas community",
+    },
+  ],
   team: {
     title: "Meet our team members",
     subtitle:
@@ -351,36 +370,40 @@ export const ABOUT = {
       {
         name: "Chris Aiton",
         role: "Executive Director",
-        photo: asset("/images/pages/who-we-are/orgchart-chris.jpg"),
+        photo:
+          "https://staging.favorcare.org/wp-content/uploads/2024/07/photo_6307445248871217844_y-e1718641395357.jpg",
         photoAlt: "Chris Aiton, Executive Director",
       },
       {
         name: "Belle Guiron",
         role: "Volunteer Coordinator",
-        photo: asset("/images/pages/who-we-are/orgchart-belle.jpeg"),
+        photo:
+          "https://staging.favorcare.org/wp-content/uploads/2024/07/belle_guiron.jpeg",
         photoAlt: "Belle Guiron, Volunteer Coordinator",
       },
       {
         name: "Carmelyn De Guzman",
         role: "Project Coordinator",
-        photo: asset("/images/pages/who-we-are/orgchart-lyn.jpg"),
+        photo:
+          "https://staging.favorcare.org/wp-content/uploads/2024/07/LYN-DE-GUZMAN-e1720597744595.jpg",
         photoAlt: "Carmelyn De Guzman, Project Coordinator",
       },
       {
         name: "Chap De Guzman",
         role: "Project Coordinator",
-        photo: asset("/images/pages/who-we-are/orgchart-chap.jpg"),
+        photo:
+          "https://staging.favorcare.org/wp-content/uploads/2024/07/Chap-1.jpg",
         photoAlt: "Chap De Guzman, Project Coordinator",
       },
       {
         name: "Marilou Santero",
         role: "CIW Coordinator",
-        photo: asset("/images/pages/who-we-are/orgchart-malou.jpeg"),
+        photo:
+          "https://staging.favorcare.org/wp-content/uploads/2024/07/Mama-Malou-e1721119151756.jpeg",
         photoAlt: "Marilou Santero, CIW Coordinator",
       },
     ],
   },
-  accountability: { title: "Financial Accountability" },
   takeAction: {
     title: "Take Action",
     body:
@@ -388,26 +411,17 @@ export const ABOUT = {
     cta: { label: "Get involved", href: "/get-involved" },
   },
 } satisfies {
-  hero: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    primary: Cta;
-    secondary: Cta;
-    image: string;
-  };
-  missionImage: { src: string; alt: string };
-  visionImage: { src: string; alt: string };
-  banner: { src: string; alt: string };
-  mission: string;
-  vision: string;
+  hero: { eyebrow: string; title: string; subtitle: string; image: string };
+  mission: { label: string; body: string; image: string };
+  vision: { label: string; body: string };
+  valuesTitle: string;
   values: string[];
+  gallery: { src: string; alt: string }[];
   team: {
     title: string;
     subtitle: string;
     members: { name: string; role: string; photo: string; photoAlt: string }[];
   };
-  accountability: { title: string };
   takeAction: { title: string; body: string; cta: Cta };
 };
 

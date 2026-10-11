@@ -18,7 +18,7 @@ export default define.page(function ContactPage() {
         <meta name="description" content={CONTACT.hero.subtitle} />
       </Head>
       <Header />
-      <main id="main-content" tabindex="-1">
+      <main id="main-content" tabIndex={-1}>
         <Hero {...CONTACT.hero} />
 
         <Section>

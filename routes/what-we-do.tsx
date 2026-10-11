@@ -16,7 +16,7 @@ export default define.page(function WhatWeDoPage() {
         <meta name="description" content={WHAT_WE_DO.hero.subtitle} />
       </Head>
       <Header />
-      <main id="main-content" tabindex="-1">
+      <main id="main-content" tabIndex={-1}>
         <Hero {...WHAT_WE_DO.hero} />
         <ProgramDetails items={WHAT_WE_DO.programs} />
         <DonateCTA {...WHAT_WE_DO.donate} />

@@ -23,7 +23,7 @@ export default define.page(function GetInvolvedPage() {
         <meta name="description" content={GET_INVOLVED.hero.subtitle} />
       </Head>
       <Header />
-      <main id="main-content" tabindex="-1">
+      <main id="main-content" tabIndex={-1}>
         <Hero {...GET_INVOLVED.hero} />
         <GetInvolved
           id="ways"
