@@ -743,3 +743,98 @@ export const GET_INVOLVED = {
     image: string | null;
   }[];
 };
+
+export const PRIVACY = {
+  // Cloned verbatim from the WP privacy-policy page (reference text).
+  title: "Privacy Policy",
+  blocks: [
+    {
+      p: "This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from favorcare.org (the “site”). Favor Legacy Foundation (“Favor Care”, “our foundation”, “we”) respects your right to privacy and confidentiality and gives utmost value to the security and confidentiality of your personal data and information. As a non-profit foundation in the Philippines, we are committed to following the general principles and rules of data privacy protection in the Philippines in compliance with Republic Act No. 10173 or the Data Privacy Act of 2012.",
+    },
+    { h: "What personal data we collect and why we collect it" },
+    {
+      p: "Favor Legacy Foundation may collect user data through favorcare.org (“our website”, “the site”). Favorcare.org accepts payments online through various payment gateways including credit card and e-wallet instruments.",
+    },
+    {
+      p: "We collect the following personal information when you transact using this platform:",
+    },
+    { p: "Name" },
+    {
+      p: "Contact Information (Phone/Mobile Number, Mailing Address, email address)",
+    },
+    { p: "Additional information requested by form" },
+    {
+      p: "The collected personal information on this platform is utilized solely for documentation and processing purposes so we can properly acknowledge the receipt of your payment, downloads, or other merchandise.",
+    },
+    {
+      p: "We will use your Personal Data for as long as necessary to satisfy the purposes for which your Personal Data was collected or to comply with applicable legal requirements.",
+    },
+    { h: "Comments and Messages" },
+    {
+      p: "Comments on the site are turned off by default, but may be allowed on certain occasions. When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor’s IP address and browser user agent string to help spam detection. Visitors may also send messages to Favor Care through forms. Data is collected through this form in the same manner. Visitors who email us or use any of the contact forms on our website will have their email address, IP address, and any data provided in the contact form or body of the email stored indefinitely in a database. Use of these forms implies your acceptance that Favor Care will see the data collected.",
+    },
+    { h: "Media and Uploads" },
+    {
+      p: "If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website.",
+    },
+    {
+      p: "Certain transactions performed through the site may ask you to upload media showing your proof of payment. These may contain sensitive information regarding your transaction. As such, we download and store this media in a separate location off-site.",
+    },
+    { h: "Analytics" },
+    {
+      p: "We use Google Analytics for tracking visitors and aggregating information about the traffic to our websites. You may view the Google Analytics Privacy Policy for more information.",
+    },
+    {
+      p: "When you visit our website, a record of your visit is logged and the following data is supplied by your browser:",
+    },
+    { p: "The date, time and length of your visit to the website" },
+    { p: "Your IP address and/or domain name" },
+    { p: "Your operating system (type of browser and platform)" },
+    { p: "The pages you visited during your session" },
+    { h: "Cookies" },
+    {
+      p: "If you leave a comment on our site you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year.",
+    },
+    {
+      p: "If you visit our login page, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser.",
+    },
+    {
+      p: "When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select “Remember Me”, your login will persist for two weeks. If you log out of your account, the login cookies will be removed.",
+    },
+    { h: "Embedded Content" },
+    {
+      p: "Articles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website.",
+    },
+    {
+      p: "These websites may collect data about you, use cookies, embed additional third-party tracking, and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website.",
+    },
+    { h: "Security Policy" },
+    {
+      p: "The Favor Legacy Foundation online donation system uses an advanced encryption technology provided by Secure Sockets Layer (SSL), a recognized authentication and encryption software, which means that the site encrypts all of your personal information and card details so that it is unreadable to anyone outside of the transaction process.",
+    },
+    { h: "Third-party Payment Gateway" },
+    {
+      p: "Credit card and e-wallet payments made through the Favor Church site are processed through a secure third-party payment gateway provided by Paymongo. You may view Paymongo’s privacy policy for information on what personal data is collected and retained through your transaction.",
+    },
+    { h: "Data Access" },
+    {
+      p: "We recognize the sensitive and confidential nature of the personal data under the custody of the company and ensure that only authorized Favor Care staff shall be allowed to access such personal data, for the purposes stated in the sections above.",
+    },
+    { h: "Access and Correction" },
+    {
+      p: "You have the right to ask for a copy of any personal information we hold about you, as well as to ask for it to be corrected if you think it is wrong. To do so, please contact our Data Protection Officer, Eucel Maximo, through the following email address: info@favorcare.org.",
+    },
+    { h: "Governing Law" },
+    {
+      p: "Disputes relating to the use of the websites’ data collection activities and the interpretation of these Terms and Conditions are subject to the laws of the Republic of the Philippines, and any dispute shall be brought before the courts of Mandaluyong City, Philippines, where Favor Legacy Foundation is officially registered and located.",
+    },
+    { h: "What Rights Do I Have Over My Data?" },
+    {
+      p: "If you have made a purchase through this site, or have left comments or messages, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal, or security purposes.",
+    },
+    { h: "Our Rights" },
+    {
+      p: "We reserve the right to modify this privacy policy at any time. Changes and clarifications will take effect immediately upon their posting on the website. If we make material changes to this policy, we will notify you here that it has been updated, so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we use and/or disclose it.",
+    },
+  ],
+} satisfies { title: string; blocks: ({ h: string } | { p: string })[] };
