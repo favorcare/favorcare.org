@@ -33,6 +33,8 @@
   /* WP link pair: dark red, yellow hover. */
   --color-link: #c8221f;
   --color-link-hover: #ffb428;
+  /* Link Yellow as a usable surface (header DONATE pill). */
+  --color-yellow: #ffb428;
 
   --color-surface: #ffffff;
   --color-surface-dim: #fbf9ed;

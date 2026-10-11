@@ -1,5 +1,6 @@
 // Shared site navigation data — the single source for header + footer links.
-// 5-item primary nav per ideas/proposed.svg information architecture.
+// Mirrors the WP "default-navigation" menu (labels 1:1 from staging; hrefs
+// point at the Fresh routes — WP slugs like /about redirect later, Phase 7).
 
 export interface NavLink {
   label: string;
@@ -7,11 +8,12 @@ export interface NavLink {
 }
 
 export const NAV: NavLink[] = [
+  { label: "Home", href: "/" },
   { label: "Who We Are", href: "/who-we-are" },
   { label: "What We Do", href: "/what-we-do" },
-  { label: "Stories & Impact", href: "/news-updates" },
   { label: "Get Involved", href: "/get-involved" },
-  { label: "Donate", href: "/givenow" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "News & Updates", href: "/news-updates" },
 ];
 
 // Utility / footer pages from the sitemap — remaining routes are placeholders.
