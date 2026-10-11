@@ -1,36 +1,32 @@
-import { Badge } from "./Badge.tsx";
-import { formatDate, type Post } from "./posts.ts";
+import type { Post } from "./posts.ts";
+import { asset } from "../utils/assets.ts";
 
-// Surface + hairline border match the shared <Card>; built as its own <a> so
-// the hotlinked cover can bleed full-width and round with the card edges.
-const BASE =
-  "group flex flex-col overflow-hidden rounded-lg border border-surface-container-high bg-surface shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md";
-
-// Image-led card for the /posts grid: cover, category, title, excerpt, meta.
+// Post card for the /posts archive — matches the WP archive cards:
+// title + excerpt (+ cover when the source post has one). No date,
+// author, or reading time (the source shows none).
 export function PostCard({ post }: { post: Post }) {
   return (
-    <a href={`/posts/${post.slug}`} class={BASE}>
-      <div class="aspect-3/2 overflow-hidden bg-surface-container">
-        <img
-          src={post.cover}
-          alt={post.coverAlt}
-          loading="lazy"
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-        />
-      </div>
-      <div class="flex flex-1 flex-col gap-3 p-6">
-        <Badge>{post.category}</Badge>
-        <h3 class="text-xl font-semibold tracking-tight text-on-surface">
+    <a
+      href={`/posts/${post.slug}`}
+      class="group flex gap-6 border border-surface-container-high bg-surface p-5 transition-colors hover:bg-surface-bright md:p-6"
+    >
+      {post.cover && (
+        <div class="hidden w-48 shrink-0 overflow-hidden sm:block">
+          <img
+            src={asset(post.cover)}
+            alt={post.coverAlt}
+            loading="lazy"
+            class="aspect-3/2 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        </div>
+      )}
+      <div class="flex flex-1 flex-col">
+        <h3 class="text-lg font-semibold leading-snug tracking-tight text-on-surface md:text-xl">
           {post.title}
         </h3>
-        <p class="line-clamp-3 text-sm leading-relaxed text-on-surface-variant">
+        <p class="mt-2 text-base leading-relaxed text-on-surface-variant">
           {post.description}
         </p>
-        <div class="mt-auto flex items-center gap-2 pt-4 text-xs font-medium uppercase tracking-wide text-on-surface-variant">
-          <time datetime={post.date}>{formatDate(post.date)}</time>
-          <span aria-hidden="true">·</span>
-          <span>{post.readingTime}</span>
-        </div>
       </div>
     </a>
   );

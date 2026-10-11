@@ -26,27 +26,222 @@ export interface Post {
   slug: string;
   title: string;
   description: string;
-  author: string;
   /** ISO date (YYYY-MM-DD) — also used for sort order + <time datetime>. */
   date: string;
-  readingTime: string;
-  category: string;
-  /** Local static asset path (migrated off favorcare.org/wp-content). */
-  cover: string;
+  tag: string;
+  /** Local static asset path; null when the source post has no cover. */
+  cover: string | null;
   coverAlt: string;
   body: PostBlock[];
 }
 
 export const POSTS: Post[] = [
   {
+    slug: "five-arms-of-favor-care",
+    title: "The Five Arms of Favor Care: How CARES Serves Communities",
+    description:
+      "Meet CARES: the five arms of Favor Care serving communities through medical outreach, education, disaster relief, and second chances. Give or volunteer today.",
+    date: "2026-10-08",
+    tag: "Medical Missions",
+    cover: null,
+    coverAlt: "",
+    body: [
+      {
+        type: "paragraph",
+        text:
+          "For Favor Care, that choice takes many shapes. It can mean bringing a doctor to a community that has none. Walking with someone preparing to leave prison. Showing up fast when disaster hits. Opening a classroom door for a child. Or building something a community will use for years.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Five efforts. One purpose. Together they form CARES : C ommunity Engagement, A ssistance to Persons Deprived of Liberty, R elief and Response, E ducation, and S pecial Projects.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "These are the five arms of Favor Care — the framework for how it serves communities in ways that are practical, meaningful, and built to last.",
+      },
+      {
+        type: "paragraph",
+        text: "Every arm of CARES is already at work in real communities.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Favor Care starts from a simple belief: care should respond to the whole person, not just the need in front of them.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "A medical outreach can hand a patient medicine and attention. But real care asks more. Why is this person sick? What else do they need? How do we keep serving this community after today?",
+      },
+      {
+        type: "paragraph",
+        text:
+          "That is the holistic approach Favor Care is building. As Pastor Belle shared, the goal is to move toward care that is comprehensive — care that meets needs fully, not one at a time.",
+      },
+      {
+        type: "paragraph",
+        text: "You can see that vision in all five arms.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Community Engagement is about presence: building real relationships with the people Favor Care serves.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Through outreach and community programs, Favor Care comes to understand needs firsthand — and responds in practical ways. Medical outreach is one example, with healthcare professionals and volunteers serving families while connecting with them directly.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "But the work doesn't end when the outreach does. The goal is a lasting relationship, and a clearer sense of how Favor Care can keep contributing to a community's well-being.",
+      },
+      {
+        type: "paragraph",
+        text: "Showing up matters. Showing up with intention matters more.",
+      },
+      {
+        type: "paragraph",
+        text: "Some people are easy to overlook. Favor Care chooses not to.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Its work with Persons Deprived of Liberty (PDLs) extends care and dignity to people regardless of their past. That includes programs inside correctional facilities — and support for the harder chapter that comes after: coming home.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Favor Care is exploring ways to help people reintegrate and rebuild. Because care shouldn't stop the moment an immediate need is met. It should ask what happens next.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Through restoration and second chances, Favor Care hopes to help people move forward — and take a meaningful place in their communities again.",
+      },
+      {
+        type: "paragraph",
+        text: "When disaster strikes, communities can't afford to wait.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Favor Care's Relief and Response arm delivers timely help to people hit by disasters and emergencies — from relief goods to on-the-ground support, moving resources and people where they're needed most.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "But good response takes more than good intentions. It takes preparation. Favor Care is strengthening the systems, volunteers, and infrastructure that make fast, sustainable help possible — including plans for a dedicated warehouse of pre-packed relief goods, so aid can move the moment crisis hits.",
+      },
+      {
+        type: "paragraph",
+        text: "Favor Care believes a classroom can change a life.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Through its Education arm, it creates opportunities for children and communities with little access to learning. One of those is Redemptio Christian School in Barangay San Juan, Taytay, Rizal — where preschoolers living along the floodway receive free books, uniforms, and materials. Their families' health is cared for too, through a community medical clinic. Because a child who is healthy and supported is a child truly ready to learn.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "The aim isn't only to help today. It's to open doors that stay open — giving children the knowledge, skills, and confidence to build better futures, for themselves and the people around them.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Because when one child gets the chance to learn, everyone around them grows too.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Redemptio Christian School serves 185 students today. With more classrooms, it can reach over 500 children who would otherwise have no access to education.",
+      },
+      {
+        type: "paragraph",
+        text: "Not every need fits neatly into a program.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Special Projects gives Favor Care room to respond to the specific and the long-term — community development, construction and infrastructure, and other efforts built to create lasting value. It's also where Favor Care works with partners who bring resources and expertise that stretch what's possible.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Instead of treating every community the same, Special Projects asks a better question: What does this community actually need — and what can we build together to meet it?",
+      },
+      {
+        type: "paragraph",
+        text: "Favor Care knows this work can't be done alone.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Volunteers, donors, professionals, organizations, community partners — each one makes the work possible. Partnership isn't just a way to gather resources. It's a way to combine strengths, skills, and perspectives into something bigger.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "As Favor Care grows, stronger partnerships — and meaningful ways for volunteers to use their skills — will be key to lasting impact. The goal isn't only people who support the work. It's people who become part of it.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "CARES gives the work a structure. But behind every arm are people.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "A patient who finally sees a doctor. A family standing again after disaster. A child with a school to walk to. A person preparing to come home. A community with something that will serve it for years.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "These are the stories behind the numbers. And as Favor Care grows, it's learning to tell both — because numbers show reach, but stories show meaning.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "The vision isn't simply more programs. It's the capacity to care better — more sustainably, more completely.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "That means strengthening the five arms, deepening partnerships, growing its volunteers, investing in real infrastructure, and staying ready to meet needs as they change.",
+      },
+      {
+        type: "paragraph",
+        text: "At the center of it all is one simple principle: people matter.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Five arms. Many forms. One purpose — to care today, and build for tomorrow.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "There are many ways to care. Favor Care brings them together through CARES.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Care is something we can all contribute to. Give, volunteer your time and skills, or partner with Favor Care to help expand its reach.",
+      },
+    ],
+  },
+
+  {
     slug: "every-child-matters-bringing-health-and-care-to-antipolo",
     title: "Every Child Matters: Bringing Health and Care to Antipolo",
     description:
       "Favor Care partnered with Rapha International Christian Ministries for a clinic day bringing health checks, dental care, and compassion to the children in their care.",
-    author: "Aeriel Cruz",
     date: "2026-07-07",
-    readingTime: "10 min read",
-    category: "Community Health",
+    tag: "Kalayaan Community Ministries",
     cover: asset("/images/posts/antipolo-team.jpg"),
     coverAlt:
       "Favor Care volunteers and team gathered on the Rapha International clinic day.",
@@ -111,14 +306,12 @@ export const POSTS: Post[] = [
     ],
   },
   {
-    slug: "free-medical-outreach-in-tondo-manila",
+    slug: "seen-valued-and-cared-for-our-medical-outreach-in-tondo-manila",
     title: "Free Medical Outreach in Tondo, Manila",
     description:
       "Favor Care partnered with Kalayaan Community Ministries for a free medical outreach in Tondo, serving 200+ residents with check-ups, dental care, and prayer.",
-    author: "Aeriel Cruz",
     date: "2026-06-10",
-    readingTime: "10 min read",
-    category: "Community Health",
+    tag: "Rapha International Christian Ministries",
     cover: asset("/images/posts/tondo-outreach.png"),
     coverAlt:
       "A scene from Favor Care’s free medical outreach with Kalayaan Community Ministries in Tondo, Manila.",

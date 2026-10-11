@@ -4,12 +4,11 @@ import { define } from "../../utils.ts";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
 import { Button } from "../../components/Button.tsx";
-import { Badge } from "../../components/Badge.tsx";
 import { Container } from "../../components/layout/Container.tsx";
 import { Section } from "../../components/layout/Section.tsx";
-import { DonateCTA } from "../../components/sections/DonateCTA.tsx";
 import { PostBody } from "../../components/PostBody.tsx";
-import { formatDate, getPost, type Post } from "../../components/posts.ts";
+import { getPost, type Post } from "../../components/posts.ts";
+import { asset } from "../../utils/assets.ts";
 
 export const handler = define.handlers({
   GET(ctx) {
@@ -19,8 +18,11 @@ export const handler = define.handlers({
   },
 });
 
+// Post page — matches the WP single-post layout: back link, tag, title,
+// optional cover, body. No author/date/reading-time (the source shows none).
 export default define.page<typeof handler>(({ data }) => {
   const post: Post = data.post;
+  const cover = post.cover ? asset(post.cover) : null;
   return (
     <>
       <Head>
@@ -29,46 +31,41 @@ export default define.page<typeof handler>(({ data }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
-        <meta property="og:image" content={post.cover} />
+        {cover && <meta property="og:image" content={cover} />}
       </Head>
       <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Hero */}
-        <Section class="pt-12 md:pt-16">
+        <Section class="bg-primary pt-12 pb-16 text-white md:pt-16">
           <Container>
             <a
               href="/posts"
-              class="inline-flex items-center gap-1.5 text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-white/70 transition-colors hover:text-yellow"
             >
               <span aria-hidden="true">←</span> All posts
             </a>
             <div class="mt-6 max-w-3xl">
-              <Badge>{post.category}</Badge>
-              <h1 class="mt-4 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">
+              <p class="text-xs font-semibold uppercase tracking-wider text-white/70">
+                {post.tag}
+              </p>
+              <h1 class="mt-4 text-4xl font-semibold leading-[0.95] tracking-tight md:text-5xl">
                 {post.title}
               </h1>
-              <div class="mt-5 flex flex-wrap items-center gap-2 text-sm text-on-surface-variant">
-                <span class="font-medium text-on-surface">{post.author}</span>
-                <span aria-hidden="true">·</span>
-                <time datetime={post.date}>{formatDate(post.date)}</time>
-                <span aria-hidden="true">·</span>
-                <span>{post.readingTime}</span>
-              </div>
-            </div>
-            <div class="mt-8 overflow-hidden rounded-xl border border-surface-container-high bg-surface-container">
-              <img
-                src={post.cover}
-                alt={post.coverAlt}
-                class="aspect-16/9 w-full object-cover"
-              />
             </div>
           </Container>
         </Section>
 
         {/* Body */}
-        <Section class="pb-20">
+        <Section class="py-16">
           <Container>
-            <article class="mx-auto max-w-2xl">
+            {cover && (
+              <img
+                src={cover}
+                alt={post.coverAlt}
+                class="mx-auto aspect-16/9 w-full max-w-4xl object-cover"
+              />
+            )}
+            <article class="mx-auto mt-10 max-w-2xl">
               <PostBody blocks={post.body} />
             </article>
             <div class="mx-auto mt-12 max-w-2xl">
@@ -78,12 +75,6 @@ export default define.page<typeof handler>(({ data }) => {
             </div>
           </Container>
         </Section>
-
-        <DonateCTA
-          title="Your gift, in their hands within days."
-          body="Every option is secure, multi-currency, and tax-receipted. Give once, become a monthly Carer, or sponsor a child."
-          cta={{ label: "Donate now", href: "/#donate" }}
-        />
       </main>
       <Footer />
     </>

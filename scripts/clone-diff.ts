@@ -33,11 +33,12 @@ const PAIRS: Pair[] = [
   { page: "get-involved", wp: "/get-involved", fresh: "/get-involved" },
   { page: "contact", wp: "/contact", fresh: "/contact" },
   { page: "givenow", wp: "/givenow", fresh: "/givenow" },
-  { page: "news-updates", wp: "/news-updates", fresh: "/news-updates" },
+  { page: "news-updates", wp: "/posts", fresh: "/posts" },
   {
     page: "post-tondo",
     wp: "/posts/seen-valued-and-cared-for-our-medical-outreach-in-tondo-manila",
-    fresh: "/posts/free-medical-outreach-in-tondo-manila",
+    fresh:
+      "/posts/seen-valued-and-cared-for-our-medical-outreach-in-tondo-manila",
   },
   {
     page: "post-antipolo",
