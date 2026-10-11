@@ -20,7 +20,7 @@ export default define.page(function NewsUpdates() {
         />
       </Head>
       <Header />
-      <main>
+      <main id="main-content" tabindex="-1">
         <Section class="pb-20 pt-16 md:pt-20">
           <Container>
             <SectionHeading
