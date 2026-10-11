@@ -52,17 +52,19 @@ under `static/images/pages/…`) = entire committed delta vs `main`. All page co
 (6 routes, 7 components, ContactForm island, content/nav updates) was
 uncommitted; no upstream.
 
-- [ ] Localize the 2 news covers hotlinked from favorcare.org
+- [x] Localize the 2 news covers hotlinked from favorcare.org
       (`components/posts.ts`) into `static/` — they'd break the day WP dies.
-- [ ] Run `deno task check` + `deno task dev`, click through all routes + posts.
-- [ ] Update stale DEVELOPMENT.md (old slugs; note mailto-only contact form as a
+- [x] Run `deno task check` + `deno task dev`, click through all routes + posts.
+- [x] Update stale DEVELOPMENT.md (old slugs; note mailto-only contact form as a
       **cutover blocker**).
-- [ ] Commit in logical chunks (components → routes → content), push, PR,
-      **merge**.
-- [ ] Note: current gold/navy styling gets fully restyled in Phase 5 — merging
+- [x] Commit in logical chunks (components → routes → content), push, PR,
+      **merge**. _(Done 2026-10-11 — PR #1 merged; also fixed a missing
+      `ABOUT.banner` that broke typecheck.)_
+- [x] Note: current gold/navy styling gets fully restyled in Phase 5 — merging
       now is structure-first, correct, but expect the churn.
 
 **Gate:** check passes, pages render, no `favorcare.org` URLs left in markup.
+_(Passed 2026-10-11: all routes 200 on dev server, zero WP hotlinks.)_
 
 ## Phase 1 — WordPress inventory & extraction (SSH)
 
