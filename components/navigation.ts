@@ -7,22 +7,22 @@ export interface NavLink {
 }
 
 export const NAV: NavLink[] = [
-  { label: "Our Mission", href: "#mission" },
-  { label: "What We Do", href: "#programs" },
-  { label: "Stories & Impact", href: "#impact" },
-  { label: "Get Involved", href: "#involved" },
-  { label: "Donate", href: "#donate" },
+  { label: "Who We Are", href: "/who-we-are" },
+  { label: "What We Do", href: "/what-we-do" },
+  { label: "Stories & Impact", href: "/news-updates" },
+  { label: "Get Involved", href: "/get-involved" },
+  { label: "Donate", href: "/givenow" },
 ];
 
-// Utility / footer pages from the sitemap — placeholder routes for now.
+// Utility / footer pages from the sitemap — remaining routes are placeholders.
 export const UTILITY_LINKS: NavLink[] = [
-  "Contact Us",
-  "Newsletter",
-  "FAQ",
-  "Careers",
-  "Press / Media Kit",
-  "Privacy Policy",
-  "Terms & Conditions",
-  "Accessibility Statement",
-  "Donation Policy",
-].map((label) => ({ label, href: "#" }));
+  { label: "Contact Us", href: "/contact" },
+  { label: "Newsletter", href: "/contact" },
+  { label: "FAQ", href: "/contact" },
+  { label: "Careers", href: "#" },
+  { label: "Press / Media Kit", href: "#" },
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms & Conditions", href: "#" },
+  { label: "Accessibility Statement", href: "#" },
+  { label: "Donation Policy", href: "#" },
+];

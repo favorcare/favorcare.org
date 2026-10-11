@@ -4,6 +4,7 @@ import { Button } from "../Button.tsx";
 import { InputField } from "../InputField.tsx";
 
 export interface NewsletterProps {
+  id?: string;
   title: string;
   body?: string;
   /** Form action; defaults to a mailto fallback. */
@@ -14,6 +15,7 @@ export interface NewsletterProps {
 // Newsletter signup — email input + subscribe button.
 export function Newsletter(
   {
+    id,
     title,
     body,
     action = "mailto:hello@favorcare.org",
@@ -21,7 +23,7 @@ export function Newsletter(
   }: NewsletterProps,
 ) {
   return (
-    <Section tone="dim">
+    <Section id={id} tone="dim">
       <Container class="py-16">
         <div class="mx-auto flex max-w-2xl flex-col items-center text-center">
           <h2 class="text-2xl font-semibold text-on-surface">{title}</h2>

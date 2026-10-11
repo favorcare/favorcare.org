@@ -11,8 +11,8 @@ export function Footer() {
             <img src="/logo-white.svg" alt="Favor Care" class="h-10" />
             <p class="mt-4 max-w-sm text-sm leading-relaxed text-surface/70">
               Care that travels the last mile. A faith-based Philippine
-              foundation delivering healthcare, education, disaster relief,
-              and community development across Metro Manila and surrounding
+              foundation delivering healthcare, education, disaster relief, and
+              community development across Metro Manila and surrounding
               provinces.
             </p>
             <div class="mt-6 flex items-center gap-4">

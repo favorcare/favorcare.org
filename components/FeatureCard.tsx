@@ -10,7 +10,7 @@ export interface FeatureCardProps {
 
 // Linked "way to help" card: title shifts to gold on hover of the whole card.
 export function FeatureCard(
-  { title, body, href = "#donate", class: extra }: FeatureCardProps,
+  { title, body, href = "/givenow", class: extra }: FeatureCardProps,
 ) {
   return (
     <Card href={href} interactive accent class={cx("group", extra)}>

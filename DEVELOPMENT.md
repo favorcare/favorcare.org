@@ -102,30 +102,34 @@ export default define.page(function WhatWeDo() {
 [Fresh deployment docs](https://fresh.deno.dev/docs/concepts/deploying) for
 details.
 
-## Forward roadmap
+## Current state & roadmap
 
-The full site is defined in [**ideas/proposed.svg**](ideas/proposed.svg). Today
-only the homepage (`TEMPLATE A`) exists. Planned routes, in priority order:
+All five primary-nav pages plus utility pages exist (this replaces the earlier
+"homepage only" status):
 
-**Primary nav pages**
+| Route           | Page                                                |
+| --------------- | --------------------------------------------------- |
+| `/`             | Homepage                                            |
+| `/who-we-are`   | Who we are (mission, vision, team, finances)        |
+| `/what-we-do`   | What we do (6 programs)                             |
+| `/news-updates` | Stories & impact (post listing; `/posts` 308s here) |
+| `/get-involved` | Get involved (volunteer, newsletter, give)          |
+| `/givenow`      | Donate hub (PH/US/AU giving methods)                |
+| `/contact`      | Contact us (form, FAQ, newsletter)                  |
+| `/posts/<slug>` | Individual news posts                               |
+| `/storybook`    | Component library                                   |
 
-- **Our Mission** (`/our-mission`) — Our Story, Vision & Values, Leadership &
-  Team, Accountability, Where We Work.
-- **What We Do** (`/what-we-do`) — Education, Prison Ministry, Community Health,
-  Disaster Relief, Community Development.
-- **Stories & Impact** (`/stories`) — Stories Hub, Featured Stories, Impact
-  Numbers, News & Updates, Annual Report.
-- **Get Involved** (`/get-involved`) — Volunteer, Corporate Partners, Fundraise
-  For Us, Prayer Hub, In-Kind Donations.
-- **Donate** (`/donate`) — One-time Gift, Monthly Giving (Become a Carer),
-  Sponsor a Child, Give in Kind, Legacy & Major Gifts.
+The broader program — migrating favorcare.org off WordPress/Elementor onto this
+stack as a visual clone, with a native donation checkout, R2 media, and a Deno
+Deploy cutover — is planned phase-by-phase in [**MIGRATION.md**](MIGRATION.md).
+The IA reference remains [ideas/proposed.svg](ideas/proposed.svg).
 
-**Utility / footer pages**
+**Known gaps that gate production cutover** (see the migration plan):
 
-Contact Us, Newsletter Sign-up, FAQ, Careers, Press / Media Kit, Privacy Policy,
-Terms & Conditions, Accessibility Statement, Donation Policy, Search Results,
-404, Thank-you (post-donation), Donor Account.
-
-**Enhancements** noted as out of scope for the first cut: full-bleed video hero,
-animated count-up stat islands, real donation & newsletter backends, search, and
-a language/region toggle.
+- **Contact form is mailto-only** (`islands/ContactForm.tsx`) and the newsletter
+  section defaults to a `mailto:` action — no server handlers exist yet. A real
+  form backend is required before DNS cutover.
+- Utility/footer links for Careers, Press, Privacy, Terms, Accessibility, and
+  Donation Policy are `"#"` placeholders in `components/navigation.ts`.
+- A `privacy-policy` route still needs to be built (required by the redirect
+  map).

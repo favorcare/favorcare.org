@@ -29,7 +29,7 @@ export interface Post {
   date: string;
   readingTime: string;
   category: string;
-  /** Hotlinked from favorcare.org per the chosen image strategy. */
+  /** Local static asset path (migrated off favorcare.org/wp-content). */
   cover: string;
   coverAlt: string;
   body: PostBlock[];
@@ -45,7 +45,7 @@ export const POSTS: Post[] = [
     date: "2026-07-07",
     readingTime: "10 min read",
     category: "Community Health",
-    cover: "https://favorcare.org/wp-content/uploads/2026/06/team.jpg",
+    cover: "/images/posts/antipolo-team.jpg",
     coverAlt:
       "Favor Care volunteers and team gathered on the Rapha International clinic day.",
     body: [
@@ -69,7 +69,7 @@ export const POSTS: Post[] = [
         heading: "Your time and presence can transform a child’s day.",
         body:
           "Join Favor Care as a volunteer and become part of a mission that brings health, hope, and compassion to children and communities in need.",
-        cta: { label: "Become a volunteer", href: "/#involved" },
+        cta: { label: "Become a volunteer", href: "/get-involved" },
         ctaVariant: "secondary",
       },
       {
@@ -103,7 +103,7 @@ export const POSTS: Post[] = [
           "A single gift can mean a healthier, happier future for a child.",
         body:
           "Support Favor Care’s outreach and help ensure no child goes without the care they deserve.",
-        cta: { label: "Donate now", href: "/#donate" },
+        cta: { label: "Donate now", href: "/givenow" },
         ctaVariant: "primary",
       },
     ],
@@ -117,8 +117,7 @@ export const POSTS: Post[] = [
     date: "2026-06-10",
     readingTime: "10 min read",
     category: "Community Health",
-    cover:
-      "https://favorcare.org/wp-content/uploads/2026/07/Untitled-design-5.png",
+    cover: "/images/posts/tondo-outreach.png",
     coverAlt:
       "A scene from Favor Care’s free medical outreach with Kalayaan Community Ministries in Tondo, Manila.",
     body: [
@@ -158,7 +157,7 @@ export const POSTS: Post[] = [
         heading: "Your skills and your presence can change a family’s day.",
         body:
           "Join Favor Care as a volunteer and help bring health, hope, and compassion to the communities that need it most.",
-        cta: { label: "Become a volunteer", href: "/#involved" },
+        cta: { label: "Become a volunteer", href: "/get-involved" },
         ctaVariant: "secondary",
       },
       {
@@ -186,7 +185,7 @@ export const POSTS: Post[] = [
         heading: "Help us make that dream a reality.",
         body:
           "If you are a licensed medical professional, we need you. We want to bring more help and more medicine to more communities. Help us make that happen.",
-        cta: { label: "Become a volunteer", href: "/#involved" },
+        cta: { label: "Become a volunteer", href: "/get-involved" },
         ctaVariant: "secondary",
       },
     ],
