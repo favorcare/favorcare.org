@@ -45,7 +45,7 @@ const PAIRS: Pair[] = [
     wp: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
     fresh: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
   },
-  { page: "privacy-policy", wp: "/privacy-policy", fresh: null },
+  { page: "privacy-policy", wp: "/privacy-policy", fresh: "/privacy-policy" },
 ];
 
 const args = Deno.args;

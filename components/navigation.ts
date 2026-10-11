@@ -23,7 +23,7 @@ export const UTILITY_LINKS: NavLink[] = [
   { label: "FAQ", href: "/contact" },
   { label: "Careers", href: "#" },
   { label: "Press / Media Kit", href: "#" },
-  { label: "Privacy Policy", href: "#" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Conditions", href: "#" },
   { label: "Accessibility Statement", href: "#" },
   { label: "Donation Policy", href: "#" },
