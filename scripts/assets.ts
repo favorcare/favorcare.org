@@ -3,23 +3,26 @@
 //   deno task assets:pull   # R2 -> static/images (fresh clones, dev setup)
 //   deno task assets:push   # static/images -> R2 (after adding new images)
 //
-// Prerequisites (one-time, see MIGRATION.md Phase 2):
+// Prerequisites (one-time — full walkthrough in
+// migration/runbooks/phase2-r2-assets.md):
 //
 //   brew install rclone
-//   rclone config create favorcare-media s3 \
+//   rclone config create r2 s3 \
 //     provider=Cloudflare \
 //     endpoint=https://<ACCOUNT_ID>.r2.cloudflarestorage.com \
 //     access_key_id=<R2_TOKEN_ACCESS_KEY> \
 //     secret_access_key=<R2_TOKEN_SECRET>
 //
-// The bucket holds two path prefixes: `images/**` (this site's assets,
-// referenced through utils/assets.ts) and `wp-content/uploads/**` (legacy
-// WordPress media, path-preserved so old URLs keep resolving).
+// The `favorcare-media` bucket holds two path prefixes: `images/**` (this
+// site's assets, referenced through utils/assets.ts) and
+// `wp-content/uploads/**` (legacy WordPress media, path-preserved so old
+// URLs keep resolving). With S3 remotes the first path segment is the
+// BUCKET name — hence `r2:favorcare-media/images`.
 //
 // Both directions are plain `rclone copy` — no --delete — so neither the
 // bucket nor the local tree can lose files through this script.
 
-const BUCKET = Deno.env.get("R2_BUCKET") ?? "favorcare-media:images";
+const BUCKET = Deno.env.get("R2_BUCKET") ?? "r2:favorcare-media/images";
 const LOCAL_DIR = "static/images";
 
 const command = Deno.args[0];
