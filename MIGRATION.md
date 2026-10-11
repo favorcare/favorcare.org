@@ -267,11 +267,20 @@ templates is Phase 5 work.)_
 
 ## Phase 8 — Deploy & cutover
 
-- [ ] Deno Deploy project from `main` early (days before): add domain, secrets
-      (PAYMONGO/RESEND/MAILCHIMP).
-- [ ] **Certificate sequence (blocker):** gray-cloud CNAME → `*.deno.dev`,
-      confirm Let's Encrypt issuance on Deno edge, **then** orange-cloud + SSL
-      Full(strict), purge all CF caches (stale WP HTML otherwise served).
+> **Platform retargeted 2026-10-11:** Deno Deploy → **Cloudflare Workers** (Deno
+> acquired by Cloudflare — Deploy shuts down ~2027-04; official path is Workers,
+> and Fresh 2 has a first-class adapter. celld.dev was evaluated and rejected:
+> self-hosted VMs + own load balancer. Landed in `feat/cf-workers-deploy`:
+> `server.js` worker entry, `wrangler.jsonc`, conditional `cloudflare()` vite
+> plugin, `deno task deploy` two-stage build).
+
+- [ ] Workers project from `main` early (days before): import repo in the CF
+      dashboard (or `deno task deploy`), secrets via dashboard /
+      `wrangler secret put` (ASSET_BASE_URL, later PAYMONGO/RESEND/MAILCHIMP).
+- [x] ~~Certificate sequence~~ **Deleted** — Workers custom domains are
+      same-account with automatic SSL (no gray/orange-cloud dance).
+- [ ] Attach `staging.favorcare.media` to the Worker (re-point from wherever it
+      deploys today); verify, then remove the old deployment.
 - [ ] Pre-cutover: final WP delta + media sync + inventory diff; stakeholder
       review on staging URL.
 - [ ] Cutover in low-traffic window; monitor 404s/GA realtime; **30-day rollback

@@ -1,0 +1,10 @@
+// Cloudflare Workers config (https://developers.cloudflare.com/workers/).
+// Deploy: connect this repo in the Cloudflare dashboard (Workers → Create →
+// import from GitHub) or `deno run -A npm:wrangler deploy`. Secrets
+// (ASSET_BASE_URL, and later PAYMONGO_/RESEND_/MAILCHIMP_*) go in the
+// dashboard or via `wrangler secret put`, never in this file.
+{
+  "name": "favorcare-org",
+  "main": "./server.js",
+  "compatibility_date": "2026-10-11"
+}

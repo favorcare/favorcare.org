@@ -116,11 +116,19 @@ git (see [MIGRATION.md](MIGRATION.md), Phase 2):
 
 ## Deployment
 
-`deno task build` outputs a server bundle to `_fresh/`. Serve it with
-`deno task start`, or deploy to any Deno-capable host such as
-[Deno Deploy](https://deno.com/deploy). See the
-[Fresh deployment docs](https://fresh.deno.dev/docs/concepts/deploying) for
-details.
+`deno task build` outputs a server bundle to `_fresh/` (`deno task start` serves
+it locally). Production targets **Cloudflare Workers** — Deno Deploy shuts down
+in 2027 following the Cloudflare acquisition (see MIGRATION.md):
+
+- `deno task deploy` — builds, then deploys via wrangler (`wrangler.jsonc`,
+  worker entry `server.js`; the `cloudflare()` vite plugin loads only under
+  `CF=1`, so dev/build/start stay on the standard Fresh flow).
+- Easiest: connect the repo in the Cloudflare dashboard (Workers → Create →
+  import from GitHub) — builds on push to `main`, preview URLs per PR.
+- Secrets (`ASSET_BASE_URL`; later `PAYMONGO_*`/`RESEND_*`/`MAILCHIMP_*`) live
+  in the dashboard or via `wrangler secret put`, never in git.
+- Reference:
+  [Fresh on Cloudflare Workers](https://usefresh.dev/docs/deployment/cloudflare-workers).
 
 ## Current state & roadmap
 
