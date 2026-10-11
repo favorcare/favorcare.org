@@ -109,3 +109,7 @@
     color: var(--color-link-hover);
   }
 }
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}

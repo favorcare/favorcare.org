@@ -1,4 +1,6 @@
 import { asset } from "../utils/assets.ts";
+import Popup from "../islands/Popup.tsx";
+import { POPUPS } from "./content.ts";
 
 // Footer cloned from the WP `main-footer` template (post 45): black,
 // single centered column — white logo, social icons, blurb, address,
@@ -73,6 +75,14 @@ export function Footer() {
           <p class="text-xs font-semibold uppercase tracking-wider text-white/80">
             Accredited by:
           </p>
+          <Popup
+            trigger="View our accreditation"
+            triggerClass="text-xs font-semibold uppercase tracking-wider underline text-white/80 hover:text-yellow"
+            title={POPUPS.accreditation.title}
+            cta={POPUPS.accreditation.cta}
+          >
+            {POPUPS.accreditation.body}
+          </Popup>
           <div class="flex items-center gap-6">
             <img
               src={asset("/images/orgs/pcnc-wp.png")}
