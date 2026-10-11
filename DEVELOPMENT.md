@@ -94,6 +94,26 @@ export default define.page(function WhatWeDo() {
 - **Interactive component** → `islands/Foo.tsx` (hydrated on the client; can use
   `@preact/signals` for state).
 
+## Assets (images)
+
+`static/images/` is on its way to being served from Cloudflare R2 rather than
+git (see [MIGRATION.md](MIGRATION.md), Phase 2):
+
+- **Local dev** images resolve from `static/images/` as-is. The directory is
+  populated on fresh clones with `deno task assets:pull` (requires
+  [rclone](https://rclone.io/) and the `favorcare-media` remote — one-time setup
+  documented in `scripts/assets.ts`).
+- **Adding images**: drop them in `static/images/`, then run
+  `deno task assets:push` to publish them to R2. The directory is gitignored, so
+  git will not pick them up.
+- **Transitional rule** (until Phase 2 flips CDN serving on): images committed
+  before this rule are still tracked and still deploy — for any _new_ image that
+  must ship before the CDN is live, use `git add -f static/images/…`.
+- In markup, always reference images through `asset()` from
+  [`utils/assets.ts`](utils/assets.ts) — it returns the local path in dev and
+  prefixes `ASSET_BASE_URL` (the R2 custom domain) in production. Root-level
+  files (`/logo-*.svg`, favicon) are not part of this scheme.
+
 ## Deployment
 
 `deno task build` outputs a server bundle to `_fresh/`. Serve it with

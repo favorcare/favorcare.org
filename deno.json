@@ -5,6 +5,8 @@
     "dev": "vite",
     "build": "vite build",
     "start": "deno serve -A _fresh/server.js",
+    "assets:pull": "deno run -A scripts/assets.ts pull",
+    "assets:push": "deno run -A scripts/assets.ts push",
     "update": "deno run -A -r jsr:@fresh/update ."
   },
   "lint": {

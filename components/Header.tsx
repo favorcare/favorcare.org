@@ -1,5 +1,6 @@
 import { Navbar } from "./Navbar.tsx";
 import MobileNav from "../islands/MobileNav.tsx";
+import { asset } from "../utils/assets.ts";
 
 // Sticky site header, styled after favorcare.org: a solid gold (primary) bar
 // with the black two-line wordmark logo, centered nav (underline-on-hover),
@@ -48,12 +49,12 @@ function DonateCta() {
           </p>
           <div class="flex items-center gap-3">
             <img
-              src="/images/orgs/PCNC.png"
+              src={asset("/images/orgs/PCNC.png")}
               alt="Philippine Council for NGO Certification"
               class="h-9 w-auto"
             />
             <img
-              src="/images/orgs/DSWD.png"
+              src={asset("/images/orgs/DSWD.png")}
               alt="Department of Social Welfare and Development"
               class="h-9 w-auto"
             />

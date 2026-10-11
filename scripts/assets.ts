@@ -1,0 +1,51 @@
+// Sync static/images/ with the Cloudflare R2 media bucket.
+//
+//   deno task assets:pull   # R2 -> static/images (fresh clones, dev setup)
+//   deno task assets:push   # static/images -> R2 (after adding new images)
+//
+// Prerequisites (one-time, see MIGRATION.md Phase 2):
+//
+//   brew install rclone
+//   rclone config create favorcare-media s3 \
+//     provider=Cloudflare \
+//     endpoint=https://<ACCOUNT_ID>.r2.cloudflarestorage.com \
+//     access_key_id=<R2_TOKEN_ACCESS_KEY> \
+//     secret_access_key=<R2_TOKEN_SECRET>
+//
+// The bucket holds two path prefixes: `images/**` (this site's assets,
+// referenced through utils/assets.ts) and `wp-content/uploads/**` (legacy
+// WordPress media, path-preserved so old URLs keep resolving).
+//
+// Both directions are plain `rclone copy` — no --delete — so neither the
+// bucket nor the local tree can lose files through this script.
+
+const BUCKET = Deno.env.get("R2_BUCKET") ?? "favorcare-media:images";
+const LOCAL_DIR = "static/images";
+
+const command = Deno.args[0];
+if (command !== "pull" && command !== "push") {
+  console.error(
+    `usage: deno task assets:pull | deno task assets:push\n` +
+      `  pull  ${BUCKET} -> ${LOCAL_DIR} (set up local dev)\n` +
+      `  push  ${LOCAL_DIR} -> ${BUCKET} (publish new images)`,
+  );
+  Deno.exit(64);
+}
+
+const [src, dst] = command === "pull"
+  ? [BUCKET, LOCAL_DIR]
+  : [LOCAL_DIR, BUCKET];
+
+const rclone = new Deno.Command("rclone", {
+  args: ["copy", "-P", src, dst],
+  stdin: "null",
+}).spawn();
+
+const status = await rclone.status;
+if (!status.success) {
+  console.error(
+    `\nrclone exited ${status.code}. Is rclone installed and the ` +
+      `"favorcare-media" remote configured? See the header of this file.`,
+  );
+  Deno.exit(status.code);
+}

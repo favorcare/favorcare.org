@@ -3,6 +3,8 @@
 // truth for what the page says; sections are pure structure and receive this
 // via props.
 
+import { asset } from "../utils/assets.ts";
+
 export interface Cta {
   label: string;
   href: string;
@@ -79,7 +81,7 @@ export const HERO = {
     "A faith-based humanitarian foundation delivering healthcare, education, disaster relief, and community development across Metro Manila and surrounding provinces.",
   primary: { label: "Donate now", href: "/givenow" },
   secondary: { label: "See our work", href: "#programs" },
-  image: "/images/pages/home/hero.jpg",
+  image: asset("/images/pages/home/hero.jpg"),
 } satisfies {
   eyebrow: string;
   title: string;
@@ -97,22 +99,28 @@ export interface CarouselSlide {
 // Homepage program carousel — order follows WHAT_WE_DO.programs. The photos
 // are decorative; the visible captions carry the program names.
 export const CAROUSEL: CarouselSlide[] = [
-  { src: "/images/pages/home/carousel-education.jpg", caption: "Education" },
   {
-    src: "/images/pages/home/carousel-reintegration.jpg",
+    src: asset("/images/pages/home/carousel-education.jpg"),
+    caption: "Education",
+  },
+  {
+    src: asset("/images/pages/home/carousel-reintegration.jpg"),
     caption: "Societal Reintegration",
   },
   {
-    src: "/images/pages/home/carousel-disaster-relief.jpeg",
+    src: asset("/images/pages/home/carousel-disaster-relief.jpeg"),
     caption: "Disaster Relief",
   },
   {
-    src: "/images/pages/home/carousel-community-development.jpg",
+    src: asset("/images/pages/home/carousel-community-development.jpg"),
     caption: "Community Development",
   },
-  { src: "/images/pages/home/carousel-trainings.jpg", caption: "Training" },
   {
-    src: "/images/pages/home/carousel-partnership-resources.jpg",
+    src: asset("/images/pages/home/carousel-trainings.jpg"),
+    caption: "Training",
+  },
+  {
+    src: asset("/images/pages/home/carousel-partnership-resources.jpg"),
     caption: "Partnership Resourcing",
   },
 ];
@@ -239,19 +247,19 @@ export const ABOUT = {
       "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
     primary: { label: "Get involved", href: "/get-involved" },
     secondary: { label: "Give now", href: "/givenow" },
-    image: "/images/pages/who-we-are/hero.jpg",
+    image: asset("/images/pages/who-we-are/hero.jpg"),
   },
   banner: {
-    src: "/images/pages/who-we-are/vmg-image1.jpg",
+    src: asset("/images/pages/who-we-are/vmg-image1.jpg"),
     alt:
       "Favor Care volunteers in matching yellow shirts gather for a group photo at a community outreach",
   },
   missionImage: {
-    src: "/images/pages/who-we-are/vmg-mission.png",
+    src: asset("/images/pages/who-we-are/vmg-mission.png"),
     alt: "Two smiling boys look out from the window of their home",
   },
   visionImage: {
-    src: "/images/pages/who-we-are/vmg-vision.jpg",
+    src: asset("/images/pages/who-we-are/vmg-vision.jpg"),
     alt:
       "A Favor Care volunteer hands an aid bag to a smiling elderly man at a community outreach",
   },
@@ -279,31 +287,31 @@ export const ABOUT = {
       {
         name: "Chris Aiton",
         role: "Executive Director",
-        photo: "/images/pages/who-we-are/orgchart-chris.jpg",
+        photo: asset("/images/pages/who-we-are/orgchart-chris.jpg"),
         photoAlt: "Chris Aiton, Executive Director",
       },
       {
         name: "Belle Guiron",
         role: "Volunteer Coordinator",
-        photo: "/images/pages/who-we-are/orgchart-belle.jpeg",
+        photo: asset("/images/pages/who-we-are/orgchart-belle.jpeg"),
         photoAlt: "Belle Guiron, Volunteer Coordinator",
       },
       {
         name: "Carmelyn De Guzman",
         role: "Project Coordinator",
-        photo: "/images/pages/who-we-are/orgchart-lyn.jpg",
+        photo: asset("/images/pages/who-we-are/orgchart-lyn.jpg"),
         photoAlt: "Carmelyn De Guzman, Project Coordinator",
       },
       {
         name: "Chap De Guzman",
         role: "Project Coordinator",
-        photo: "/images/pages/who-we-are/orgchart-chap.jpg",
+        photo: asset("/images/pages/who-we-are/orgchart-chap.jpg"),
         photoAlt: "Chap De Guzman, Project Coordinator",
       },
       {
         name: "Marilou Santero",
         role: "CIW Coordinator",
-        photo: "/images/pages/who-we-are/orgchart-malou.jpeg",
+        photo: asset("/images/pages/who-we-are/orgchart-malou.jpeg"),
         photoAlt: "Marilou Santero, CIW Coordinator",
       },
     ],

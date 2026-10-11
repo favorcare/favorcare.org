@@ -1,5 +1,6 @@
 import { FooterLinkList } from "./FooterLinkList.tsx";
 import { NAV, UTILITY_LINKS } from "./navigation.ts";
+import { asset } from "../utils/assets.ts";
 
 // Site footer: brand blurb + accreditation badges + link columns + legal line.
 export function Footer() {
@@ -17,12 +18,12 @@ export function Footer() {
             </p>
             <div class="mt-6 flex items-center gap-4">
               <img
-                src="/images/orgs/PCNC.png"
+                src={asset("/images/orgs/PCNC.png")}
                 alt="PCNC accredited"
                 class="h-12 w-auto"
               />
               <img
-                src="/images/orgs/DSWD.png"
+                src={asset("/images/orgs/DSWD.png")}
                 alt="DSWD registered"
                 class="h-12 w-auto"
               />

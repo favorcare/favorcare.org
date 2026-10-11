@@ -2,6 +2,8 @@
 // Single source of truth for the /posts listing and each /posts/<slug> page,
 // mirroring the data-vs-presentation split used by content.ts / navigation.ts.
 
+import { asset } from "../utils/assets.ts";
+
 export interface CalloutCta {
   label: string;
   href: string;
@@ -45,7 +47,7 @@ export const POSTS: Post[] = [
     date: "2026-07-07",
     readingTime: "10 min read",
     category: "Community Health",
-    cover: "/images/posts/antipolo-team.jpg",
+    cover: asset("/images/posts/antipolo-team.jpg"),
     coverAlt:
       "Favor Care volunteers and team gathered on the Rapha International clinic day.",
     body: [
@@ -117,7 +119,7 @@ export const POSTS: Post[] = [
     date: "2026-06-10",
     readingTime: "10 min read",
     category: "Community Health",
-    cover: "/images/posts/tondo-outreach.png",
+    cover: asset("/images/posts/tondo-outreach.png"),
     coverAlt:
       "A scene from Favor Care’s free medical outreach with Kalayaan Community Ministries in Tondo, Manila.",
     body: [

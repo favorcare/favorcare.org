@@ -94,4 +94,14 @@ vendor/
 .gstack/
 .claude/
 docs/
-.firecrawl/.zcode/
+.firecrawl/
+.zcode/
+
+# Migration working data (DB dumps, pulled uploads) must live outside the
+# repo entirely; this ignore rule is a tripwire only.
+migration/data/
+
+# Media is served from Cloudflare R2 (see MIGRATION.md, Phase 2). Files
+# committed before this rule remain tracked until Phase 2 untracks them;
+# new images are published with `deno task assets:push`.
+static/images/

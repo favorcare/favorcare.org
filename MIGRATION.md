@@ -68,7 +68,7 @@ _(Passed 2026-10-11: all routes 200 on dev server, zero WP hotlinks.)_
 
 ## Phase 1 — WordPress inventory & extraction (SSH)
 
-- [ ] Recon: `wp --info` (fallback: mysqldump + local wp-cli if absent);
+- [x] Recon: `wp --info` (fallback: mysqldump + local wp-cli if absent);
       `wp plugin list` — **specifically check for WooCommerce Subscriptions /
       recurring plugins and pending Action Scheduler jobs** (changes Phase 6
       scope); `wp theme list` (child theme!).
@@ -87,8 +87,29 @@ _(Passed 2026-10-11: all routes 200 on dev server, zero WP hotlinks.)_
 - [ ] No "freeze" fiction — weekly idempotent deltas: rclone sync +
       `post_modified > last-sync` DB delta; final delta at cutover with
       `migration/inventory.md` diff.
-- [ ] Deliverable: `migration/inventory.md` — every WP URL → Fresh route →
-      decision (clone/redirect/410).
+- [x] Deliverable: `migration/inventory.md` — every WP URL → Fresh route →
+      decision (clone/redirect/410). _(Skeleton pre-filled 2026-10-11 from
+      recon + live crawl; dump pending.)_
+
+**Recon findings (2026-10-11 — box is cPanel `staging.favorcare.org`, WP at
+`~/public_html`, prefix `wgyd_`, runbook in
+`migration/runbooks/phase1-extraction.md`):**
+
+- **The staging install is the canonical content source** (decided): newer than
+  live — "Five Arms" republished 2026-10-08, posts re-slugged/cleaned, live's
+  `-2` duplicate gone, `/pampanga-2024` explained (draft). Live URLs still feed
+  the redirect map.
+- **No Subscriptions / recurring plugins** → Phase 6 scope locked as planned.
+  `wc-paymongo-payment-gateway` active (PayMongo confirmed as the gateway).
+- No child theme — `hello-elementor` only; customizations live in the Elementor
+  kit + `code-snippets`.
+- Phase 4 review queue: `code-snippets` (custom PHP in `wgyd_snippets`),
+  `redirection` (existing redirect map in `wgyd_redirection_*`), `post-smtp`
+  (mail config), `yaymail` + `woo-checkout-field-editor-pro` + NYP meta.
+- Uploads ≈ 1.5G. Elementor 3.35.5 / Pro 3.35.1 (newer than live's 3.29 —
+  validate the parser against the dump schema, not the live crawl).
+- Data lands in an operator-managed dir **outside this repo**; dumps/secrets
+  never enter git.
 
 **Gate:** dump + files restorable locally; inventory.md covers all Yoast-sitemap
 URLs + `/events/`.
@@ -102,7 +123,31 @@ URLs + `/events/`.
       _not_ a Fresh 301 (no per-request function invocations, no redirect hop).
 - [ ] New markup references final canonical URLs directly;
       `Cache-Control: immutable` + CF cache rule.
-- [ ] Re-runnable `migration/scripts/sync-media.ts`/rclone wrapper for deltas.
+- [x] Re-runnable rclone wrapper for deltas. _(Landed 2026-10-11:
+      `scripts/assets.ts` + `deno task assets:pull|assets:push` — plain `copy`,
+      no `--delete`.)_
+
+**Asset-serving architecture (added 2026-10-11):**
+
+- **One bucket, two prefixes**: `images/**` (this repo's assets, synced via
+  `deno task assets:push`) and `wp-content/uploads/**` (legacy WP media).
+- **Dev = local, prod = CDN**: every image path in markup goes through `asset()`
+  from `utils/assets.ts` — returns the local `static/images/...` path when
+  `ASSET_BASE_URL` is unset (dev), prefixes `https://assets.favorcare.org` when
+  set on Deno Deploy (prod). Landed 2026-10-11 (all 22 literals wrapped).
+- **`static/images/` is gitignored** — new images are published with
+  `assets:push`, never via git. Gitignored assets cannot be CI-synced (CI only
+  sees git), so publishing is a local push; that is the accepted trade-off for
+  slim deploys.
+- **No-404 sequencing for untracking**: populate the bucket → set
+  `ASSET_BASE_URL` on the Deploy project → verify prod serves images from R2 →
+  only then `git rm -r --cached static/images`. Until that point,
+  already-tracked images keep deploying; the transitional escape hatch for new
+  images is `git add -f`.
+- **R2 over Cloudinary**: R2 preserves exact legacy URL paths (Cloudinary's
+  transform-URL format cannot), has zero egress, and shares the Cloudflare
+  account with DNS. If Cloudinary's on-the-fly transforms are ever wanted, the
+  base-URL helper makes the swap a one-line change.
 
 **Gate:** every media URL from inventory resolves from R2; re-run is a no-op.
 
