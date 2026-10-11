@@ -32,8 +32,8 @@ function DonateCta() {
   return (
     <div class="group relative">
       <a
-        href="#donate"
-        class="inline-flex min-h-11 items-center justify-center rounded bg-on-primary px-5 font-bold uppercase text-white transition-colors hover:bg-on-primary/90"
+        href="/givenow"
+        class="inline-flex min-h-12 items-center justify-center rounded bg-on-primary px-5 font-bold uppercase text-white transition-colors hover:bg-on-primary/90"
       >
         Donate
       </a>

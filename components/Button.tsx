@@ -13,7 +13,7 @@ const variantClasses: Record<Variant, string> = {
   secondary:
     "min-h-12 px-6 rounded font-semibold border-2 border-primary text-primary hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container",
   donate:
-    "min-h-11 px-5 rounded font-bold text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active",
+    "min-h-12 px-5 rounded font-bold text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active",
   inverted:
     "min-h-12 px-6 rounded-full font-bold text-primary bg-on-primary hover:bg-on-primary/90",
 };
@@ -24,18 +24,30 @@ const baseClasses =
 export interface ButtonProps {
   variant?: Variant;
   href?: string;
+  /** Passed through when the button is a link (e.g. target="_blank"). */
+  target?: string;
+  rel?: string;
   type?: "button" | "submit" | "reset";
   class?: string;
   children?: ComponentChildren;
 }
 
 export function Button(
-  { variant = "primary", href, type = "button", class: extra, children }:
-    ButtonProps,
+  {
+    variant = "primary",
+    href,
+    target,
+    rel,
+    type = "button",
+    class: extra,
+    children,
+  }: ButtonProps,
 ) {
   const className = `${baseClasses} ${variantClasses[variant]} ${extra ?? ""}`;
   if (href !== undefined) {
-    return <a href={href} class={className}>{children}</a>;
+    return (
+      <a href={href} target={target} rel={rel} class={className}>{children}</a>
+    );
   }
   return <button type={type} class={className}>{children}</button>;
 }

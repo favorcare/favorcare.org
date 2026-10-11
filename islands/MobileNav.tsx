@@ -68,7 +68,7 @@ export default function MobileNav({ links = NAV }: MobileNavProps) {
               </a>
             ))}
             <Button
-              href="#donate"
+              href="/givenow"
               variant="donate"
               class="mt-2 w-full"
             >
