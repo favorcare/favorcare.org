@@ -13,5 +13,7 @@
   "assets": {
     "directory": "./_fresh/client",
     "not_found_handling": "none"
-  }
+  },
+  // Enables `wrangler preview` (Workers Builds' preview-branch deploys).
+  "previews": {}
 }
