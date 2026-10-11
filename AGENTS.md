@@ -36,6 +36,11 @@ When a token changes, update **DESIGN.md** first, then mirror it in
 - **No automatic git commands.** Do not run `git add`, `git commit`, `git push`,
   or other state-changing git commands unless explicitly asked. Read-only
   inspection (`git status`, `git diff`, `git log`) is fine.
+- **Feature branches only — never land on main yourself.** All work happens on
+  `feat/…` branches, pushed and opened as PRs for the user to review and merge.
+  Never push to `main`, never merge a PR, never commit directly on `main` — even
+  for small docs changes, and even if a plan said "commit"; plan approval covers
+  the change's content, not the merge. `main` deploys.
 - **Never SSH into the WordPress box (or any server the user operates).** The
   human runs every server-side command themselves; provide annotated,
   copy-pasteable command blocks with per-command explanations and a never-run
