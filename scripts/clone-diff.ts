@@ -24,6 +24,10 @@ interface Pair {
   page: string;
   wp: string | null; // null = not on WP (Fresh-only)
   fresh: string | null; // null = route not built yet
+  /** "chrome" = also hide header/footer/nav on both sides. Used for
+   * privacy-policy: WP serves that page a stale header template while
+   * the clone standardizes on the site-wide chrome (documented quirk). */
+  mask?: "chrome";
 }
 
 const PAIRS: Pair[] = [
@@ -50,7 +54,12 @@ const PAIRS: Pair[] = [
     wp: "/posts/five-arms-of-favor-care",
     fresh: "/posts/five-arms-of-favor-care",
   },
-  { page: "privacy-policy", wp: "/privacy-policy", fresh: "/privacy-policy" },
+  {
+    page: "privacy-policy",
+    wp: "/privacy-policy",
+    fresh: "/privacy-policy",
+    mask: "chrome",
+  },
 ];
 
 const args = Deno.args;
@@ -62,7 +71,7 @@ const OUT = outFlag !== -1
 const pagesFlag = args.findIndex((a) => a === "--pages");
 const only = pagesFlag !== -1 ? args[pagesFlag + 1].split(",") : null;
 
-async function capture(url: string, dir: string, name: string) {
+async function capture(url: string, dir: string, name: string, chrome = true) {
   const browser = await chromium.launch();
   try {
     for (const width of WIDTHS) {
@@ -83,7 +92,10 @@ async function capture(url: string, dir: string, name: string) {
           // lands in innerText); Fresh <dialog>s are display:none when
           // closed. Mask the WP popups so text parity compares page
           // content, not hidden dialogs.
-          `.dialog-widget{display:none!important}`,
+          `.dialog-widget{display:none!important}` +
+          (chrome
+            ? ""
+            : `header,footer,nav,[role=banner]{display:none!important}`),
       });
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(500);
@@ -135,7 +147,7 @@ if (mode === "reference") {
   for (const p of pairs) {
     if (!p.wp) continue;
     console.log(`reference: ${p.page} (${p.wp})`);
-    await capture(WP_BASE + p.wp, `${OUT}/reference`, p.page);
+    await capture(WP_BASE + p.wp, `${OUT}/reference`, p.page, !p.mask);
   }
   console.log(`done -> ${OUT}/reference`);
   Deno.exit(0);
@@ -160,7 +172,7 @@ for (const p of pairs) {
     continue;
   }
   console.log(`diff: ${p.page}`);
-  await capture(FRESH_BASE + p.fresh, `${OUT}/current`, p.page);
+  await capture(FRESH_BASE + p.fresh, `${OUT}/current`, p.page, !p.mask);
 
   report.push(`## ${p.page}\n`);
   report.push(`- WP \`${p.wp}\` vs Fresh \`${p.fresh}\`\n`);
