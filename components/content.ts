@@ -430,15 +430,19 @@ export const ABOUT = {
 };
 
 export const WHAT_WE_DO = {
-  // Cloned from the WP `what-we-do` page (post 1835): hero + six program
-  // blocks (label / summary / body, copy verbatim) + Donate + Take Action.
-  // No images on this page. Two Education extras ("Give the gift of
-  // Education", Legacy Offering 2022 / 2023 feeding paragraphs) are hidden
-  // on desktop in WP — skipped per the canonical-variant policy.
+  // Cloned from the WP `what-we-do` page (post 1835, staging = canonical):
+  // photo hero, six program rows (label / summary / body verbatim, each
+  // with a 3-photo slideshow), then the Donate + Take Action card pair.
+  // Two Education extras ("Give the gift of Education", Legacy Offering
+  // 2022/2023 feeding paragraphs) are hidden at every breakpoint on WP —
+  // not cloned. WP paints only Education's label + summary: the other
+  // five programs keep those boxes but hide them with visibility:hidden
+  // at every breakpoint (mirrored in the route with `invisible`).
   hero: {
     title: "What we do",
     subtitle:
       "Through sustainable community development projects, we aim to create resilient communities, addressing social, economic, and environmental challenges.",
+    image: asset("/images/pages/what-we-do/hero-kids.png"),
   },
   programs: [
     {
@@ -447,6 +451,20 @@ export const WHAT_WE_DO = {
         "We offer quality education for kids in economically deprived communities.",
       body:
         "Redemptio Christian School caters to preschoolers along the floodway in Barangay San Juan, Taytay, Rizal. We give free books, uniforms and other educational materials. Their physical health, together with the rest of their family, is also taken care of through our community medical clinic.",
+      slides: [
+        {
+          src: asset("/images/pages/what-we-do/education-1.jpg"),
+          alt: "Education program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/education-2.jpg"),
+          alt: "Education program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/education-3.jpg"),
+          alt: "Education program",
+        },
+      ],
     },
     {
       label: "Societal Reintegration:",
@@ -454,6 +472,20 @@ export const WHAT_WE_DO = {
         "We help inmates prepare for their release from their prison term.",
       body:
         "\u201cWhat\u2019s in store for me when I\u2019m out?\u201d is a question that haunts those who are awaiting release from prison. Around a thousand Persons Deprived of Liberty (PDL), commonly known as inmates, at the Correctional Institution for Women in Mandaluyong City are part of Favor Church-CIW and each Sunday, they attend services held at the maximum, medium and minimum camps. This serves as a venue for them to start a vibrant journey with God. They can experience real freedom and a new perspective that allows them to look beyond their present circumstances to the exciting life that awaits them outside. Their physical and emotional needs are also looked after through our community medical clinic and livelihood trainings to prepare them in their journey back to society.",
+      slides: [
+        {
+          src: asset("/images/pages/what-we-do/reintegration-1.jpg"),
+          alt: "Societal reintegration program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/reintegration-2.jpg"),
+          alt: "Societal reintegration program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/reintegration-3.jpg"),
+          alt: "Societal reintegration program",
+        },
+      ],
     },
     {
       label: "Disaster Relief:",
@@ -461,6 +493,20 @@ export const WHAT_WE_DO = {
         "We provide quick response and prompt assistance to disaster victims to help mitigate the devastating impact of such calamities.",
       body:
         "Early this year, a fire hit a community in Taytay, Rizal, damaging the homes of 47 families, including three students from Redemptio Christian School. The next day, Favor Care distributed food packs and sleeping implements to all the victim families. We also helped rebuild the homes of the preschoolers, with one of them, from the ground up. We also provided sewing machines to another family, whose livelihood was lost to the fire.",
+      slides: [
+        {
+          src: asset("/images/pages/what-we-do/disaster-relief-1.jpg"),
+          alt: "Disaster relief program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/disaster-relief-2.jpg"),
+          alt: "Disaster relief program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/disaster-relief-3.jpg"),
+          alt: "Disaster relief program",
+        },
+      ],
     },
     {
       label: "Community Development:",
@@ -468,6 +514,20 @@ export const WHAT_WE_DO = {
         "We initiate programs and activities to help improve the quality of life of less-resourced communities.",
       body:
         "Health is wealth. No more is this true than in financially-challenged places where medical attention is not a priority nor an option. Our community medical clinic helped treat the lingering skin problems of the women in CIW, along with their other health concerns. \u201cMasaya Maging Magulang,\u201d a positive parenting seminar for the parents and guardians of students from Redemptio Christian School, served as a safe space for them to share their challenges of disciplining their children amidst their unfortunate circumstances. All these and other projects in the pipeline are aimed at ministering to the people\u2019s basic needs and giving them a taste of the abundant life God has promised even for the here and now.",
+      slides: [
+        {
+          src: asset("/images/pages/what-we-do/community-development-1.jpg"),
+          alt: "Community development program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/community-development-2.jpg"),
+          alt: "Community development program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/community-development-3.jpg"),
+          alt: "Community development program",
+        },
+      ],
     },
     {
       label: "Training:",
@@ -475,6 +535,20 @@ export const WHAT_WE_DO = {
         "We offer training programs to empower communities to respond to the needs within their context; as well as build capacity among our volunteers, enabling them to efficiently respond to emergency situations.",
       body:
         "Favor Care organizes training as part of our capacity-building and to equip our volunteers to efficiently respond to the needs around us. Seminars, such as parenting, for instance, also address needs in the communities we are reaching. Also part of this are the conferences we organize for pastors and church leaders, to make them more effective in the task of Kingdom building.",
+      slides: [
+        {
+          src: asset("/images/pages/what-we-do/training-1.png"),
+          alt: "Training program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/training-2.jpg"),
+          alt: "Training program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/training-3.png"),
+          alt: "Training program",
+        },
+      ],
     },
     {
       label: "Partnership Resourcing:",
@@ -482,6 +556,20 @@ export const WHAT_WE_DO = {
         "We partner with other organizations for optimal resource sharing, which results in wider reach and greater impact in the communities.",
       body:
         "One organization cannot accomplish the task alone. This is why networking is very important. As much as Favor Care is blessed through the generosity of others, we are helping other like-minded organizations in terms of funding support, manpower resources and expertise so they too can accomplish their mandate.",
+      slides: [
+        {
+          src: asset("/images/pages/what-we-do/partnership-resourcing-1.jpeg"),
+          alt: "Partnership resourcing program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/partnership-resourcing-2.png"),
+          alt: "Partnership resourcing program",
+        },
+        {
+          src: asset("/images/pages/what-we-do/partnership-resourcing-3.jpg"),
+          alt: "Partnership resourcing program",
+        },
+      ],
     },
   ],
   donate: {
@@ -497,8 +585,13 @@ export const WHAT_WE_DO = {
     cta: { label: "GET INVOLVED", href: "/get-involved" },
   },
 } satisfies {
-  hero: { title: string; subtitle: string };
-  programs: { label: string; summary: string; body: string }[];
+  hero: { title: string; subtitle: string; image: string };
+  programs: {
+    label: string;
+    summary: string;
+    body: string;
+    slides: { src: string; alt: string }[];
+  }[];
   donate: { title: string; body: string; cta: Cta };
   takeAction: { title: string; body: string; cta: Cta };
 };
