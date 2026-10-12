@@ -3,6 +3,7 @@ import { Head } from "fresh/runtime";
 import { define } from "../../utils.ts";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
+import { PageHero } from "../../components/PageHero.tsx";
 import { PostCard } from "../../components/PostCard.tsx";
 import { listPosts } from "../../components/posts.ts";
 import { asset } from "../../utils/assets.ts";
@@ -40,25 +41,19 @@ export default define.page<typeof handler>(({ data }) => (
         /* Hero: WP shows the photo hero only from desktop up — below that
             the section collapses entirely and the cards lead the page. */
       }
-      <section class="relative hidden lg:block">
-        <div
-          class="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-          aria-hidden="true"
-        />
-        <div
-          class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
-          aria-hidden="true"
-        />
-        <div class="relative mx-auto flex w-full max-w-[1140px] flex-col items-center gap-4 px-5 py-25 lg:px-0 lg:pb-45">
-          <h1 class="text-center text-[70px] font-bold leading-none text-white">
-            News &amp; Updates
-          </h1>
-          <p class="mx-auto mt-4 max-w-[798px] text-center text-lg leading-relaxed text-white">
-            {INTRO}
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image={HERO_IMAGE}
+        geometry="bare"
+        sectionClass="hidden lg:block"
+        frameClass="flex flex-col items-center gap-4 py-25 lg:pb-45"
+      >
+        <h1 class="text-center text-[70px] font-bold leading-none text-white">
+          News &amp; Updates
+        </h1>
+        <p class="mx-auto mt-4 max-w-[798px] text-center text-lg leading-relaxed text-white">
+          {INTRO}
+        </p>
+      </PageHero>
 
       <section class="px-5 pt-[70px] md:px-2.5 lg:px-0 lg:pt-[46px]">
         <div class="mx-auto w-full max-w-[1140px]">

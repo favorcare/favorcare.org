@@ -3,6 +3,10 @@ import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { Container } from "../components/layout/Container.tsx";
+import { SectionHeading } from "../components/layout/SectionHeading.tsx";
+import { Eyebrow } from "../components/Eyebrow.tsx";
+import { Button } from "../components/Button.tsx";
+import { CtaBand } from "../components/CtaBand.tsx";
 import { VideoEmbed } from "../components/VideoEmbed.tsx";
 import { MapEmbed } from "../components/MapEmbed.tsx";
 import Carousel from "../islands/Carousel.tsx";
@@ -42,7 +46,7 @@ export default define.page(function Home() {
             class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
             aria-hidden="true"
           />
-          <Container class="relative">
+          <Container pad="home" class="relative">
             <h1 class="max-w-[570px] text-[38px] font-semibold leading-[0.95] tracking-[-2.3px] text-white md:text-[56px] lg:text-[70px] lg:leading-[57px]">
               {HOME.hero.headline}
             </h1>
@@ -52,7 +56,7 @@ export default define.page(function Home() {
         {
           /* Care Updates: rounded yellow card with heading, copy, and the
             campaign video header image (image hidden below tablet, as on
-            WP). */
+            WP). One-off 10px mobile gutter — not the home frame dialect. */
         }
         <section class="mx-auto w-full max-w-[1140px] px-2.5 py-16 md:px-10 md:py-20 lg:px-0 lg:pt-[30px] lg:pb-10">
           <div class="rounded-[30px] bg-yellow px-5 py-5 md:px-[50px]">
@@ -79,22 +83,21 @@ export default define.page(function Home() {
         }
         <section class="mx-auto grid w-full max-w-[1140px] items-center gap-10 px-5 pb-16 md:grid-cols-2 md:px-10 md:pb-20 lg:gap-[88px] lg:px-0">
           <div class="md:order-2">
-            <p class="text-[12px] font-bold uppercase tracking-wider text-yellow md:text-[14px]">
-              {HOME.about.eyebrow}
-            </p>
-            <h2 class="mt-3 text-[28px] font-semibold leading-tight tracking-tight text-primary md:text-[39px] lg:text-[56px]">
-              {HOME.about.title}
-            </h2>
+            <Eyebrow>{HOME.about.eyebrow}</Eyebrow>
+            <SectionHeading
+              title={HOME.about.title}
+              weight="semibold"
+              leading="tight"
+              tracking
+              class="mt-3"
+            />
             <p class="mt-5 text-[14px] leading-relaxed text-primary/80 md:text-[15px] lg:text-lg">
               {HOME.about.body}
             </p>
             <div class="mt-7">
-              <a
-                href={HOME.about.cta.href}
-                class="inline-flex min-h-12 items-center justify-center rounded-full bg-yellow px-6 text-[14px] font-bold text-black transition-opacity hover:opacity-90 md:text-lg"
-              >
+              <Button variant="yellow" size="sm" href={HOME.about.cta.href}>
                 {HOME.about.cta.label}
-              </a>
+              </Button>
             </div>
           </div>
           <div class="md:order-1">
@@ -107,12 +110,14 @@ export default define.page(function Home() {
 
         {/* What we do: centered heading + the six-program media carousel. */}
         <section class="mx-auto w-full max-w-[1140px] px-5 py-16 text-center md:px-10 md:py-20 lg:px-0">
-          <p class="text-[12px] font-bold uppercase tracking-wider text-yellow md:text-[14px]">
-            {HOME.whatWeDo.eyebrow}
-          </p>
-          <h2 class="mx-auto mt-3 max-w-[784px] text-[28px] font-semibold leading-tight tracking-tight text-primary md:text-[39px] lg:text-[56px]">
-            {HOME.whatWeDo.title}
-          </h2>
+          <Eyebrow>{HOME.whatWeDo.eyebrow}</Eyebrow>
+          <SectionHeading
+            title={HOME.whatWeDo.title}
+            weight="semibold"
+            leading="tight"
+            tracking
+            class="mx-auto mt-3 max-w-[784px]"
+          />
           <p class="mx-auto mt-5 max-w-[784px] text-[14px] leading-relaxed text-primary/80 md:text-[15px] lg:text-lg">
             {HOME.whatWeDo.body}
           </p>
@@ -126,9 +131,13 @@ export default define.page(function Home() {
             the intro line only in the tablet variant. */
         }
         <section class="mx-auto w-full max-w-[1140px] px-2.5 py-16 pb-24 md:pb-28 lg:px-0 lg:pb-32">
-          <h2 class="text-center text-[28px] font-semibold leading-tight tracking-tight text-primary md:text-[39px] lg:text-[56px]">
-            {HOME.stories.title}
-          </h2>
+          <SectionHeading
+            title={HOME.stories.title}
+            weight="semibold"
+            leading="tight"
+            tracking
+            align="center"
+          />
           <p class="mx-auto mt-5 hidden max-w-[798px] text-center text-[15px] leading-relaxed text-primary/80 md:block lg:hidden">
             {HOME.stories.intro}
           </p>
@@ -144,22 +153,11 @@ export default define.page(function Home() {
         </section>
 
         {/* Take Action: black band with centered CTA. */}
-        <section class="bg-black px-5 py-14 text-center md:py-16 lg:py-20">
-          <h2 class="text-[28px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[56px]">
-            {HOME.takeAction.title}
-          </h2>
-          <p class="mx-auto mt-5 max-w-[675px] text-[14px] leading-relaxed text-white/80 md:text-[15px] lg:text-lg">
-            {HOME.takeAction.body}
-          </p>
-          <div class="mt-7">
-            <a
-              href={HOME.takeAction.cta.href}
-              class="inline-flex min-h-12 items-center justify-center rounded-full bg-yellow px-6 text-[14px] font-bold text-black transition-opacity hover:opacity-90 md:text-lg"
-            >
-              {HOME.takeAction.cta.label}
-            </a>
-          </div>
-        </section>
+        <CtaBand
+          title={HOME.takeAction.title}
+          body={HOME.takeAction.body}
+          cta={HOME.takeAction.cta}
+        />
 
         {
           /* Portrait + Get in touch: portrait left (desktop only, as on WP)
@@ -174,9 +172,13 @@ export default define.page(function Home() {
             class="hidden aspect-[719/1024] w-full max-w-[719px] object-cover lg:block"
           />
           <div class="mx-auto w-full max-w-[642px] rounded-[30px] bg-yellow p-6 md:p-[50px]">
-            <h2 class="text-[28px] font-semibold leading-tight tracking-tight text-black md:text-[39px] lg:text-[56px]">
-              {HOME.contact.title}
-            </h2>
+            <SectionHeading
+              title={HOME.contact.title}
+              tone="black"
+              weight="semibold"
+              leading="tight"
+              tracking
+            />
             <p class="mt-4 text-[14px] leading-relaxed text-black/80 md:text-[15px] lg:text-lg">
               {HOME.contact.body}
             </p>

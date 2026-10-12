@@ -1,5 +1,4 @@
 import type { JSX } from "preact";
-import { Button } from "../components/Button.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { TextareaField } from "../components/TextareaField.tsx";
 import { CONTACT } from "../components/content.ts";
@@ -13,6 +12,10 @@ import { CONTACT } from "../components/content.ts";
 //    phone field carries the placeholder "Email" — a source quirk kept.
 // No form backend yet, so submit composes a mailto: to Favor Care's
 // inbox carrying the typed fields.
+//
+// Both SEND buttons are WP-measured one-offs (fixed 50px / outlined
+// dialects) and deliberately bypass components/Button.tsx until the
+// forms are consolidated onto a real backend.
 export default function ContactForm(
   { page = "home", newsletter = false }: {
     page?: "home" | "contact";
@@ -198,7 +201,12 @@ export default function ContactForm(
         </label>
       </div>
       <div class="sm:col-span-2">
-        <Button type="submit" variant="outline" class="text-xl">SEND</Button>
+        <button
+          type="submit"
+          class="inline-flex min-h-12 items-center justify-center rounded-full border border-primary bg-transparent px-6 text-xl font-bold text-primary transition-all hover:bg-primary hover:text-on-primary"
+        >
+          SEND
+        </button>
       </div>
     </form>
   );

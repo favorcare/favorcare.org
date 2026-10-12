@@ -1,54 +1,87 @@
 import type { ComponentChildren } from "preact";
 import { cx } from "../cx.ts";
-import { Eyebrow, type EyebrowTone } from "../Eyebrow.tsx";
+
+export type HeadingTone = "primary" | "white" | "black";
+export type HeadingWeight = "bold" | "semibold";
+export type HeadingAlign = "left" | "center" | "left-center-md";
+export type HeadingSize = "section" | "card" | "jumbo" | "56" | "32";
+
+// The section-title scale measured across the WP-clone pages:
+//  - section: 28 / 39 / 56 px (the dominant scale)
+//  - card:    25 / 30 / 36 px (what-we-do + give-now cards)
+//  - jumbo:   76 px from md up (give-now page titles; set the mobile size
+//             via `class` — pages measure 34 or 42 px)
+//  - 56:      56 px from md up (give-now tax card; mobile via `class`)
+//  - 32:      flat 32 px (give-now US/AU section titles)
+// Two weight dialects exist on WP: `bold` (subpages) and `semibold`
+// (homepage + get-involved cards). Omit `align` to inherit the parent's
+// text alignment — several pages center via their container.
+const TONES: Record<HeadingTone, string> = {
+  primary: "text-primary",
+  white: "text-white",
+  black: "text-black",
+};
+
+const WEIGHTS: Record<HeadingWeight, string> = {
+  bold: "font-bold",
+  semibold: "font-semibold",
+};
+
+const ALIGNS: Record<HeadingAlign, string> = {
+  left: "text-left",
+  center: "text-center",
+  "left-center-md": "text-left md:text-center",
+};
+
+const SIZES: Record<HeadingSize, string> = {
+  section: "text-[28px] md:text-[39px] lg:text-[56px]",
+  card: "text-[25px] md:text-[30px] lg:text-[36px]",
+  jumbo: "md:text-[76px] md:leading-none",
+  "56": "md:text-[56px] md:leading-none",
+  "32": "text-[32px]",
+};
 
 export interface SectionHeadingProps {
-  /** Optional uppercase label above the title. */
-  eyebrow?: ComponentChildren;
-  eyebrowTone?: EyebrowTone;
   title: ComponentChildren;
-  subtitle?: ComponentChildren;
-  align?: "left" | "center";
+  tone?: HeadingTone;
+  weight?: HeadingWeight;
+  /** Text alignment; omit to inherit from the parent. */
+  align?: HeadingAlign;
+  size?: HeadingSize;
+  /** `tight` for the dialects measured with leading-tight. */
+  leading?: "none" | "tight";
+  /** Adds `tracking-tight` (the homepage semibold dialect). */
+  tracking?: boolean;
+  /** Page-specific additions: margins, measures, `invisible`, lg tweaks. */
   class?: string;
 }
 
-// The repeating section intro: eyebrow + title + subtitle.
-// Default left-aligned in a 2xl measure; center for symmetric sections.
 export function SectionHeading(
   {
-    eyebrow,
-    eyebrowTone,
     title,
-    subtitle,
-    align = "left",
+    tone = "primary",
+    weight = "bold",
+    align,
+    size = "section",
+    leading = "none",
+    tracking,
     class: extra,
   }: SectionHeadingProps,
 ) {
   return (
-    <div
+    <h2
       class={cx(
-        "max-w-2xl",
-        align === "center" && "mx-auto text-center",
+        leading === "tight" ? "leading-tight" : "leading-none",
+        SIZES[size],
+        WEIGHTS[weight],
+        TONES[tone],
+        align && ALIGNS[align],
+        tracking && "tracking-tight",
         extra,
       )}
     >
-      {eyebrow !== undefined && (
-        <Eyebrow tone={eyebrowTone} class="block">{eyebrow}</Eyebrow>
-      )}
-      <h2
-        class={cx(
-          "text-3xl font-semibold tracking-tight text-on-surface md:text-4xl",
-          eyebrow !== undefined && "mt-3",
-        )}
-      >
-        {title}
-      </h2>
-      {subtitle !== undefined && (
-        <p class="mt-4 text-lg leading-relaxed text-on-surface-variant">
-          {subtitle}
-        </p>
-      )}
-    </div>
+      {title}
+    </h2>
   );
 }
 

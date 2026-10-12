@@ -1,8 +1,15 @@
 export interface MapEmbedProps {
-  /** Full maps.google.com embed URL (q=…&t=m&z=…&output=embed). */
+  /** Full maps.google.com embed URL, or a place query for `mapEmbedSrc`. */
   src: string;
   title: string;
   class?: string;
+}
+
+/** Build the no-API-key embed URL the WP google_maps widget used. */
+export function mapEmbedSrc(query: string): string {
+  return `https://www.google.com/maps?q=${
+    encodeURIComponent(query)
+  }&output=embed`;
 }
 
 // Google Maps embed for the WP google_maps widget (favor Church, EDSA

@@ -3,6 +3,9 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { PageHero } from "../components/PageHero.tsx";
+import { SectionHeading } from "../components/layout/SectionHeading.tsx";
+import { Button } from "../components/Button.tsx";
 import { GET_INVOLVED } from "../components/content.ts";
 
 // Get-involved page cloned from the WP page (post 1840, staging =
@@ -27,28 +30,18 @@ export default define.page(function GetInvolvedPage() {
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: the volunteers photo with the black→yellow gradient
-            overlay, centered title + subtitle. */
+            overlay, centered title + subtitle. WP's mobile title reads
+            "Get involved" (lowercase w) — kept as measured. */
         }
-        <section class="relative flex flex-col items-center gap-4 py-[35px] pb-10 md:py-25 lg:pb-45">
-          <div
-            class="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${GET_INVOLVED.hero.image})` }}
-            aria-hidden="true"
-          />
-          <div
-            class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
-            aria-hidden="true"
-          />
-          <div class="relative mx-auto w-full max-w-[1140px] px-5 md:px-2.5 lg:px-0">
-            <h1 class="text-center text-[38px] font-semibold leading-none text-white md:text-[56px] md:font-bold lg:text-[70px]">
-              <span class="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
-              <span class="hidden md:inline">{GET_INVOLVED.hero.title}</span>
-            </h1>
-            <p class="mx-auto mt-4 max-w-[280px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
-              {GET_INVOLVED.hero.subtitle}
-            </p>
-          </div>
-        </section>
+        <PageHero image={GET_INVOLVED.hero.image}>
+          <h1 class="text-center text-[38px] font-semibold leading-none text-white md:text-[56px] md:font-bold lg:text-[70px]">
+            <span class="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
+            <span class="hidden md:inline">{GET_INVOLVED.hero.title}</span>
+          </h1>
+          <p class="mx-auto mt-4 max-w-[280px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
+            {GET_INVOLVED.hero.subtitle}
+          </p>
+        </PageHero>
 
         {
           /* Three photo + black-card rows. The cards round only their
@@ -75,21 +68,25 @@ export default define.page(function GetInvolvedPage() {
                       : ""
                   }`}
                 >
-                  <h2 class="text-center text-[28px] font-semibold leading-none text-white md:text-[39px] lg:text-[56px]">
-                    {card.title}
-                  </h2>
+                  <SectionHeading
+                    title={card.title}
+                    tone="white"
+                    weight="semibold"
+                    align="center"
+                  />
                   <p class="max-w-[80%] text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                     {card.body}
                   </p>
-                  <a
+                  <Button
+                    variant="white"
                     href={card.cta.href}
                     {...card.cta.external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {}}
-                    class="mt-2 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-4 text-[15px] font-bold text-black transition-opacity hover:opacity-90 md:text-lg"
+                    class="mt-2"
                   >
                     {card.cta.label}
-                  </a>
+                  </Button>
                 </div>
               </div>
             </section>

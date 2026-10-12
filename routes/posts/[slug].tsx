@@ -3,6 +3,7 @@ import { Head } from "fresh/runtime";
 import { define } from "../../utils.ts";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
+import { PageHero } from "../../components/PageHero.tsx";
 import type { ArticleBlock, Post } from "../../components/posts.ts";
 import { getPost } from "../../components/posts.ts";
 
@@ -37,18 +38,19 @@ export default define.page<typeof handler>(({ data }) => {
       <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Hero: the post's cover photo with the two-line title. */}
-        <section class="relative flex flex-col items-center justify-center gap-1 py-[225px] lg:h-[633px] lg:py-0">
-          <div
-            class="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${post.hero})` }}
-            aria-hidden="true"
-          />
+        <PageHero
+          image={post.hero}
+          overlay="none"
+          geometry="bare"
+          framed={false}
+          sectionClass="justify-center gap-1 py-[225px] lg:h-[633px] lg:py-0"
+        >
           <h1 class="relative px-5 text-center text-[32px] font-semibold leading-tight text-white lg:text-[50px]">
             {post.heroLines[0]}
             <br />
             {post.heroLines[1]}
           </h1>
-        </section>
+        </PageHero>
 
         <article class="px-5 pb-24 pt-[100px] md:px-2.5 lg:px-0">
           <div class="mx-auto w-full max-w-[1120px] space-y-6">
@@ -67,7 +69,7 @@ function Block({ block }: { block: ArticleBlock }) {
       return (
         <h2
           class={`text-[22px] font-semibold leading-tight text-primary md:text-[30px] ${
-            block.yellow ? "text-[#f2b705]" : ""
+            block.yellow ? "text-article-yellow" : ""
           }`}
         >
           {block.text}
@@ -112,7 +114,7 @@ function Block({ block }: { block: ArticleBlock }) {
     case "cta":
       return (
         <div class="space-y-4 rounded-xl bg-[#f5f5f5] px-5 py-[30px] text-center">
-          <h2 class="text-[32px] font-bold leading-tight text-[#f2b705]">
+          <h2 class="text-[32px] font-bold leading-tight text-article-yellow">
             {block.heading}
           </h2>
           {block.parts.map((part, i) =>
@@ -124,9 +126,13 @@ function Block({ block }: { block: ArticleBlock }) {
               )
               : (
                 <div key={i}>
+                  {
+                    /* Article-system pill (WP `articleContentAdBreak`) —
+                      its own geometry, outside the site Button dialects. */
+                  }
                   <a
                     href={part.href}
-                    class="inline-block rounded-[30px] bg-[#f2b705] px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
+                    class="inline-block rounded-[30px] bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
                   >
                     {part.label}
                   </a>

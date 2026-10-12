@@ -3,101 +3,53 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 
 // Primitives
-import { Button } from "../components/Button.tsx";
-import { Badge } from "../components/Badge.tsx";
-import { Eyebrow } from "../components/Eyebrow.tsx";
 import { cx } from "../components/cx.ts";
-import { Container } from "../components/layout/Container.tsx";
-import { Section } from "../components/layout/Section.tsx";
+import { Button } from "../components/Button.tsx";
+import { Eyebrow } from "../components/Eyebrow.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Stat } from "../components/Stat.tsx";
-import { Checklist } from "../components/Checklist.tsx";
-import { Card } from "../components/Card.tsx";
-import { ProgramCard } from "../components/ProgramCard.tsx";
-import { FeatureCard } from "../components/FeatureCard.tsx";
-import { ProgressBar } from "../components/ProgressBar.tsx";
 import { InputField } from "../components/InputField.tsx";
+import { TextareaField } from "../components/TextareaField.tsx";
 
-// Navigation + chrome
-import { Navbar } from "../components/Navbar.tsx";
+// Page structure
+import { PageHero } from "../components/PageHero.tsx";
+import { CtaBand } from "../components/CtaBand.tsx";
+import { BankCard } from "../components/BankCard.tsx";
+import { Faq } from "../components/Faq.tsx";
+import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
+import { VideoEmbed } from "../components/VideoEmbed.tsx";
+import { PostCard } from "../components/PostCard.tsx";
+
+// Icons + real content (specimens render with real copy, never lorem)
+import {
+  BrandIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  MailIcon,
+  MenuIcon,
+  PlusIcon,
+} from "../components/icons.tsx";
+import {
+  ABOUT,
+  CAROUSEL,
+  CONTACT,
+  GIVENOW,
+  HOME,
+  POPUPS,
+  WHAT_WE_DO,
+} from "../components/content.ts";
+import { listPosts } from "../components/posts.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
-import { FooterLinkList } from "../components/FooterLinkList.tsx";
-import { NAV, UTILITY_LINKS } from "../components/navigation.ts";
+import Popup from "../islands/Popup.tsx";
+import Carousel from "../islands/Carousel.tsx";
+import Slideshow from "../islands/Slideshow.tsx";
+import ContactForm from "../islands/ContactForm.tsx";
 
-// Media
-import { Gallery } from "../components/Gallery.tsx";
-import { TestimonialCard } from "../components/TestimonialCard.tsx";
-import { TestimonialGrid } from "../components/TestimonialGrid.tsx";
-
-// Page sections
-import { Hero } from "../components/sections/Hero.tsx";
-import { Stats } from "../components/sections/Stats.tsx";
-import { Mission } from "../components/sections/Mission.tsx";
-import { Campaign } from "../components/sections/Campaign.tsx";
-import { Programs } from "../components/sections/Programs.tsx";
-import { Impact } from "../components/sections/Impact.tsx";
-import { GetInvolved } from "../components/sections/GetInvolved.tsx";
-import { DonateCTA } from "../components/sections/DonateCTA.tsx";
-import { Newsletter } from "../components/sections/Newsletter.tsx";
-
-// Real homepage content (sections render with actual copy)
-import {
-  CAMPAIGN,
-  DONATE_CTA,
-  HERO,
-  IMPACT,
-  MISSION,
-  NEWSLETTER,
-  PROGRAMS,
-  STATS,
-  WAYS_TO_HELP,
-} from "../components/content.ts";
-
-// --- Sample data for components not on the homepage --------------------------
-
-const SAMPLE_GALLERY = [
-  { alt: "Students at Redemptio", caption: "First day of classes" },
-  { alt: "CIW care packs", caption: "Packing day" },
-  { alt: "Medical mission", caption: "Quezon Province clinic" },
-  { alt: "Typhoon response", caption: "Relief distribution" },
-  { alt: "Community feeding", caption: "Saturday program" },
-  { alt: "Graduation", caption: "Class of 2025" },
-];
-
-const SAMPLE_TESTIMONIALS = [
-  {
-    quote:
-      "Before Redemptio, I never thought I’d learn to read. Now I help my little sister with her homework.",
-    name: "Maria",
-    role: "Student, Redemptio",
-  },
-  {
-    quote: "The care pack reminded me I wasn’t forgotten.",
-    name: "Ate Rosa",
-    role: "CIW recipient",
-  },
-  {
-    quote: "We sponsored a classroom and watched it fill with kids in a month.",
-    name: "The Dela Cruz Family",
-    role: "Corporate partners",
-  },
-];
-
-// --- Catalog chrome ----------------------------------------------------------
-
-const CATEGORIES = [
-  { id: "tokens", label: "Design tokens" },
-  { id: "layout", label: "Layout" },
-  { id: "content", label: "Content" },
-  { id: "actions", label: "Actions" },
-  { id: "cards", label: "Cards" },
-  { id: "data", label: "Data display" },
-  { id: "forms", label: "Forms" },
-  { id: "navigation", label: "Navigation" },
-  { id: "media", label: "Media" },
-  { id: "sections", label: "Page sections" },
-];
+// The living component catalog. Every component the real pages are built
+// from has a specimen here; COMPONENTS.md is the written reference and
+// this page is its executable counterpart. When you add a component,
+// add its specimen in the same change.
 
 function Group(
   { id, title, intro, children }: {
@@ -109,39 +61,33 @@ function Group(
 ) {
   return (
     <section id={id} class="scroll-mt-24">
-      <div class="border-b border-outline-variant/40 pb-3">
-        <h2 class="text-2xl font-bold tracking-tight text-on-surface">
+      <div class="border-b border-primary/15 pb-3">
+        <h2 class="text-[25px] font-bold leading-none text-primary md:text-[30px]">
           {title}
         </h2>
         {intro && <p class="mt-1 text-sm text-on-surface-variant">{intro}</p>}
       </div>
-      {children}
+      <div class="mt-6 space-y-6">{children}</div>
     </section>
   );
 }
 
 function Specimen(
-  { title, description, children, bleed }: {
-    title: string;
-    description?: string;
+  { label, dark, children }: {
+    label: string;
+    dark?: boolean;
     children: ComponentChildren;
-    bleed?: boolean;
   },
 ) {
   return (
-    <div class="border-b border-outline-variant/40 py-8 last:border-b-0">
-      <div class="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 class="font-mono text-base font-semibold text-on-surface">
-          {title}
-        </h3>
-        {description && (
-          <p class="text-sm text-on-surface-variant">{description}</p>
-        )}
-      </div>
+    <div>
+      <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+        {label}
+      </p>
       <div
         class={cx(
-          !bleed &&
-            "rounded-lg border border-outline-variant/40 bg-surface-dim/50 p-6",
+          "rounded-[10px] border border-primary/15 p-5",
+          dark ? "bg-black" : "bg-white",
         )}
       >
         {children}
@@ -150,526 +96,328 @@ function Specimen(
   );
 }
 
-function Swatch({ name }: { name: string }) {
-  return (
-    <div>
-      <div
-        class="h-16 rounded-md border border-outline-variant/40"
-        style={{ backgroundColor: `var(--color-${name})` }}
-      />
-      <p class="mt-1.5 font-mono text-xs text-on-surface-variant">{name}</p>
-    </div>
-  );
-}
+const BUTTON_MATRIX = [
+  { variant: "yellow", label: "yellow" },
+  { variant: "black", label: "black" },
+  { variant: "white", label: "white" },
+  { variant: "outline-white", label: "outline-white" },
+  { variant: "outline-black", label: "outline-black" },
+] as const;
 
-// --- Page --------------------------------------------------------------------
-
-export default define.page(function Storybook() {
+export default define.page(function StorybookPage() {
+  const post = listPosts()[0];
   return (
     <>
       <Head>
-        <title>Component Library — Favor Care</title>
-        <meta name="robots" content="noindex" />
+        <title>Component library — Favor Care</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
 
-      <div class="min-h-screen bg-surface text-on-surface">
-        {/* Top bar */}
-        <header class="sticky top-0 z-40 border-b border-outline-variant/40 bg-surface/90 backdrop-blur">
-          <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-wider text-primary">
-                Favor Care
-              </p>
-              <h1 class="text-lg font-bold tracking-tight">
-                Component Library
-              </h1>
-            </div>
-            <a
-              href="/"
-              class="text-sm font-semibold text-on-surface-variant transition-colors hover:text-primary"
-            >
-              ← Back to site
-            </a>
-          </div>
-        </header>
+      <Header />
+      <header class="bg-black px-5 py-10 text-center">
+        <h1 class="text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
+          Component Library
+        </h1>
+        <p class="mx-auto mt-4 max-w-[630px] text-sm text-white/80 md:text-[15px] lg:text-lg">
+          The living catalog behind COMPONENTS.md — every shared component the
+          pages are built from, rendered with real content.
+        </p>
+      </header>
 
-        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-10 lg:grid-cols-[200px_1fr]">
-          {/* Sidebar */}
-          <aside class="hidden lg:block">
-            <nav class="sticky top-24 space-y-1" aria-label="Catalog">
-              {CATEGORIES.map((c) => (
-                <a
-                  key={c.id}
-                  href={`#${c.id}`}
-                  class="block rounded px-3 py-2 text-sm font-medium text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-primary"
-                >
-                  {c.label}
-                </a>
-              ))}
-            </nav>
-          </aside>
-
-          {/* Main */}
-          <main class="min-w-0 space-y-16">
-            <Group
-              id="tokens"
-              title="Design tokens"
-              intro="Single source of truth lives in DESIGN.md, mirrored to assets/styles.css."
-            >
-              <Specimen
-                title="Color — primary & actions"
-                description="Gold is reserved for high-priority CTAs."
-              >
-                <div class="grid grid-cols-3 gap-4 sm:grid-cols-6">
-                  {[
-                    "primary",
-                    "primary-hover",
-                    "primary-active",
-                    "primary-container",
-                    "on-primary",
-                    "on-primary-container",
-                  ].map((n) => <Swatch key={n} name={n} />)}
-                </div>
-              </Specimen>
-
-              <Specimen title="Color — secondary & tertiary">
-                <div class="grid grid-cols-3 gap-4 sm:grid-cols-6">
-                  {[
-                    "secondary",
-                    "secondary-container",
-                    "on-secondary-container",
-                    "tertiary",
-                    "on-tertiary",
-                    "error",
-                  ].map((n) => <Swatch key={n} name={n} />)}
-                </div>
-              </Specimen>
-
-              <Specimen title="Color — surfaces & text">
-                <div class="grid grid-cols-3 gap-4 sm:grid-cols-6">
-                  {[
-                    "surface",
-                    "surface-bright",
-                    "surface-dim",
-                    "surface-container-low",
-                    "surface-container",
-                    "surface-container-high",
-                    "on-surface",
-                    "on-surface-variant",
-                    "outline",
-                    "outline-variant",
-                  ].map((n) => <Swatch key={n} name={n} />)}
-                </div>
-              </Specimen>
-
-              <Specimen title="Radius scale">
-                <div class="flex flex-wrap items-end gap-6">
-                  {[
-                    ["sm", "rounded-sm"],
-                    ["DEFAULT", "rounded"],
-                    ["md", "rounded-md"],
-                    ["lg", "rounded-lg"],
-                    ["xl", "rounded-xl"],
-                    ["full", "rounded-full"],
-                  ].map(([name, cls]) => (
-                    <div key={name} class="text-center">
-                      <div
-                        class={cx("h-14 w-14 bg-primary", cls)}
-                      />
-                      <p class="mt-1.5 font-mono text-xs text-on-surface-variant">
-                        {name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </Specimen>
-
-              <Specimen title="Elevation">
-                <div class="flex flex-wrap gap-6">
-                  {[
-                    ["sm", "shadow-sm"],
-                    ["md", "shadow-md"],
-                    ["lg", "shadow-lg"],
-                    ["card", "shadow-card"],
-                  ].map(([name, cls]) => (
-                    <div key={name} class="text-center">
-                      <div
-                        class={cx(
-                          "h-14 w-24 rounded-lg bg-surface",
-                          cls,
-                        )}
-                      />
-                      <p class="mt-1.5 font-mono text-xs text-on-surface-variant">
-                        {name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </Specimen>
-
-              <Specimen title="Type scale" description="Inter, 12–70px.">
-                <div class="space-y-3">
-                  <p class="text-[70px] leading-[78px] font-bold tracking-[-0.04em]">
-                    Display 70
-                  </p>
-                  <p class="text-[40px] leading-[48px] font-semibold tracking-[-0.02em]">
-                    Headline LG 40
-                  </p>
-                  <p class="text-[28px] leading-[36px] font-semibold tracking-[-0.01em]">
-                    Headline MD 28
-                  </p>
-                  <p class="text-xl font-semibold">Title LG 20</p>
-                  <p class="text-lg leading-relaxed">Body LG 18</p>
-                  <p class="text-base leading-relaxed">Body MD 16</p>
-                  <p class="text-sm font-semibold tracking-wide">Label MD 14</p>
-                  <p class="text-xs font-medium tracking-wide">Label SM 12</p>
-                </div>
-              </Specimen>
-            </Group>
-
-            <Group
-              id="layout"
-              title="Layout"
-              intro="The frame every page composes from."
-            >
-              <Specimen
-                title="<Container>"
-                description="max-w-7xl · 24px gutters"
-              >
-                <div class="rounded border border-dashed border-outline-variant">
-                  <Container>
-                    <div class="rounded bg-primary-container/60 p-4 text-center text-xs font-semibold text-on-primary-container">
-                      Container
-                    </div>
-                  </Container>
-                </div>
-              </Specimen>
-
-              <Specimen
-                title="<Section tone=…>"
-                description="5 background presets."
-              >
-                <div class="space-y-2">
-                  <Section tone="default">
-                    <div class="p-4 text-sm">default</div>
-                  </Section>
-                  <Section tone="dim">
-                    <div class="p-4 text-sm">dim</div>
-                  </Section>
-                  <Section tone="dark">
-                    <div class="p-4 text-sm">dark</div>
-                  </Section>
-                  <Section tone="primary">
-                    <div class="p-4 text-sm text-on-primary">primary</div>
-                  </Section>
-                  <Section tone="hero">
-                    <div class="p-4 text-sm">hero</div>
-                  </Section>
-                </div>
-              </Specimen>
-
-              <Specimen
-                title="<SectionHeading>"
-                description="eyebrow + title + subtitle."
-              >
-                <div class="space-y-8">
-                  <SectionHeading
-                    eyebrow="Stories & impact"
-                    title="Real lives. Measurable change."
-                    subtitle="Left-aligned, the default for narrative sections."
-                  />
-                  <SectionHeading
-                    align="center"
-                    title="Centered heading"
-                    subtitle="For symmetric, centered sections."
-                  />
-                </div>
-              </Specimen>
-            </Group>
-
-            <Group id="content" title="Content">
-              <Specimen
-                title="<Eyebrow>"
-                description="Tones: primary · container · muted · inverse."
-              >
-                <div class="flex flex-wrap items-center gap-6">
-                  <Eyebrow>Primary</Eyebrow>
-                  <Eyebrow tone="container">Container</Eyebrow>
-                  <Eyebrow tone="muted">Muted</Eyebrow>
-                  <span class="bg-on-surface px-3 py-2">
-                    <Eyebrow tone="inverse">Inverse</Eyebrow>
-                  </span>
-                </div>
-              </Specimen>
-
-              <Specimen
-                title="<Badge>"
-                description="primary · secondary · neutral."
-              >
-                <div class="flex flex-wrap items-center gap-3">
-                  <Badge>Education</Badge>
-                  <Badge variant="secondary">Prayer Hub</Badge>
-                  <Badge variant="neutral">Draft</Badge>
-                </div>
-              </Specimen>
-
-              <Specimen title="<Stat>" description="on-dark vs default.">
-                <div class="space-y-6">
-                  <div class="rounded-lg bg-on-surface p-6">
-                    <div class="grid grid-cols-3 gap-6">
-                      <Stat
-                        value="185"
-                        label="Students at Redemptio"
-                        tone="on-dark"
-                      />
-                      <Stat
-                        value="1,000+"
-                        label="CIW care packs / yr"
-                        tone="on-dark"
-                      />
-                      <Stat
-                        value="12"
-                        label="Communities served"
-                        tone="on-dark"
-                      />
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-3 gap-6">
-                    <Stat
-                      value="8 yrs"
-                      label="Of faithful service"
-                      tone="default"
+      <main class="mx-auto w-full max-w-[1140px] px-5 pb-24 pt-10 md:px-2.5 lg:px-0">
+        <div class="space-y-16">
+          <Group
+            id="tokens"
+            title="Design tokens"
+            intro="Defined in assets/styles.css @theme and documented in DESIGN.md."
+          >
+            <Specimen label="Colors (surfaces & actions)">
+              <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+                {[
+                  ["primary", "bg-primary"],
+                  ["yellow", "bg-yellow"],
+                  ["article-yellow", "bg-article-yellow"],
+                  ["black", "bg-black"],
+                  ["surface-dim", "bg-surface-dim"],
+                  ["surface-container", "bg-surface-container"],
+                  ["link", "bg-link"],
+                  ["tertiary", "bg-tertiary"],
+                ].map(([name, cls]) => (
+                  <div key={name} class="flex items-center gap-3">
+                    <span
+                      class={cx(
+                        "h-10 w-10 rounded-[10px] border border-primary/15",
+                        cls,
+                      )}
                     />
-                    <Stat value="90%+" label="To programs" tone="default" />
-                    <Stat value="₱50M" label="Campaign goal" tone="default" />
+                    <code class="text-sm text-on-surface">{name}</code>
                   </div>
-                </div>
-              </Specimen>
+                ))}
+              </div>
+            </Specimen>
+            <Specimen label="Type scales (as measured on WP)">
+              <div class="space-y-4">
+                <p class="text-[38px] font-bold leading-none text-primary md:text-[56px] lg:text-[70px]">
+                  Hero 38/56/70
+                </p>
+                <p class="text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
+                  Section 28/39/56
+                </p>
+                <p class="text-[25px] font-bold leading-none text-primary md:text-[30px] lg:text-[36px]">
+                  Card 25/30/36
+                </p>
+                <p class="text-lg leading-relaxed text-primary">
+                  Body lg — 18px, 1.5 line-height (the accessibility floor).
+                </p>
+              </div>
+            </Specimen>
+          </Group>
 
-              <Specimen title="<Checklist>">
-                <Checklist
-                  items={[
-                    "SEC-registered foundation",
-                    "Audited annual financials",
-                    "90%+ of every gift goes direct to programs",
-                    "Tax-deductible receipts (PH, US, AU)",
-                  ]}
+          <Group id="layout" title="Layout" intro="components/layout/">
+            <Specimen label='Container — pad="page" (10px gutters at 768) vs pad="home" (40px)'>
+              <div class="space-y-3">
+                <div class="mx-auto w-full max-w-[1140px] border-2 border-dashed border-primary/30 px-5 py-3 text-center text-sm md:px-2.5 lg:px-0">
+                  frame("page")
+                </div>
+                <div class="mx-auto w-full max-w-[1140px] border-2 border-dashed border-primary/30 px-5 py-3 text-center text-sm md:px-10 lg:px-0">
+                  frame("home")
+                </div>
+              </div>
+            </Specimen>
+            <Specimen label="SectionHeading — tone / weight / size / align">
+              <div class="space-y-6">
+                <SectionHeading title={ABOUT.valuesTitle} align="center" />
+                <SectionHeading
+                  title={HOME.about.title}
+                  weight="semibold"
                 />
-              </Specimen>
-            </Group>
-
-            <Group id="actions" title="Actions">
-              <Specimen
-                title="<Button>"
-                description="primary · secondary · donate · inverted."
-              >
-                <div class="flex flex-wrap items-center gap-4">
-                  <Button href="#tokens">Primary</Button>
-                  <Button variant="secondary" href="#tokens">Secondary</Button>
-                  <Button variant="donate" href="#tokens">Donate</Button>
-                  <span class="inline-flex bg-primary p-1">
-                    <Button variant="inverted" href="#tokens">Inverted</Button>
-                  </span>
-                </div>
-              </Specimen>
-              <Specimen title="<Button type=submit>">
-                <Button type="submit">Submit form</Button>
-              </Specimen>
-            </Group>
-
-            <Group id="cards" title="Cards">
-              <Specimen title="<Card>" description="base + interactive.">
-                <div class="grid gap-6 sm:grid-cols-2">
-                  <Card>
-                    <h3 class="text-lg font-semibold text-on-surface">
-                      Base card
-                    </h3>
-                    <p class="mt-2 text-sm text-on-surface-variant">
-                      A flat surface container with a hairline border.
-                    </p>
-                  </Card>
-                  <Card interactive>
-                    <h3 class="text-lg font-semibold text-on-surface">
-                      Interactive
-                    </h3>
-                    <p class="mt-2 text-sm text-on-surface-variant">
-                      Lifts on hover.
-                    </p>
-                  </Card>
-                </div>
-              </Specimen>
-
-              <Specimen title="<ProgramCard>">
-                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                  {PROGRAMS.map((p) => <ProgramCard key={p.title} {...p} />)}
-                </div>
-              </Specimen>
-
-              <Specimen title="<FeatureCard>">
-                <div class="grid gap-6 sm:grid-cols-3">
-                  <FeatureCard
-                    title="Volunteer"
-                    body="Tutor, mentor, or serve at a clinic."
-                  />
-                  <FeatureCard
-                    title="Prayer Hub"
-                    body="Submit a request and pray with us."
-                  />
-                  <FeatureCard
-                    title="Corporate Partners"
-                    body="Sponsor a classroom or a new wing."
-                  />
-                </div>
-              </Specimen>
-
-              <Specimen title="<TestimonialCard>">
-                <TestimonialCard
-                  {...SAMPLE_TESTIMONIALS[0]}
+                <SectionHeading
+                  title={GIVENOW.us.title}
+                  size="32"
+                  leading="tight"
+                  align="center"
                 />
-              </Specimen>
-            </Group>
+              </div>
+            </Specimen>
+            <Specimen label="Eyebrow">
+              <Eyebrow>{HOME.about.eyebrow}</Eyebrow>
+            </Specimen>
+          </Group>
 
-            <Group id="data" title="Data display">
-              <Specimen title="<ProgressBar>">
-                <div class="max-w-md space-y-6">
-                  <ProgressBar
-                    value={32}
-                    raised="₱16M raised"
-                    goal="32% of ₱50M goal"
-                  />
-                  <ProgressBar
-                    value={70}
-                    raised="₱35M raised"
-                    goal="70% of ₱50M goal"
-                  />
-                  <ProgressBar value={100} />
-                </div>
-              </Specimen>
-            </Group>
+          <Group id="actions" title="Actions" intro="components/Button.tsx">
+            <Specimen label="Button — variant × size (shape pill)">
+              <div class="flex flex-wrap items-center gap-4">
+                {BUTTON_MATRIX.map((v) => (
+                  <Button
+                    key={v.variant}
+                    variant={v.variant}
+                    href="#actions"
+                    class={cx(
+                      v.variant === "white" || v.variant === "outline-white"
+                        ? "bg-surface-container"
+                        : "",
+                    )}
+                  >
+                    {v.label}
+                  </Button>
+                ))}
+              </div>
+            </Specimen>
+            <Specimen label="Button — sizes sm / md / header">
+              <div class="flex flex-wrap items-center gap-4">
+                <Button variant="yellow" size="sm" href="#actions">sm</Button>
+                <Button variant="yellow" size="md" href="#actions">md</Button>
+                <Button variant="black" size="header" href="#actions">
+                  header
+                </Button>
+              </div>
+            </Specimen>
+            <Specimen label="Button — jumbo dialect (lg / xl × rounded-30 / rounded-50)">
+              <div class="flex flex-wrap items-center gap-4">
+                <Button
+                  variant="black"
+                  size="lg"
+                  shape="rounded-50"
+                  href="#actions"
+                >
+                  lg · rounded-50
+                </Button>
+                <Button
+                  variant="outline-white"
+                  size="xl"
+                  shape="rounded-30"
+                  href="#actions"
+                >
+                  xl · rounded-30
+                </Button>
+                <Button
+                  variant="outline-black"
+                  size="lg"
+                  shape="rounded-30"
+                  href="#actions"
+                >
+                  lg · rounded-30
+                </Button>
+              </div>
+            </Specimen>
+          </Group>
 
-            <Group id="forms" title="Forms">
-              <Specimen
-                title="<InputField>"
-                description="DESIGN.md input-field spec."
+          <Group
+            id="icons"
+            title="Icons"
+            intro="components/icons.tsx — the only place that imports lucide-preact / simple-icons."
+          >
+            <Specimen label="UI glyphs (lucide, stroke)">
+              <div class="flex items-center gap-8 text-primary">
+                <CloseIcon size={24} />
+                <MenuIcon size={24} />
+                <ChevronLeftIcon size={30} />
+                <ChevronRightIcon size={30} />
+                <PlusIcon size={14} />
+                <MailIcon size={22} />
+              </div>
+            </Specimen>
+            <Specimen label="Brand glyphs (simple-icons, fill)" dark>
+              <div class="flex items-center gap-8 text-white">
+                <BrandIcon name="facebook" size={22} />
+                <BrandIcon name="instagram" size={22} />
+                <BrandIcon name="youtube" size={22} />
+                <BrandIcon name="facebook" size={32} />
+                <BrandIcon name="instagram" size={32} />
+              </div>
+            </Specimen>
+          </Group>
+
+          <Group id="page-structure" title="Page structure">
+            <Specimen label="PageHero — gradient overlay shell (real about-page hero)">
+              <PageHero
+                image={ABOUT.hero.image}
+                imageClass="bg-[position:50%_0]"
               >
-                <div class="max-w-md">
-                  <InputField
-                    type="email"
-                    placeholder="your@email.com"
-                    ariaLabel="Email address"
-                  />
+                <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
+                  {ABOUT.hero.title}
+                </h1>
+              </PageHero>
+            </Specimen>
+            <Specimen label="CtaBand">
+              <CtaBand
+                title={HOME.takeAction.title}
+                body={HOME.takeAction.body}
+                cta={HOME.takeAction.cta}
+              />
+            </Specimen>
+            <Specimen label="BankCard — light (PH) / dark (US)">
+              <div class="grid gap-6 md:grid-cols-2">
+                <BankCard title={GIVENOW.ph.bankTransfer.title}>
+                  <p class="text-base text-black">
+                    {GIVENOW.ph.bankTransfer.accountName}
+                  </p>
+                  <p class="text-base text-black">
+                    {GIVENOW.ph.bankTransfer.accountNumber}
+                  </p>
+                </BankCard>
+                <BankCard tone="dark" title={GIVENOW.us.bankTransfer.title}>
+                  <p class="text-base text-[#fbf9ed]">
+                    {GIVENOW.us.bankTransfer.bank}
+                  </p>
+                  <p class="text-base text-[#fbf9ed]">
+                    {`Account Number:\u00a0${GIVENOW.us.bankTransfer.accountNumber}`}
+                  </p>
+                </BankCard>
+              </div>
+            </Specimen>
+          </Group>
+
+          <Group id="content" title="Content">
+            <Specimen label="Faq (native details/summary)">
+              <div class="mx-auto w-full max-w-[750px]">
+                <Faq items={CONTACT.faqs} />
+              </div>
+            </Specimen>
+            <Specimen label="PostCard">
+              {post && (
+                <div class="mx-auto max-w-[540px]">
+                  <PostCard post={post} />
                 </div>
-              </Specimen>
-            </Group>
-
-            <Group
-              id="navigation"
-              title="Navigation"
-              intro="Chrome shared across every page."
-            >
-              <Specimen
-                title="<Navbar>"
-                description="Desktop links (hidden below md)."
-              >
-                <div class="flex h-16 items-center rounded-lg border border-outline-variant/40 bg-surface px-6">
-                  <Navbar />
-                </div>
-              </Specimen>
-
-              <Specimen title="<FooterLinkList>">
-                <div class="rounded-lg bg-on-surface p-6">
-                  <FooterLinkList title="Explore" links={NAV} />
-                </div>
-              </Specimen>
-
-              <Specimen
-                title="<Header>"
-                description="Sticky bar: logo + Navbar + Donate + mobile menu. (Mobile menu toggles below md.)"
-                bleed
-              >
-                <div class="overflow-hidden rounded-lg border border-outline-variant/40">
-                  <Header />
-                </div>
-              </Specimen>
-
-              <Specimen title="<Footer>" bleed>
-                <div class="overflow-hidden rounded-lg border border-outline-variant/40">
-                  <Footer />
-                </div>
-              </Specimen>
-            </Group>
-
-            <Group id="media" title="Media">
-              <Specimen
-                title="<Gallery>"
-                description="Placeholder tiles (no photos yet). Click to open the lightbox."
-              >
-                <Gallery items={SAMPLE_GALLERY} columns={3} />
-              </Specimen>
-
-              <Specimen title="<TestimonialGrid>">
-                <TestimonialGrid items={SAMPLE_TESTIMONIALS} />
-              </Specimen>
-            </Group>
-
-            <Group
-              id="sections"
-              title="Page sections"
-              intro="The composed homepage sections, each driven by props."
-            >
-              <Specimen title="<Hero>" bleed>
-                <Hero {...HERO} />
-              </Specimen>
-
-              <Specimen title="<Stats>" bleed>
-                <Stats items={STATS} />
-              </Specimen>
-
-              <Specimen title="<Mission>" bleed>
-                <Mission {...MISSION} />
-              </Specimen>
-
-              <Specimen title="<Campaign>" bleed>
-                <Campaign {...CAMPAIGN} />
-              </Specimen>
-
-              <Specimen title="<Programs>" bleed>
-                <Programs
-                  title="What we do"
-                  subtitle="Our programs, organized by pillar of impact."
-                  items={PROGRAMS}
+              )}
+            </Specimen>
+            <Specimen label="VideoEmbed (lazy YouTube)">
+              <div class="mx-auto max-w-[540px]">
+                <VideoEmbed
+                  id={HOME.careUpdates.video.id}
+                  title={HOME.careUpdates.video.title}
                 />
-              </Specimen>
+              </div>
+            </Specimen>
+            <Specimen label="MapEmbed">
+              <MapEmbed
+                src={mapEmbedSrc("favor Church, edsa shangrila")}
+                title="Favor Care office location"
+              />
+            </Specimen>
+          </Group>
 
-              <Specimen title="<Impact>" bleed>
-                <Impact {...IMPACT} />
-              </Specimen>
+          <Group id="islands" title="Islands (hydrated)">
+            <Specimen label="Carousel — homepage program carousel">
+              <Carousel slides={CAROUSEL} label="What we do programs" />
+            </Specimen>
+            <Specimen label="Slideshow — what-we-do program photos">
+              <Slideshow
+                images={WHAT_WE_DO.programs[0].slides}
+                label="Education photos"
+              />
+            </Specimen>
+            <Specimen label="ContactForm — home variant">
+              <div class="rounded-[30px] bg-yellow p-6 text-black [&_a]:text-black">
+                <ContactForm newsletter />
+              </div>
+            </Specimen>
+            <Specimen label="Popup — native dialog (Prayer Hub)">
+              <Popup
+                trigger="Open the Prayer Hub popup"
+                triggerClass="font-bold text-primary underline"
+                title={POPUPS.prayerHub.title}
+                cta={POPUPS.prayerHub.cta}
+              >
+                {POPUPS.prayerHub.body}
+              </Popup>
+            </Specimen>
+          </Group>
 
-              <Specimen title="<GetInvolved>" bleed>
-                <GetInvolved
-                  title="Get involved"
-                  subtitle="There’s a place for you here. Every gift of time, skill, or prayer matters."
-                  items={WAYS_TO_HELP}
+          <Group
+            id="forms"
+            title="Forms"
+            intro="InputField / TextareaField power the ContactForm island (whose two WP-measured SEND dialects are intentionally bespoke)."
+          >
+            <Specimen label="InputField / TextareaField">
+              <div class="mx-auto grid max-w-[540px] gap-4">
+                <InputField
+                  name="sb-name"
+                  placeholder="FIRST NAME"
+                  ariaLabel="First name"
                 />
-              </Specimen>
+                <TextareaField
+                  name="sb-message"
+                  placeholder="LEAVE US A MESSAGE!"
+                  ariaLabel="Message"
+                />
+              </div>
+            </Specimen>
+          </Group>
 
-              <Specimen title="<DonateCTA>" bleed>
-                <DonateCTA {...DONATE_CTA} />
-              </Specimen>
-
-              <Specimen title="<Newsletter>" bleed>
-                <Newsletter {...NEWSLETTER} />
-              </Specimen>
-            </Group>
-
-            <footer class="border-t border-outline-variant/40 pt-6 text-sm text-on-surface-variant">
-              {NAV.length + UTILITY_LINKS.length} nav links · components in{" "}
-              <span class="font-mono">components/</span> · catalog at{" "}
-              <span class="font-mono">/storybook</span>.
-            </footer>
-          </main>
+          <Group
+            id="chrome"
+            title="Chrome &amp; islands"
+            intro="Header, Footer, Navbar and MobileNav render on this page — inspect them live. Popup, Carousel, Slideshow and ContactForm have specimens above."
+          >
+            <p class="text-sm text-on-surface-variant">
+              No specimens in this group — the chrome above and the islands in
+              the previous group are the reference.
+            </p>
+          </Group>
         </div>
-      </div>
+      </main>
+      <Footer />
     </>
   );
 });

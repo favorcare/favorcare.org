@@ -6,7 +6,8 @@ import { Container } from "../components/layout/Container.tsx";
 import { PRIVACY } from "../components/content.ts";
 
 // Privacy policy — cloned verbatim from the WP page: one dark hero + a
-// single prose column (12 sections, 30 paragraphs).
+// single prose column (12 sections, 30 paragraphs). The prose keeps its
+// own 48rem measure (a one-off, not the content frame).
 export default define.page(function PrivacyPage() {
   return (
     <>
@@ -20,7 +21,7 @@ export default define.page(function PrivacyPage() {
       <Header />
       <main id="main-content" tabIndex={-1}>
         <section class="bg-primary py-16 text-center md:py-20">
-          <Container>
+          <Container pad="page">
             <h1 class="text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl">
               {PRIVACY.title}
             </h1>
@@ -28,7 +29,7 @@ export default define.page(function PrivacyPage() {
         </section>
 
         <section class="bg-surface py-16">
-          <Container class="max-w-3xl">
+          <div class="mx-auto w-full max-w-3xl px-5 md:px-2.5 lg:px-0">
             <div class="space-y-5">
               {PRIVACY.blocks.map((b, i) =>
                 "h" in b
@@ -50,7 +51,7 @@ export default define.page(function PrivacyPage() {
                   )
               )}
             </div>
-          </Container>
+          </div>
         </section>
       </main>
       <Footer />

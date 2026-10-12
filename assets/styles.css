@@ -35,6 +35,9 @@
   --color-link-hover: #ffb428;
   /* Link Yellow as a usable surface (header DONATE pill). */
   --color-yellow: #ffb428;
+  /* The posts article system's own yellow (WP `articleContent` CSS) —
+     pull-quotes and ad-break CTA cards. Distinct from --color-yellow. */
+  --color-article-yellow: #f2b705;
 
   --color-surface: #ffffff;
   --color-surface-dim: #fbf9ed;
