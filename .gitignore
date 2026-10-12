@@ -107,3 +107,7 @@ migration/data/
 static/images/
 dist/
 .vite/
+
+# wrangler dev state + local vars (never commit)
+.wrangler/
+.dev.vars
