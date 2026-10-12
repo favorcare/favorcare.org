@@ -537,7 +537,8 @@ export const CONTACT = {
     cta: "SUBSCRIBE",
   },
   love: {
-    title: "We’d love to hear from you!",
+    // WP uses a straight apostrophe on this page (home uses curly).
+    title: "We'd love to hear from you!",
     body:
       "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
     email: "info@favorcare.org",

@@ -4,15 +4,21 @@ import { InputField } from "../components/InputField.tsx";
 import { TextareaField } from "../components/TextareaField.tsx";
 import { CONTACT } from "../components/content.ts";
 
-// Contact form island — labels match the WP form (FIRST NAME / LAST NAME /
-// EMAIL / PHONE / LEAVE US A MESSAGE! / SEND), rendered as visible labels
-// above each field as on WP. The home-page variant shows the newsletter
-// checkbox (WEEKLY below desktop on WP, MONTHLY on desktop); the
-// contact-page form does not. No form backend yet, so submit composes a
-// mailto: to Favor Care's inbox carrying the typed fields.
-export default function ContactForm({ newsletter = false }: {
-  newsletter?: boolean;
-}) {
+// Contact form island, cloned from the WP form. Two page variants:
+//  - home: two-column from sm, "LEAVE US A MESSAGE!" label, outlined
+//    SEND pill (matches the home page's yellow-card form).
+//  - contact: single-column 684px form with WP's exact labels and
+//    placeholders (FIRST NAME / LAST NAME / EMAIL / PHONE / MESSAGE),
+//    40px fields with black hairline borders, black SEND pill. WP's
+//    phone field carries the placeholder "Email" — a source quirk kept.
+// No form backend yet, so submit composes a mailto: to Favor Care's
+// inbox carrying the typed fields.
+export default function ContactForm(
+  { page = "home", newsletter = false }: {
+    page?: "home" | "contact";
+    newsletter?: boolean;
+  },
+) {
   const onSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -34,6 +40,89 @@ export default function ContactForm({ newsletter = false }: {
   };
 
   const labelClass = "mb-1 block text-sm font-semibold text-black";
+
+  if (page === "contact") {
+    const fieldClass =
+      "h-10 w-full rounded-[4px] border border-black bg-white px-3 text-base text-on-surface outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30";
+    return (
+      <form onSubmit={onSubmit} class="mx-auto w-full max-w-[684px]">
+        <label class="block">
+          <span class={labelClass}>
+            <span class="md:hidden">FIRST NAME*</span>
+            <span class="hidden md:inline">FIRST NAME</span>
+          </span>
+          <input
+            type="text"
+            name="first-name"
+            placeholder="First Name*"
+            required
+            aria-label="First name"
+            class={fieldClass}
+          />
+        </label>
+        <label class="mt-[18px] block">
+          <span class={labelClass}>
+            <span class="md:hidden">LAST NAME*</span>
+            <span class="hidden md:inline">LAST NAME</span>
+          </span>
+          <input
+            type="text"
+            name="last-name"
+            placeholder="Last Name*"
+            required
+            aria-label="Last name"
+            class={fieldClass}
+          />
+        </label>
+        <label class="mt-[18px] block">
+          <span class={labelClass}>
+            <span class="md:hidden">EMAIL*</span>
+            <span class="hidden md:inline">EMAIL</span>
+          </span>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email*"
+            required
+            aria-label="Email"
+            class={fieldClass}
+          />
+        </label>
+        <label class="mt-[18px] block">
+          <span class={labelClass}>PHONE</span>
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Email"
+            aria-label="Phone"
+            class={fieldClass}
+          />
+        </label>
+        <label class="mt-[18px] block">
+          <span class={labelClass}>
+            <span class="md:hidden">MESSAGE*</span>
+            <span class="hidden md:inline">MESSAGE</span>
+          </span>
+          <textarea
+            name="message"
+            placeholder="Message*"
+            required
+            aria-label="Message"
+            rows={3}
+            class={`${fieldClass} h-24 resize-none py-2`}
+          />
+        </label>
+        <div class="mt-6 flex justify-center">
+          <button
+            type="submit"
+            class="inline-flex h-[50px] items-center justify-center rounded-full bg-black px-6 text-lg font-bold text-white transition-opacity hover:opacity-90"
+          >
+            SEND
+          </button>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <form onSubmit={onSubmit} class="grid gap-4 sm:grid-cols-2">
