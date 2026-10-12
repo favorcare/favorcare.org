@@ -1,5 +1,6 @@
 import { useRef } from "preact/hooks";
 import type { ComponentChildren } from "preact";
+import { CloseIcon } from "../components/icons.tsx";
 
 export interface PopupCta {
   label: string;
@@ -46,18 +47,7 @@ export default function Popup(
             onClick={() => ref.current?.close()}
             class="absolute right-3 top-3 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              aria-hidden="true"
-            >
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
+            <CloseIcon size={20} />
           </button>
 
           <h2 class="pr-10 text-xl font-semibold">{title}</h2>

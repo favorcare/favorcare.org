@@ -2,6 +2,7 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { PlusIcon } from "../components/icons.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
 import { CONTACT } from "../components/content.ts";
 
@@ -54,19 +55,10 @@ export default define.page(function ContactPage() {
                 >
                   <summary class="flex min-h-[51px] cursor-pointer list-none items-center justify-between gap-4 py-3 text-base font-bold text-primary [&::-webkit-details-marker]:hidden">
                     {item.q}
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
+                    <PlusIcon
+                      size={14}
                       class="shrink-0 text-primary transition-transform duration-200 group-open:rotate-45"
-                      aria-hidden="true"
-                    >
-                      <path d="M7 1v12M1 7h12" />
-                    </svg>
+                    />
                   </summary>
                   <p class="pb-4 text-base leading-relaxed text-on-surface">
                     {item.a}

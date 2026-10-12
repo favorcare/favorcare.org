@@ -1,4 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
+import { CloseIcon } from "../components/icons.tsx";
 
 interface Active {
   src?: string;
@@ -50,18 +51,7 @@ export default function Lightbox() {
         class="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-surface transition-colors hover:bg-surface/10"
         onClick={() => setActive(null)}
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <path d="M18 6 6 18M6 6l12 12" />
-        </svg>
+        <CloseIcon size={24} />
       </button>
       <figure
         class="max-h-full max-w-4xl"

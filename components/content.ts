@@ -992,3 +992,36 @@ export const PRIVACY = {
     },
   ],
 } satisfies { title: string; blocks: ({ h: string } | { p: string })[] };
+
+// --- Footer / site chrome ----------------------------------------------------
+
+export interface SocialLink {
+  label: string;
+  href: string;
+  /** Key into `components/icons.tsx` (`BrandIcon` names, or "mail"). */
+  icon: "facebook" | "instagram" | "youtube" | "mail";
+}
+
+/** Social + email links shown in the footer icon row. */
+export const SOCIAL_LINKS: SocialLink[] = [
+  {
+    label: "Facebook",
+    href: "https://facebook.com/favorcare.ph",
+    icon: "facebook",
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com/favor.care.ph",
+    icon: "instagram",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@FavorCarePH",
+    icon: "youtube",
+  },
+  {
+    label: "Email",
+    href: "mailto:info@favorcare.org",
+    icon: "mail",
+  },
+];

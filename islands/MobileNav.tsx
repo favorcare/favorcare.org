@@ -1,5 +1,6 @@
 import { useState } from "preact/hooks";
 import { Button } from "../components/Button.tsx";
+import { CloseIcon, MenuIcon } from "../components/icons.tsx";
 import { NAV, type NavLink } from "../components/navigation.ts";
 
 export interface MobileNavProps {
@@ -22,35 +23,7 @@ export default function MobileNav({ links = NAV }: MobileNavProps) {
         onClick={() => setOpen(!open)}
         class="inline-flex h-12 w-12 items-center justify-center rounded text-black transition-colors hover:bg-black/10"
       >
-        {open
-          ? (
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              aria-hidden="true"
-            >
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
-          )
-          : (
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              aria-hidden="true"
-            >
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-          )}
+        {open ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
       </button>
 
       <div
