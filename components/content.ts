@@ -711,14 +711,22 @@ export const POPUPS = {
 };
 
 export const GET_INVOLVED = {
-  // Cloned from the WP  page (post 1840): hero + three cards.
-  // Links verbatim: newsletter -> contact#newsletter, volunteer -> the
-  // fluro.io signup form, donate -> /givenow.
+  // Cloned from the WP `get-involved` page (post 1840, staging = canonical):
+  // photo hero, then three photo+card rows (black cards with side-only
+  // radii, white pill buttons) separated by two full-width bands — the
+  // first shows a photo from md up, the second is blank on WP (its
+  // background never applies) and is cloned as an empty spacer.
+  // Links verbatim: newsletter -> contact#newsletter (WP links per-
+  // breakpoint anchors), volunteer -> the fluro.io signup form, donate ->
+  // /give → /givenow. The hero's second subhead and the lorem testimonial
+  // carousels are hidden at every breakpoint on WP — not cloned. WP's
+  // mobile hero title reads "Get involved" (lowercase w) — kept.
   hero: {
     title: "Get Involved",
+    titleMobile: "Get involved",
     subtitle:
       "Join us in caring for the poor and less privileged! There are several ways for you to be involved. Your partnership will go a long way.",
-    image: asset("/images/pages/get-involved/hero-aetas.jpg"),
+    image: asset("/images/pages/get-involved/hero.jpg"),
   },
   cards: [
     {
@@ -726,7 +734,7 @@ export const GET_INVOLVED = {
       body:
         "Learn more about the latest on Favor Care when you sign up to receive our regular newsletter Favor Carers.",
       cta: { label: "SUBSCRIBE", href: "/contact#newsletter" },
-      image: null,
+      image: asset("/images/pages/get-involved/newsletter-aetas.jpg"),
     },
     {
       title: "Volunteer",
@@ -744,17 +752,19 @@ export const GET_INVOLVED = {
       body:
         "Your donation makes a world of difference. Every donation brings hope and creates opportunities for a better future.",
       cta: { label: "GIVE", href: "/givenow" },
-      image: null,
+      image: asset("/images/pages/get-involved/donate.jpg"),
     },
   ],
+  bandPhoto: asset("/images/pages/get-involved/band-1.jpg"),
 } satisfies {
-  hero: { title: string; subtitle: string; image: string };
+  hero: { title: string; titleMobile: string; subtitle: string; image: string };
   cards: {
     title: string;
     body: string;
     cta: { label: string; href: string; external?: boolean };
-    image: string | null;
+    image: string;
   }[];
+  bandPhoto: string;
 };
 
 export const PRIVACY = {
