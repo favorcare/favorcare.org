@@ -45,6 +45,11 @@ const PAIRS: Pair[] = [
     wp: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
     fresh: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
   },
+  {
+    page: "post-five-arms",
+    wp: "/posts/five-arms-of-favor-care",
+    fresh: "/posts/five-arms-of-favor-care",
+  },
   { page: "privacy-policy", wp: "/privacy-policy", fresh: "/privacy-policy" },
 ];
 
