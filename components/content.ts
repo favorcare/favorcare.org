@@ -551,113 +551,124 @@ export const CONTACT = {
 };
 
 export const GIVENOW = {
+  // Cloned from the WP  page (post 7122) + its giving templates.
+  // Links verbatim: PH online -> PayMongo portal, US -> Zeffy (501c3),
+  // AU -> Global Development Group project J1158N.
   hero: {
-    eyebrow: "Give now",
     title: "Partner with Us by Giving",
-    primary: { label: "Give now", href: "#give" },
+    cta: { label: "GIVE NOW", href: "#give" },
   },
   howToGive: {
     title: "How to Give",
     subtitle:
       "Select your currency or location and your preferred way of giving.",
   },
-  regions: [
-    {
-      name: "Philippines",
-      methods: [
-        {
-          title: "Bank Transfer",
-          lines: [
-            "Favor Care Foundation Inc.",
-            "0019 7000 3318",
-            "Unionbank",
-          ],
-        },
-        {
-          title: "Checks",
-          lines: [
-            "Make checks payable to: Favor Care Foundation Inc.",
-            "Mail or drop it at the Favor Care office, Level 6, East Wing, Shangri-La Plaza EDSA, Mandaluyong City.",
-          ],
-        },
-        {
-          title: "Give Online",
-          lines: [
-            "Give easily through Maya, GrabPay, GCash via QRPH, or Online Banking.",
-          ],
-          cta: {
-            label: "Open Portal",
-            href: "https://paymongo.page/l/favorcaregive",
-            external: true,
-          },
-        },
-      ],
+  ph: {
+    bankTransfer: {
+      title: "Bank Transfer",
+      accountName: "Favor Care Foundation Inc.",
+      accountNumber: "0019 7000 3318",
+      bank: "Unionbank",
     },
-    {
-      name: "United States (USD)",
+    checks: {
+      title: "Checks",
+      payable: "Make checks payable to:",
+      address:
+        "Mail or drop it at the Favor Care office, Level 6, East Wing, Shangril-La Plaza EDSA, Mandaluyong City",
+    },
+    online: {
+      title: "Give Online",
+      body:
+        "Give easily through Maya, GrabPay, GCash via QRPH, or Online Banking.",
+      cta: {
+        label: "Open Portal",
+        href: "https://paymongo.page/l/favorcaregive",
+      },
+    },
+    taxDeductible: {
+      title: "Tax‑Deductible Giving",
       intro:
-        "If you’re giving from the United States, you can send your donation through Favor Foundation USA Inc., our registered 501(c)(3) nonprofit organization. All contributions made through Favor Foundation USA Inc. are tax-deductible to the extent permitted by law.",
-      methods: [
-        {
-          title: "Bank Transfer",
-          lines: [
-            "JP Morgan Chase Bank",
-            "Account Name: Favor Foundation USA Inc.",
-            "Account Number: 699 709 021",
-            "SWIFT Code: CHASSUS33",
-            "Routing Number: 02100002",
-          ],
-        },
-        {
-          title: "Give Online",
-          cta: {
-            label: "Credit / Debit",
-            href:
-              "https://www.zeffy.com/en-US/donation-form/bbd839f7-8d34-428c-891c-3b16fa35a374",
-            external: true,
-          },
-        },
+        "For tax deductible giving, fill out this form or send an email to finance@favorcare.org with the details of your donation.",
+      fields: [
+        "CONTACT NAME",
+        "CONTACT EMAIL",
+        "BUSINESS NAME",
+        "BUSINESS ADDRESS",
+        "BUSINESS TIN",
+        "BIR FORM 2303",
+        "PROOF OF DONATION",
       ],
+      submit: "SUBMIT",
+      recipient: "finance@favorcare.org",
     },
-    {
-      name: "Australia (AUD)",
-      methods: [
-        {
-          title: "Give Online",
-          lines: [
-            "Click the J1158N (FAVOR FOUNDATION COMMUNITY DEVELOPMENT) under Credit Card Tab to Donate.",
-          ],
-          cta: {
-            label: "Donate through Global Development Group",
-            href:
-              "https://globaldevelopmentgroup.org/Donate?projectNum=J1158N&projectName=Favor%20Foundation%20Community%20Development&cgn=false&goCc=true",
-            external: true,
-          },
-        },
-      ],
-    },
-  ] satisfies GiveRegion[],
-  tax: {
-    title: "Tax-Deductible Giving",
+  },
+  us: {
+    title: "United States (USD)",
     body:
-      "Favor Care is accredited by the Philippine Council for NGO Certification (PCNC). Donations may qualify as tax-deductible for corporate or individual taxpayer who itemize deductions* under the regular income tax system.",
-    footnote:
-      "*Excludes employed individuals and self-employed individuals who have opted for the 8% gross income tax rate.",
-    certRequest: {
-      label: "Request for Certificate of Donation",
+      "If you’re giving from the United States, you can send your donation through Favor Foundation USA Inc., our registered 501(c)(3) nonprofit organization. All contributions made through Favor Foundation USA Inc. are tax-deductible to the extent permitted by law.",
+    bankTransfer: {
+      title: "Bank Transfer",
+      bank: "JP Morgan Chase Bank",
+      accountName: "Favor Foundation USA Inc.",
+      accountNumber: "699 709 021",
+      swift: "CHASSUS33",
+      routing: "02100002",
+    },
+    creditDebit: {
+      label: "Credit / Debit",
       href:
-        "mailto:info@favorcare.org?subject=Request%20for%20Certificate%20of%20Donation",
+        "https://www.zeffy.com/en-US/donation-form/bbd839f7-8d34-428c-891c-3b16fa35a374",
+    },
+  },
+  au: {
+    title: "Australia (AUD)",
+    body: "Donate through Global Development Group",
+    body2:
+      "Click the J1158N (FAVOR FOUNDATION COMMUNITY DEVELOPMENT) under Credit Card Tab to Donate.",
+    cta: {
+      label: "Donate through Global Development Group",
+      href:
+        "https://globaldevelopmentgroup.org/Donate?projectNum=J1158N&projectName=Favor%20Foundation",
     },
   },
 } satisfies {
-  hero: { eyebrow: string; title: string; primary: Cta };
+  hero: { title: string; cta: Cta };
   howToGive: { title: string; subtitle: string };
-  regions: GiveRegion[];
-  tax: {
+  ph: {
+    bankTransfer: {
+      title: string;
+      accountName: string;
+      accountNumber: string;
+      bank: string;
+    };
+    checks: { title: string; payable: string; address: string };
+    online: { title: string; body: string; cta: Cta };
+    taxDeductible: {
+      title: string;
+      intro: string;
+      fields: string[];
+      submit: string;
+      recipient: string;
+    };
+  };
+  us: {
     title: string;
     body: string;
-    footnote: string;
-    certRequest: { label: string; href: string };
+    bankTransfer: {
+      title: string;
+      bank: string;
+      accountName: string;
+      accountNumber: string;
+      swift: string;
+      routing: string;
+    };
+    creditDebit: { label: string; href: string };
+  };
+  au: {
+    title: string;
+    body: string;
+    body2: string;
+    cta: Cta;
   };
 };
 
