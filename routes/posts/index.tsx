@@ -60,7 +60,7 @@ export default define.page<typeof handler>(({ data }) => (
             ))}
           </nav>
           <div class="mt-10 flex flex-col gap-5">
-            {data.posts.map((p) => <PostCard post={p} />)}
+            {data.posts.map((p) => <PostCard key={p.slug} post={p} />)}
           </div>
         </Container>
       </section>
