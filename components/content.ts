@@ -655,12 +655,19 @@ export const CONTACT = {
 };
 
 export const GIVENOW = {
-  // Cloned from the WP  page (post 7122) + its giving templates.
-  // Links verbatim: PH online -> PayMongo portal, US -> Zeffy (501c3),
-  // AU -> Global Development Group project J1158N.
+  // Cloned from the WP `givenow` page (post 7122, staging = canonical) +
+  // its giving templates. Links verbatim: PH online -> PayMongo portal,
+  // US -> Zeffy (501c3), AU -> Global Development Group project J1158N.
+  // WP quirks kept: on mobile the Tax-Deductible card renders ABOVE the
+  // hero (it is the only desktop-set block without hide flags), the US
+  // bank details differ per breakpoint (Chase on desktop, Bank of
+  // America on mobile — flagged as content rot for stakeholder sign-off),
+  // and the PH Give Online button reads "Open Portal" on desktop but
+  // "Credit / Debit" on mobile.
   hero: {
     title: "Partner with Us by Giving",
     cta: { label: "GIVE NOW", href: "#give" },
+    image: asset("/images/pages/give-now/hero.jpg"),
   },
   howToGive: {
     title: "How to Give",
@@ -676,9 +683,10 @@ export const GIVENOW = {
     },
     checks: {
       title: "Checks",
-      payable: "Make checks payable to:",
+      // WP breaks this after the colon and uses an nbsp after "office,".
+      payable: "Make checks payable to:\u00a0Favor Care Foundation Inc.",
       address:
-        "Mail or drop it at the Favor Care office, Level 6, East Wing, Shangril-La Plaza EDSA, Mandaluyong City",
+        "Mail or drop it at the Favor Care office,\u00a0Level 6, East Wing, Shangril-La Plaza EDSA, Mandaluyong City",
     },
     online: {
       title: "Give Online",
@@ -686,6 +694,7 @@ export const GIVENOW = {
         "Give easily through Maya, GrabPay, GCash via QRPH, or Online Banking.",
       cta: {
         label: "Open Portal",
+        labelMobile: "Credit / Debit",
         href: "https://paymongo.page/l/favorcaregive",
       },
     },
@@ -708,8 +717,12 @@ export const GIVENOW = {
   },
   us: {
     title: "United States (USD)",
+    // WP renders this as two lines (a <br> after "Inc.,") with an nbsp
+    // before the company name.
     body:
-      "If you’re giving from the United States, you can send your donation through Favor Foundation USA Inc., our registered 501(c)(3) nonprofit organization. All contributions made through Favor Foundation USA Inc. are tax-deductible to the extent permitted by law.",
+      "If you’re giving from the United States, you can send your donation through\u00a0Favor Foundation USA Inc.,",
+    body2:
+      "our registered 501(c)(3) nonprofit organization. All contributions made through Favor Foundation USA Inc. are tax-deductible to the extent permitted by law.",
     bankTransfer: {
       title: "Bank Transfer",
       bank: "JP Morgan Chase Bank",
@@ -717,6 +730,13 @@ export const GIVENOW = {
       accountNumber: "699 709 021",
       swift: "CHASSUS33",
       routing: "02100002",
+    },
+    // WP's mobile variant shows a different institution entirely.
+    bankTransferMobile: {
+      accountName: "Favor Foundation USA Inc.",
+      accountNumber: "3251 3784 7345",
+      achRouting: "121000358",
+      bank: "Bank of America",
     },
     creditDebit: {
       label: "Credit / Debit",
@@ -728,7 +748,7 @@ export const GIVENOW = {
     title: "Australia (AUD)",
     body: "Donate through Global Development Group",
     body2:
-      "Click the J1158N (FAVOR FOUNDATION COMMUNITY DEVELOPMENT) under Credit Card Tab to Donate.",
+      "Click the\u00a0J1158N\u00a0(FAVOR FOUNDATION COMMUNITY DEVELOPMENT) under Credit Card Tab to Donate.",
     cta: {
       label: "Donate through Global Development Group",
       href:
@@ -736,7 +756,7 @@ export const GIVENOW = {
     },
   },
 } satisfies {
-  hero: { title: string; cta: Cta };
+  hero: { title: string; cta: Cta; image: string };
   howToGive: { title: string; subtitle: string };
   ph: {
     bankTransfer: {
@@ -746,7 +766,11 @@ export const GIVENOW = {
       bank: string;
     };
     checks: { title: string; payable: string; address: string };
-    online: { title: string; body: string; cta: Cta };
+    online: {
+      title: string;
+      body: string;
+      cta: { label: string; labelMobile: string; href: string };
+    };
     taxDeductible: {
       title: string;
       intro: string;
@@ -758,6 +782,7 @@ export const GIVENOW = {
   us: {
     title: string;
     body: string;
+    body2: string;
     bankTransfer: {
       title: string;
       bank: string;
@@ -765,6 +790,12 @@ export const GIVENOW = {
       accountNumber: string;
       swift: string;
       routing: string;
+    };
+    bankTransferMobile: {
+      accountName: string;
+      accountNumber: string;
+      achRouting: string;
+      bank: string;
     };
     creditDebit: { label: string; href: string };
   };
