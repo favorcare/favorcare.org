@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
+import { ChevronLeftIcon, ChevronRightIcon } from "../components/icons.tsx";
 
 export interface CarouselSlide {
   src: string;
@@ -93,19 +94,7 @@ export default function Carousel({ slides, label }: CarouselProps) {
           onClick={() => go(-1)}
           class="absolute -left-2.5 top-[38%] flex h-12 w-12 items-center justify-center text-white md:-left-3 lg:-left-[57px]"
         >
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          <ChevronLeftIcon size={30} />
         </button>
         <button
           type="button"
@@ -113,19 +102,7 @@ export default function Carousel({ slides, label }: CarouselProps) {
           onClick={() => go(1)}
           class="absolute -right-2.5 top-[38%] flex h-12 w-12 items-center justify-center text-white md:-right-3 lg:-right-[57px]"
         >
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
+          <ChevronRightIcon size={30} />
         </button>
       </div>
 
