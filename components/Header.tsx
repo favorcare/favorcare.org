@@ -1,15 +1,20 @@
+import { asset } from "../utils/assets.ts";
 import { Navbar } from "./Navbar.tsx";
 import MobileNav from "../islands/MobileNav.tsx";
 
-// Sticky black header bar (WP template `new-header`, post 1243): white
-// two-line logo left, small uppercase nav center, yellow DONATE pill right.
-// Small screens use the burger (MobileNav island).
+// Yellow header bar (WP template `new-header`, post 1243): full-color logo
+// left, white capitalized nav center, black DONATE pill right. Static — WP
+// does not pin the header. Small screens use the burger (MobileNav island).
 export function Header() {
   return (
-    <header class="sticky top-0 z-50 bg-black py-[10px]">
-      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6">
+    <header class="relative bg-yellow py-2.5 lg:py-[10px]">
+      <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-5 md:px-10">
         <a href="/" class="flex items-center" aria-label="Favor Care home">
-          <img src="/logo-white.svg" alt="Favor Care" class="h-10 w-auto" />
+          <img
+            src={asset("/images/logo-color.png")}
+            alt="Favor Care"
+            class="h-[50px] w-auto lg:h-[60px]"
+          />
         </a>
 
         <Navbar />
@@ -17,9 +22,9 @@ export function Header() {
         <div class="flex items-center gap-2">
           <a
             href="/givenow"
-            class="inline-flex min-h-12 items-center justify-center rounded-full bg-yellow px-6 text-sm font-bold uppercase tracking-wider text-primary transition-opacity hover:opacity-90"
+            class="inline-flex min-h-12 items-center justify-center rounded-full bg-black px-6 text-base font-bold text-white transition-opacity hover:opacity-90 lg:text-lg"
           >
-            Donate
+            DONATE
           </a>
           <MobileNav />
         </div>

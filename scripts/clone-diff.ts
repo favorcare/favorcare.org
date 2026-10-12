@@ -73,7 +73,12 @@ async function capture(url: string, dir: string, name: string) {
       }
       await page.addStyleTag({
         content:
-          `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}`,
+          `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}` +
+          // WP renders unopened Elementor popups into the DOM (their text
+          // lands in innerText); Fresh <dialog>s are display:none when
+          // closed. Mask the WP popups so text parity compares page
+          // content, not hidden dialogs.
+          `.dialog-widget{display:none!important}`,
       });
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(500);

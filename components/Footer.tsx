@@ -19,13 +19,13 @@ const SOCIALS = [
       "M12 2.2c2.7 0 3 .01 4.06.06 1.05.05 1.63.22 2.01.37.5.2.87.43 1.25.81.38.38.62.75.81 1.25.15.38.32.96.37 2.01.05 1.06.06 1.36.06 4.06s-.01 3-.06 4.06c-.05 1.05-.22 1.63-.37 2.01-.2.5-.43.87-.81 1.25-.38.38-.75.62-1.25.81-.38.15-.96.32-2.01.37-1.06.05-1.36.06-4.06.06s-3-.01-4.06-.06c-1.05-.05-1.63-.22-2.01-.37-.5-.2-.87-.43-1.25-.81-.38-.38-.62-.75-.81-1.25-.15-.38-.32-.96-.37-2.01C2.21 15 2.2 14.7 2.2 12s.01-3 .06-4.06c.05-1.05.22-1.63.37-2.01.2-.5.43-.87.81-1.25.38-.38.75-.62 1.25-.81.38-.15.96-.32 2.01-.37C7.76 2.21 8.06 2.2 12 2.2Zm0 5.3a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm0 7.42a2.92 2.92 0 1 1 0-5.84 2.92 2.92 0 0 1 0 5.84Zm5.74-7.6a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0Z",
   },
   {
-    label: "YouTube",
+    label: "Youtube",
     href: "https://www.youtube.com/@FavorCarePH",
     path:
       "M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42A2.5 2.5 0 0 0 2.42 7.2 26.2 26.2 0 0 0 2 12a26.2 26.2 0 0 0 .42 4.81 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77A26.2 26.2 0 0 0 22 12a26.2 26.2 0 0 0-.42-4.81ZM10 15.13V8.87L15.25 12 10 15.13Z",
   },
   {
-    label: "Email",
+    label: "Envelope",
     href: "mailto:info@favorcare.org",
     path:
       "M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.24-8 4.76-8-4.76V6l8 4.75L20 6v2.24Z",
@@ -40,7 +40,7 @@ export function Footer() {
 
         <ul class="flex items-center gap-5" aria-label="Social media">
           {SOCIALS.map((s) => (
-            <li>
+            <li key={s.label}>
               <a
                 href={s.href}
                 aria-label={s.label}
@@ -55,6 +55,7 @@ export function Footer() {
                 >
                   <path d={s.path} />
                 </svg>
+                <span class="sr-only">{s.label}</span>
               </a>
             </li>
           ))}
@@ -67,17 +68,14 @@ export function Footer() {
         </p>
 
         <p class="max-w-xl text-sm leading-relaxed text-white/80">
-          Level 6 East Wing, Mall, Shangri-La Plaza, EDSA, Shaw Blvd.,
+          Level 6 East Wing, Mall, Shangri-La Plaza, EDSA, Shaw Blvd,
           Mandaluyong, 1552 Metro Manila, Philippines
         </p>
 
         <div class="flex flex-col items-center gap-3">
-          <p class="text-xs font-semibold uppercase tracking-wider text-white/80">
-            Accredited by:
-          </p>
           <Popup
-            trigger="View our accreditation"
-            triggerClass="text-xs font-semibold uppercase tracking-wider underline text-white/80 hover:text-yellow"
+            trigger="Accredited by:"
+            triggerClass="text-xs font-semibold tracking-wider text-white/80 underline hover:text-yellow"
             title={POPUPS.accreditation.title}
             cta={POPUPS.accreditation.cta}
           >
