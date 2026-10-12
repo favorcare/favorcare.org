@@ -44,8 +44,14 @@ so paths look like `r2:favorcare-media/images`.
 Sanity check (read-only):
 
 ```sh
-rclone lsd r2:            # lists buckets — should show favorcare-media
+rclone lsd r2:favorcare-media/
 ```
+
+Lists the prefixes **inside** the bucket — no output + exit 0 is success (the
+bucket is new/empty). Do NOT use `rclone lsd r2:` here: that calls S3
+ListBuckets, an account-level API that the bucket-scoped token we created in
+Part A deliberately cannot call — it fails with `403 AccessDenied` even though
+everything is configured correctly.
 
 ## Part C — uploads (both are plain `copy`, nothing can be deleted)
 
@@ -80,8 +86,9 @@ If the custom domain was just attached, give the DNS/SSL a minute or two.
 
 Once prod is ready to serve from R2 (MIGRATION.md Phase 2, before cutover):
 
-1. Set `ASSET_BASE_URL=https://assets.staging.favorcare.media` on the Deno
-   Deploy project — every `asset()` URL flips to the CDN.
+1. Set `ASSET_BASE_URL=https://assets.staging.favorcare.media` on the Cloudflare
+   Workers project (Worker → Settings → Variables; the site retargeted from Deno
+   Deploy to Workers in PR #5) — every `asset()` URL flips to the CDN.
 2. Verify the deployed site's images still load.
 3. Only then untrack local copies: `git rm -r --cached static/images`.
 
