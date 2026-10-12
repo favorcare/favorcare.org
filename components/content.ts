@@ -318,26 +318,30 @@ export const NEWSLETTER = {
 } satisfies { title: string; body: string };
 
 export const ABOUT = {
-  // Cloned from the WP `about` page (post 1831): hero, mission/vision,
-  // core values, 4-photo gallery, team of five, take action. No
-  // accountability or banner sections on the canonical (staging) page.
+  // Cloned from the WP `about` page (post 1831, staging = canonical):
+  // photo hero, mission/vision split rows, core values, 2×2 gallery,
+  // five-person team, take action. Copy verbatim; geometry follows the
+  // measured WP layout at 360/768/1280.
+  // WP hides at every breakpoint (not cloned): the hero subhead "Explore
+  // our journey…", the Financial Accountability section (a dead Figma
+  // embed), and the three get-involved call-to-action cards.
   hero: {
-    eyebrow: "About us",
-    title: "Explore our journey and join us in making a difference.",
-    subtitle:
+    title: "About us",
+    body:
       "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
-    image: asset("/images/pages/who-we-are/hero-kids.png"),
+    image: asset("/images/pages/who-we-are/hero-bg.jpg"),
   },
   mission: {
     label: "Mission",
     body:
       "To develop and fund projects for the marginalized that address needs of homelessness, hunger, poverty, and education in the Philippines.",
-    image: asset("/images/pages/who-we-are/mission.jpg"),
+    image: asset("/images/pages/who-we-are/mission.png"),
   },
   vision: {
     label: "Vision",
     body:
       "To create a better future by giving hope and opportunities to those who are trapped by poverty and circumstances beyond their control.",
+    image: asset("/images/pages/who-we-are/vision.jpg"),
   },
   valuesTitle: "Core Values",
   values: [
@@ -352,7 +356,9 @@ export const ABOUT = {
     "Inclusivity",
     "Faith-based",
   ],
-  // Canonical 4 images (the tree repeats them per breakpoint).
+  // Canonical 4 images in the desktop/tablet order; the mobile variant of
+  // the WP gallery reorders them (huddle, volunteers, aetas, dental),
+  // which the route applies with order utilities below md.
   gallery: [
     {
       src: asset("/images/pages/who-we-are/gallery-volunteers.jpg"),
@@ -412,12 +418,12 @@ export const ABOUT = {
     title: "Take Action",
     body:
       "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
-    cta: { label: "Get involved", href: "/get-involved" },
+    cta: { label: "GET INVOLVED", href: "/get-involved" },
   },
 } satisfies {
-  hero: { eyebrow: string; title: string; subtitle: string; image: string };
+  hero: { title: string; body: string; image: string };
   mission: { label: string; body: string; image: string };
-  vision: { label: string; body: string };
+  vision: { label: string; body: string; image: string };
   valuesTitle: string;
   values: string[];
   gallery: { src: string; alt: string }[];
