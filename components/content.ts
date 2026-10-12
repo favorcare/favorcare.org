@@ -74,27 +74,29 @@ export interface GiveRegion {
   methods: GiveMethod[];
 }
 
-// Homepage v2 — cloned from the WP `favor-care-homepage` page (post 6002).
-// Copy is verbatim from the source (reference text + widget trees); images
-// point at WP media until the R2 URL flip (MIGRATION.md Phase 2).
+// Homepage — cloned from the WP `favor-care-homepage` page (post 6002,
+// staging = canonical). Copy is verbatim; layout follows the measured WP
+// geometry. Widgets WP hides at every breakpoint (Prayer Hub kicker, hero
+// subhead, "See Event" button, TESTIMONY lorem carousel, About's second
+// paragraph) are deliberately absent.
 export const HOME = {
   hero: {
-    kicker: "JOIN THE PRAYER HUB",
     headline: "Giving hope for a better future to those in need.",
+    image: asset("/images/pages/home/hero-bg.jpg"),
   },
   careUpdates: {
-    label: "Care Updates:",
+    heading: "Care Updates:",
     body:
       "Favor Care is currently seeking Corporate Sponsorship to raise ₱50 million to expand the school — purchasing an additional lot of land, and for the construction of school facilities that will allow us to expand into Grades 1-3 and eventually 4-6, significantly increasing school intake and providing education to children who would otherwise have no access to it. Currently, the school has 185 students. With the added classrooms, Redemptio Christian School can provide free education to over 500 students.",
-    cta: { label: "See Event", href: "/pampanga-2024" },
+    image: asset("/images/pages/home/care-updates-yt-header.png"),
+    imageAlt: "Care Updates video header",
+    video: { id: "zPlPPJDo-ew", title: "Redemptio Christian School expansion" },
   },
   about: {
     eyebrow: "ABOUT US",
     title: "Building hope and transforming lives",
     body:
       "Through our dedicated efforts in education, societal integration, disaster relief, and community development, we empower individuals and communities to overcome adversity.",
-    body2:
-      "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
     cta: { label: "LEARN MORE", href: "/who-we-are" },
   },
   whatWeDo: {
@@ -102,31 +104,23 @@ export const HOME = {
     title: "We address the needs that are right in front of us.",
     body:
       "Favor Care serves different communities through innovative projects and partnerships. By focusing on these critical areas, we strive to make a meaningful impact and inspire hope for a better future for them.",
-    // Order matches the rendered page.
-    programs: [
-      "Community Development",
-      "Trainings",
-      "Partnership Resourcing",
-      "Education",
-      "Societal Reintegration",
-      "Disaster Relief",
-    ],
   },
   stories: {
     title: "Stories of changed lives",
+    // WP shows this intro only in the tablet (768px) variant.
     intro:
       "From empowering individuals with education and skills to fostering inclusive communities and providing vital relief during crises, our efforts have made a tangible impact.",
     body:
       "The story of people touched through Favor Care. Be it a bar of soap or a can of sardines they receive, or medical attention for a skin problem, a newly rebuilt house gutted down by fire or a prayer for blessing, God moves in their heart. And they are never the same again.",
-    image:
-      "https://staging.favorcare.org/wp-content/uploads/2024/05/DSCF0091-scaled-e1714462620229-1024x682.jpg",
-    imageAlt: "A Favor Care community outreach",
+    video: { id: "ujLV_UJCscc", title: "Stories of changed lives" },
   },
   takeAction: {
     title: "Take Action",
     body:
       "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
     cta: { label: "GET INVOLVED", href: "/get-involved" },
+    image: asset("/images/pages/home/take-action-portrait.jpg"),
+    imageAlt: "A Favor Care outreach beneficiary smiling",
   },
   contact: {
     title: "Get in touch with us",
@@ -135,6 +129,11 @@ export const HOME = {
     loveTitle: "We'd love to hear from you!",
     loveBody:
       "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
+    map: {
+      src:
+        "https://maps.google.com/maps?q=favor%20Church%2C%20edsa%20Shangrila&t=m&z=16&output=embed&iwloc=near",
+      title: "Favor Church at EDSA Shangri-La on Google Maps",
+    },
   },
 };
 
@@ -157,35 +156,50 @@ export const HERO = {
 
 export interface CarouselSlide {
   src: string;
+  alt?: string;
   caption: string;
+  href?: string;
 }
 
-// Homepage program carousel — order follows WHAT_WE_DO.programs. The photos
-// are decorative; the visible captions carry the program names.
+// Homepage "What We Do" media carousel — slide order and photos match the
+// canonical (staging) WP carousel; each slide links to its program page
+// section. The photos are decorative backgrounds; captions carry the names.
 export const CAROUSEL: CarouselSlide[] = [
   {
-    src: asset("/images/pages/home/carousel-education.jpg"),
+    src: asset("/images/pages/home/whatwedo-education.jpg"),
+    alt: "Education program",
     caption: "Education",
+    href: "/what-we-do",
   },
   {
-    src: asset("/images/pages/home/carousel-reintegration.jpg"),
+    src: asset("/images/pages/home/whatwedo-societal-reintegration.jpg"),
+    alt: "Societal reintegration program",
     caption: "Societal Reintegration",
+    href: "/what-we-do",
   },
   {
-    src: asset("/images/pages/home/carousel-disaster-relief.jpeg"),
+    src: asset("/images/pages/home/whatwedo-disaster-relief.jpeg"),
+    alt: "Disaster relief program",
     caption: "Disaster Relief",
+    href: "/what-we-do",
   },
   {
-    src: asset("/images/pages/home/carousel-community-development.jpg"),
+    src: asset("/images/pages/home/whatwedo-community-development.jpg"),
+    alt: "Community development program",
     caption: "Community Development",
+    href: "/what-we-do",
   },
   {
-    src: asset("/images/pages/home/carousel-trainings.jpg"),
-    caption: "Training",
+    src: asset("/images/pages/home/whatwedo-trainings.jpg"),
+    alt: "Trainings program",
+    caption: "Trainings",
+    href: "/what-we-do",
   },
   {
-    src: asset("/images/pages/home/carousel-partnership-resources.jpg"),
+    src: asset("/images/pages/home/whatwedo-partnership-resourcing.jpg"),
+    alt: "Partnership resourcing program",
     caption: "Partnership Resourcing",
+    href: "/what-we-do",
   },
 ];
 
@@ -312,14 +326,13 @@ export const ABOUT = {
     title: "Explore our journey and join us in making a difference.",
     subtitle:
       "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
-    image: "https://staging.favorcare.org/wp-content/uploads/2024/07/kids2.png",
+    image: asset("/images/pages/who-we-are/hero-kids.png"),
   },
   mission: {
     label: "Mission",
     body:
       "To develop and fund projects for the marginalized that address needs of homelessness, hunger, poverty, and education in the Philippines.",
-    image:
-      "https://staging.favorcare.org/wp-content/uploads/2025/09/FVR06030-scaled-e1757008150302.jpg",
+    image: asset("/images/pages/who-we-are/mission.jpg"),
   },
   vision: {
     label: "Vision",
@@ -342,23 +355,19 @@ export const ABOUT = {
   // Canonical 4 images (the tree repeats them per breakpoint).
   gallery: [
     {
-      src:
-        "https://staging.favorcare.org/wp-content/uploads/2024/06/FCX09979-scaled.jpg",
+      src: asset("/images/pages/who-we-are/gallery-volunteers.jpg"),
       alt: "Favor Care volunteers gathered on outreach",
     },
     {
-      src:
-        "https://staging.favorcare.org/wp-content/uploads/2024/05/Dental-Mission-11-scaled.jpg",
+      src: asset("/images/pages/who-we-are/gallery-dental-mission.jpg"),
       alt: "Dental mission outreach",
     },
     {
-      src:
-        "https://staging.favorcare.org/wp-content/uploads/2024/06/Favor-Care-volunteer-huddle-at-Shang-1-scaled.jpeg",
+      src: asset("/images/pages/who-we-are/gallery-huddle.jpg"),
       alt: "Volunteer huddle at Shangri-La Plaza",
     },
     {
-      src:
-        "https://staging.favorcare.org/wp-content/uploads/2024/06/Outreach-to-the-Aetas-in-the-Mountains-9-scaled.jpg",
+      src: asset("/images/pages/who-we-are/gallery-aetas-outreach.jpg"),
       alt: "Outreach to the Aetas community",
     },
   ],
@@ -370,36 +379,31 @@ export const ABOUT = {
       {
         name: "Chris Aiton",
         role: "Executive Director",
-        photo:
-          "https://staging.favorcare.org/wp-content/uploads/2024/07/photo_6307445248871217844_y-e1718641395357.jpg",
+        photo: asset("/images/pages/who-we-are/team-chris.jpg"),
         photoAlt: "Chris Aiton, Executive Director",
       },
       {
         name: "Belle Guiron",
         role: "Volunteer Coordinator",
-        photo:
-          "https://staging.favorcare.org/wp-content/uploads/2024/07/belle_guiron.jpeg",
+        photo: asset("/images/pages/who-we-are/team-belle.jpeg"),
         photoAlt: "Belle Guiron, Volunteer Coordinator",
       },
       {
         name: "Carmelyn De Guzman",
         role: "Project Coordinator",
-        photo:
-          "https://staging.favorcare.org/wp-content/uploads/2024/07/LYN-DE-GUZMAN-e1720597744595.jpg",
+        photo: asset("/images/pages/who-we-are/team-carmelyn.jpg"),
         photoAlt: "Carmelyn De Guzman, Project Coordinator",
       },
       {
         name: "Chap De Guzman",
         role: "Project Coordinator",
-        photo:
-          "https://staging.favorcare.org/wp-content/uploads/2024/07/Chap-1.jpg",
+        photo: asset("/images/pages/who-we-are/team-chap.jpg"),
         photoAlt: "Chap De Guzman, Project Coordinator",
       },
       {
         name: "Marilou Santero",
         role: "CIW Coordinator",
-        photo:
-          "https://staging.favorcare.org/wp-content/uploads/2024/07/Mama-Malou-e1721119151756.jpeg",
+        photo: asset("/images/pages/who-we-are/team-marilou.jpeg"),
         photoAlt: "Marilou Santero, CIW Coordinator",
       },
     ],
@@ -714,8 +718,7 @@ export const GET_INVOLVED = {
     title: "Get Involved",
     subtitle:
       "Join us in caring for the poor and less privileged! There are several ways for you to be involved. Your partnership will go a long way.",
-    image:
-      "https://staging.favorcare.org/wp-content/uploads/2024/06/Aetas-3-scaled.jpg",
+    image: asset("/images/pages/get-involved/hero-aetas.jpg"),
   },
   cards: [
     {
@@ -734,8 +737,7 @@ export const GET_INVOLVED = {
         href: "https://share.fluro.io/form/6359f65f3e1dcf00252046d6",
         external: true,
       },
-      image:
-        "https://staging.favorcare.org/wp-content/uploads/2024/06/Favor-Care-volunteers-repacking-rice-2-scaled.jpeg",
+      image: asset("/images/pages/get-involved/volunteer-repacking-rice.jpeg"),
     },
     {
       title: "Donate",

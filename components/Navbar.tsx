@@ -6,8 +6,8 @@ export interface NavbarProps {
   class?: string;
 }
 
-// Desktop primary navigation on the black header bar: small white UPPERCASE
-// links with an underline that fades in on hover (WP "default-navigation").
+// Desktop primary navigation on the yellow header bar: white capitalized
+// links that invert to a black pill on hover (WP "default-navigation").
 // Hidden below `md` — see MobileNav island for small screens.
 export function Navbar({ links = NAV, class: extra }: NavbarProps) {
   return (
@@ -19,7 +19,7 @@ export function Navbar({ links = NAV, class: extra }: NavbarProps) {
         <a
           key={item.href}
           href={item.href}
-          class="relative py-2 text-xs font-semibold uppercase tracking-wider text-on-primary transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-current after:opacity-0 after:transition-opacity after:duration-200 hover:after:opacity-100"
+          class="rounded px-2 py-2 text-base font-semibold capitalize text-white transition-colors hover:bg-black hover:text-white"
         >
           {item.label}
         </a>
