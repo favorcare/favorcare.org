@@ -1,34 +1,27 @@
 import type { Post } from "./posts.ts";
-import { asset } from "../utils/assets.ts";
 
-// Post card for the /posts archive — matches the WP archive cards:
-// title + excerpt (+ cover when the source post has one). No date,
-// author, or reading time (the source shows none).
+// Post card for the /posts archive — cloned from the WP loop item:
+// linked title above a wide cropped photo and the excerpt. No date,
+// author, or reading time (the source shows none); the whole card is
+// plain — no border or background, matching WP.
 export function PostCard({ post }: { post: Post }) {
   return (
-    <a
-      href={`/posts/${post.slug}`}
-      class="group flex gap-6 border border-surface-container-high bg-surface p-5 transition-colors hover:bg-surface-bright md:p-6"
-    >
-      {post.cover && (
-        <div class="hidden w-48 shrink-0 overflow-hidden sm:block">
-          <img
-            src={asset(post.cover)}
-            alt={post.coverAlt}
-            loading="lazy"
-            class="aspect-3/2 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          />
-        </div>
-      )}
-      <div class="flex flex-1 flex-col">
-        <h3 class="text-lg font-semibold leading-snug tracking-tight text-on-surface md:text-xl">
+    <article class="flex flex-col">
+      <h3 class="text-[26px] font-bold leading-[26px] text-primary">
+        <a href={`/posts/${post.slug}`} class="hover:underline">
           {post.title}
-        </h3>
-        <p class="mt-2 text-base leading-relaxed text-on-surface-variant">
-          {post.description}
-        </p>
-      </div>
-    </a>
+        </a>
+      </h3>
+      <img
+        src={post.hero}
+        alt={post.heroAlt}
+        loading="lazy"
+        class="mt-[18px] aspect-15/8 w-full object-cover"
+      />
+      <p class="mt-3 text-base leading-6 text-primary">
+        {post.description}
+      </p>
+    </article>
   );
 }
 

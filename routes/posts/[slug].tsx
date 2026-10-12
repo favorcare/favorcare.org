@@ -3,12 +3,8 @@ import { Head } from "fresh/runtime";
 import { define } from "../../utils.ts";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
-import { Button } from "../../components/Button.tsx";
-import { Container } from "../../components/layout/Container.tsx";
-import { Section } from "../../components/layout/Section.tsx";
-import { PostBody } from "../../components/PostBody.tsx";
-import { getPost, type Post } from "../../components/posts.ts";
-import { asset } from "../../utils/assets.ts";
+import type { ArticleBlock, Post } from "../../components/posts.ts";
+import { getPost } from "../../components/posts.ts";
 
 export const handler = define.handlers({
   GET(ctx) {
@@ -18,11 +14,16 @@ export const handler = define.handlers({
   },
 });
 
-// Post page — matches the WP single-post layout: back link, tag, title,
-// optional cover, body. No author/date/reading-time (the source shows none).
+// Single post — cloned from the WP articles (staging = canonical): photo
+// hero with the two-line 50px title (32px mobile), then the article flow
+// in WP's own system (the `articleContent` custom CSS): 30px pull-quotes
+// (one per post in the article yellow #F2B705), 16px/24px body at a
+// 1120px measure, natural-aspect gallery grids (2/3/4 columns or
+// full-width, per the source), gray `articleContentAdBreak` CTA cards
+// (#f5f5f5, radius 12, centered, yellow pill buttons), and the About
+// Favor Care footer block on the two outreach posts. Copy is verbatim.
 export default define.page<typeof handler>(({ data }) => {
   const post: Post = data.post;
-  const cover = post.cover ? asset(post.cover) : null;
   return (
     <>
       <Head>
@@ -31,52 +32,108 @@ export default define.page<typeof handler>(({ data }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
-        {cover && <meta property="og:image" content={cover} />}
+        <meta property="og:image" content={post.hero} />
       </Head>
       <Header />
       <main id="main-content" tabIndex={-1}>
-        {/* Hero */}
-        <Section class="bg-primary pt-12 pb-16 text-white md:pt-16">
-          <Container>
-            <a
-              href="/posts"
-              class="inline-flex items-center gap-1.5 text-sm font-semibold text-white/70 transition-colors hover:text-yellow"
-            >
-              <span aria-hidden="true">←</span> All posts
-            </a>
-            <div class="mt-6 max-w-3xl">
-              <p class="text-xs font-semibold uppercase tracking-wider text-white/70">
-                {post.tag}
-              </p>
-              <h1 class="mt-4 text-4xl font-semibold leading-[0.95] tracking-tight md:text-5xl">
-                {post.title}
-              </h1>
-            </div>
-          </Container>
-        </Section>
+        {/* Hero: the post's cover photo with the two-line title. */}
+        <section class="relative flex flex-col items-center justify-center gap-1 py-[225px] lg:h-[633px] lg:py-0">
+          <div
+            class="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${post.hero})` }}
+            aria-hidden="true"
+          />
+          <h1 class="relative px-5 text-center text-[32px] font-semibold leading-tight text-white lg:text-[50px]">
+            {post.heroLines[0]}
+            <br />
+            {post.heroLines[1]}
+          </h1>
+        </section>
 
-        {/* Body */}
-        <Section class="py-16">
-          <Container>
-            {cover && (
-              <img
-                src={cover}
-                alt={post.coverAlt}
-                class="mx-auto aspect-16/9 w-full max-w-4xl object-cover"
-              />
-            )}
-            <article class="mx-auto mt-10 max-w-2xl">
-              <PostBody blocks={post.body} />
-            </article>
-            <div class="mx-auto mt-12 max-w-2xl">
-              <Button variant="secondary" href="/posts">
-                ← Back to all posts
-              </Button>
-            </div>
-          </Container>
-        </Section>
+        <article class="px-5 pb-24 pt-[100px] md:px-2.5 lg:px-0">
+          <div class="mx-auto w-full max-w-[1120px] space-y-6">
+            {post.blocks.map((block, i) => <Block key={i} block={block} />)}
+          </div>
+        </article>
       </main>
       <Footer />
     </>
   );
 });
+
+function Block({ block }: { block: ArticleBlock }) {
+  switch (block.type) {
+    case "quote":
+      return (
+        <h2
+          class={`text-[22px] font-semibold leading-tight text-primary md:text-[30px] ${
+            block.yellow ? "text-[#f2b705]" : ""
+          }`}
+        >
+          {block.text}
+        </h2>
+      );
+    case "heading":
+      return (
+        <h2 class="text-[22px] font-semibold leading-tight text-primary md:text-[30px]">
+          {block.text}
+        </h2>
+      );
+    case "text":
+      return (
+        <>
+          {block.paragraphs.map((p) => (
+            <p class="text-base leading-6 text-primary">{p}</p>
+          ))}
+        </>
+      );
+    case "gallery": {
+      // Static class names — Tailwind can't generate dynamic ones.
+      const cols = {
+        1: "grid-cols-1",
+        2: "grid-cols-2",
+        3: "grid-cols-3",
+        4: "grid-cols-4",
+      }[block.images.length] ?? "grid-cols-3";
+      return (
+        <div class={`grid gap-4 ${cols}`}>
+          {block.images.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              loading="lazy"
+              class="w-full object-cover"
+            />
+          ))}
+        </div>
+      );
+    }
+    case "cta":
+      return (
+        <div class="space-y-4 rounded-xl bg-[#f5f5f5] px-5 py-[30px] text-center">
+          <h2 class="text-[32px] font-bold leading-tight text-[#f2b705]">
+            {block.heading}
+          </h2>
+          {block.parts.map((part, i) =>
+            part.kind === "text"
+              ? (
+                <p class="text-base leading-6 text-primary" key={i}>
+                  {part.text}
+                </p>
+              )
+              : (
+                <div key={i}>
+                  <a
+                    href={part.href}
+                    class="inline-block rounded-[30px] bg-[#f2b705] px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
+                  >
+                    {part.label}
+                  </a>
+                </div>
+              )
+          )}
+        </div>
+      );
+  }
+}

@@ -3,15 +3,20 @@ import { Head } from "fresh/runtime";
 import { define } from "../../utils.ts";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
-import { Container } from "../../components/layout/Container.tsx";
 import { PostCard } from "../../components/PostCard.tsx";
 import { listPosts } from "../../components/posts.ts";
+import { asset } from "../../utils/assets.ts";
 
 // Post archive — the canonical WP archive lives at /posts (staging's
-// /news-updates is a 404): intro + tag filters + title/excerpt cards.
-// Filtering is server-rendered via ?tag= (the tag chips are links).
+// /news-updates is a 404). Cloned from the WP page (post 7721, staging =
+// canonical): photo hero (desktop-only — WP hides it below 1024px with
+// the whole section collapsed), text-tab tag filters ("All" leftmost,
+// active tab near-black, inactive gray), and 2-column title/photo/excerpt
+// cards. Filtering is server-rendered via ?tag= (the tabs are links).
 const INTRO =
   "Stories of hope, care, and changed lives. Every story here is a life touched — through education, relief, and everyday compassion. This is the work of Favor Care, the community arm of Favor Church.";
+
+const HERO_IMAGE = asset("/images/posts/archive-hero.jpg");
 
 export const handler = define.handlers({
   GET(ctx) {
@@ -31,38 +36,61 @@ export default define.page<typeof handler>(({ data }) => (
     </Head>
     <Header />
     <main id="main-content" tabIndex={-1}>
-      <section class="bg-primary py-20 text-center">
-        <Container>
-          <h1 class="mx-auto max-w-3xl text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl">
+      {
+        /* Hero: WP shows the photo hero only from desktop up — below that
+            the section collapses entirely and the cards lead the page. */
+      }
+      <section class="relative hidden lg:block">
+        <div
+          class="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          aria-hidden="true"
+        />
+        <div
+          class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
+          aria-hidden="true"
+        />
+        <div class="relative mx-auto flex w-full max-w-[1140px] flex-col items-center gap-4 px-5 py-25 lg:px-0 lg:pb-45">
+          <h1 class="text-center text-[70px] font-bold leading-none text-white">
             News &amp; Updates
           </h1>
-          <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80">
+          <p class="mx-auto mt-4 max-w-[798px] text-center text-lg leading-relaxed text-white">
             {INTRO}
           </p>
-        </Container>
+        </div>
       </section>
 
-      <section class="bg-surface py-16">
-        <Container class="max-w-4xl">
-          <nav aria-label="Filter by tag" class="flex flex-wrap gap-3">
+      <section class="px-5 pt-[70px] md:px-2.5 lg:px-0 lg:pt-[46px]">
+        <div class="mx-auto w-full max-w-[1140px]">
+          {
+            /* Tag filters: plain text tabs (no pills) — active near-black,
+                inactive gray; stacked and centered below md. */
+          }
+          <nav
+            aria-label="Filter by tag"
+            class="flex flex-col items-center gap-1 text-center md:flex-row md:items-start md:gap-5 md:text-left"
+          >
             {data.tags.map((t) => (
               <a
                 key={t}
                 href={t === "All"
                   ? "/posts"
                   : `/posts?tag=${encodeURIComponent(t)}`}
-                class={t === data.active
-                  ? "border border-primary bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-on-primary"
-                  : "border border-outline-variant bg-surface px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-on-surface hover:bg-secondary-container"}
+                class={`py-1.5 text-[18px] leading-none md:text-[22px] ${
+                  t === data.active
+                    ? "font-semibold text-[#0c0d0e]"
+                    : "text-[#69727d] hover:text-[#0c0d0e]"
+                }`}
               >
                 {t}
               </a>
             ))}
           </nav>
-          <div class="mt-10 flex flex-col gap-5">
+
+          <div class="mt-8 grid grid-cols-1 gap-[30px] md:grid-cols-2 md:gap-x-[30px] lg:mt-[70px]">
             {data.posts.map((p) => <PostCard key={p.slug} post={p} />)}
           </div>
-        </Container>
+        </div>
       </section>
     </main>
     <Footer />
