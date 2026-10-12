@@ -4,16 +4,26 @@
 // the file in static/images/ served by the dev server (populated via
 // `deno task assets:pull`).
 //
-// Production: the Deno Deploy project sets ASSET_BASE_URL to the Cloudflare
-// R2 custom domain (e.g. https://assets.favorcare.media) and the same path
-// resolves against the bucket — images are gitignored and never deployed
-// with the app (see MIGRATION.md, Phase 2).
+// Production (Cloudflare Workers): the ASSET_BASE_URL plain-text variable
+// set in the dashboard arrives on the worker's `env` binding — workerd has
+// no OS environment and no Deno global, so server.js stashes it on
+// `globalThis.__ASSET_BASE_URL__` before dynamically importing the Fresh
+// server. Because content.ts calls asset() at module scope, that
+// import-order (global first, Fresh modules on first request) is what
+// makes the base visible to every asset() call.
 //
-// The `typeof Deno` guard keeps this module safe to import from islands,
-// which are bundled for the browser where the Deno global doesn't exist.
-const ASSET_BASE = typeof Deno !== "undefined"
-  ? Deno.env.get("ASSET_BASE_URL") ?? ""
-  : "";
+// The optional chaining keeps this module safe to import from islands,
+// which are bundled for the browser where neither global exists.
+
+interface AssetEnvGlobal {
+  Deno?: { env?: { get(name: string): string | undefined } };
+  __ASSET_BASE_URL__?: string;
+}
+
+const g = globalThis as AssetEnvGlobal;
+
+const ASSET_BASE = g.Deno?.env?.get("ASSET_BASE_URL") ??
+  g.__ASSET_BASE_URL__ ?? "";
 
 /**
  * Map a repo-relative asset path (leading slash, e.g. "/images/posts/x.jpg")
