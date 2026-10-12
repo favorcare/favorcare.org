@@ -5,8 +5,9 @@
 
 **Goal:** Replace the WordPress + Elementor Pro + WooCommerce site at
 favorcare.org with the existing Deno Fresh 2 repo, as a **visual clone** of the
-current design, with a **native donation checkout**, hosted on **Deno Deploy**,
-media on **Cloudflare R2**.
+current design, with a **native donation checkout**, hosted on **Cloudflare
+Workers** (retargeted from Deno Deploy — see Phase 8), media on **Cloudflare
+R2**.
 
 **Architecture:** Fresh routes/components (already scaffolded on
 `feat/site-pages`) are re-skinned to Elementor-extracted tokens; content comes
@@ -126,8 +127,8 @@ remains open in `migration/inventory.md`.)_
 
 ## Phase 2 — R2 asset pipeline
 
-- [ ] Public R2 bucket + custom domain `assets.staging.favorcare.media`;
-      `rclone copy` **preserving `/wp-content/uploads/YYYY/MM/file` paths**.
+- [ ] Public R2 bucket + custom domain `assets.favorcare.media`; `rclone copy`
+      **preserving `/wp-content/uploads/YYYY/MM/file` paths**.
 - [ ] Legacy URLs: Cloudflare route on `favorcare.org/wp-content/uploads/*`
       serving R2 **same-path, zero redirects** (Worker or R2-binding rule) —
       _not_ a Fresh 301 (no per-request function invocations, no redirect hop).
@@ -143,9 +144,9 @@ remains open in `migration/inventory.md`.)_
   `deno task assets:push`) and `wp-content/uploads/**` (legacy WP media).
 - **Dev = local, prod = CDN**: every image path in markup goes through `asset()`
   from `utils/assets.ts` — returns the local `static/images/...` path when
-  `ASSET_BASE_URL` is unset (dev), prefixes
-  `https://assets.staging.favorcare.media` when set on Deno Deploy (prod).
-  Landed 2026-10-11 (all 22 literals wrapped).
+  `ASSET_BASE_URL` is unset (dev), prefixes `https://assets.favorcare.media`
+  when set on the Cloudflare Workers project (prod). Landed 2026-10-11 (all 22
+  literals wrapped).
 - **`static/images/` is gitignored** — new images are published with
   `assets:push`, never via git. Gitignored assets cannot be CI-synced (CI only
   sees git), so publishing is a local push; that is the accepted trade-off for
