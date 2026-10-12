@@ -2,146 +2,217 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
-import { Button } from "../components/Button.tsx";
-import { Container } from "../components/layout/Container.tsx";
 import { ABOUT } from "../components/content.ts";
 
-// Who-we-are page cloned from the WP `about` page (post 1831): hero →
-// mission/vision → core values → 4-photo gallery → team → take action.
-// Copy + images verbatim from the source tree (desktop variants).
+// Who-we-are page cloned from the WP `about` page (post 1831, staging =
+// canonical). Copy is verbatim; geometry follows the measured WP layout at
+// 360/768/1280 — the px values below are those measurements, kept inline
+// until they're folded into DESIGN.md display tokens. WP's content frame
+// is 1140px with 20px gutters at 360, 10px at 768, none at 1280.
+//
+// WP hides at every breakpoint and they are not cloned: the hero subhead
+// ("Explore our journey…"), the Financial Accountability section (a dead
+// Figma embed), and the three get-involved call-to-action cards. WP's
+// 10px hero body on mobile is raised to 14px to keep the copy readable;
+// everything else matches the measured rendering.
 export default define.page(function WhoWeArePage() {
   return (
     <>
       <Head>
         <title>About us — Favor Care</title>
-        <meta name="description" content={ABOUT.hero.subtitle} />
+        <meta name="description" content={ABOUT.hero.body} />
       </Head>
       <Header />
       <main id="main-content" tabIndex={-1}>
-        {/* Hero */}
-        <section class="bg-primary py-20 text-center md:py-28">
-          <Container>
-            <p class="text-xs font-semibold uppercase tracking-wider text-white/70">
-              {ABOUT.hero.eyebrow}
-            </p>
-            <h1 class="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl">
+        {
+          /* Hero: the same photo at every breakpoint with the black→yellow
+            gradient overlay; WP positions it 50% 0 on mobile/tablet and
+            0 -68px on desktop. */
+        }
+        <section class="relative flex flex-col items-center gap-4 py-[35px] pb-10 md:py-25 lg:pb-45">
+          <div
+            class="absolute inset-0 bg-cover bg-[position:50%_0] lg:bg-[position:0_-68px]"
+            style={{ backgroundImage: `url(${ABOUT.hero.image})` }}
+            aria-hidden="true"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
+            aria-hidden="true"
+          />
+          <div class="relative mx-auto w-full max-w-[1140px] px-5 md:px-2.5 lg:px-0">
+            <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
               {ABOUT.hero.title}
             </h1>
-            <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80">
-              {ABOUT.hero.subtitle}
+            <p class="mx-auto mt-4 max-w-[260px] text-center text-sm leading-relaxed text-white md:max-w-[460px] md:text-[15px] md:leading-[26px] lg:max-w-[630px] lg:text-lg lg:leading-relaxed">
+              {ABOUT.hero.body}
             </p>
-            <img
-              src={ABOUT.hero.image}
-              alt=""
-              class="mx-auto mt-10 w-full max-w-3xl object-cover"
-            />
-          </Container>
+          </div>
         </section>
 
-        {/* Mission / Vision */}
-        <section class="bg-surface py-20">
-          <Container class="max-w-6xl">
-            <div class="grid items-center gap-10 md:grid-cols-2">
-              <div class="border border-outline-variant bg-secondary-container p-8">
-                <h2 class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
-                  {ABOUT.mission.label}
-                </h2>
-                <p class="mt-3 text-xl font-medium leading-snug tracking-tight">
-                  {ABOUT.mission.body}
-                </p>
-              </div>
-              <img
-                src={ABOUT.mission.image}
-                alt=""
-                class="h-full w-full object-cover"
-                loading="lazy"
-              />
+        {
+          /* Mission: photo left / text right on md+ (WP splits the row
+            50/50 with a 30px gap); stacked photo-first below md with the
+            copy left-aligned. */
+        }
+        <section class="px-5 pt-5 md:px-2.5 md:pt-20 lg:px-0">
+          <div class="mx-auto grid w-full max-w-[1140px] gap-6 md:grid-cols-2 md:gap-[30px]">
+            <img
+              src={ABOUT.mission.image}
+              alt="Children of a community served by Favor Care"
+              class="h-[230px] w-full object-cover md:h-[225px] lg:h-[350px]"
+              loading="lazy"
+            />
+            <div class="md:flex md:flex-col md:justify-center">
+              <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-center md:text-[39px] lg:text-[56px]">
+                {ABOUT.mission.label}
+              </h2>
+              <p class="mt-4 text-left text-sm leading-relaxed text-primary md:mt-4 md:text-center md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
+                {ABOUT.mission.body}
+              </p>
             </div>
-            <div class="mt-10 border border-outline-variant bg-secondary-container p-8 md:max-w-3xl">
-              <h2 class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+          </div>
+        </section>
+
+        {
+          /* Vision: mirrored row (text left / photo right) that fades
+            white→yellow over its bottom quarter on md+, giving the page
+            its yellow band into the gallery. Stacked photo-first below md. */
+        }
+        <section class="px-5 pt-5 md:bg-linear-to-b md:from-white md:from-76% md:to-yellow md:px-2.5 md:pt-20 md:pb-[130px] lg:px-0">
+          <div class="mx-auto grid w-full max-w-[1140px] gap-6 md:grid-cols-2 md:gap-[30px]">
+            <img
+              src={ABOUT.vision.image}
+              alt="A Favor Care outreach moment"
+              class="h-[230px] w-full object-cover md:order-2 md:h-[225px] lg:h-[350px]"
+              loading="lazy"
+            />
+            <div class="md:order-1 md:flex md:flex-col md:justify-center">
+              {
+                /* WP keeps the desktop Vision label's 56px box but hides
+                  it with visibility:hidden (innerText drops it); mirror
+                  that so the column rhythm matches. */
+              }
+              <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-center md:text-[39px] lg:invisible lg:text-[56px]">
                 {ABOUT.vision.label}
               </h2>
-              <p class="mt-3 text-xl font-medium leading-snug tracking-tight">
+              <p class="mt-4 text-left text-sm leading-relaxed text-primary md:mt-4 md:text-center md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                 {ABOUT.vision.body}
               </p>
             </div>
-          </Container>
+          </div>
         </section>
 
-        {/* Core values */}
-        <section class="bg-secondary-container py-20">
-          <Container class="max-w-5xl text-center">
-            <h2 class="text-3xl font-semibold tracking-tight md:text-5xl">
+        {
+          /* Core values: single centered column of value lines; below md
+            the section fades white→yellow to meet the yellow gallery
+            strip. */
+        }
+        <section class="bg-linear-to-b from-white to-yellow px-5 py-[25px] md:bg-none md:px-2.5 md:py-[30px] lg:px-0">
+          <div class="mx-auto w-full max-w-[1140px]">
+            <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-center md:text-[39px] lg:text-[56px]">
               {ABOUT.valuesTitle}
             </h2>
-            <ul class="mt-10 flex flex-wrap justify-center gap-3">
+            <div class="mt-6 space-y-4 text-center text-primary">
               {ABOUT.values.map((v) => (
-                <li class="border border-outline-variant bg-surface px-5 py-3 text-sm font-semibold uppercase tracking-wider">
+                <p class="text-[20px] leading-5 md:leading-6 lg:text-[28px] lg:leading-9">
                   {v}
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-
-        {/* Gallery */}
-        <section class="bg-surface py-20">
-          <Container class="max-w-6xl">
-            <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
-              {ABOUT.gallery.map((g) => (
-                <img
-                  key={g.src}
-                  src={g.src}
-                  alt={g.alt}
-                  class="aspect-square w-full object-cover"
-                  loading="lazy"
-                />
+                </p>
               ))}
             </div>
-          </Container>
+          </div>
         </section>
 
-        {/* Team */}
-        <section class="bg-secondary-container py-20">
-          <Container class="max-w-6xl text-center">
-            <h2 class="text-3xl font-semibold tracking-tight md:text-5xl">
+        {
+          /* Gallery: 2×2 rounded-photo grid (30px radius). The mobile
+            strip sits on yellow; md+ is plain white. WP's mobile gallery
+            reorders the photos — applied with order utilities. */
+        }
+        <section class="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
+          <div class="mx-auto grid w-full max-w-[1140px] grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5">
+            <img
+              src={ABOUT.gallery[0].src}
+              alt={ABOUT.gallery[0].alt}
+              class="order-2 aspect-3/2 w-full rounded-[30px] object-cover md:order-1"
+              loading="lazy"
+            />
+            <img
+              src={ABOUT.gallery[1].src}
+              alt={ABOUT.gallery[1].alt}
+              class="order-4 aspect-3/2 w-full rounded-[30px] object-cover md:order-2"
+              loading="lazy"
+            />
+            <img
+              src={ABOUT.gallery[2].src}
+              alt={ABOUT.gallery[2].alt}
+              class="order-1 aspect-3/2 w-full rounded-[30px] object-cover md:order-3"
+              loading="lazy"
+            />
+            <img
+              src={ABOUT.gallery[3].src}
+              alt={ABOUT.gallery[3].alt}
+              class="order-3 aspect-3/2 w-full rounded-[30px] object-cover md:order-4"
+              loading="lazy"
+            />
+          </div>
+        </section>
+
+        {
+          /* Team: heading + five members. WP lays each member out as a
+            portrait with the name/role beside it (two per row) from md up,
+            and stacked portrait-over-caption below md. */
+        }
+        <section class="px-5 py-[25px] md:bg-linear-to-b md:from-yellow md:to-white md:to-15% md:px-2.5 md:py-0 md:pt-20 md:pb-[30px] lg:px-0 lg:pb-[50px]">
+          <div class="mx-auto w-full max-w-[1140px]">
+            <h2 class="text-center text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
               {ABOUT.team.title}
             </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-on-surface-variant">
+            <p class="mx-auto mt-4 max-w-[638px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
               {ABOUT.team.subtitle}
             </p>
-            <ul class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            <ul class="mt-8 flex flex-col items-center gap-6 md:mt-[70px] md:grid md:grid-cols-2 md:gap-x-2.5 md:gap-y-[30px] md:px-[42px] lg:gap-x-7 lg:gap-y-10 lg:px-[46px]">
               {ABOUT.team.members.map((m) => (
-                <li class="text-center">
+                <li class="flex flex-col items-center text-center md:flex-row md:items-start md:text-left">
                   <img
                     src={m.photo}
                     alt={m.photoAlt}
-                    class="mx-auto aspect-square w-full max-w-[220px] object-cover"
+                    class="h-[245px] w-[204px] object-cover md:h-[225px] md:w-[166px] lg:h-[282px] lg:w-[233px]"
                     loading="lazy"
                   />
-                  <h3 class="mt-4 text-base font-semibold">{m.name}</h3>
-                  <p class="mt-1 text-sm text-on-surface-variant">{m.role}</p>
+                  <div class="mt-3.5 md:ml-2.5 md:mt-0 md:pt-2.5 lg:ml-6">
+                    <h3 class="text-[25px] font-bold leading-none text-primary md:font-medium lg:text-[30px]">
+                      {m.name}
+                    </h3>
+                    <p class="mt-1 text-sm font-normal text-on-surface md:text-base md:font-medium">
+                      {m.role}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>
-          </Container>
+          </div>
         </section>
 
-        {/* Take action */}
-        <section class="bg-primary py-20 text-center">
-          <Container class="max-w-3xl">
-            <h2 class="text-3xl font-semibold tracking-tight text-white md:text-5xl">
+        {
+          /* Take action: WP centers the copy and button but leaves the
+            heading left-aligned — quirk kept. */
+        }
+        <section class="px-5 py-[50px] md:px-2.5 md:py-0 md:pt-20 lg:px-0">
+          <div class="mx-auto w-full max-w-[1140px]">
+            <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
               {ABOUT.takeAction.title}
             </h2>
-            <p class="mt-5 text-base leading-relaxed text-white/80">
+            <p class="mx-auto mt-4 max-w-[695px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
               {ABOUT.takeAction.body}
             </p>
-            <div class="mt-7">
-              <Button variant="inverted" href={ABOUT.takeAction.cta.href}>
+            <div class="mt-8 flex justify-center md:pt-[30px] md:pb-20">
+              <a
+                href={ABOUT.takeAction.cta.href}
+                class="inline-flex min-h-12 items-center justify-center rounded-full bg-yellow px-6 py-4 text-[15px] font-bold text-black transition-opacity hover:opacity-90 md:text-lg"
+              >
                 {ABOUT.takeAction.cta.label}
-              </Button>
+              </a>
             </div>
-          </Container>
+          </div>
         </section>
       </main>
       <Footer />
