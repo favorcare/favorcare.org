@@ -1,12 +1,14 @@
 ---
-version: "2.0 (WordPress base)"
+version: "2.1 (WordPress base, as-built)"
 name: Favor Care
 description: >-
-  Design system transcribed from the live WordPress/Elementor site (canonical
-  staging install, kit #66) so the Fresh rebuild is a 1:1 visual clone.
-  Extracted 2026-10-11 from the DB dump (`_elementor_page_settings`) and the
-  compiled kit CSS (`post-66.css`); see MIGRATION.md Phase 3. The previous
-  gold/purple system is archived at ideas/design-v1.md.
+  Design tokens for the Fresh rebuild, transcribed from the live
+  WordPress/Elementor site and corrected against what the WP-clone pages
+  actually render (kit #66 globals + per-page measured geometry). Extracted
+  from the DB dump, the compiled kit CSS (post-66.css), and the per-page
+  visual passes (360/768/1280 measurements). The component layer built on
+  these tokens is documented in COMPONENTS.md; the retired gold/purple
+  system lives at ideas/design-v1.md.
 logo:
   src: /logo-black.svg
 colors:
@@ -41,6 +43,7 @@ colors:
   link: "#c8221f"
   link-hover: "#ffb428"
   yellow: "#ffb428"
+  article-yellow: "#f2b705"
   light: "#fbf9ed"
   error: "#cf2e2e"
   on-error: "#ffffff"
@@ -48,69 +51,23 @@ colors:
   on-error-container: "#410e0b"
 typography:
   font: Inter (Google Fonts, weights 300–700; Inter Tight available for display)
-  hero:
-    fontSize: 7.5rem
-    fontWeight: "600"
-    lineHeight: 0.9
-    letterSpacing: -6.8px
-    mobile: 3.44rem / ls -3px / lh 0.9
-  section-title:
-    fontSize: 5rem
-    fontWeight: "600"
-    lineHeight: 0.9
-    letterSpacing: -3.8px
-    mobile: 3.125rem / ls -3px
-  group-title:
-    fontSize: 3.125rem
-    fontWeight: "600"
-    lineHeight: 0.9
-    letterSpacing: -2px
-    mobile: 2.2rem / ls -2px
-  subtitle:
-    fontSize: 1.875rem
-    fontWeight: "500"
-    lineHeight: 1.3
-    letterSpacing: -2.8px
-  subtitle-quiet:
-    fontSize: 1.875rem
-    fontWeight: normal
-    lineHeight: 1.3
-    letterSpacing: -1.8px
-  hero-subtitle:
-    fontSize: 1.375rem
-    fontWeight: normal
-    lineHeight: 1.3
-    letterSpacing: -0.5px
-  point:
-    fontSize: 1.25rem
-    fontWeight: "600"
-    letterSpacing: -0.5px
-  body-lg:
-    fontSize: 1.125rem
-    lineHeight: 1.5
-    letterSpacing: -0.3px
-  body-md:
-    fontSize: 1rem
-    lineHeight: 1.5
-    letterSpacing: -0.3px
-  button-label:
-    fontSize: 1.375rem
-    fontWeight: "700"
-    mobile: 1.125rem
-  label-md:
-    fontSize: 14px
-    fontWeight: "600"
-  label-sm:
-    fontSize: 12px
-    fontWeight: "500"
-  h-tags: h2 2em Inter · h3 2rem/300 · h4 2rem · h5/h6 1em/bold
+  # The page scales actually shipped by the WP-clone pages (measured at
+  # 360/768/1280), not the kit's named display styles.
+  hero-title: 38px / 56px (768) / 70px (1280) · bold or semibold per page
+  section-title: 28px / 39px (768) / 56px (1280) · bold (subpages) or semibold + tracking-tight (homepage)
+  card-title: 25px / 30px (768) / 36px (1280) · bold
+  give-now-jumbo: 34–42px mobile / 76px (768+) · bold
+  card-body: 14px / 15px (768) / 18px (1280) · leading-relaxed
+  newsletter-title: 28px / 36px (768) · bold (contact page dialect)
+  body: 16px · line-height 1.5 (accessibility floor)
+  label: 12px / 14px (768) · bold · uppercase · tracking-wider (the gold eyebrow)
 rounded:
-  sm: 0rem
-  DEFAULT: 0rem
-  md: 0rem
-  lg: 0rem
-  xl: 0rem
-  full: 9999px
+  card: 30px
+  button: full pill
+  jumbo-button: 30px or 50px (give-now dialects)
+  gallery-media: 30px
+  overlay-close: full
+  note: kit globals say 0 — the page templates override with the radii above
 spacing:
   unit: 8px
   xs: 4px
@@ -120,6 +77,9 @@ spacing:
   xl: 64px
   gutter: 24px
   container-max: 1140px
+  gutters-mobile: 20px (360)
+  gutters-768: 10px subpages / 40px homepage
+  gutters-1280: 0
 elevation:
   sm: 0 1px 2px rgba(0, 0, 0, 0.06)
   md: 0 4px 12px rgba(0, 0, 0, 0.08)
@@ -127,49 +87,26 @@ elevation:
   card: 0 1px 3px rgba(25, 23, 24, 0.08)
 layout:
   contentContainerMaxWidth: 1140px
+  headerContainerMaxWidth: 1200px
   breakpoints: 768 / 1025 (Elementor); Tailwind 768 / 1024 accepted
   gridColumns: 12
-components:
-  button:
-    backgroundColor: transparent
-    textColor: "#000000"
-    border: none
-    rounded: 0
-    label: "{typography.button-label}"
-    hover:
-      backgroundColor: "#000000"
-      textColor: "#ffffff"
-  button-solid:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    rounded: 0
-  card:
-    backgroundColor: "{colors.surface}"
-    rounded: 0
-    padding: "{spacing.md}"
-    boxShadow: "{elevation.card}"
-    border: 1px solid "{colors.surface-container-high}"
-  input-field:
-    backgroundColor: "{colors.surface}"
-    border: 1px solid "{colors.outline-variant}"
-    rounded: 0
-  badge:
-    backgroundColor: "{colors.secondary-container}"
-    textColor: "{colors.on-secondary-container}"
-    rounded: 0
-  link:
-    color: "{colors.link}"
-    hover: "{colors.link-hover}"
 ---
 
 ## Overview
 
-This system is a **transcription, not an invention**: every value comes from the
-WordPress site Favor Care actually ships (Elementor kit #66 on the canonical
-staging install). The look is editorial and stark — near-black and warm beige
-dominate, terracotta accents, dark-red links that flash yellow on hover, very
-large tightly-tracked Inter headlines (letter-spacing down to −6.8px), light
-weights at large sizes, and **square corners everywhere**.
+A **transcription, not an invention**: every value comes from the WordPress site
+Favor Care ships (Elementor kit #66 on the canonical staging install) as its
+pages actually render — the kit's global settings say one thing (square corners,
+7.5rem display type), the page templates ship another (pills, 30px cards,
+38/56/70 titles). This file records the latter, because that is what the clone
+matches. The look is warm and direct — a yellow header bar, near-black text and
+bands, white pages with cream tints, big bold Inter headings, and fully-rounded
+pill buttons.
+
+**Components are documented separately in [COMPONENTS.md](COMPONENTS.md)** —
+props, variants, and usage for every reusable component. This file is tokens
+only. When a token changes, update this file first, then mirror it in
+`assets/styles.css` (`@theme`).
 
 ## Colors
 
@@ -178,69 +115,63 @@ Eight source colors from the kit, confirmed against the compiled CSS
 (beige), text `#2D2D2D`, accent `#C85553` (terracotta), black `#000000`, white
 `#FFFFFF`, Link Yellow `#FFB428`, Light `#FBF9ED` (cream).
 
-Roles: **primary** carries the header bar, footer, dark sections and solid CTAs
-(on-primary is white). **Secondary/beige** and the cream ramp
-(`surface-container-*`) carry light section backgrounds. **Tertiary
-(terracotta)** is the accent for highlights and hover moments. Links are dark
-red `#C8221F`, hovering to Link Yellow `#FFB428`. The kit also sets a black
-`body_background`; page templates override it — pages are white.
-
-Note: `tertiary-container`/`on-tertiary-container` are derived tints (the kit
-has no terracotta container pair).
+Roles: **yellow** (`#FFB428`) carries the header bar, section eyebrows, card
+fills (Care Updates, Get-in-touch, Tax-Deductible), and the yellow pill buttons
+on black — it is the brand's most visible color. **primary** (near-black)
+carries text, black bands, the footer, and black pill buttons. The cream ramp
+(`surface-container-*`) carries light section backgrounds. Links are dark red
+`#C8221F` hovering to yellow. The posts article system has **its own yellow**
+`#F2B705` (`article-yellow`) for pull-quotes and ad-break CTA cards — do not mix
+the two up.
 
 ## Typography
 
-Inter only, loaded from Google Fonts (weights 300–700; Inter Tight is referenced
-by some WP pages and stays available). The canonical scale is the ten named
-styles the WP designers used — HERO Text (7.5rem/600/−6.8px), Section Title
-(5rem), Group Title (3.125rem), Sub-title (1.875rem), Hero Subtitle (1.375rem),
-Point (1.25rem), Body Main / Body Text 18px (1–1.125rem, lh 1.5). Signature
-rules: display sizes use **negative letter-spacing** and line-heights of
-0.9–1.3; h3 is weight 300 at 2rem; body keeps ≥1.5 line-height for
-accessibility.
+Inter only, loaded from Google Fonts (weights 300–700; Inter Tight stays
+available). Titles use the measured page scales (see frontmatter): heroes
+38/56/70, section titles 28/39/56, card titles 25/30/36, the give-now jumbo 76px
+from md. Body text keeps ≥16px with ≥1.5 line-height (accessibility floor); card
+body runs 14/15/18 as measured. The gold eyebrow label is 12/14px bold uppercase
+with wide tracking.
 
 ## Layout
 
-Content column max **1140px** (Elementor default; page cloning moves components
-from `max-w-7xl` to `max-w-6xl`). Breakpoints 768/1025 — Tailwind's 768/1024 is
-accepted (1px difference). 12-column mental model, 24px gutters, 8px base unit.
+Content frame **1140px**; the header bar uses 1200px. Gutters: 20px at 360; at
+768 the subpages keep Elementor's 10px while the homepage measures 40px
+(`Container pad="page"` vs `pad="home"`); none at 1280. Breakpoints 768/1025 —
+Tailwind's 768/1024 is accepted (1px difference).
 
 ## Elevation & Depth
 
 Flat. One card shadow (`0 1px 3px rgba(25,23,24,0.08)`) and the neutral sm/md/lg
-trio for overlays. No glows.
+trio for overlays/modals. No glows.
 
 ## Shapes
 
-**Fully square** (user decision, matching WP): buttons, cards, images, badges,
-inputs — radius 0. `rounded-full` remains defined only for avatars, the progress
-meter, and overlay close controls.
-
-## Components
-
-Buttons: transparent with black text, hover fills black with white text (the WP
-default), label 1.375rem/700 (1.125rem mobile); solid variant = primary bg +
-white text; all square, min-height 48px. Links: `#C8221F` → `#FFB428` hover.
-Cards: white, 1px beige border, card shadow, square. Inputs: white,
-outline-variant border, square. Badges: cream bg, dark text, square.
+**Pills and 30px rounds.** Buttons are full pills (`rounded-full`) except the
+give-now jumbo CTAs (30px / 50px rounds). Cards, photo tiles, gallery media, and
+the yellow content cards round at **30px**. Overlay close controls stay
+full-round. The kit's square-corner global is overridden by every page template
+and is not part of this system.
 
 ## Do's and Don'ts
 
 **Do**
 
-- Do keep display type tightly tracked (negative letter-spacing) — it is the
-  brand's typographic signature.
-- Do pair near-black with beige/cream for section rhythm; terracotta sparingly.
-- Do use Link Yellow `#FFB428` for link hovers and accents on dark backgrounds.
-- Do keep body text ≥ 16px with ≥ 1.5 line-height (accessibility floor carried
-  over from v1).
+- Do build pages from the components in COMPONENTS.md — a visual change should
+  be a one-file edit.
+- Do use Link Yellow `#FFB428` for eyebrows, card fills, and pills on black; use
+  `article-yellow` only inside the posts article system.
+- Do keep body text ≥ 16px with ≥ 1.5 line-height.
+- Do keep touch targets ≥ 48px (`min-h-12` on buttons and icon links).
 
 **Don't**
 
-- Don't use Link Yellow `#FFB428` for body text on white — it fails contrast; it
-  is a hover/accent-on-dark color only.
-- Don't round corners on components; the system is square (`rounded-full` is
-  reserved for avatars, the progress meter, and overlay close buttons).
-- Don't use the v1 gold/purple/green palette or glow shadows — those are retired
-  with `ideas/design-v1.md`.
-- Don't add shadows beyond the defined set; depth is minimal by design.
+- Don't hardcode hex values in components — use the Tailwind tokens from
+  `assets/styles.css` (`bg-yellow`, `text-article-yellow`, …).
+- Don't hand-roll inline SVGs, pill links, hero shells, or section headings —
+  `components/icons.tsx`, `Button`, `PageHero`, and `SectionHeading` exist for
+  those (see COMPONENTS.md).
+- Don't use Link Yellow for body text on white — it fails contrast; it is a
+  surface/accent-on-dark color.
+- Don't use the v1 gold/purple/green palette or glow shadows — retired with
+  `ideas/design-v1.md`.

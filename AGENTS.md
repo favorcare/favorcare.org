@@ -21,15 +21,22 @@ deno task check  # fmt --check + lint + deno check  (run before claiming done)
 
 ## Sources of truth — do not invent
 
-- **[DESIGN.md](DESIGN.md)** — design system. All colors, type, radii, and
-  component styles. **Reuse tokens, don't hardcode hex.**
+- **[COMPONENTS.md](COMPONENTS.md)** — the component catalog. **Always read it
+  before creating or updating any page**: reuse the existing components
+  (`Button`, `PageHero`, `SectionHeading`, `icons.tsx`, …) instead of
+  hand-rolling pills, headings, hero shells, or inline SVGs, so a visual change
+  stays a one-file edit. New UI must be extracted into a component, given a
+  `/storybook` specimen, and added to the catalog in the same change.
+- **[DESIGN.md](DESIGN.md)** — design tokens. All colors, type scales, radii,
+  and spacing. **Reuse tokens, don't hardcode hex.**
 - **[ideas/proposed.svg](ideas/proposed.svg)** — information architecture. The
   5-item nav, page tree, page templates (TEMPLATE A = homepage), real impact
   numbers, programs, and the brand voice. **Reuse real content, don't invent
   copy or stats.**
 
 When a token changes, update **DESIGN.md** first, then mirror it in
-`assets/styles.css`.
+`assets/styles.css`. When a component changes, update **COMPONENTS.md** and its
+`/storybook` specimen in the same change.
 
 ## Conventions
 
@@ -59,14 +66,16 @@ When a token changes, update **DESIGN.md** first, then mirror it in
   `bg-linear-to-b`, not `bg-gradient-to-b`; `aspect-4/3`, not `aspect-[4/3]`).
 - **Inter** is loaded via Google Fonts `<link>` in `routes/_app.tsx`.
 - **Accessibility / DESIGN.md rules:** touch targets ≥ 48px (`min-h-12`), body
-  text ≥ 16px with ≥ 1.5 line-height. Gold (`primary`) is reserved for
-  high-priority CTAs.
+  text ≥ 16px with ≥ 1.5 line-height. Link Yellow (`yellow`) is an
+  accent/surface color — never body text on white (fails contrast).
 
 ## Where things live
 
 ```
 routes/       Pages (file-system routing). _app.tsx = root layout.
-components/   Reusable server components (Button, Header, Footer, …).
+components/   Reusable server components — see COMPONENTS.md for the catalog.
+components/layout/  Container/frame + SectionHeading.
+components/icons.tsx  The only icon seam (lucide + simple-icons).
 islands/      Client-hydrated interactive components.
 static/       Assets served as-is — logos, /images/orgs/{PCNC,DSWD}.png.
 assets/styles.css   Tailwind v4 @theme tokens + base layer.

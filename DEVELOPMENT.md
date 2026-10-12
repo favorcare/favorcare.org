@@ -89,10 +89,14 @@ export default define.page(function WhatWeDo() {
 
 ### Adding a component / island
 
+- **First read [COMPONENTS.md](COMPONENTS.md)** — the component catalog and the
+  page-building rules. Reuse before you build.
 - **Server component** → `components/Foo.tsx` (imported by routes; no client
   JS).
 - **Interactive component** → `islands/Foo.tsx` (hydrated on the client; can use
   `@preact/signals` for state).
+- New components get a `/storybook` specimen and a COMPONENTS.md entry in the
+  same change.
 
 ## Assets (images)
 
