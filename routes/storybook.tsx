@@ -432,6 +432,14 @@ export default define.page(function StorybookPage() {
                   placeholder="LEAVE US A MESSAGE!"
                   ariaLabel="Message"
                 />
+                <div class="rounded-card bg-yellow p-5">
+                  <InputField
+                    size="give-now"
+                    name="sb-givenow"
+                    placeholder="PROOF OF DONATION"
+                    ariaLabel="Proof of donation"
+                  />
+                </div>
               </div>
             </Specimen>
           </Group>

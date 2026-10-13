@@ -1,5 +1,16 @@
 import { cx } from "./cx.ts";
 
+export type InputFieldSize = "md" | "give-now";
+
+const SIZES: Record<InputFieldSize, string> = {
+  // The default per DESIGN.md input-field: 48px tall, hairline border.
+  md:
+    "h-12 rounded border border-outline-variant bg-surface text-base focus:border-primary",
+  // The give-now tax card's measured input: 59px, 5px radius, borderless
+  // white on the yellow card (WP measures no border there).
+  "give-now": "h-[59px] w-full rounded-[5px] border-0 bg-white text-lg",
+};
+
 export interface InputFieldProps {
   type?: string;
   name?: string;
@@ -7,10 +18,11 @@ export interface InputFieldProps {
   placeholder?: string;
   required?: boolean;
   ariaLabel?: string;
+  size?: InputFieldSize;
   class?: string;
 }
 
-// Text input per DESIGN.md input-field: 48px tall, hairline border, gold focus ring.
+// Text input: gold focus ring throughout; size picks the measured dialect.
 export function InputField(
   {
     type = "text",
@@ -19,6 +31,7 @@ export function InputField(
     placeholder,
     required,
     ariaLabel,
+    size = "md",
     class: extra,
   }: InputFieldProps,
 ) {
@@ -31,9 +44,9 @@ export function InputField(
       required={required}
       aria-label={ariaLabel}
       class={cx(
-        "h-12 flex-1 rounded border border-outline-variant bg-surface px-4",
-        "text-on-surface outline-none transition-colors",
-        "focus:border-primary focus:ring-2 focus:ring-primary/30",
+        "flex-1 px-4 text-on-surface outline-none transition-colors",
+        "focus:ring-2 focus:ring-primary/30",
+        SIZES[size],
         extra,
       )}
     />

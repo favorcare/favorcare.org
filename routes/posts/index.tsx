@@ -6,6 +6,7 @@ import { Footer } from "../../components/Footer.tsx";
 import { PageHero } from "../../components/PageHero.tsx";
 import { PostCard } from "../../components/PostCard.tsx";
 import { listPosts } from "../../components/posts.ts";
+import { frame } from "../../components/layout/Container.tsx";
 import { asset } from "../../utils/assets.ts";
 
 // Post archive — the canonical WP archive lives at /posts (staging's
@@ -56,7 +57,7 @@ export default define.page<typeof handler>(({ data }) => (
       </PageHero>
 
       <section class="px-5 pt-[70px] md:px-2.5 lg:px-0 lg:pt-[46px]">
-        <div class="mx-auto w-full max-w-[1140px]">
+        <div class={frame()}>
           {
             /* Tag filters: plain text tabs (no pills) — active near-black,
                 inactive gray; stacked and centered below md. */

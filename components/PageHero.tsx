@@ -1,6 +1,7 @@
 import type { ComponentChildren } from "preact";
 import { cx } from "./cx.ts";
 import { frame } from "./layout/Container.tsx";
+import type { ContainerPad } from "./layout/Container.tsx";
 
 export interface PageHeroProps {
   /** Background photo (cover). */
@@ -15,8 +16,11 @@ export interface PageHeroProps {
    *  default 0.54, never stacks. */
   overlayClass?: string;
   /** `standard` = the subpage paddings/gap; `bare` = no gap or padding,
-   *  for the heroes that position themselves (give-now, posts). */
+   *  for the heroes that position themselves (give-now, posts, homepage). */
   geometry?: "standard" | "bare";
+  /** Gutter dialect for the frame (`page` by default; the homepage hero
+   *  measures `home`). */
+  framePad?: ContainerPad;
   /** false to render children directly in the section — the give-now and
    *  post heroes have no 1140px frame of their own. */
   framed?: boolean;
@@ -29,9 +33,10 @@ export interface PageHeroProps {
 }
 
 // The photo-hero shell, extracted verbatim from the WP-clone pages
-// (who-we-are, what-we-do, get-involved, posts): full-bleed photo, overlay
-// wash, and optionally the 1140px frame. Only the shell is shared — the
-// h1 and subtitle scales were measured per page and stay in the routes.
+// (homepage, who-we-are, what-we-do, get-involved, posts): full-bleed
+// photo, overlay wash, and optionally the 1140px frame. Only the shell is
+// shared — the h1 and subtitle scales were measured per page and stay in
+// the routes.
 export function PageHero(
   {
     image,
@@ -39,6 +44,7 @@ export function PageHero(
     overlay = "gradient",
     overlayClass,
     geometry = "standard",
+    framePad = "page",
     framed = true,
     sectionClass,
     frameClass,
@@ -46,7 +52,7 @@ export function PageHero(
   }: PageHeroProps,
 ) {
   const body = framed
-    ? <div class={cx(frame("page"), "relative", frameClass)}>{children}</div>
+    ? <div class={cx(frame(framePad), "relative", frameClass)}>{children}</div>
     : children;
   return (
     <section

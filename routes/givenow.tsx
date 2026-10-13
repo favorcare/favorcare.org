@@ -6,6 +6,7 @@ import { PageHero } from "../components/PageHero.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button } from "../components/Button.tsx";
 import { BankCard } from "../components/BankCard.tsx";
+import { InputField } from "../components/InputField.tsx";
 import { GIVENOW } from "../components/content.ts";
 
 // Give-now page cloned from the WP page (post 7122, staging = canonical)
@@ -147,15 +148,15 @@ export default define.page(function GiveNowPage() {
                   <span class="mb-1 block text-base font-semibold text-primary">
                     {f}
                   </span>
-                  <input
+                  <InputField
+                    size="give-now"
                     type={f === "CONTACT EMAIL" ? "email" : "text"}
                     name={f.toLowerCase().replace(/ /g, "-")}
                     placeholder={f
                       .toLowerCase()
                       .replace(/^\w|\s\w/g, (c) =>
                         c.toUpperCase())}
-                    aria-label={f}
-                    class="h-[59px] w-full rounded-[5px] bg-white px-4 text-lg text-on-surface"
+                    ariaLabel={f}
                   />
                 </label>
               ))}
