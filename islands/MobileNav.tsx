@@ -49,7 +49,8 @@ export default function MobileNav({ links = NAV }: MobileNavProps) {
           ))}
           <Button
             href="/givenow"
-            variant="donate"
+            variant="black"
+            size="header"
             class="mt-2 w-full"
             tabIndex={open ? 0 : -1}
           >

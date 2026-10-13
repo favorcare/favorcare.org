@@ -89,10 +89,14 @@ export default define.page(function WhatWeDo() {
 
 ### Adding a component / island
 
+- **First read [COMPONENTS.md](COMPONENTS.md)** — the component catalog and the
+  page-building rules. Reuse before you build.
 - **Server component** → `components/Foo.tsx` (imported by routes; no client
   JS).
 - **Interactive component** → `islands/Foo.tsx` (hydrated on the client; can use
   `@preact/signals` for state).
+- New components get a `/storybook` specimen and a COMPONENTS.md entry in the
+  same change.
 
 ## Assets (images)
 
@@ -159,5 +163,5 @@ The IA reference remains [ideas/proposed.svg](ideas/proposed.svg).
   form backend is required before DNS cutover.
 - Utility/footer links for Careers, Press, Privacy, Terms, Accessibility, and
   Donation Policy are `"#"` placeholders in `components/navigation.ts`.
-- A `privacy-policy` route still needs to be built (required by the redirect
-  map).
+- ~~A `privacy-policy` route still needs to be built~~ shipped in PR #32
+  (`routes/privacy-policy.tsx`).

@@ -2,6 +2,10 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { PageHero } from "../components/PageHero.tsx";
+import { SectionHeading } from "../components/layout/SectionHeading.tsx";
+import { Button } from "../components/Button.tsx";
+import { frame } from "../components/layout/Container.tsx";
 import { ABOUT } from "../components/content.ts";
 
 // Who-we-are page cloned from the WP `about` page (post 1831, staging =
@@ -29,25 +33,17 @@ export default define.page(function WhoWeArePage() {
             gradient overlay; WP positions it 50% 0 on mobile/tablet and
             0 -68px on desktop. */
         }
-        <section class="relative flex flex-col items-center gap-4 py-[35px] pb-10 md:py-25 lg:pb-45">
-          <div
-            class="absolute inset-0 bg-cover bg-[position:50%_0] lg:bg-[position:0_-68px]"
-            style={{ backgroundImage: `url(${ABOUT.hero.image})` }}
-            aria-hidden="true"
-          />
-          <div
-            class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
-            aria-hidden="true"
-          />
-          <div class="relative mx-auto w-full max-w-[1140px] px-5 md:px-2.5 lg:px-0">
-            <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
-              {ABOUT.hero.title}
-            </h1>
-            <p class="mx-auto mt-4 max-w-[260px] text-center text-sm leading-relaxed text-white md:max-w-[460px] md:text-[15px] md:leading-[26px] lg:max-w-[630px] lg:text-lg lg:leading-relaxed">
-              {ABOUT.hero.body}
-            </p>
-          </div>
-        </section>
+        <PageHero
+          image={ABOUT.hero.image}
+          imageClass="bg-[position:50%_0] lg:bg-[position:0_-68px]"
+        >
+          <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
+            {ABOUT.hero.title}
+          </h1>
+          <p class="mx-auto mt-4 max-w-[260px] text-center text-sm leading-relaxed text-white md:max-w-[460px] md:text-[15px] md:leading-[26px] lg:max-w-[630px] lg:text-lg lg:leading-relaxed">
+            {ABOUT.hero.body}
+          </p>
+        </PageHero>
 
         {
           /* Mission: photo left / text right on md+ (WP splits the row
@@ -55,7 +51,7 @@ export default define.page(function WhoWeArePage() {
             copy left-aligned. */
         }
         <section class="px-5 pt-5 md:px-2.5 md:pt-20 lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] gap-6 md:grid-cols-2 md:gap-[30px]">
+          <div class={frame() + "grid gap-6 md:grid-cols-2 md:gap-[30px]"}>
             <img
               src={ABOUT.mission.image}
               alt="Children of a community served by Favor Care"
@@ -63,9 +59,10 @@ export default define.page(function WhoWeArePage() {
               loading="lazy"
             />
             <div class="md:flex md:flex-col md:justify-center">
-              <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-center md:text-[39px] lg:text-[56px]">
-                {ABOUT.mission.label}
-              </h2>
+              <SectionHeading
+                title={ABOUT.mission.label}
+                align="left-center-md"
+              />
               <p class="mt-4 text-left text-sm leading-relaxed text-primary md:mt-4 md:text-center md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                 {ABOUT.mission.body}
               </p>
@@ -79,7 +76,7 @@ export default define.page(function WhoWeArePage() {
             its yellow band into the gallery. Stacked photo-first below md. */
         }
         <section class="px-5 pt-5 md:bg-linear-to-b md:from-white md:from-76% md:to-yellow md:px-2.5 md:pt-20 md:pb-[130px] lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] gap-6 md:grid-cols-2 md:gap-[30px]">
+          <div class={frame() + "grid gap-6 md:grid-cols-2 md:gap-[30px]"}>
             <img
               src={ABOUT.vision.image}
               alt="A Favor Care outreach moment"
@@ -92,9 +89,11 @@ export default define.page(function WhoWeArePage() {
                   it with visibility:hidden (innerText drops it); mirror
                   that so the column rhythm matches. */
               }
-              <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-center md:text-[39px] lg:invisible lg:text-[56px]">
-                {ABOUT.vision.label}
-              </h2>
+              <SectionHeading
+                title={ABOUT.vision.label}
+                align="left-center-md"
+                class="lg:invisible"
+              />
               <p class="mt-4 text-left text-sm leading-relaxed text-primary md:mt-4 md:text-center md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                 {ABOUT.vision.body}
               </p>
@@ -108,10 +107,8 @@ export default define.page(function WhoWeArePage() {
             strip. */
         }
         <section class="bg-linear-to-b from-white to-yellow px-5 py-[25px] md:bg-none md:px-2.5 md:py-[30px] lg:px-0">
-          <div class="mx-auto w-full max-w-[1140px]">
-            <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-center md:text-[39px] lg:text-[56px]">
-              {ABOUT.valuesTitle}
-            </h2>
+          <div class={frame()}>
+            <SectionHeading title={ABOUT.valuesTitle} align="left-center-md" />
             <div class="mt-6 space-y-4 text-center text-primary">
               {ABOUT.values.map((v) => (
                 <p class="text-[20px] leading-5 md:leading-6 lg:text-[28px] lg:leading-9">
@@ -128,29 +125,31 @@ export default define.page(function WhoWeArePage() {
             reorders the photos — applied with order utilities. */
         }
         <section class="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5">
+          <div
+            class={frame() + "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5"}
+          >
             <img
               src={ABOUT.gallery[0].src}
               alt={ABOUT.gallery[0].alt}
-              class="order-2 aspect-3/2 w-full rounded-[30px] object-cover md:order-1"
+              class="order-2 aspect-3/2 w-full rounded-card object-cover md:order-1"
               loading="lazy"
             />
             <img
               src={ABOUT.gallery[1].src}
               alt={ABOUT.gallery[1].alt}
-              class="order-4 aspect-3/2 w-full rounded-[30px] object-cover md:order-2"
+              class="order-4 aspect-3/2 w-full rounded-card object-cover md:order-2"
               loading="lazy"
             />
             <img
               src={ABOUT.gallery[2].src}
               alt={ABOUT.gallery[2].alt}
-              class="order-1 aspect-3/2 w-full rounded-[30px] object-cover md:order-3"
+              class="order-1 aspect-3/2 w-full rounded-card object-cover md:order-3"
               loading="lazy"
             />
             <img
               src={ABOUT.gallery[3].src}
               alt={ABOUT.gallery[3].alt}
-              class="order-3 aspect-3/2 w-full rounded-[30px] object-cover md:order-4"
+              class="order-3 aspect-3/2 w-full rounded-card object-cover md:order-4"
               loading="lazy"
             />
           </div>
@@ -162,10 +161,8 @@ export default define.page(function WhoWeArePage() {
             and stacked portrait-over-caption below md. */
         }
         <section class="px-5 py-[25px] md:bg-linear-to-b md:from-yellow md:to-white md:to-15% md:px-2.5 md:py-0 md:pt-20 md:pb-[30px] lg:px-0 lg:pb-[50px]">
-          <div class="mx-auto w-full max-w-[1140px]">
-            <h2 class="text-center text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
-              {ABOUT.team.title}
-            </h2>
+          <div class={frame()}>
+            <SectionHeading title={ABOUT.team.title} align="center" />
             <p class="mx-auto mt-4 max-w-[638px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
               {ABOUT.team.subtitle}
             </p>
@@ -197,20 +194,18 @@ export default define.page(function WhoWeArePage() {
             heading left-aligned — quirk kept. */
         }
         <section class="px-5 py-[50px] md:px-2.5 md:py-0 md:pt-20 lg:px-0">
-          <div class="mx-auto w-full max-w-[1140px]">
-            <h2 class="text-left text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
-              {ABOUT.takeAction.title}
-            </h2>
+          <div class={frame()}>
+            <SectionHeading title={ABOUT.takeAction.title} align="left" />
             <p class="mx-auto mt-4 max-w-[695px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
               {ABOUT.takeAction.body}
             </p>
             <div class="mt-8 flex justify-center md:pt-[30px] md:pb-20">
-              <a
+              <Button
+                variant="yellow"
                 href={ABOUT.takeAction.cta.href}
-                class="inline-flex min-h-12 items-center justify-center rounded-full bg-yellow px-6 py-4 text-[15px] font-bold text-black transition-opacity hover:opacity-90 md:text-lg"
               >
                 {ABOUT.takeAction.cta.label}
-              </a>
+              </Button>
             </div>
           </div>
         </section>

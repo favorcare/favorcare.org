@@ -35,6 +35,9 @@
   --color-link-hover: #ffb428;
   /* Link Yellow as a usable surface (header DONATE pill). */
   --color-yellow: #ffb428;
+  /* The posts article system's own yellow (WP `articleContent` CSS) —
+     pull-quotes and ad-break CTA cards. Distinct from --color-yellow. */
+  --color-article-yellow: #f2b705;
 
   --color-surface: #ffffff;
   --color-surface-dim: #fbf9ed;
@@ -53,41 +56,34 @@
 
   --color-error: #cf2e2e;
   --color-on-error: #ffffff;
+  --color-error-container: #f9dedc;
+  --color-on-error-container: #410e0b;
 
-  /* Fully square system (WP): sm..xl are 0; full reserved for avatars,
+  /* Page background pair (documented in DESIGN.md; the body itself
+     renders surface/on-surface). */
+  --color-background: #ffffff;
+  --color-on-background: #2d2d2d;
+  /* WP kit "Light" custom — the cream used as text on the dark give-now
+     cards. Same value as surface-dim / secondary-container. */
+  --color-light: #fbf9ed;
+
+  /* WP-measured one-offs, scoped to where they were measured: the posts
+     archive filter links and the article ad-break card. */
+  --color-archive-ink: #0c0d0e;
+  --color-archive-muted: #69727d;
+  --color-adbreak: #f5f5f5;
+
+  /* Fully square system (WP): sm..xl are 0. The clone adds two measured
+     rounds — 30px cards/media (rounded-card) and the give-now jumbo
+     buttons' 50px (rounded-jumbo). full is reserved for pills, avatars,
      the progress meter, and overlay close controls. */
   --radius-sm: 0rem;
   --radius-md: 0rem;
   --radius-lg: 0rem;
   --radius-xl: 0rem;
+  --radius-card: 30px;
+  --radius-jumbo: 50px;
   --radius-full: 9999px;
-
-  --shadow-card: 0 1px 3px rgb(25 23 24 / 0.08);
-
-  /* Display scale from the WP kit's named styles (mobile sizes applied
-     via utilities, e.g. `text-hero md:text-hero md:tracking-hero`). */
-  --text-hero: 7.5rem;
-  --text-hero--line-height: 0.9;
-  --text-hero--letter-spacing: -6.8px;
-  --text-hero-mobile: 3.44rem;
-  --text-hero-mobile--line-height: 0.9;
-  --text-hero-mobile--letter-spacing: -3px;
-  --text-section-title: 5rem;
-  --text-section-title--line-height: 0.9;
-  --text-section-title--letter-spacing: -3.8px;
-  --text-section-title-mobile: 3.125rem;
-  --text-section-title-mobile--letter-spacing: -3px;
-  --text-group-title: 3.125rem;
-  --text-group-title--line-height: 0.9;
-  --text-group-title--letter-spacing: -2px;
-  --text-group-title-mobile: 2.2rem;
-  --text-group-title-mobile--letter-spacing: -2px;
-  --text-subtitle: 1.875rem;
-  --text-subtitle--line-height: 1.3;
-  --text-subtitle--letter-spacing: -2.8px;
-  --text-hero-subtitle: 1.375rem;
-  --text-hero-subtitle--line-height: 1.3;
-  --text-hero-subtitle--letter-spacing: -0.5px;
 }
 
 @layer base {
@@ -112,4 +108,25 @@
 
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
+}
+
+/* WP accreditation popup entrance (elementor: entrance_animation fadeIn,
+   0.8s) — applied only to auto-opened popups via the .popup-fade class. */
+.popup-fade[open] {
+  animation: popup-fade 0.8s ease both;
+}
+
+@keyframes popup-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup-fade[open] {
+    animation: none;
+  }
 }

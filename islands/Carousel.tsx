@@ -78,7 +78,7 @@ export default function Carousel({ slides, label }: CarouselProps) {
               role="group"
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${slides.length}: ${slide.caption}`}
-              class="group relative block h-[318px] w-[257px] shrink-0 snap-start overflow-hidden rounded-[30px] bg-primary bg-cover bg-center md:h-[245px] md:w-[222px] lg:h-[470px] lg:w-[368px]"
+              class="group relative block h-[318px] w-[257px] shrink-0 snap-start overflow-hidden rounded-card bg-primary bg-cover bg-center md:h-[245px] md:w-[222px] lg:h-[470px] lg:w-[368px]"
               style={{ backgroundImage: `url(${slide.src})` }}
             >
               <span class="absolute inset-0 flex items-center justify-center bg-black p-5 text-center text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 md:text-[26px] lg:text-[36px]">

@@ -2,9 +2,12 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
-import { PlusIcon } from "../components/icons.tsx";
+import { SectionHeading } from "../components/layout/SectionHeading.tsx";
+import { Faq } from "../components/Faq.tsx";
+import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
 import { CONTACT } from "../components/content.ts";
+import { frame } from "../components/layout/Container.tsx";
 
 // Contact page cloned from the WP page (post 1845, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at
@@ -27,7 +30,7 @@ export default define.page(function ContactPage() {
       <main id="main-content" tabIndex={-1}>
         {/* Heading + contact form (single column, WP's 684px frame). */}
         <section class="px-5 pb-20 pt-[50px] md:px-2.5 md:pt-20 lg:px-0">
-          <div class="mx-auto w-full max-w-[1140px]">
+          <div class={frame()}>
             <h1 class="text-center text-[38px] font-bold leading-none text-primary md:text-[59px] lg:text-[70px]">
               {CONTACT.heroTitle}
             </h1>
@@ -44,28 +47,14 @@ export default define.page(function ContactPage() {
         }
         <section class="px-5 pb-20 md:px-2.5 lg:px-0">
           <div class="mx-auto w-full max-w-[750px]">
-            <h2 class="text-center text-[28px] font-bold leading-tight text-primary md:text-[39px] lg:text-[56px] lg:leading-none">
-              Frequently Asked Questions
-            </h2>
-            <div class="mt-6 border-t border-primary/15 md:mt-[46px]">
-              {CONTACT.faqs.map((item) => (
-                <details
-                  key={item.q}
-                  class="group border-b border-primary/15"
-                >
-                  <summary class="flex min-h-[51px] cursor-pointer list-none items-center justify-between gap-4 py-3 text-base font-bold text-primary [&::-webkit-details-marker]:hidden">
-                    {item.q}
-                    <PlusIcon
-                      size={14}
-                      class="shrink-0 text-primary transition-transform duration-200 group-open:rotate-45"
-                    />
-                  </summary>
-                  <p class="pb-4 text-base leading-relaxed text-on-surface">
-                    {item.a}
-                  </p>
-                </details>
-              ))}
-            </div>
+            <SectionHeading
+              title="Frequently Asked Questions"
+              align="center"
+              weight="bold"
+              leading="tight"
+              class="lg:leading-none"
+            />
+            <Faq items={CONTACT.faqs} class="mt-6 md:mt-[46px]" />
           </div>
         </section>
 
@@ -78,7 +67,11 @@ export default define.page(function ContactPage() {
           id="newsletter"
           class="bg-black px-5 pb-5 pt-20 md:px-2.5 lg:px-0"
         >
-          <div class="mx-auto w-full max-w-[1140px]">
+          <div class={frame()}>
+            {
+              /* Newsletter title is its own WP dialect (28 / 36px) — not
+                the section scale. */
+            }
             <h2 class="text-center text-[28px] font-bold leading-tight text-white md:text-[36px] lg:leading-none">
               {CONTACT.newsletter.title}
             </h2>
@@ -141,7 +134,7 @@ export default define.page(function ContactPage() {
             in text. */
         }
         <section class="bg-black px-5 py-[60px] md:px-2.5 lg:px-0">
-          <div class="mx-auto w-full max-w-[1140px]">
+          <div class={frame()}>
             <h2 class="text-left text-[38px] font-bold leading-tight text-white md:text-[36px] lg:text-[48px] lg:font-medium lg:leading-none">
               {CONTACT.love.title}
             </h2>
@@ -154,14 +147,10 @@ export default define.page(function ContactPage() {
           </div>
         </section>
         <section class="bg-black px-2.5 pb-2.5 md:px-2.5">
-          <iframe
+          <MapEmbed
+            src={mapEmbedSrc(CONTACT.mapQuery)}
             title="Favor Care office location"
-            src={`https://www.google.com/maps?q=${
-              encodeURIComponent(CONTACT.mapQuery)
-            }&output=embed`}
             class="h-[400px] w-full border-0"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
           />
         </section>
       </main>

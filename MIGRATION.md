@@ -215,6 +215,13 @@ templates is Phase 5 work.)_
 
 - [ ] Chrome first: Header/Footer/MobileNav/popups (Prayer Hub + Zoom link,
       accreditation, Cert-of-Donation) as islands/dialogs.
+  - Popup status (live WP re-census 2026-10-14, `feat/popup-parity`):
+    accreditation (7281) auto-opens 3s after load, once per session, site-wide —
+    mounted in `routes/_app.tsx`; the get-involved SERVE buttons open the
+    volunteer disclaimer (7730) chained to the full guidelines doc (7737);
+    Prayer Hub (1424)'s only trigger is hidden at every WP breakpoint —
+    storybook-only; Cert-of-Donation (7660, tax-deductible form) stays a Phase 4
+    item (mailto substitute).
 - [ ] Order: home → about → what-we-do → get-involved → contact → givenow →
       news-updates + `posts/[slug]` → privacy-policy.
 - [ ] Verification harness (Playwright): animations disabled via CSS injection,

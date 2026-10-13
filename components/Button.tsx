@@ -1,31 +1,75 @@
 import type { ComponentChildren } from "preact";
+import { cx } from "./cx.ts";
 
-type Variant = "primary" | "secondary" | "donate" | "inverted" | "outline";
+export type ButtonVariant =
+  | "yellow"
+  | "black"
+  | "white"
+  | "outline-white"
+  | "outline-black";
 
-// Button styles per DESIGN.md v2 (WordPress base — square, flat):
-//  - primary  = solid near-black CTA (hero, section CTAs)
-//  - secondary = outlined near-black (supporting actions)
-//  - donate   = compact solid (header bar)
-//  - inverted = white on dark sections (DonateCTA section)
-//  - outline  = transparent pill with hairline border (form SEND button)
-const variantClasses: Record<Variant, string> = {
-  primary:
-    "min-h-12 px-6 rounded font-bold text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active",
-  secondary:
-    "min-h-12 px-6 rounded font-semibold border-2 border-primary text-primary hover:bg-primary-container hover:text-on-primary-container hover:border-primary-container",
-  donate:
-    "min-h-12 px-5 rounded font-bold text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active",
-  inverted:
-    "min-h-12 px-6 rounded font-bold text-primary bg-on-primary hover:bg-on-primary/90",
-  outline:
-    "min-h-12 px-6 rounded-full font-bold text-primary border border-primary bg-transparent hover:bg-primary hover:text-on-primary",
+export type ButtonSize = "sm" | "md" | "lg" | "xl" | "header";
+
+export type ButtonShape = "pill" | "rounded-30" | "rounded-50";
+
+// The site's pill-button system, extracted verbatim from the WP-clone
+// pages. Variants carry color + hover behavior; sizes carry the label and
+// padding dialects measured per page; shape carries the corner language
+// (pills on content pages, 30/50px rounds on the give-now jumbo CTAs).
+// Sizes `lg`/`xl` omit `min-h-12` — their height comes from padding, as
+// measured on WP.
+const VARIANTS: Record<ButtonVariant, string> = {
+  yellow: "bg-yellow text-black transition-opacity hover:opacity-90",
+  black: "bg-black text-white transition-opacity hover:opacity-90",
+  white: "bg-white text-black transition-opacity hover:opacity-90",
+  "outline-white":
+    "border-[3px] border-white text-white transition-colors hover:bg-white hover:text-black",
+  "outline-black":
+    "border-[3px] border-black bg-white text-black transition-colors hover:bg-black hover:text-white",
 };
 
-const baseClasses =
-  "inline-flex items-center justify-center gap-2 transition-all";
+const SIZES: Record<ButtonSize, string> = {
+  // Homepage dialect: 14px mobile labels, height from min-h-12.
+  sm: "min-h-12 px-6 text-[14px] md:text-lg",
+  // Subpage dialect: 15px mobile labels with py-4.
+  md: "min-h-12 px-6 py-4 text-[15px] md:text-lg",
+  // Give-now jumbo: px-8, no min-height (padding-driven).
+  lg: "px-8 py-3 text-[22px] leading-none",
+  // Give-now hero ghost CTA: same as lg with wider padding.
+  xl: "px-10 py-3 text-[22px] leading-none",
+  // Header DONATE / mobile DONATE.
+  header: "min-h-12 px-6 text-base lg:text-lg",
+};
+
+const SHAPES: Record<ButtonShape, string> = {
+  pill: "rounded-full",
+  "rounded-30": "rounded-card",
+  "rounded-50": "rounded-jumbo",
+};
+
+/** Class string for a Button's look — reused by non-Button controls that
+ *  must match the pill system (e.g. Popup's trigger on get-involved). */
+export function buttonClasses(
+  { variant = "yellow", size = "md", shape = "pill" }: {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+    shape?: ButtonShape;
+  } = {},
+  extra?: string,
+) {
+  return cx(
+    "inline-flex items-center justify-center font-bold",
+    VARIANTS[variant],
+    SIZES[size],
+    SHAPES[shape],
+    extra,
+  );
+}
 
 export interface ButtonProps {
-  variant?: Variant;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  shape?: ButtonShape;
   href?: string;
   /** Passed through when the button is a link (e.g. target="_blank"). */
   target?: string;
@@ -38,7 +82,9 @@ export interface ButtonProps {
 
 export function Button(
   {
-    variant = "primary",
+    variant = "yellow",
+    size = "md",
+    shape = "pill",
     href,
     target,
     rel,
@@ -48,7 +94,7 @@ export function Button(
     children,
   }: ButtonProps,
 ) {
-  const className = `${baseClasses} ${variantClasses[variant]} ${extra ?? ""}`;
+  const className = buttonClasses({ variant, size, shape }, extra);
   if (href !== undefined) {
     return (
       <a

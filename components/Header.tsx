@@ -1,5 +1,6 @@
 import { asset } from "../utils/assets.ts";
 import { Navbar } from "./Navbar.tsx";
+import { Button } from "./Button.tsx";
 import MobileNav from "../islands/MobileNav.tsx";
 
 // Yellow header bar (WP template `new-header`, post 1243): full-color logo
@@ -20,12 +21,9 @@ export function Header() {
         <Navbar />
 
         <div class="flex items-center gap-2">
-          <a
-            href="/givenow"
-            class="inline-flex min-h-12 items-center justify-center rounded-full bg-black px-6 text-base font-bold text-white transition-opacity hover:opacity-90 lg:text-lg"
-          >
+          <Button variant="black" size="header" href="/givenow">
             DONATE
-          </a>
+          </Button>
           <MobileNav />
         </div>
       </div>

@@ -10,68 +10,11 @@ export interface Cta {
   href: string;
 }
 
-export interface StatItem {
-  value: string;
-  label: string;
-}
-
-export interface ProgramItem {
-  title: string;
-  name?: string;
-  body: string;
-}
-
-export interface WayItem {
-  title: string;
-  body: string;
-  /** Optional photo rendered edge-to-edge above the card copy. */
-  image?: string;
-  imageAlt?: string;
-}
-
-export interface TeamMember {
-  name: string;
-  role: string;
-  photo: string;
-  photoAlt: string;
-}
-
-export interface ProgramDetailItem {
-  title: string;
-  /** One-line summary rendered as the card's semibold lead. */
-  summary: string;
-  paragraphs: string[];
-  /** Optional sub-head between the paragraph groups (used by Education). */
-  subHeading?: string;
-  subParagraphs?: string[];
-  /** Optional 3-up photo strip under the summary. */
-  images?: string[];
-}
-
 export interface FaqItem {
   q: string;
   a: string;
   /** Optional inline link rendered after the answer. */
   link?: { label: string; href: string };
-}
-
-export interface GiveMethodCta {
-  label: string;
-  href: string;
-  /** External portal — opens in a new tab. */
-  external?: boolean;
-}
-
-export interface GiveMethod {
-  title: string;
-  lines?: string[];
-  cta?: GiveMethodCta;
-}
-
-export interface GiveRegion {
-  name: string;
-  intro?: string;
-  methods: GiveMethod[];
 }
 
 // Homepage — cloned from the WP `favor-care-homepage` page (post 6002,
@@ -137,23 +80,6 @@ export const HOME = {
   },
 };
 
-export const HERO = {
-  eyebrow: "Favor Care Foundation · DSWD & PCNC Accredited",
-  title: "Giving hope for a better future to those in need.",
-  subtitle:
-    "A faith-based humanitarian foundation delivering healthcare, education, disaster relief, and community development across Metro Manila and surrounding provinces.",
-  primary: { label: "Donate now", href: "/givenow" },
-  secondary: { label: "See our work", href: "#programs" },
-  image: asset("/images/pages/home/hero.jpg"),
-} satisfies {
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  primary: Cta;
-  secondary: Cta;
-  image: string;
-};
-
 export interface CarouselSlide {
   src: string;
   alt?: string;
@@ -202,120 +128,6 @@ export const CAROUSEL: CarouselSlide[] = [
     href: "/what-we-do",
   },
 ];
-
-export const STATS: StatItem[] = [
-  { value: "2 yrs", label: "Of field operations" },
-  { value: "₱35.7M", label: "Donations received, 2025" },
-  { value: "₱9.39M", label: "Invested in programs, 2025 (audited)" },
-  { value: "3,500", label: "Beneficiaries of our flagship clinic program" },
-];
-
-export const MISSION = {
-  title: "Our mission",
-  body:
-    "Favor Care Foundation is a faith-based humanitarian organization delivering healthcare, education, disaster relief, and community development to families across Metro Manila and surrounding provinces. From a mobile medical clinic serving 3,500 patients a year to care packages inside the Correctional Institution for Women, we turn compassion into audited, measurable impact — one program, one family, one community at a time.",
-  cta: { label: "Read our story →", href: "#impact" },
-} satisfies { title: string; body: string; cta: Cta };
-
-export const CAMPAIGN = {
-  eyebrow: "Flagship initiative",
-  title: "A mobile clinic reaching 3,500 patients a year.",
-  body:
-    "Our Community Medical & Dental Outreach program is a funded, 12-month mobile clinic initiative bringing free consultations, dental care, and health education to Metro Manila's poor and marginalized communities — ₱2M total project capital. Full sponsorship or partial co-funding welcome.",
-  cta: { label: "Partner with us →", href: "/givenow" },
-} satisfies {
-  eyebrow: string;
-  title: string;
-  body: string;
-  cta: Cta;
-};
-
-export const PROGRAMS: ProgramItem[] = [
-  {
-    title: "Healthcare",
-    name: "Medical & Dental Outreach",
-    body:
-      "Free mobile clinics bringing consultations, dental care, and health education to underserved communities — our flagship program.",
-  },
-  {
-    title: "Education",
-    name: "Scholarship & Support",
-    body:
-      "School supplies, facility improvements, and holistic support for students facing financial barriers to quality education.",
-  },
-  {
-    title: "Reintegration",
-    name: "Assistance to PDL",
-    body:
-      "Values education, counseling, healthcare, and livelihood preparation for women at the Correctional Institution for Women, Mandaluyong.",
-  },
-  {
-    title: "Resilience",
-    name: "Relief & Special Projects",
-    body:
-      "Disaster relief and capacity-building grants that help partner communities and organizations become self-sustaining.",
-  },
-];
-
-export const TRUST_FACTS: string[] = [
-  "SEC-registered non-stock, non-profit foundation since May 2022",
-  "DSWD licensed to operate through March 2027",
-  "PCNC accredited — donations qualify for tax deduction",
-  "BIR tax-exempt under NIRC Sec. 30(E), valid through May 2027",
-  "Independently audited by Quinsay and Co., CPAs",
-];
-
-export const IMPACT = {
-  eyebrow: "Stories & impact",
-  title: "Real lives. Measurable change.",
-  body:
-    "“Favor Care's medical team demonstrated excellence in patient care, proper coordination with school staff, and strong attention to child safeguarding — serving approximately 350 beneficiaries with free consultations, screening, and medicines.” — Robert Nichols, Executive Director, Redemptio Christian School, Taytay, Rizal",
-  cta: { label: "Read more stories →", href: "/news-updates" },
-  trustTitle: "Why trust Favor Care with your gift?",
-  trustFacts: TRUST_FACTS,
-} satisfies {
-  eyebrow: string;
-  title: string;
-  body: string;
-  cta: Cta;
-  trustTitle: string;
-  trustFacts: string[];
-};
-
-export const WAYS_TO_HELP: WayItem[] = [
-  {
-    title: "Volunteer",
-    body:
-      "Serve at Favor-CIW Sunday services, the community medical clinic, and other programs.",
-  },
-  {
-    title: "Fundraise For Us",
-    body: "Run your own campaign or birthday drive for a program you love.",
-  },
-  {
-    title: "Corporate Partners",
-    body:
-      "Sponsor a mobile clinic from ₱167,000, or become a Founding Partner at ₱1,000,000+.",
-  },
-  { title: "Prayer Hub", body: "Submit a request and pray with us." },
-  {
-    title: "In-Kind Donations",
-    body:
-      "Give medical & dental supplies, transport, logistics, or professional services.",
-  },
-];
-
-export const DONATE_CTA = {
-  title: "Your gift, in their hands within days.",
-  body:
-    "Every gift is secure, tax-deductible, and independently audited. Fund a full mobile clinic for ₱167,000, give monthly as a Carer, or join our Founding Partners.",
-  cta: { label: "Donate now", href: "/givenow" },
-} satisfies { title: string; body: string; cta: Cta };
-
-export const NEWSLETTER = {
-  title: "Join the Carers newsletter",
-  body: "Monthly stories, prayer points, and ways to act. Unsubscribe anytime.",
-} satisfies { title: string; body: string };
 
 export const ABOUT = {
   // Cloned from the WP `about` page (post 1831, staging = canonical):
@@ -807,9 +619,33 @@ export const GIVENOW = {
   };
 };
 
-// Site-wide popups cloned from the WP elementor_library templates
-// (1424-prayer-hub-popup, 7283-accreditation, 7426-volunteer-disclaimer).
-// Copy is verbatim from the source, including its quirks.
+/** Popup CTA — either a link, or a chain-opener for WP's nested popups. */
+export type PopupCta = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  /** Close this dialog and open the chained one instead of navigating. */
+  opensChain?: boolean;
+};
+
+/** JSON-serializable body block for chained popup dialogs (island props
+ *  must be plain data, so the guidelines doc travels as blocks). */
+export type PopupBlock = {
+  type: "p" | "h" | "ul";
+  text?: string;
+  items?: string[];
+};
+
+// Site-wide popups cloned from the WP elementor_library templates (live
+// ids as of 2026-10-14: 1424-prayer-hub, 7281-accreditation,
+// 7730-volunteer-disclaimer, 7737-volunteer-guidelines; 7660 is /givenow's
+// tax-deductible form popup — Phase 4, mailto substitute). Copy is
+// verbatim from the source, including its quirks.
+//
+// Accreditation (7281) auto-opens 3s after page load, once per browser
+// session, on every WP page — mounted site-wide in routes/_app.tsx.
+// Prayer Hub's only trigger ("JOIN THE PRAYER HUB") is hidden at every
+// breakpoint on WP — storybook specimen only, no page trigger.
 export const POPUPS = {
   prayerHub: {
     title: "PRAYER HUB",
@@ -822,22 +658,95 @@ export const POPUPS = {
       external: true,
     },
   },
+  // Volunteer disclaimer (7730): the get-involved SERVE buttons open this;
+  // its Review Guidelines button chains into the full guidelines doc.
   volunteer: {
-    title: "Volunteer Commitment",
+    title: "Volunteer Commitment & Lifestyle Guidelines",
     body:
-      "Before submitting the form, please take the time to review our Volunteer Commitment and Lifestyle Guidelines to see how you are aligned to our values.",
+      "Before signing up to serve, please take the time to review our Volunteer Commitment and Lifestyle Guidelines to see how you are aligned to our values.",
+    cta: { label: "REVIEW GUIDELINES", opensChain: true } satisfies PopupCta,
+  },
+  // The full guidelines doc (7737), verbatim including its structure; its
+  // agree CTA links the live Google Form signup.
+  volunteerGuidelines: {
+    title: "Volunteer Commitment",
+    blocks: [
+      {
+        type: "p",
+        text:
+          "At Favor Care, volunteering is more than simply filling a spot on a roster—it’s about contributing to something meaningful and helping create a positive environment for everyone involved. Each time we serve, we represent the values of this community both on and off the platform.",
+      },
+      {
+        type: "p",
+        text:
+          "These Volunteer Commitment Guidelines are designed to help us build a safe, respectful, and supportive environment where people feel welcome, valued, and encouraged.",
+      },
+      {
+        type: "p",
+        text:
+          "Please take a moment to read through these guidelines carefully. They are an important part of how we stay aligned, work well together, and serve effectively as a team.",
+      },
+      { type: "h", text: "Boundaries" },
+      {
+        type: "p",
+        text:
+          "To ensure a safe, respectful, and comfortable environment for everyone in our community, we observe the following boundaries and guidelines:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Please refrain from discussing personal financial matters within teams, including asking for or borrowing money.",
+          "Respect the privacy of all members of the community—especially individuals who may be in public-facing roles—by avoiding requests for personal information, taking photos without permission, or approaching them in ways that may feel intrusive. These guidelines help us maintain a culture of professionalism, trust, and mutual respect within our teams.",
+        ],
+      },
+      { type: "h", text: "Lifestyle Guidelines" },
+      {
+        type: "p",
+        text:
+          "Volunteering is a meaningful responsibility that reflects the values and culture of our community. We ask all volunteers to approach serving with integrity, humility, and a desire to positively influence those around them.",
+      },
+      {
+        type: "p",
+        text:
+          "We recognize that everyone is on a personal journey of growth, and no one is expected to be perfect. At the same time, volunteering requires a level of personal responsibility and alignment with the standards we uphold as a community.",
+      },
+      {
+        type: "p",
+        text:
+          "Because of this, individuals who are currently navigating significant personal challenges such as:",
+      },
+      {
+        type: "ul",
+        items: [
+          "struggling with addictions (including but not limited to alcohol, smoking, drugs, pornography, or gambling),",
+          "engaging in sex outside of marriage,",
+          "living with someone they are not married to, or",
+          "actively pursuing an LGBTQIA+ lifestyle or lifestyle choices that may conflict with the values and environment we aim to cultivate",
+        ],
+      },
+      {
+        type: "p",
+        text:
+          "may be encouraged to take time to focus on personal growth before stepping into a volunteer role.",
+      },
+      {
+        type: "p",
+        text:
+          "Our heart is always to support people in their journey. If someone desires guidance, support, or accountability, our team is committed to walking alongside them and helping them move forward in a healthy and positive direction.",
+      },
+    ] satisfies PopupBlock[],
     cta: {
-      label: "REVIEW GUIDELINES",
-      // /commitment page not yet rebuilt — points at the WP original for now.
-      href: "https://staging.favorcare.org/commitment",
+      label: "I AGREE, SIGN UP AS A VOLUNTEER",
+      href:
+        "https://docs.google.com/forms/d/e/1FAIpQLScraE9-h5uh7rIzk6IdnpX072IDU60N_QQ-klpqhpPd4GiPZg/viewform",
       external: true,
-    },
+    } satisfies PopupCta,
   },
   accreditation: {
     title: "We’re officially PCNC and DSWD Accredited!",
     body:
       "Our accreditation affirms our commitment to transparency, integrity, and impact. Thank you for partnering with us as we serve communities with excellence.",
-    cta: { label: "DONATE", href: "/givenow" },
+    cta: { label: "DONATE", href: "/givenow" } satisfies PopupCta,
   },
 };
 
@@ -848,7 +757,9 @@ export const GET_INVOLVED = {
   // first shows a photo from md up, the second is blank on WP (its
   // background never applies) and is cloned as an empty spacer.
   // Links verbatim: newsletter -> contact#newsletter (WP links per-
-  // breakpoint anchors), volunteer -> the fluro.io signup form, donate ->
+  // breakpoint anchors), volunteer -> the SERVE button opens the
+  // volunteer-disclaimer popup (its guidelines agree-CTA links the live
+  // Google Form signup — kept here as the signup destination), donate ->
   // /give → /givenow. The hero's second subhead and the lorem testimonial
   // carousels are hidden at every breakpoint on WP — not cloned. WP's
   // mobile hero title reads "Get involved" (lowercase w) — kept.
@@ -873,7 +784,12 @@ export const GET_INVOLVED = {
         "Sign up as a Favor Care volunteer for our Sunday services at Favor-CIW, community medical clinic and other programs and activities.",
       cta: {
         label: "SERVE",
-        href: "https://share.fluro.io/form/6359f65f3e1dcf00252046d6",
+        // Opens POPUPS.volunteer (the disclaimer) via the Popup island on
+        // the page — the WP button is an elementor popup trigger, not a
+        // link. Href kept as the signup form the guidelines agree-CTA
+        // points at.
+        href:
+          "https://docs.google.com/forms/d/e/1FAIpQLScraE9-h5uh7rIzk6IdnpX072IDU60N_QQ-klpqhpPd4GiPZg/viewform",
         external: true,
       },
       image: asset("/images/pages/get-involved/volunteer-repacking-rice.jpeg"),

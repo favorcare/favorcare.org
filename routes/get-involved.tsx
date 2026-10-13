@@ -3,7 +3,12 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
-import { GET_INVOLVED } from "../components/content.ts";
+import { PageHero } from "../components/PageHero.tsx";
+import { SectionHeading } from "../components/layout/SectionHeading.tsx";
+import { Button, buttonClasses } from "../components/Button.tsx";
+import Popup from "../islands/Popup.tsx";
+import { GET_INVOLVED, POPUPS } from "../components/content.ts";
+import { frame } from "../components/layout/Container.tsx";
 
 // Get-involved page cloned from the WP page (post 1840, staging =
 // canonical). Copy is verbatim; geometry follows the measured WP layout
@@ -15,7 +20,10 @@ import { GET_INVOLVED } from "../components/content.ts";
 // The second divider band's photo never applies on WP — cloned as the
 // same empty spacer. WP's 10px hero subtitle on mobile is raised to 14px
 // for legibility; its mobile title reads "Get involved" (lowercase w) —
-// kept as measured.
+// kept as measured. The volunteer card's SERVE button opens the WP
+// volunteer-disclaimer popup (7730), whose Review Guidelines chains into
+// the full guidelines doc (7737) — the newsletter/donate cards keep their
+// plain links.
 export default define.page(function GetInvolvedPage() {
   return (
     <>
@@ -27,28 +35,18 @@ export default define.page(function GetInvolvedPage() {
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: the volunteers photo with the black→yellow gradient
-            overlay, centered title + subtitle. */
+            overlay, centered title + subtitle. WP's mobile title reads
+            "Get involved" (lowercase w) — kept as measured. */
         }
-        <section class="relative flex flex-col items-center gap-4 py-[35px] pb-10 md:py-25 lg:pb-45">
-          <div
-            class="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${GET_INVOLVED.hero.image})` }}
-            aria-hidden="true"
-          />
-          <div
-            class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
-            aria-hidden="true"
-          />
-          <div class="relative mx-auto w-full max-w-[1140px] px-5 md:px-2.5 lg:px-0">
-            <h1 class="text-center text-[38px] font-semibold leading-none text-white md:text-[56px] md:font-bold lg:text-[70px]">
-              <span class="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
-              <span class="hidden md:inline">{GET_INVOLVED.hero.title}</span>
-            </h1>
-            <p class="mx-auto mt-4 max-w-[280px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
-              {GET_INVOLVED.hero.subtitle}
-            </p>
-          </div>
-        </section>
+        <PageHero image={GET_INVOLVED.hero.image}>
+          <h1 class="text-center text-[38px] font-semibold leading-none text-white md:text-[56px] md:font-bold lg:text-[70px]">
+            <span class="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
+            <span class="hidden md:inline">{GET_INVOLVED.hero.title}</span>
+          </h1>
+          <p class="mx-auto mt-4 max-w-[280px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
+            {GET_INVOLVED.hero.subtitle}
+          </p>
+        </PageHero>
 
         {
           /* Three photo + black-card rows. The cards round only their
@@ -59,7 +57,7 @@ export default define.page(function GetInvolvedPage() {
         {GET_INVOLVED.cards.map((card, i) => (
           <Fragment key={card.title}>
             <section class="px-5 pt-5 md:px-2.5 md:pt-10 lg:px-0">
-              <div class="mx-auto grid w-full max-w-[1140px] md:grid-cols-2">
+              <div class={frame() + "grid md:grid-cols-2"}>
                 <img
                   src={card.image}
                   alt=""
@@ -69,27 +67,55 @@ export default define.page(function GetInvolvedPage() {
                   loading="lazy"
                 />
                 <div
-                  class={`mx-auto mt-2.5 flex w-[300px] flex-col items-center justify-center gap-5 rounded-r-[30px] bg-black p-6 md:mt-0 md:w-auto md:p-0 md:py-[30px] ${
+                  class={`mx-auto mt-2.5 flex w-[300px] flex-col items-center justify-center gap-5 rounded-r-card bg-black p-6 md:mt-0 md:w-auto md:p-0 md:py-[30px] ${
                     i === 1
-                      ? "md:order-1 md:rounded-l-[30px] md:rounded-r-none"
+                      ? "md:order-1 md:rounded-l-card md:rounded-r-none"
                       : ""
                   }`}
                 >
-                  <h2 class="text-center text-[28px] font-semibold leading-none text-white md:text-[39px] lg:text-[56px]">
-                    {card.title}
-                  </h2>
+                  <SectionHeading
+                    title={card.title}
+                    tone="white"
+                    weight="semibold"
+                    align="center"
+                  />
                   <p class="max-w-[80%] text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                     {card.body}
                   </p>
-                  <a
-                    href={card.cta.href}
-                    {...card.cta.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {}}
-                    class="mt-2 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-4 text-[15px] font-bold text-black transition-opacity hover:opacity-90 md:text-lg"
-                  >
-                    {card.cta.label}
-                  </a>
+                  {i === 1
+                    ? (
+                      /* The WP SERVE button is an elementor popup trigger,
+                        not a link — the Popup island's own button wears the
+                        white pill via buttonClasses. */
+                      <Popup
+                        trigger={card.cta.label}
+                        triggerClass={buttonClasses(
+                          { variant: "white", size: "md" },
+                          "mt-2",
+                        )}
+                        title={POPUPS.volunteer.title}
+                        cta={POPUPS.volunteer.cta}
+                        chain={{
+                          title: POPUPS.volunteerGuidelines.title,
+                          blocks: POPUPS.volunteerGuidelines.blocks,
+                          cta: POPUPS.volunteerGuidelines.cta,
+                        }}
+                      >
+                        {POPUPS.volunteer.body}
+                      </Popup>
+                    )
+                    : (
+                      <Button
+                        variant="white"
+                        href={card.cta.href}
+                        {...card.cta.external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {}}
+                        class="mt-2"
+                      >
+                        {card.cta.label}
+                      </Button>
+                    )}
                 </div>
               </div>
             </section>
