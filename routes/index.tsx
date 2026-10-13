@@ -2,11 +2,12 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
-import { Container } from "../components/layout/Container.tsx";
+import { frame } from "../components/layout/Container.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Eyebrow } from "../components/Eyebrow.tsx";
 import { Button } from "../components/Button.tsx";
 import { CtaBand } from "../components/CtaBand.tsx";
+import { PageHero } from "../components/PageHero.tsx";
 import { VideoEmbed } from "../components/VideoEmbed.tsx";
 import { MapEmbed } from "../components/MapEmbed.tsx";
 import Carousel from "../islands/Carousel.tsx";
@@ -34,24 +35,19 @@ export default define.page(function Home() {
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: photo on black with a yellow-to-black gradient overlay;
-            left-aligned display headline. */
+            left-aligned display headline. The h1 scale is the homepage's
+            own (38/56/70, leading 0.95) and stays in the route. */
         }
-        <section class="relative flex items-center bg-black bg-cover bg-center py-20 md:py-28 lg:h-[540px] lg:py-0">
-          <div
-            class="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${HOME.hero.image})` }}
-            aria-hidden="true"
-          />
-          <div
-            class="absolute inset-0 bg-linear-to-t from-black to-yellow opacity-[0.54]"
-            aria-hidden="true"
-          />
-          <Container pad="home" class="relative">
-            <h1 class="max-w-[570px] text-[38px] font-semibold leading-[0.95] tracking-[-2.3px] text-white md:text-[56px] lg:text-[70px] lg:leading-[57px]">
-              {HOME.hero.headline}
-            </h1>
-          </Container>
-        </section>
+        <PageHero
+          image={HOME.hero.image}
+          geometry="bare"
+          framePad="home"
+          sectionClass="items-center bg-black py-20 md:py-28 lg:h-[540px] lg:py-0"
+        >
+          <h1 class="max-w-[570px] text-[38px] font-semibold leading-[0.95] tracking-[-2.3px] text-white md:text-[56px] lg:text-[70px] lg:leading-[57px]">
+            {HOME.hero.headline}
+          </h1>
+        </PageHero>
 
         {
           /* Care Updates: rounded yellow card with heading, copy, and the
@@ -60,12 +56,18 @@ export default define.page(function Home() {
         }
         <section class="mx-auto w-full max-w-[1140px] px-2.5 py-16 md:px-10 md:py-20 lg:px-0 lg:pt-[30px] lg:pb-10">
           <div class="rounded-card bg-yellow px-5 py-5 md:px-[50px]">
-            <h2 class="text-[28px] font-bold leading-tight text-black md:text-[39px] lg:text-[56px]">
-              <span class="md:hidden lg:inline">
-                {HOME.careUpdates.heading}
-              </span>
-              <span class="hidden md:inline lg:hidden">Care Updates</span>
-            </h2>
+            <SectionHeading
+              title={
+                <>
+                  <span class="md:hidden lg:inline">
+                    {HOME.careUpdates.heading}
+                  </span>
+                  <span class="hidden md:inline lg:hidden">Care Updates</span>
+                </>
+              }
+              tone="black"
+              leading="tight"
+            />
             <p class="mt-4 text-[14px] leading-relaxed text-black md:text-[15px] lg:text-base">
               {HOME.careUpdates.body}
             </p>
@@ -81,7 +83,10 @@ export default define.page(function Home() {
           /* About + Care Updates video: two columns on md+ (video left,
             about right); stacked about-first on mobile, as on WP. */
         }
-        <section class="mx-auto grid w-full max-w-[1140px] items-center gap-10 px-5 pb-16 md:grid-cols-2 md:px-10 md:pb-20 lg:gap-[88px] lg:px-0">
+        <section
+          class={frame("home") +
+            " grid items-center gap-10 pb-16 md:grid-cols-2 md:pb-20 lg:gap-[88px]"}
+        >
           <div class="md:order-2">
             <Eyebrow>{HOME.about.eyebrow}</Eyebrow>
             <SectionHeading
@@ -109,7 +114,9 @@ export default define.page(function Home() {
         </section>
 
         {/* What we do: centered heading + the six-program media carousel. */}
-        <section class="mx-auto w-full max-w-[1140px] px-5 py-16 text-center md:px-10 md:py-20 lg:px-0">
+        <section
+          class={frame("home") + " py-16 text-center md:py-20"}
+        >
           <Eyebrow>{HOME.whatWeDo.eyebrow}</Eyebrow>
           <SectionHeading
             title={HOME.whatWeDo.title}
@@ -163,7 +170,10 @@ export default define.page(function Home() {
           /* Portrait + Get in touch: portrait left (desktop only, as on WP)
             and the contact form in a rounded yellow card right. */
         }
-        <section class="mx-auto grid w-full max-w-[1140px] items-center gap-10 px-5 py-16 md:px-10 lg:grid-cols-2 lg:px-0">
+        <section
+          class={frame("home") +
+            " grid items-center gap-10 py-16 lg:grid-cols-2"}
+        >
           <img
             src={HOME.takeAction.image}
             alt={HOME.takeAction.imageAlt}
@@ -190,7 +200,9 @@ export default define.page(function Home() {
 
         {/* We'd love to hear from you: black strip with email. */}
         <section class="bg-black px-5 py-12 md:px-10 lg:py-[70px]">
-          <div class="mx-auto grid w-full max-w-[1140px] items-center gap-6 md:grid-cols-[1fr_auto]">
+          <div
+            class={frame() + " grid items-center gap-6 md:grid-cols-[1fr_auto]"}
+          >
             <div>
               <h2 class="text-[38px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[48px]">
                 {HOME.contact.loveTitle}

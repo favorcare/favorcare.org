@@ -51,7 +51,7 @@ export default define.page(function WhoWeArePage() {
             copy left-aligned. */
         }
         <section class="px-5 pt-5 md:px-2.5 md:pt-20 lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] gap-6 md:grid-cols-2 md:gap-[30px]">
+          <div class={frame() + "grid gap-6 md:grid-cols-2 md:gap-[30px]"}>
             <img
               src={ABOUT.mission.image}
               alt="Children of a community served by Favor Care"
@@ -76,7 +76,7 @@ export default define.page(function WhoWeArePage() {
             its yellow band into the gallery. Stacked photo-first below md. */
         }
         <section class="px-5 pt-5 md:bg-linear-to-b md:from-white md:from-76% md:to-yellow md:px-2.5 md:pt-20 md:pb-[130px] lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] gap-6 md:grid-cols-2 md:gap-[30px]">
+          <div class={frame() + "grid gap-6 md:grid-cols-2 md:gap-[30px]"}>
             <img
               src={ABOUT.vision.image}
               alt="A Favor Care outreach moment"
@@ -125,7 +125,9 @@ export default define.page(function WhoWeArePage() {
             reorders the photos — applied with order utilities. */
         }
         <section class="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5">
+          <div
+            class={frame() + "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5"}
+          >
             <img
               src={ABOUT.gallery[0].src}
               alt={ABOUT.gallery[0].alt}

@@ -8,6 +8,7 @@ import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button, buttonClasses } from "../components/Button.tsx";
 import Popup from "../islands/Popup.tsx";
 import { GET_INVOLVED, POPUPS } from "../components/content.ts";
+import { frame } from "../components/layout/Container.tsx";
 
 // Get-involved page cloned from the WP page (post 1840, staging =
 // canonical). Copy is verbatim; geometry follows the measured WP layout
@@ -56,7 +57,7 @@ export default define.page(function GetInvolvedPage() {
         {GET_INVOLVED.cards.map((card, i) => (
           <Fragment key={card.title}>
             <section class="px-5 pt-5 md:px-2.5 md:pt-10 lg:px-0">
-              <div class="mx-auto grid w-full max-w-[1140px] md:grid-cols-2">
+              <div class={frame() + "grid md:grid-cols-2"}>
                 <img
                   src={card.image}
                   alt=""

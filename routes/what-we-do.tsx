@@ -7,6 +7,7 @@ import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button } from "../components/Button.tsx";
 import Slideshow from "../islands/Slideshow.tsx";
 import { WHAT_WE_DO } from "../components/content.ts";
+import { frame } from "../components/layout/Container.tsx";
 
 // What-we-do page cloned from the WP page (post 1835, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at 360/768/1280
@@ -52,7 +53,10 @@ export default define.page(function WhatWeDoPage() {
         }
         {WHAT_WE_DO.programs.map((p, i) => (
           <section class="px-5 pt-5 first:pt-9 md:px-2.5 md:pt-20 lg:px-0">
-            <div class="mx-auto grid w-full max-w-[1140px] items-center gap-6 md:grid-cols-2 md:gap-[30px]">
+            <div
+              class={frame() +
+                "grid items-center gap-6 md:grid-cols-2 md:gap-[30px]"}
+            >
               <div class={i % 2 === 0 ? "md:order-2" : "md:order-1"}>
                 <Slideshow images={p.slides} label={`${p.label} photos`} />
               </div>
@@ -88,7 +92,10 @@ export default define.page(function WhatWeDoPage() {
             a black GIVE pill, black with a white GET INVOLVED pill. */
         }
         <section class="px-5 py-20 md:px-2.5 lg:px-0">
-          <div class="mx-auto grid w-full max-w-[1140px] grid-cols-1 gap-10 md:grid-cols-2 md:gap-0 lg:gap-10">
+          <div
+            class={frame() +
+              "grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-0 lg:gap-10"}
+          >
             <div class="flex flex-col items-center gap-4 rounded-card bg-yellow px-6 py-6 md:py-25">
               <SectionHeading
                 title={WHAT_WE_DO.donate.title}

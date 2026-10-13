@@ -7,6 +7,7 @@ import { Faq } from "../components/Faq.tsx";
 import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
 import { CONTACT } from "../components/content.ts";
+import { frame } from "../components/layout/Container.tsx";
 
 // Contact page cloned from the WP page (post 1845, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at
@@ -29,7 +30,7 @@ export default define.page(function ContactPage() {
       <main id="main-content" tabIndex={-1}>
         {/* Heading + contact form (single column, WP's 684px frame). */}
         <section class="px-5 pb-20 pt-[50px] md:px-2.5 md:pt-20 lg:px-0">
-          <div class="mx-auto w-full max-w-[1140px]">
+          <div class={frame()}>
             <h1 class="text-center text-[38px] font-bold leading-none text-primary md:text-[59px] lg:text-[70px]">
               {CONTACT.heroTitle}
             </h1>
@@ -66,7 +67,7 @@ export default define.page(function ContactPage() {
           id="newsletter"
           class="bg-black px-5 pb-5 pt-20 md:px-2.5 lg:px-0"
         >
-          <div class="mx-auto w-full max-w-[1140px]">
+          <div class={frame()}>
             {
               /* Newsletter title is its own WP dialect (28 / 36px) — not
                 the section scale. */
@@ -133,7 +134,7 @@ export default define.page(function ContactPage() {
             in text. */
         }
         <section class="bg-black px-5 py-[60px] md:px-2.5 lg:px-0">
-          <div class="mx-auto w-full max-w-[1140px]">
+          <div class={frame()}>
             <h2 class="text-left text-[38px] font-bold leading-tight text-white md:text-[36px] lg:text-[48px] lg:font-medium lg:leading-none">
               {CONTACT.love.title}
             </h2>

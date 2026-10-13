@@ -20,8 +20,10 @@ markup.
 2. **No inline SVGs.** All icons come from `components/icons.tsx` — that is the
    only file allowed to import `lucide-preact` / `simple-icons`.
 3. **No hand-rolled pill links.** CTAs use `Button`. The only sanctioned
-   exceptions (each documented in its own file): the ContactForm SEND dialects
-   and the posts ad-break pill, both WP-measured one-offs.
+   exceptions (each documented in its own file): the ContactForm SEND dialects,
+   the posts ad-break pill, and the give-now tax-card submit (transparent
+   WP-measured pill with `hover:opacity-80` — Button's variants all paint a
+   color and hover at 90), all WP-measured one-offs.
 4. **No bespoke hero shells or section headings.** `PageHero` and
    `SectionHeading` carry them; per-page title scales stay in the route.
 5. **Editing once:** to change how all pills/heads/heroes look, edit the
@@ -48,14 +50,14 @@ markup.
 
 ### Page structure
 
-| Component                    | File                        | Props                                                                                                                                                                                                                                                      | Used by                                                            |
-| ---------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| `PageHero`                   | `components/PageHero.tsx`   | `image`, `imageClass?` (bg-position), `overlay?` (gradient/flat/none), `overlayClass?` (gradient opacity), `geometry?` (standard/bare), `framed?`, `sectionClass?`, `frameClass?`, `children` — the photo-hero shell; h1/subtitle scales stay in the route | who-we-are, what-we-do, get-involved, givenow, posts, posts/[slug] |
-| `CtaBand`                    | `components/CtaBand.tsx`    | `title`, `body`, `cta: Cta`, `class` — black closing band with yellow pill                                                                                                                                                                                 | homepage                                                           |
-| `BankCard`                   | `components/BankCard.tsx`   | `title`, `children`, `tone?` (light/dark), `gap?` (2/4), `display?` (flex/md-only/mobile-only), `class` — give-now detail cards                                                                                                                            | givenow                                                            |
-| `Faq`                        | `components/Faq.tsx`        | `items: FaqItem[]`, `class` — bordered-rows accordion, native `<details>`                                                                                                                                                                                  | contact                                                            |
-| `MapEmbed` + `mapEmbedSrc()` | `components/MapEmbed.tsx`   | `src`, `title`, `class` — maps iframe + no-API-key URL builder                                                                                                                                                                                             | homepage, contact                                                  |
-| `VideoEmbed`                 | `components/VideoEmbed.tsx` | `id`, `title`, `class` — lazy YouTube iframe                                                                                                                                                                                                               | homepage                                                           |
+| Component                    | File                        | Props                                                                                                                                                                                                                                                                                                                   | Used by                                                                      |
+| ---------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `PageHero`                   | `components/PageHero.tsx`   | `image`, `imageClass?` (bg-position), `overlay?` (gradient/flat/none), `overlayClass?` (gradient opacity), `geometry?` (standard/bare), `framePad?` (page/home — the homepage hero measures `home`), `framed?`, `sectionClass?`, `frameClass?`, `children` — the photo-hero shell; h1/subtitle scales stay in the route | homepage, who-we-are, what-we-do, get-involved, givenow, posts, posts/[slug] |
+| `CtaBand`                    | `components/CtaBand.tsx`    | `title`, `body`, `cta: Cta`, `class` — black closing band with yellow pill                                                                                                                                                                                                                                              | homepage                                                                     |
+| `BankCard`                   | `components/BankCard.tsx`   | `title`, `children`, `tone?` (light/dark), `gap?` (2/4), `display?` (flex/md-only/mobile-only), `class` — give-now detail cards                                                                                                                                                                                         | givenow                                                                      |
+| `Faq`                        | `components/Faq.tsx`        | `items: FaqItem[]`, `class` — bordered-rows accordion, native `<details>`                                                                                                                                                                                                                                               | contact                                                                      |
+| `MapEmbed` + `mapEmbedSrc()` | `components/MapEmbed.tsx`   | `src`, `title`, `class` — maps iframe + no-API-key URL builder                                                                                                                                                                                                                                                          | homepage, contact                                                            |
+| `VideoEmbed`                 | `components/VideoEmbed.tsx` | `id`, `title`, `class` — lazy YouTube iframe                                                                                                                                                                                                                                                                            | homepage                                                                     |
 
 ### Actions
 
@@ -90,10 +92,10 @@ Nothing else imports an icon package.
 
 ### Forms
 
-| Component       | File                           | Props                                                  | Notes                       |
-| --------------- | ------------------------------ | ------------------------------------------------------ | --------------------------- |
-| `InputField`    | `components/InputField.tsx`    | `type/name/value/placeholder/required/ariaLabel/class` | 48px input, gold focus ring |
-| `TextareaField` | `components/TextareaField.tsx` | `name/placeholder/required/ariaLabel/rows/class`       | multiline sibling           |
+| Component       | File                           | Props                                                        | Notes                                                                                                                                         |
+| --------------- | ------------------------------ | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `InputField`    | `components/InputField.tsx`    | `type/name/value/placeholder/required/ariaLabel/size?/class` | gold focus ring; `size="md"` (default) is the 48px bordered input, `size="give-now"` the 59px borderless white input measured on the tax card |
+| `TextareaField` | `components/TextareaField.tsx` | `name/placeholder/required/ariaLabel/rows/class`             | multiline sibling                                                                                                                             |
 
 ### Islands (hydrated)
 

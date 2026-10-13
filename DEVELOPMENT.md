@@ -163,5 +163,5 @@ The IA reference remains [ideas/proposed.svg](ideas/proposed.svg).
   form backend is required before DNS cutover.
 - Utility/footer links for Careers, Press, Privacy, Terms, Accessibility, and
   Donation Policy are `"#"` placeholders in `components/navigation.ts`.
-- A `privacy-policy` route still needs to be built (required by the redirect
-  map).
+- ~~A `privacy-policy` route still needs to be built~~ shipped in PR #32
+  (`routes/privacy-policy.tsx`).
