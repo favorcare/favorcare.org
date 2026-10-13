@@ -116,3 +116,24 @@
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
 }
+
+/* WP accreditation popup entrance (elementor: entrance_animation fadeIn,
+   0.8s) — applied only to auto-opened popups via the .popup-fade class. */
+.popup-fade[open] {
+  animation: popup-fade 0.8s ease both;
+}
+
+@keyframes popup-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup-fade[open] {
+    animation: none;
+  }
+}

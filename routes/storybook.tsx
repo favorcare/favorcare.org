@@ -372,7 +372,7 @@ export default define.page(function StorybookPage() {
                 <ContactForm newsletter />
               </div>
             </Specimen>
-            <Specimen label="Popup — native dialog (Prayer Hub)">
+            <Specimen label="Popup — native dialog (Prayer Hub; WP trigger is hidden at every breakpoint, storybook-only)">
               <Popup
                 trigger="Open the Prayer Hub popup"
                 triggerClass="font-bold text-primary underline"
@@ -380,6 +380,33 @@ export default define.page(function StorybookPage() {
                 cta={POPUPS.prayerHub.cta}
               >
                 {POPUPS.prayerHub.body}
+              </Popup>
+            </Specimen>
+            <Specimen label="Popup — chained dialogs (volunteer disclaimer → guidelines, as on get-involved)">
+              <Popup
+                trigger="Open the volunteer disclaimer"
+                triggerClass="font-bold text-primary underline"
+                title={POPUPS.volunteer.title}
+                cta={POPUPS.volunteer.cta}
+                chain={{
+                  title: POPUPS.volunteerGuidelines.title,
+                  blocks: POPUPS.volunteerGuidelines.blocks,
+                  cta: POPUPS.volunteerGuidelines.cta,
+                }}
+              >
+                {POPUPS.volunteer.body}
+              </Popup>
+            </Specimen>
+            <Specimen label="Popup — auto-open once per session (accreditation; fires 1.5s after load, as mounted site-wide in _app at 3s)">
+              <Popup
+                auto={{
+                  delayMs: 1500,
+                  sessionKey: "storybook-accreditation-auto",
+                }}
+                title={POPUPS.accreditation.title}
+                cta={POPUPS.accreditation.cta}
+              >
+                {POPUPS.accreditation.body}
               </Popup>
             </Specimen>
           </Group>

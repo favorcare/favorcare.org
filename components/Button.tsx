@@ -47,6 +47,25 @@ const SHAPES: Record<ButtonShape, string> = {
   "rounded-50": "rounded-[50px]",
 };
 
+/** Class string for a Button's look — reused by non-Button controls that
+ *  must match the pill system (e.g. Popup's trigger on get-involved). */
+export function buttonClasses(
+  { variant = "yellow", size = "md", shape = "pill" }: {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+    shape?: ButtonShape;
+  } = {},
+  extra?: string,
+) {
+  return cx(
+    "inline-flex items-center justify-center font-bold",
+    VARIANTS[variant],
+    SIZES[size],
+    SHAPES[shape],
+    extra,
+  );
+}
+
 export interface ButtonProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -75,13 +94,7 @@ export function Button(
     children,
   }: ButtonProps,
 ) {
-  const className = cx(
-    "inline-flex items-center justify-center font-bold",
-    VARIANTS[variant],
-    SIZES[size],
-    SHAPES[shape],
-    extra,
-  );
+  const className = buttonClasses({ variant, size, shape }, extra);
   if (href !== undefined) {
     return (
       <a

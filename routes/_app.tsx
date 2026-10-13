@@ -1,4 +1,6 @@
 import { define } from "../utils.ts";
+import Popup from "../islands/Popup.tsx";
+import { POPUPS } from "../components/content.ts";
 
 export default define.page(function App({ Component }) {
   return (
@@ -31,6 +33,17 @@ export default define.page(function App({ Component }) {
           Skip to content
         </a>
         <Component />
+        {
+          /* WP accreditation popup (elementor 7281): auto-opens 3s after
+            page load, once per browser session, on every page. */
+        }
+        <Popup
+          auto={{ delayMs: 3000, sessionKey: "favorcare-accreditation-popup" }}
+          title={POPUPS.accreditation.title}
+          cta={POPUPS.accreditation.cta}
+        >
+          {POPUPS.accreditation.body}
+        </Popup>
       </body>
     </html>
   );

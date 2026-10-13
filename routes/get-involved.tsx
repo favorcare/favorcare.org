@@ -5,8 +5,9 @@ import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { PageHero } from "../components/PageHero.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Button } from "../components/Button.tsx";
-import { GET_INVOLVED } from "../components/content.ts";
+import { Button, buttonClasses } from "../components/Button.tsx";
+import Popup from "../islands/Popup.tsx";
+import { GET_INVOLVED, POPUPS } from "../components/content.ts";
 
 // Get-involved page cloned from the WP page (post 1840, staging =
 // canonical). Copy is verbatim; geometry follows the measured WP layout
@@ -18,7 +19,10 @@ import { GET_INVOLVED } from "../components/content.ts";
 // The second divider band's photo never applies on WP — cloned as the
 // same empty spacer. WP's 10px hero subtitle on mobile is raised to 14px
 // for legibility; its mobile title reads "Get involved" (lowercase w) —
-// kept as measured.
+// kept as measured. The volunteer card's SERVE button opens the WP
+// volunteer-disclaimer popup (7730), whose Review Guidelines chains into
+// the full guidelines doc (7737) — the newsletter/donate cards keep their
+// plain links.
 export default define.page(function GetInvolvedPage() {
   return (
     <>
@@ -77,16 +81,40 @@ export default define.page(function GetInvolvedPage() {
                   <p class="max-w-[80%] text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                     {card.body}
                   </p>
-                  <Button
-                    variant="white"
-                    href={card.cta.href}
-                    {...card.cta.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {}}
-                    class="mt-2"
-                  >
-                    {card.cta.label}
-                  </Button>
+                  {i === 1
+                    ? (
+                      /* The WP SERVE button is an elementor popup trigger,
+                        not a link — the Popup island's own button wears the
+                        white pill via buttonClasses. */
+                      <Popup
+                        trigger={card.cta.label}
+                        triggerClass={buttonClasses(
+                          { variant: "white", size: "md" },
+                          "mt-2",
+                        )}
+                        title={POPUPS.volunteer.title}
+                        cta={POPUPS.volunteer.cta}
+                        chain={{
+                          title: POPUPS.volunteerGuidelines.title,
+                          blocks: POPUPS.volunteerGuidelines.blocks,
+                          cta: POPUPS.volunteerGuidelines.cta,
+                        }}
+                      >
+                        {POPUPS.volunteer.body}
+                      </Popup>
+                    )
+                    : (
+                      <Button
+                        variant="white"
+                        href={card.cta.href}
+                        {...card.cta.external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {}}
+                        class="mt-2"
+                      >
+                        {card.cta.label}
+                      </Button>
+                    )}
                 </div>
               </div>
             </section>
