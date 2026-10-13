@@ -176,7 +176,7 @@ export default function ContactForm(
             <input
               type="checkbox"
               name="newsletter"
-              class="h-5 w-5 accent-[#191718]"
+              class="h-5 w-5 accent-primary"
             />
             <span class="lg:hidden">
               SUBSCRIBE TO OUR WEEKLY EMAIL NEWSLETTER!

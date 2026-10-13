@@ -66,9 +66,9 @@ export default define.page(function GetInvolvedPage() {
                   loading="lazy"
                 />
                 <div
-                  class={`mx-auto mt-2.5 flex w-[300px] flex-col items-center justify-center gap-5 rounded-r-[30px] bg-black p-6 md:mt-0 md:w-auto md:p-0 md:py-[30px] ${
+                  class={`mx-auto mt-2.5 flex w-[300px] flex-col items-center justify-center gap-5 rounded-r-card bg-black p-6 md:mt-0 md:w-auto md:p-0 md:py-[30px] ${
                     i === 1
-                      ? "md:order-1 md:rounded-l-[30px] md:rounded-r-none"
+                      ? "md:order-1 md:rounded-l-card md:rounded-r-none"
                       : ""
                   }`}
                 >

@@ -43,8 +43,8 @@ const SIZES: Record<ButtonSize, string> = {
 
 const SHAPES: Record<ButtonShape, string> = {
   pill: "rounded-full",
-  "rounded-30": "rounded-[30px]",
-  "rounded-50": "rounded-[50px]",
+  "rounded-30": "rounded-card",
+  "rounded-50": "rounded-jumbo",
 };
 
 /** Class string for a Button's look — reused by non-Button controls that

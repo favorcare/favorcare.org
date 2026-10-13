@@ -142,6 +142,10 @@ export default define.page(function StorybookPage() {
                   ["surface-container", "bg-surface-container"],
                   ["link", "bg-link"],
                   ["tertiary", "bg-tertiary"],
+                  ["light", "bg-light"],
+                  ["archive-ink", "bg-archive-ink"],
+                  ["archive-muted", "bg-archive-muted"],
+                  ["adbreak", "bg-adbreak"],
                 ].map(([name, cls]) => (
                   <div key={name} class="flex items-center gap-3">
                     <span
@@ -317,10 +321,10 @@ export default define.page(function StorybookPage() {
                   </p>
                 </BankCard>
                 <BankCard tone="dark" title={GIVENOW.us.bankTransfer.title}>
-                  <p class="text-base text-[#fbf9ed]">
+                  <p class="text-base text-light">
                     {GIVENOW.us.bankTransfer.bank}
                   </p>
-                  <p class="text-base text-[#fbf9ed]">
+                  <p class="text-base text-light">
                     {`Account Number:\u00a0${GIVENOW.us.bankTransfer.accountNumber}`}
                   </p>
                 </BankCard>
@@ -368,7 +372,7 @@ export default define.page(function StorybookPage() {
               />
             </Specimen>
             <Specimen label="ContactForm — home variant">
-              <div class="rounded-[30px] bg-yellow p-6 text-black [&_a]:text-black">
+              <div class="rounded-card bg-yellow p-6 text-black [&_a]:text-black">
                 <ContactForm newsletter />
               </div>
             </Specimen>

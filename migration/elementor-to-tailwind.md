@@ -30,10 +30,12 @@ exists. When the SAME widget is duplicated per breakpoint (hidden via
 
 ## Typography
 
-Use the v2 display utilities first (`text-hero`, `text-section-title`,
-`text-group-title`, `text-subtitle`, `text-hero-subtitle` — they carry the kit's
-line-heights and letter-spacings). Only fall back to raw values when a widget
-genuinely deviates:
+Use the as-built measured page scales (DESIGN.md) — heroes 38/56/70, section
+titles 28/39/56, card titles 25/30/36, the give-now jumbo 34–42/76 — written as
+`text-[38px] md:text-[56px] lg:text-[70px]` etc. The kit's named display
+utilities (`text-hero`, `text-section-title`, …) were retired from
+`assets/styles.css`: no shipped page consumes them. Only fall back to raw values
+when a widget genuinely deviates:
 
 | Elementor                                          | Tailwind                          |
 | -------------------------------------------------- | --------------------------------- |

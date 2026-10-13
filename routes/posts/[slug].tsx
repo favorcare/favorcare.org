@@ -113,7 +113,7 @@ function Block({ block }: { block: ArticleBlock }) {
     }
     case "cta":
       return (
-        <div class="space-y-4 rounded-xl bg-[#f5f5f5] px-5 py-[30px] text-center">
+        <div class="space-y-4 rounded-xl bg-adbreak px-5 py-[30px] text-center">
           <h2 class="text-[32px] font-bold leading-tight text-article-yellow">
             {block.heading}
           </h2>
@@ -132,7 +132,7 @@ function Block({ block }: { block: ArticleBlock }) {
                   }
                   <a
                     href={part.href}
-                    class="inline-block rounded-[30px] bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
+                    class="inline-block rounded-card bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
                   >
                     {part.label}
                   </a>

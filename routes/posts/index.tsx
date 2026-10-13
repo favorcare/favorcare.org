@@ -73,8 +73,8 @@ export default define.page<typeof handler>(({ data }) => (
                   : `/posts?tag=${encodeURIComponent(t)}`}
                 class={`py-1.5 text-[18px] leading-none md:text-[22px] ${
                   t === data.active
-                    ? "font-semibold text-[#0c0d0e]"
-                    : "text-[#69727d] hover:text-[#0c0d0e]"
+                    ? "font-semibold text-archive-ink"
+                    : "text-archive-muted hover:text-archive-ink"
                 }`}
               >
                 {t}

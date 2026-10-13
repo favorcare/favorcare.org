@@ -129,25 +129,25 @@ export default define.page(function WhoWeArePage() {
             <img
               src={ABOUT.gallery[0].src}
               alt={ABOUT.gallery[0].alt}
-              class="order-2 aspect-3/2 w-full rounded-[30px] object-cover md:order-1"
+              class="order-2 aspect-3/2 w-full rounded-card object-cover md:order-1"
               loading="lazy"
             />
             <img
               src={ABOUT.gallery[1].src}
               alt={ABOUT.gallery[1].alt}
-              class="order-4 aspect-3/2 w-full rounded-[30px] object-cover md:order-2"
+              class="order-4 aspect-3/2 w-full rounded-card object-cover md:order-2"
               loading="lazy"
             />
             <img
               src={ABOUT.gallery[2].src}
               alt={ABOUT.gallery[2].alt}
-              class="order-1 aspect-3/2 w-full rounded-[30px] object-cover md:order-3"
+              class="order-1 aspect-3/2 w-full rounded-card object-cover md:order-3"
               loading="lazy"
             />
             <img
               src={ABOUT.gallery[3].src}
               alt={ABOUT.gallery[3].alt}
-              class="order-3 aspect-3/2 w-full rounded-[30px] object-cover md:order-4"
+              class="order-3 aspect-3/2 w-full rounded-card object-cover md:order-4"
               loading="lazy"
             />
           </div>

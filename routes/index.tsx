@@ -59,7 +59,7 @@ export default define.page(function Home() {
             WP). One-off 10px mobile gutter — not the home frame dialect. */
         }
         <section class="mx-auto w-full max-w-[1140px] px-2.5 py-16 md:px-10 md:py-20 lg:px-0 lg:pt-[30px] lg:pb-10">
-          <div class="rounded-[30px] bg-yellow px-5 py-5 md:px-[50px]">
+          <div class="rounded-card bg-yellow px-5 py-5 md:px-[50px]">
             <h2 class="text-[28px] font-bold leading-tight text-black md:text-[39px] lg:text-[56px]">
               <span class="md:hidden lg:inline">
                 {HOME.careUpdates.heading}
@@ -171,7 +171,7 @@ export default define.page(function Home() {
             height={1024}
             class="hidden aspect-[719/1024] w-full max-w-[719px] object-cover lg:block"
           />
-          <div class="mx-auto w-full max-w-[642px] rounded-[30px] bg-yellow p-6 md:p-[50px]">
+          <div class="mx-auto w-full max-w-[642px] rounded-card bg-yellow p-6 md:p-[50px]">
             <SectionHeading
               title={HOME.contact.title}
               tone="black"

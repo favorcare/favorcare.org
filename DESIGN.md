@@ -1,5 +1,5 @@
 ---
-version: "2.1 (WordPress base, as-built)"
+version: "2.2 (WordPress base, as-built)"
 name: Favor Care
 description: >-
   Design tokens for the Fresh rebuild, transcribed from the live
@@ -49,6 +49,10 @@ colors:
   on-error: "#ffffff"
   error-container: "#f9dedc"
   on-error-container: "#410e0b"
+  # WP-measured one-offs, scoped to where they were measured.
+  archive-ink: "#0c0d0e"
+  archive-muted: "#69727d"
+  adbreak: "#f5f5f5"
 typography:
   font: Inter (Google Fonts, weights 300–700; Inter Tight available for display)
   # The page scales actually shipped by the WP-clone pages (measured at
@@ -62,9 +66,9 @@ typography:
   body: 16px · line-height 1.5 (accessibility floor)
   label: 12px / 14px (768) · bold · uppercase · tracking-wider (the gold eyebrow)
 rounded:
-  card: 30px
+  card: 30px (--radius-card → rounded-card)
   button: full pill
-  jumbo-button: 30px or 50px (give-now dialects)
+  jumbo-button: 30px or 50px (give-now dialects; 50px is --radius-jumbo → rounded-jumbo)
   gallery-media: 30px
   overlay-close: full
   note: kit globals say 0 — the page templates override with the radii above
@@ -84,12 +88,11 @@ elevation:
   sm: 0 1px 2px rgba(0, 0, 0, 0.06)
   md: 0 4px 12px rgba(0, 0, 0, 0.08)
   lg: 0 16px 40px rgba(0, 0, 0, 0.12)
-  card: 0 1px 3px rgba(25, 23, 24, 0.08)
-layout:
-  contentContainerMaxWidth: 1140px
-  headerContainerMaxWidth: 1200px
-  breakpoints: 768 / 1025 (Elementor); Tailwind 768 / 1024 accepted
-  gridColumns: 12
+  card: 0 1px 3px rgba(25, 23, 24, 0.08)layout:
+      contentContainerMaxWidth: 1140px
+      headerContainerMaxWidth: 1200px
+      breakpoints: 768 / 1025 (Elementor); Tailwind 768 / 1024 accepted
+      gridColumns: 12
 ---
 
 ## Overview
@@ -119,10 +122,13 @@ Roles: **yellow** (`#FFB428`) carries the header bar, section eyebrows, card
 fills (Care Updates, Get-in-touch, Tax-Deductible), and the yellow pill buttons
 on black — it is the brand's most visible color. **primary** (near-black)
 carries text, black bands, the footer, and black pill buttons. The cream ramp
-(`surface-container-*`) carries light section backgrounds. Links are dark red
-`#C8221F` hovering to yellow. The posts article system has **its own yellow**
-`#F2B705` (`article-yellow`) for pull-quotes and ad-break CTA cards — do not mix
-the two up.
+(`surface-container-*`) carries light section backgrounds; **light** (the kit's
+`#FBF9ED`, same value as `surface-dim`) is the text color on the dark give-now
+cards. Links are dark red `#C8221F` hovering to yellow. The posts article system
+has **its own yellow** `#F2B705` (`article-yellow`) for pull-quotes and ad-break
+CTA cards — do not mix the two up. Three WP-measured one-offs are scoped to
+where they were measured: `archive-ink`/`archive-muted` (the posts archive
+filter links) and `adbreak` (the article ad-break card background).
 
 ## Typography
 
@@ -142,16 +148,19 @@ Tailwind's 768/1024 is accepted (1px difference).
 
 ## Elevation & Depth
 
-Flat. One card shadow (`0 1px 3px rgba(25,23,24,0.08)`) and the neutral sm/md/lg
-trio for overlays/modals. No glows.
+Flat. WP measures one card shadow (`0 1px 3px rgba(25,23,24,0.08)`) and a
+neutral sm/md/lg trio for overlays/modals, but the clone tokenizes **none** of
+them — pages use Tailwind's built-in `shadow-lg` (the Popup) or no shadow at
+all. No glows.
 
 ## Shapes
 
 **Pills and 30px rounds.** Buttons are full pills (`rounded-full`) except the
-give-now jumbo CTAs (30px / 50px rounds). Cards, photo tiles, gallery media, and
-the yellow content cards round at **30px**. Overlay close controls stay
-full-round. The kit's square-corner global is overridden by every page template
-and is not part of this system.
+give-now jumbo CTAs (30px / 50px rounds — `rounded-jumbo` for the 50px dialect).
+Cards, photo tiles, gallery media, and the yellow content cards round at
+**30px** (`rounded-card`). Overlay close controls stay full-round. The kit's
+square-corner global is overridden by every page template and is not part of
+this system.
 
 ## Do's and Don'ts
 

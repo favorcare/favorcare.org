@@ -38,7 +38,7 @@ export function BankCard(
         display !== "md-only" && "flex",
         display === "md-only" && "md:flex",
         display === "mobile-only" && "md:hidden",
-        "flex-col items-center justify-center rounded-[30px] border-[3px] p-6 text-center",
+        "flex-col items-center justify-center rounded-card border-[3px] p-6 text-center",
         gap === "4" ? "gap-4" : "gap-2",
         tone === "dark" ? "border-black bg-black" : "border-primary",
         extra,

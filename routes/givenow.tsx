@@ -126,7 +126,7 @@ export default define.page(function GiveNowPage() {
             mobile — mirrored with order-first. */
         }
         <section class="order-first px-2.5 pb-16 pt-2.5 md:order-none md:px-5 md:pt-0 lg:px-0">
-          <div class="mx-auto w-full max-w-[833px] rounded-[30px] bg-yellow p-[50px]">
+          <div class="mx-auto w-full max-w-[833px] rounded-card bg-yellow p-[50px]">
             <SectionHeading
               title={GIVENOW.ph.taxDeductible.title}
               align="left"
@@ -161,7 +161,7 @@ export default define.page(function GiveNowPage() {
               ))}
               <button
                 type="submit"
-                class="mt-2 h-14 w-full rounded-[30px] text-[22px] font-bold text-black transition-opacity hover:opacity-80"
+                class="mt-2 h-14 w-full rounded-card text-[22px] font-bold text-black transition-opacity hover:opacity-80"
               >
                 {GIVENOW.ph.taxDeductible.submit}
               </button>
@@ -193,19 +193,19 @@ export default define.page(function GiveNowPage() {
                 display="md-only"
                 title={GIVENOW.us.bankTransfer.title + "\u200b"}
               >
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {GIVENOW.us.bankTransfer.bank}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {`Account Name:\u00a0${GIVENOW.us.bankTransfer.accountName}`}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {`Account Number:\u00a0${GIVENOW.us.bankTransfer.accountNumber}`}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {`SWIFT Code:\u00a0${GIVENOW.us.bankTransfer.swift}`}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {`Routing Number:\u00a0${GIVENOW.us.bankTransfer.routing}`}
                 </p>
               </BankCard>
@@ -214,16 +214,16 @@ export default define.page(function GiveNowPage() {
                 display="mobile-only"
                 title={GIVENOW.us.bankTransfer.title + "\u200b"}
               >
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {GIVENOW.us.bankTransferMobile.accountName}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   Account: {GIVENOW.us.bankTransferMobile.accountNumber}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   ACH Routing Number: {GIVENOW.us.bankTransferMobile.achRouting}
                 </p>
-                <p class="text-base text-[#fbf9ed]">
+                <p class="text-base text-light">
                   {GIVENOW.us.bankTransferMobile.bank}
                 </p>
               </BankCard>

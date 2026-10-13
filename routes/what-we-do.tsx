@@ -89,7 +89,7 @@ export default define.page(function WhatWeDoPage() {
         }
         <section class="px-5 py-20 md:px-2.5 lg:px-0">
           <div class="mx-auto grid w-full max-w-[1140px] grid-cols-1 gap-10 md:grid-cols-2 md:gap-0 lg:gap-10">
-            <div class="flex flex-col items-center gap-4 rounded-[30px] bg-yellow px-6 py-6 md:py-25">
+            <div class="flex flex-col items-center gap-4 rounded-card bg-yellow px-6 py-6 md:py-25">
               <SectionHeading
                 title={WHAT_WE_DO.donate.title}
                 tone="black"
@@ -107,7 +107,7 @@ export default define.page(function WhatWeDoPage() {
                 {WHAT_WE_DO.donate.cta.label}
               </Button>
             </div>
-            <div class="flex flex-col items-center gap-4 rounded-[30px] bg-black px-6 py-6 md:py-25">
+            <div class="flex flex-col items-center gap-4 rounded-card bg-black px-6 py-6 md:py-25">
               <SectionHeading
                 title={WHAT_WE_DO.takeAction.title}
                 tone="white"
