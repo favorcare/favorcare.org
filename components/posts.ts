@@ -487,7 +487,7 @@ export const POSTS: Post[] = [
           {
             kind: "button",
             label: "SIGN UP TO VOLUNTEER",
-            href: "/get-involved",
+            href: "/signup",
           },
           { kind: "button", label: "GIVE TODAY", href: "/givenow" },
         ],

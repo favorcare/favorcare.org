@@ -626,6 +626,8 @@ export type PopupCta = {
   external?: boolean;
   /** Close this dialog and open the chained one instead of navigating. */
   opensChain?: boolean;
+  /** Close this dialog without navigating (the /signup guidelines gate). */
+  closesPopup?: boolean;
 };
 
 /** JSON-serializable body block for chained popup dialogs (island props
@@ -667,7 +669,8 @@ export const POPUPS = {
     cta: { label: "REVIEW GUIDELINES", opensChain: true } satisfies PopupCta,
   },
   // The full guidelines doc (7737), verbatim including its structure; its
-  // agree CTA links the live Google Form signup.
+  // agree CTA links the on-site signup (/signup), which reopens these
+  // guidelines as its gate popup before the form.
   volunteerGuidelines: {
     title: "Volunteer Commitment",
     blocks: [
@@ -737,9 +740,7 @@ export const POPUPS = {
     ] satisfies PopupBlock[],
     cta: {
       label: "I AGREE, SIGN UP AS A VOLUNTEER",
-      href:
-        "https://docs.google.com/forms/d/e/1FAIpQLScraE9-h5uh7rIzk6IdnpX072IDU60N_QQ-klpqhpPd4GiPZg/viewform",
-      external: true,
+      href: "/signup",
     } satisfies PopupCta,
   },
   accreditation: {
@@ -786,11 +787,9 @@ export const GET_INVOLVED = {
         label: "SERVE",
         // Opens POPUPS.volunteer (the disclaimer) via the Popup island on
         // the page — the WP button is an elementor popup trigger, not a
-        // link. Href kept as the signup form the guidelines agree-CTA
-        // points at.
-        href:
-          "https://docs.google.com/forms/d/e/1FAIpQLScraE9-h5uh7rIzk6IdnpX072IDU60N_QQ-klpqhpPd4GiPZg/viewform",
-        external: true,
+        // link. Href kept as the on-site signup page the guidelines
+        // agree-CTA points at.
+        href: "/signup",
       },
       image: asset("/images/pages/get-involved/volunteer-repacking-rice.jpeg"),
     },
@@ -808,10 +807,185 @@ export const GET_INVOLVED = {
   cards: {
     title: string;
     body: string;
-    cta: { label: string; href: string; external?: boolean };
+    cta: { label: string; href: string };
     image: string;
   }[];
   bandPhoto: string;
+};
+
+// /signup — the on-site volunteer application replacing the live Google
+// Form ("Favor Care: Sign Up to Serve", scraped 2026-10-16). Copy and
+// options are verbatim from the form, quirks included (lowercase "favor
+// DNA", the italic consent sentence). `entries` maps each field to the
+// form's formResponse entry id (read off FB_PUBLIC_LOAD_DATA_) —
+// routes/signup.tsx forwards submissions there so responses keep landing
+// in the volunteers' Google Sheet. Re-scrape if the form is ever rebuilt.
+export const SIGNUP = {
+  hero: {
+    title: "Sign Up to Serve",
+    subtitle:
+      "We appreciate your desire to join Favor Care in serving those who are marginalized and under-resourced. We are excited to have you on board soon!",
+    image: asset("/images/pages/get-involved/volunteer-repacking-rice.jpeg"),
+  },
+  reviewTrigger: "REVIEW THE VOLUNTEER COMMITMENT",
+  gateCta: { label: "I AGREE, CONTINUE TO THE FORM" } satisfies PopupCta,
+  success: {
+    title: "Thank you for signing up to serve!",
+    body:
+      "We have received your volunteer application. Our team will be in touch with you soon — keep an eye on your inbox.",
+    back: {
+      label: "BACK TO GET INVOLVED",
+      href: "/get-involved",
+    } satisfies Cta,
+  },
+  requiredError:
+    "Please fill in all required fields — the ones marked with an asterisk (*).",
+  deliveryError:
+    "Something went wrong sending your application. Please try again in a moment — if it keeps failing, email us directly.",
+  options: {
+    gender: ["Male", "Female"],
+    attendance: [
+      "Less than 3 months",
+      "More than 3 months",
+      "I've only attended online",
+      "I'm not attending Favor Church",
+    ],
+    hearAbout: ["Social Media", "Website", "Friends/Colleagues"],
+    serveAreas: [
+      "Counseling",
+      "Marketing",
+      "Medical Doctors",
+      "Nurses",
+      "Pharmacists",
+      "Fundraising Team",
+      "Photographer",
+      "Photo Editor",
+      "Videographer",
+      "Video Editor",
+      "Project Management",
+      "UI/UX Designer",
+      "Software Developer",
+      "Web Analytics",
+      "Data Analytics",
+      "Social Media Manager",
+      "Copywriter",
+      "Volunteer Care",
+      "Digital Marketing",
+      "Legal",
+      "Logistics",
+    ],
+    yesNo: ["Yes", "No"],
+  },
+  privacyNotice: {
+    summary: "Read the Data Privacy Notice",
+    consentSentence:
+      "By ticking AGREE, the participant acknowledges that he/she has read the Data Privacy Notice and consents that his/her personal data, including but not limited to their name, gender, telephone/mobile number and email address/es, as submitted by the participant shall be collected and processed by FAVOR CARE through attendance sheets, feedback forms, survey forms, photos, video/audio recordings, and other data collection and monitoring & evaluation tools for documentation purposes. This is in adherence to the Philippines Data Privacy Act of 2012, and Favor Care Data Privacy Policy.",
+    // Verbatim from the form's notice section; \n line breaks in the
+    // address are real lines (rendered with pre-line).
+    blocks: [
+      { type: "h", text: "Personal Information" },
+      {
+        type: "p",
+        text:
+          "We collect the personal information from you when you manually or electronically submit the following, but not limited to:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Full name",
+          "Gender",
+          "Email address",
+          "Birthday",
+          "Contact details (Mobile/Phone Number, Social Media Details)",
+        ],
+      },
+      { type: "h", text: "Use" },
+      {
+        type: "p",
+        text:
+          "All information we collect shall be kept private and confidential by Favor Care Foundation, Inc. and shall be used solely for legal purposes as mandated by the Data Privacy Act and other relevant laws. Information that are matters of public interest, however, may be disclosed to the public subject to applicable laws, rules, and regulations. Pictures and videos taken during any official activity of Favor Church (such as sunday services, connect groups, family nights, presence nights, conferences, camps) may also be used in Favor Church’s social media and other promotional or publicity materials.",
+      },
+      { type: "h", text: "Protection Measures" },
+      {
+        type: "p",
+        text:
+          "Only authorized Favor Care personnel has access to these personal information, the exchange of which will be facilitated through email and hard copy. Storage shall be within a period as may be authorized by law. Physical records shall be disposed through shredding, while digital files shall be anonymized.",
+      },
+      { type: "h", text: "Contact us" },
+      {
+        type: "p",
+        text:
+          "You have the right to ask for a copy of any personal information we hold about you, as well as ask for correction. For data privacy concerns and/or feedback regarding this privacy notice, please fill out the Data Access, Alteration, and/or Complaint Form and file with the Data Protection Officer three (3) printed copies of the form enclosed in a sealed and labeled envelope (whether Access, Alteration, and/or Complaint). Kindly address it to:",
+      },
+      {
+        type: "p",
+        text:
+          "Data Protection Officer\nFavor Care Inc.\nLevel 6 East Wing\nShangri-la Plaza\nEDSA, Mandaluyong City",
+      },
+      {
+        type: "p",
+        text:
+          "Or you may send in portable document format (PDF) a copy of the form to dpo@favor.church.",
+      },
+      {
+        type: "p",
+        text:
+          "Rest assured that Favor Care implements strict security controls to protect your personal information.",
+      },
+    ] satisfies PopupBlock[],
+  },
+  entries: {
+    firstName: 165027535,
+    lastName: 1837053616,
+    gender: 1243779738,
+    dob: 1397916356,
+    email: 1782074696,
+    phone: 1432549407,
+    attendance: 1521051085,
+    social: 1820962277,
+    hearAbout: 722728129,
+    serveAreas: 749935751,
+    updates: 994780963,
+    connectGroup: 536100418,
+    dna: 818176156,
+    consent: 787666323,
+  },
+} satisfies {
+  hero: { title: string; subtitle: string; image: string };
+  reviewTrigger: string;
+  gateCta: PopupCta;
+  success: { title: string; body: string; back: Cta };
+  requiredError: string;
+  deliveryError: string;
+  options: {
+    gender: string[];
+    attendance: string[];
+    hearAbout: string[];
+    serveAreas: string[];
+    yesNo: string[];
+  };
+  privacyNotice: {
+    summary: string;
+    consentSentence: string;
+    blocks: PopupBlock[];
+  };
+  entries: Record<
+    | "firstName"
+    | "lastName"
+    | "gender"
+    | "dob"
+    | "email"
+    | "phone"
+    | "attendance"
+    | "social"
+    | "hearAbout"
+    | "serveAreas"
+    | "updates"
+    | "connectGroup"
+    | "dna"
+    | "consent",
+    number
+  >;
 };
 
 export const PRIVACY = {

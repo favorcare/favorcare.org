@@ -108,9 +108,6 @@ export default define.page(function GetInvolvedPage() {
                       <Button
                         variant="white"
                         href={card.cta.href}
-                        {...card.cta.external
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {}}
                         class="mt-2"
                       >
                         {card.cta.label}

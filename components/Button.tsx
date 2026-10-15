@@ -76,6 +76,8 @@ export interface ButtonProps {
   rel?: string;
   type?: "button" | "submit" | "reset";
   tabIndex?: number;
+  /** Buttons only (form submits) — e.g. the storybook's demo signup form. */
+  disabled?: boolean;
   class?: string;
   children?: ComponentChildren;
 }
@@ -90,6 +92,7 @@ export function Button(
     rel,
     type = "button",
     tabIndex,
+    disabled,
     class: extra,
     children,
   }: ButtonProps,
@@ -109,7 +112,12 @@ export function Button(
     );
   }
   return (
-    <button type={type} tabIndex={tabIndex} class={className}>
+    <button
+      type={type}
+      tabIndex={tabIndex}
+      disabled={disabled}
+      class={className}
+    >
       {children}
     </button>
   );
