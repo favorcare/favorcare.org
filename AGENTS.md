@@ -1,7 +1,7 @@
 # AGENTS.md
 
-Guidance for AI coding agents working in this repo. (`CLAUDE.md` is a symlink to
-this file so Claude Code picks it up automatically.)
+Guidance for AI coding agents working in this repo. Claude Code (v2.1.277+)
+reads this file directly — no `CLAUDE.md` needed.
 
 ## What this is
 
@@ -17,6 +17,7 @@ deno task dev    # dev server (URL printed in terminal, ~http://localhost:8000)
 deno task build  # production build -> _fresh/
 deno task start  # serve the production build
 deno task check  # fmt --check + lint + deno check  (run before claiming done)
+deno task test   # unit tests (deno test -A) — run before claiming done
 ```
 
 ## Sources of truth — do not invent
@@ -29,10 +30,13 @@ deno task check  # fmt --check + lint + deno check  (run before claiming done)
   `/storybook` specimen, and added to the catalog in the same change.
 - **[DESIGN.md](DESIGN.md)** — design tokens. All colors, type scales, radii,
   and spacing. **Reuse tokens, don't hardcode hex.**
+- **[BRAND.md](BRAND.md)** — brand voice and content style. **Read it before
+  writing any user-facing copy** (headlines, captions, CTAs, story text). Real
+  numbers come from `components/content.ts` and `components/posts.ts` — never
+  invent people, quotes, or stats.
 - **[ideas/proposed.svg](ideas/proposed.svg)** — information architecture. The
   5-item nav, page tree, page templates (TEMPLATE A = homepage), real impact
-  numbers, programs, and the brand voice. **Reuse real content, don't invent
-  copy or stats.**
+  numbers, and programs. **Reuse real content, don't invent copy or stats.**
 
 When a token changes, update **DESIGN.md** first, then mirror it in
 `assets/styles.css`. When a component changes, update **COMPONENTS.md** and its
@@ -69,6 +73,30 @@ When a token changes, update **DESIGN.md** first, then mirror it in
   text ≥ 16px with ≥ 1.5 line-height. Link Yellow (`yellow`) is an
   accent/surface color — never body text on white (fails contrast).
 
+## Workflow
+
+- **Plan before code.** Non-trivial changes start with a short written plan the
+  user approves (scope, files touched, verification). Approval covers the
+  change's content — not the merge, and not unrelated edits.
+- **Commit format.** Conventional commits: `type(scope): imperative summary` —
+  type is one of `feat`, `fix`, `docs`, `chore`, `refactor`; scope is the area
+  (`signup`, `deploy`, `tokens`, …). The body explains the why and ends with a
+  verification line, e.g.
+  `Verified: deno task check clean; deno task test 10 passed.`
+- **No AI attribution trailers.** Never add `Co-Authored-By: …` or "Generated
+  with …" trailers to commits or PRs. Commits are attributed to the human author
+  only.
+
+## Testing
+
+- `deno task test` runs `deno test -A`. It must pass before claiming done.
+- Tests live next to the code as `*_test.ts` (e.g. `routes/signup_test.ts`).
+- **What needs tests:** pure logic — handler helpers, validation, islands math,
+  content helpers. New or changed logic ships with passing tests in the same
+  change.
+- **What doesn't:** server-rendered components and page markup. Those are
+  covered by `deno task check` plus a visual pass on `/storybook`.
+
 ## Where things live
 
 ```
@@ -92,6 +120,7 @@ main.ts       Fresh app entry (static files + fsRoutes).
 ## Before claiming work is done
 
 1. `deno task check` passes (fmt + lint + typecheck).
-2. `deno task dev` starts cleanly and the page renders with no leftover Fresh
+2. `deno task test` passes (new/changed logic ships with tests).
+3. `deno task dev` starts cleanly and the page renders with no leftover Fresh
    demo content and no console errors.
-3. State any scope you deliberately left for later (see DEVELOPMENT.md roadmap).
+4. State any scope you deliberately left for later (see DEVELOPMENT.md roadmap).

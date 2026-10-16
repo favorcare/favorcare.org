@@ -7,6 +7,7 @@ import { cx } from "../components/cx.ts";
 import { Button } from "../components/Button.tsx";
 import { Eyebrow } from "../components/Eyebrow.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
+import { Container } from "../components/layout/Container.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { TextareaField } from "../components/TextareaField.tsx";
 import { ChoiceGroup } from "../components/ChoiceGroup.tsx";
@@ -183,12 +184,18 @@ export default define.page(function StorybookPage() {
           <Group id="layout" title="Layout" intro="components/layout/">
             <Specimen label='Container — pad="page" (10px gutters at 768) vs pad="home" (40px)'>
               <div class="space-y-3">
-                <div class="mx-auto w-full max-w-[1140px] border-2 border-dashed border-primary/30 px-5 py-3 text-center text-sm md:px-2.5 lg:px-0">
-                  frame("page")
-                </div>
-                <div class="mx-auto w-full max-w-[1140px] border-2 border-dashed border-primary/30 px-5 py-3 text-center text-sm md:px-10 lg:px-0">
-                  frame("home")
-                </div>
+                <Container
+                  pad="page"
+                  class="border-2 border-dashed border-primary/30 py-3 text-center text-sm"
+                >
+                  pad="page"
+                </Container>
+                <Container
+                  pad="home"
+                  class="border-2 border-dashed border-primary/30 py-3 text-center text-sm"
+                >
+                  pad="home"
+                </Container>
               </div>
             </Specimen>
             <Specimen label="SectionHeading — tone / weight / size / align">
