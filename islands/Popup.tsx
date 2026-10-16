@@ -21,11 +21,15 @@ export interface PopupProps {
   triggerClass?: string;
   title: string;
   children?: ComponentChildren;
+  /** Structured body blocks (same shape as a chained dialog's) — rendered
+   *  after `children` (the /signup gate shows the full guidelines doc). */
+  blocks?: PopupBlock[];
   cta?: PopupCta;
-  /** Auto-open once per browser session — the WP `page_load_delay`
-   *  popup trigger (accreditation: 3s after load, once per session,
-   *  site-wide in routes/_app.tsx). */
-  auto?: { delayMs?: number; sessionKey: string };
+  /** Auto-open after a delay. With a `sessionKey` it opens once per
+   *  browser session (the WP `page_load_delay` trigger — accreditation,
+   *  3s, site-wide in routes/_app.tsx); without one it opens on every
+   *  visit (the /signup commitment gate). */
+  auto?: { delayMs?: number; sessionKey?: string };
   chain?: PopupChain;
 }
 
@@ -56,7 +60,8 @@ function Blocks({ blocks }: { blocks: PopupBlock[] }) {
 // three WP popup shapes: click trigger (footer accreditation, get-involved
 // SERVE), auto-open with a once-per-session guard, and chained dialogs.
 export default function Popup(
-  { trigger, triggerClass, title, children, cta, auto, chain }: PopupProps,
+  { trigger, triggerClass, title, children, blocks, cta, auto, chain }:
+    PopupProps,
 ) {
   const ref = useRef<HTMLDialogElement>(null);
   const chainRef = useRef<HTMLDialogElement>(null);
@@ -64,18 +69,22 @@ export default function Popup(
   useEffect(() => {
     if (!auto) return;
     let seen = false;
-    try {
-      seen = sessionStorage.getItem(auto.sessionKey) !== null;
-    } catch {
-      // Storage can throw (private mode) — fall through and show once.
+    if (auto.sessionKey !== undefined) {
+      try {
+        seen = sessionStorage.getItem(auto.sessionKey) !== null;
+      } catch {
+        // Storage can throw (private mode) — fall through and show once.
+      }
     }
     if (seen) return;
     const t = setTimeout(() => {
       ref.current?.showModal();
-      try {
-        sessionStorage.setItem(auto.sessionKey, "1");
-      } catch {
-        // Ignore — worst case the popup shows again on the next visit.
+      if (auto.sessionKey !== undefined) {
+        try {
+          sessionStorage.setItem(auto.sessionKey, "1");
+        } catch {
+          // Ignore — worst case the popup shows again on the next visit.
+        }
       }
     }, auto.delayMs ?? 3000);
     return () => clearTimeout(t);
@@ -86,8 +95,19 @@ export default function Popup(
   const ctaClass =
     "mt-6 inline-flex min-h-12 items-center justify-center rounded bg-primary px-6 text-sm font-bold uppercase tracking-wider text-on-primary hover:bg-primary-hover";
 
-  const ctaNode = (cta?: PopupCta, onOpenChain?: () => void) => {
+  const ctaNode = (
+    cta?: PopupCta,
+    onOpenChain?: () => void,
+    onClose?: () => void,
+  ) => {
     if (!cta) return null;
+    if (cta.closesPopup && onClose) {
+      return (
+        <button type="button" onClick={onClose} class={ctaClass}>
+          {cta.label}
+        </button>
+      );
+    }
     if (cta.opensChain && onOpenChain) {
       return (
         <button type="button" onClick={onOpenChain} class={ctaClass}>
@@ -148,7 +168,8 @@ export default function Popup(
           <h2 class="pr-10 text-xl font-semibold">{title}</h2>
           <div class="mt-3 text-base leading-relaxed text-on-surface-variant">
             {children}
-            {ctaNode(cta, openChain)}
+            {blocks && <Blocks blocks={blocks} />}
+            {ctaNode(cta, openChain, () => ref.current?.close())}
           </div>
         </div>
       </dialog>
@@ -163,7 +184,8 @@ export default function Popup(
             <h2 class="pr-10 text-xl font-semibold">{chain.title}</h2>
             <div class="mt-3 text-base leading-relaxed text-on-surface-variant">
               <Blocks blocks={chain.blocks} />
-              {ctaNode(chain.cta)}
+              {ctaNode(chain.cta, undefined, () =>
+                chainRef.current?.close())}
             </div>
           </div>
         </dialog>

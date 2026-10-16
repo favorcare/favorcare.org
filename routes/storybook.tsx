@@ -9,6 +9,8 @@ import { Eyebrow } from "../components/Eyebrow.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { TextareaField } from "../components/TextareaField.tsx";
+import { ChoiceGroup } from "../components/ChoiceGroup.tsx";
+import { VolunteerSignupForm } from "../components/VolunteerSignupForm.tsx";
 
 // Page structure
 import { PageHero } from "../components/PageHero.tsx";
@@ -36,6 +38,7 @@ import {
   GIVENOW,
   HOME,
   POPUPS,
+  SIGNUP,
   WHAT_WE_DO,
 } from "../components/content.ts";
 import { listPosts } from "../components/posts.ts";
@@ -413,12 +416,21 @@ export default define.page(function StorybookPage() {
                 {POPUPS.accreditation.body}
               </Popup>
             </Specimen>
+            <Specimen label="Popup — auto-open every visit + closesPopup CTA (the /signup commitment gate: the guidelines must be agreed before the form; the trigger here stands in for the auto-open)">
+              <Popup
+                trigger="Open the volunteer commitment gate"
+                triggerClass="font-bold text-primary underline"
+                title={POPUPS.volunteerGuidelines.title}
+                blocks={POPUPS.volunteerGuidelines.blocks}
+                cta={SIGNUP.gateCta}
+              />
+            </Specimen>
           </Group>
 
           <Group
             id="forms"
             title="Forms"
-            intro="InputField / TextareaField power the ContactForm island (whose two WP-measured SEND dialects are intentionally bespoke)."
+            intro="InputField / TextareaField power the ContactForm island (whose two WP-measured SEND dialects are intentionally bespoke); ChoiceGroup + VolunteerSignupForm build the /signup volunteer application."
           >
             <Specimen label="InputField / TextareaField">
               <div class="mx-auto grid max-w-[540px] gap-4">
@@ -441,6 +453,34 @@ export default define.page(function StorybookPage() {
                   />
                 </div>
               </div>
+            </Specimen>
+            <Specimen label="ChoiceGroup — radio / checkbox columns / other-with-text">
+              <div class="mx-auto grid max-w-[750px] gap-8">
+                <ChoiceGroup
+                  legend="Gender"
+                  name="sb-gender"
+                  options={SIGNUP.options.gender}
+                  required
+                />
+                <ChoiceGroup
+                  legend="Which areas would you want to serve?"
+                  name="sb-areas"
+                  options={SIGNUP.options.serveAreas}
+                  mode="checkbox"
+                  required
+                  columns
+                />
+                <ChoiceGroup
+                  legend="How did you know about Favor Care?"
+                  name="sb-hear"
+                  options={SIGNUP.options.hearAbout}
+                  required
+                  other={{ name: "sb-hear-other" }}
+                />
+              </div>
+            </Specimen>
+            <Specimen label="VolunteerSignupForm — the /signup application (demo: submit disabled so clicks can't reach the live formResponse)">
+              <VolunteerSignupForm demo />
             </Specimen>
           </Group>
 
