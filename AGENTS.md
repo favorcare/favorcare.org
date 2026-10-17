@@ -85,10 +85,9 @@ When a token changes, update **DESIGN.md** first, then mirror it in
   user approves (scope, files touched, verification). Approval covers the
   change's content — not the merge, and not unrelated edits.
 - **Commit format.** Conventional commits: `type(scope): imperative summary` —
-  type is one of `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci`;
-  scope is the area
-  (`signup`, `deploy`, `tokens`, …). The body explains the why and ends with a
-  verification line, e.g.
+  type is one of `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci`; scope
+  is the area (`signup`, `deploy`, `tokens`, …). The body explains the why and
+  ends with a verification line, e.g.
   `Verified: deno task check clean; deno task test 10 passed.` The `.gitmessage`
   template and the `commit-msg` hook installed by `deno task setup` enforce this
   locally.
