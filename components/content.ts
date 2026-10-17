@@ -17,6 +17,15 @@ export interface FaqItem {
   link?: { label: string; href: string };
 }
 
+/** One labeled field of the contact page's Carers Newsletter form. */
+export interface NewsletterField {
+  name: string;
+  label: string;
+  placeholder: string;
+  type: "text" | "email";
+  required?: boolean;
+}
+
 // Homepage — cloned from the WP `favor-care-homepage` page (post 6002,
 // staging = canonical). Copy is verbatim; layout follows the measured WP
 // geometry. Widgets WP hides at every breakpoint (Prayer Hub kicker, hero
@@ -444,7 +453,28 @@ export const CONTACT = {
   ],
   newsletter: {
     title: "Sign up for our Carers Newsletter!",
-    placeholder: "EMAIL ADDRESS",
+    // The WP Mailchimp form's three labeled fields, verbatim.
+    fields: [
+      {
+        name: "first-name",
+        label: "FIRST NAME",
+        placeholder: "First Name*",
+        type: "text",
+      },
+      {
+        name: "last-name",
+        label: "LAST NAME",
+        placeholder: "Last Name*",
+        type: "text",
+      },
+      {
+        name: "email",
+        label: "EMAIL ADDRESS",
+        placeholder: "Email*",
+        type: "email",
+        required: true,
+      },
+    ],
     cta: "SUBSCRIBE",
   },
   love: {
@@ -460,7 +490,7 @@ export const CONTACT = {
 } satisfies {
   heroTitle: string;
   faqs: { q: string; a: string }[];
-  newsletter: { title: string; placeholder: string; cta: string };
+  newsletter: { title: string; fields: NewsletterField[]; cta: string };
   love: { title: string; body: string; email: string };
   mapQuery: string;
   form: { recipient: string };
@@ -1116,3 +1146,64 @@ export const SOCIAL_LINKS: SocialLink[] = [
     icon: "mail",
   },
 ];
+
+// Brand voice — transcribed verbatim from BRAND.md for the /storybook
+// brand group (markdown emphasis stripped). BRAND.md stays the source of
+// truth; storybook_test.ts fails if a string here stops matching it.
+export const BRAND = {
+  identity: [
+    { term: "Tone", value: "raw, authentic, hopeful" },
+    { term: "Style", value: "straight to the point — less fluff, more story" },
+    {
+      term: "Core message",
+      value: "Every story matters. Every act of compassion makes an impact.",
+    },
+  ],
+  storytelling: [
+    {
+      title: "Raw & honest",
+      body: "show the real struggles without sugarcoating.",
+    },
+    {
+      title: "Hope-focused",
+      body: "always balance the hardship with a message of dignity and hope.",
+    },
+    {
+      title: "Straight to the point",
+      body: "keep captions and videos short, powerful, and action-driven.",
+    },
+    {
+      title: "Impact-oriented",
+      body:
+        "highlight not just the need, but the change happening because of generosity.",
+    },
+  ],
+  arc: [
+    { beat: "Here's the reality", body: "the raw moment." },
+    { beat: "Here's the hope", body: "how lives are changing." },
+    {
+      beat: "Here's how you can help",
+      body: "one clear call to action: donate, partner, volunteer.",
+    },
+  ],
+  captionExamples: [
+    "This is Maria. Today, she received her first medical check-up in years.",
+    "Your giving makes this possible. Join us in reaching more lives.",
+  ],
+  ctaExamples: [
+    "Help us reach more children like Ana.",
+    "Together, we can give hope where it's needed most.",
+  ],
+  rules: [
+    "Never invent people, quotes, or numbers.",
+    "Keep the arc: reality → hope → ask.",
+    "Short beats smooth.",
+  ],
+} satisfies {
+  identity: { term: string; value: string }[];
+  storytelling: { title: string; body: string }[];
+  arc: { beat: string; body: string }[];
+  captionExamples: string[];
+  ctaExamples: string[];
+  rules: string[];
+};

@@ -7,7 +7,10 @@ import { Faq } from "../components/Faq.tsx";
 import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
 import { CONTACT } from "../components/content.ts";
-import { frame } from "../components/layout/Container.tsx";
+import { NewsletterForm } from "../components/NewsletterForm.tsx";
+import { PageTitle } from "../components/PageTitle.tsx";
+import { cx } from "../components/cx.ts";
+import { frame, gutter } from "../components/layout/Container.tsx";
 
 // Contact page cloned from the WP page (post 1845, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at
@@ -18,7 +21,9 @@ import { frame } from "../components/layout/Container.tsx";
 // heading); the we'd-love email renders at a 1px font size on WP
 // (effectively invisible but present in text) — kept at 1px; the
 // newsletter block's Mailchimp form shows three labeled fields with a
-// yellow SUBSCRIBE pill (no backend yet — it composes a mailto:).
+// yellow SUBSCRIBE pill (no backend yet — it composes a mailto:). The
+// newsletter's 41px inputs and white-on-yellow pill are deliberately not
+// cloned (contrast + touch targets) — see NewsletterForm.
 export default define.page(function ContactPage() {
   return (
     <>
@@ -29,11 +34,11 @@ export default define.page(function ContactPage() {
       <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Heading + contact form (single column, WP's 684px frame). */}
-        <section class="px-5 pb-20 pt-[50px] md:px-2.5 md:pt-20 lg:px-0">
+        <section class={cx(gutter(), "pb-20 pt-[50px] md:pt-20")}>
           <div class={frame()}>
-            <h1 class="text-center text-[38px] font-bold leading-none text-primary md:text-[59px] lg:text-[70px]">
+            <PageTitle tone="primary" size="contact">
               {CONTACT.heroTitle}
-            </h1>
+            </PageTitle>
             <div class="mt-10 md:mt-[70px]">
               <ContactForm page="contact" />
             </div>
@@ -45,7 +50,7 @@ export default define.page(function ContactPage() {
             titles, all collapsed (answers excluded from innerText, as on
             WP). */
         }
-        <section class="px-5 pb-20 md:px-2.5 lg:px-0">
+        <section class={cx(gutter(), "pb-20")}>
           <div class="mx-auto w-full max-w-[750px]">
             <SectionHeading
               title="Frequently Asked Questions"
@@ -60,71 +65,20 @@ export default define.page(function ContactPage() {
 
         {
           /* Carers Newsletter — anchor target for /get-involved's
-            SUBSCRIBE. Black band with the Mailchimp form: three labeled
+            SUBSCRIBE. Black band with the NewsletterForm: three labeled
             fields (400px) and a yellow SUBSCRIBE pill. */
         }
         <section
           id="newsletter"
-          class="bg-black px-5 pb-5 pt-20 md:px-2.5 lg:px-0"
+          class={cx(gutter(), "bg-black pb-5 pt-20")}
         >
           <div class={frame()}>
-            {
-              /* Newsletter title is its own WP dialect (28 / 36px) — not
-                the section scale. */
-            }
-            <h2 class="text-center text-[28px] font-bold leading-tight text-white md:text-[36px] lg:leading-none">
-              {CONTACT.newsletter.title}
-            </h2>
-            <form
+            <NewsletterForm
+              title={CONTACT.newsletter.title}
+              fields={CONTACT.newsletter.fields}
+              cta={CONTACT.newsletter.cta}
               action={`mailto:${CONTACT.form.recipient}`}
-              method="post"
-              class="mx-auto mt-8 w-full max-w-[400px]"
-            >
-              <label class="block">
-                <span class="mb-1 block text-base font-semibold text-white">
-                  FIRST NAME
-                </span>
-                <input
-                  type="text"
-                  name="first-name"
-                  placeholder="First Name*"
-                  aria-label="First name"
-                  class="h-[41px] w-full rounded-[4px] border border-white bg-white px-3 text-base text-on-surface"
-                />
-              </label>
-              <label class="mt-4 block">
-                <span class="mb-1 block text-base font-semibold text-white">
-                  LAST NAME
-                </span>
-                <input
-                  type="text"
-                  name="last-name"
-                  placeholder="Last Name*"
-                  aria-label="Last name"
-                  class="h-[41px] w-full rounded-[4px] border border-white bg-white px-3 text-base text-on-surface"
-                />
-              </label>
-              <label class="mt-4 block">
-                <span class="mb-1 block text-base font-semibold text-white">
-                  EMAIL ADDRESS
-                </span>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email*"
-                  required
-                  aria-label="Email address"
-                  class="h-[41px] w-full rounded-[4px] border border-white bg-white px-3 text-base text-on-surface"
-                />
-              </label>
-              <div class="mt-8 flex justify-center">
-                <input
-                  type="submit"
-                  value="SUBSCRIBE"
-                  class="inline-flex h-[61px] w-[149px] cursor-pointer items-center justify-center rounded-full bg-yellow text-lg font-bold text-white transition-opacity hover:opacity-90"
-                />
-              </div>
-            </form>
+            />
           </div>
         </section>
 
@@ -133,7 +87,7 @@ export default define.page(function ContactPage() {
             the email address at a 1px font size — invisible, but present
             in text. */
         }
-        <section class="bg-black px-5 py-[60px] md:px-2.5 lg:px-0">
+        <section class={cx(gutter(), "bg-black py-[60px]")}>
           <div class={frame()}>
             <h2 class="text-left text-[38px] font-bold leading-tight text-white md:text-[36px] lg:text-[48px] lg:font-medium lg:leading-none">
               {CONTACT.love.title}

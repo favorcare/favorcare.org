@@ -28,15 +28,16 @@ export interface PageHeroProps {
   sectionClass?: string;
   /** Frame overrides (the posts archive centers via its frame). */
   frameClass?: string;
-  /** Title + subtitle markup (see the route dialects for the h1 scales). */
+  /** Title + subtitle — usually `PageTitle` + `HeroLead`; the homepage,
+   *  give-now and posts heroes keep their own measured markup. */
   children: ComponentChildren;
 }
 
 // The photo-hero shell, extracted verbatim from the WP-clone pages
 // (homepage, who-we-are, what-we-do, get-involved, posts): full-bleed
-// photo, overlay wash, and optionally the 1140px frame. Only the shell is
-// shared — the h1 and subtitle scales were measured per page and stay in
-// the routes.
+// photo, overlay wash, and optionally the 1140px frame. The shell is
+// shared here; the subpage title and subtitle live in PageTitle.tsx, and
+// the homepage/give-now/posts title dialects stay in their routes.
 export function PageHero(
   {
     image,

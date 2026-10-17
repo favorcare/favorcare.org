@@ -8,7 +8,9 @@ import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button, buttonClasses } from "../components/Button.tsx";
 import Popup from "../islands/Popup.tsx";
 import { GET_INVOLVED, POPUPS } from "../components/content.ts";
-import { frame } from "../components/layout/Container.tsx";
+import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
+import { cx } from "../components/cx.ts";
+import { frame, gutter } from "../components/layout/Container.tsx";
 
 // Get-involved page cloned from the WP page (post 1840, staging =
 // canonical). Copy is verbatim; geometry follows the measured WP layout
@@ -39,13 +41,11 @@ export default define.page(function GetInvolvedPage() {
             "Get involved" (lowercase w) — kept as measured. */
         }
         <PageHero image={GET_INVOLVED.hero.image}>
-          <h1 class="text-center text-[38px] font-semibold leading-none text-white md:text-[56px] md:font-bold lg:text-[70px]">
+          <PageTitle weight="semibold-md-bold">
             <span class="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
             <span class="hidden md:inline">{GET_INVOLVED.hero.title}</span>
-          </h1>
-          <p class="mx-auto mt-4 max-w-[280px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
-            {GET_INVOLVED.hero.subtitle}
-          </p>
+          </PageTitle>
+          <HeroLead>{GET_INVOLVED.hero.subtitle}</HeroLead>
         </PageHero>
 
         {
@@ -56,8 +56,8 @@ export default define.page(function GetInvolvedPage() {
         }
         {GET_INVOLVED.cards.map((card, i) => (
           <Fragment key={card.title}>
-            <section class="px-5 pt-5 md:px-2.5 md:pt-10 lg:px-0">
-              <div class={frame() + "grid md:grid-cols-2"}>
+            <section class={cx(gutter(), "pt-5 md:pt-10")}>
+              <div class={cx(frame(), "grid md:grid-cols-2")}>
                 <img
                   src={card.image}
                   alt=""

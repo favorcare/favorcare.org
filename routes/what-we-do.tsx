@@ -7,7 +7,9 @@ import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button } from "../components/Button.tsx";
 import Slideshow from "../islands/Slideshow.tsx";
 import { WHAT_WE_DO } from "../components/content.ts";
-import { frame } from "../components/layout/Container.tsx";
+import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
+import { cx } from "../components/cx.ts";
+import { frame, gutter } from "../components/layout/Container.tsx";
 
 // What-we-do page cloned from the WP page (post 1835, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at 360/768/1280
@@ -38,12 +40,10 @@ export default define.page(function WhatWeDoPage() {
           imageClass="bg-[position:50%_50%]"
           overlayClass="opacity-50"
         >
-          <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
-            {WHAT_WE_DO.hero.title}
-          </h1>
-          <p class="mx-auto mt-4 max-w-[260px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
+          <PageTitle>{WHAT_WE_DO.hero.title}</PageTitle>
+          <HeroLead measureClass="max-w-[260px] md:max-w-[560px] lg:max-w-[784px]">
             {WHAT_WE_DO.hero.subtitle}
-          </p>
+          </HeroLead>
         </PageHero>
 
         {
@@ -52,10 +52,12 @@ export default define.page(function WhatWeDoPage() {
             slideshow-first below md. */
         }
         {WHAT_WE_DO.programs.map((p, i) => (
-          <section class="px-5 pt-5 first:pt-9 md:px-2.5 md:pt-20 lg:px-0">
+          <section class={cx(gutter(), "pt-5 first:pt-9 md:pt-20")}>
             <div
-              class={frame() +
-                "grid items-center gap-6 md:grid-cols-2 md:gap-[30px]"}
+              class={cx(
+                frame(),
+                "grid items-center gap-6 md:grid-cols-2 md:gap-[30px]",
+              )}
             >
               <div class={i % 2 === 0 ? "md:order-2" : "md:order-1"}>
                 <Slideshow images={p.slides} label={`${p.label} photos`} />
@@ -91,10 +93,12 @@ export default define.page(function WhatWeDoPage() {
           /* Donate + Take Action: WP's paired rounded cards — yellow with
             a black GIVE pill, black with a white GET INVOLVED pill. */
         }
-        <section class="px-5 py-20 md:px-2.5 lg:px-0">
+        <section class={cx(gutter(), "py-20")}>
           <div
-            class={frame() +
-              "grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-0 lg:gap-10"}
+            class={cx(
+              frame(),
+              "grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-0 lg:gap-10",
+            )}
           >
             <div class="flex flex-col items-center gap-4 rounded-card bg-yellow px-6 py-6 md:py-25">
               <SectionHeading

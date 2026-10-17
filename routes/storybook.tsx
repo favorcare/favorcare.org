@@ -7,14 +7,16 @@ import { cx } from "../components/cx.ts";
 import { Button } from "../components/Button.tsx";
 import { Eyebrow } from "../components/Eyebrow.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Container } from "../components/layout/Container.tsx";
+import { Container, frame } from "../components/layout/Container.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { TextareaField } from "../components/TextareaField.tsx";
 import { ChoiceGroup } from "../components/ChoiceGroup.tsx";
 import { VolunteerSignupForm } from "../components/VolunteerSignupForm.tsx";
+import { NewsletterForm } from "../components/NewsletterForm.tsx";
 
 // Page structure
 import { PageHero } from "../components/PageHero.tsx";
+import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
 import { CtaBand } from "../components/CtaBand.tsx";
 import { BankCard } from "../components/BankCard.tsx";
 import { Faq } from "../components/Faq.tsx";
@@ -34,8 +36,10 @@ import {
 } from "../components/icons.tsx";
 import {
   ABOUT,
+  BRAND,
   CAROUSEL,
   CONTACT,
+  GET_INVOLVED,
   GIVENOW,
   HOME,
   POPUPS,
@@ -43,6 +47,13 @@ import {
   WHAT_WE_DO,
 } from "../components/content.ts";
 import { listPosts } from "../components/posts.ts";
+import {
+  COLOR_GROUPS,
+  CONTRAST_PAIRS,
+  contrastRatio,
+  RADII,
+} from "../components/tokens.ts";
+import { asset } from "../utils/assets.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import Popup from "../islands/Popup.tsx";
@@ -50,10 +61,26 @@ import Carousel from "../islands/Carousel.tsx";
 import Slideshow from "../islands/Slideshow.tsx";
 import ContactForm from "../islands/ContactForm.tsx";
 
-// The living component catalog. Every component the real pages are built
-// from has a specimen here; COMPONENTS.md is the written reference and
-// this page is its executable counterpart. When you add a component,
-// add its specimen in the same change.
+// The living component catalog and brand reference. Every component the
+// real pages are built from has a specimen here; COMPONENTS.md is the
+// written reference and this page is its executable counterpart, with
+// BRAND.md (voice) and DESIGN.md (tokens) rendered up front. When you add
+// a component, add its specimen in the same change — storybook_test.ts
+// fails otherwise.
+
+// Jump-nav targets, in page order (each matches a Group id below).
+const SECTIONS = [
+  { id: "brand", label: "Brand" },
+  { id: "tokens", label: "Tokens" },
+  { id: "layout", label: "Layout" },
+  { id: "actions", label: "Actions" },
+  { id: "icons", label: "Icons" },
+  { id: "page-structure", label: "Page structure" },
+  { id: "content", label: "Content" },
+  { id: "islands", label: "Islands" },
+  { id: "forms", label: "Forms" },
+  { id: "chrome", label: "Chrome" },
+] as const;
 
 function Group(
   { id, title, intro, children }: {
@@ -118,47 +145,210 @@ export default define.page(function StorybookPage() {
       </Head>
 
       <Header />
-      <header class="bg-black px-5 py-10 text-center">
-        <h1 class="text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
-          Component Library
-        </h1>
-        <p class="mx-auto mt-4 max-w-[630px] text-sm text-white/80 md:text-[15px] lg:text-lg">
-          The living catalog behind COMPONENTS.md — every shared component the
-          pages are built from, rendered with real content.
-        </p>
+      <header class="bg-black px-5 py-10">
+        <PageTitle>Component Library</PageTitle>
+        <HeroLead measureClass="max-w-[630px]">
+          The living catalog behind COMPONENTS.md, BRAND.md and DESIGN.md —
+          brand voice, tokens, and every shared component the pages are built
+          from, rendered with real content.
+        </HeroLead>
       </header>
 
-      <main class="mx-auto w-full max-w-[1140px] px-5 pb-24 pt-10 md:px-2.5 lg:px-0">
+      <nav
+        aria-label="Storybook sections"
+        class="sticky top-0 z-20 border-b border-primary/15 bg-white/95 backdrop-blur"
+      >
+        <ul class={cx(frame("page"), "flex gap-1 overflow-x-auto")}>
+          {SECTIONS.map((s) => (
+            <li key={s.id} class="shrink-0">
+              <a
+                href={`#${s.id}`}
+                class="inline-flex min-h-12 items-center px-3 text-sm font-semibold text-primary hover:text-link"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <main class={cx(frame("page"), "pb-24 pt-10")}>
         <div class="space-y-16">
+          <Group
+            id="brand"
+            title="Brand"
+            intro="Voice and content style from BRAND.md — read it before writing any user-facing copy. Real people, quotes and numbers come only from content.ts and posts.ts."
+          >
+            <Specimen label="Identity">
+              <dl class="grid gap-4 md:grid-cols-3">
+                {BRAND.identity.map((i) => (
+                  <div key={i.term}>
+                    <dt class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+                      {i.term}
+                    </dt>
+                    <dd class="mt-1 text-lg font-bold leading-snug text-primary">
+                      {i.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Specimen>
+            <Specimen label="Storytelling approach">
+              <ol class="grid gap-4 md:grid-cols-2">
+                {BRAND.storytelling.map((s, n) => (
+                  <li key={s.title} class="text-base leading-relaxed">
+                    <span class="font-bold text-primary">
+                      {n + 1}. {s.title}
+                    </span>{" "}
+                    <span class="text-on-surface">— {s.body}</span>
+                  </li>
+                ))}
+              </ol>
+            </Specimen>
+            <Specimen label="Engagement arc — every story: reality → hope → ask">
+              <ol class="grid gap-3 md:grid-cols-3">
+                {BRAND.arc.map((a, n) => (
+                  <li
+                    key={a.beat}
+                    class={cx(
+                      "rounded-card p-5",
+                      n === 2 ? "bg-yellow text-black" : "bg-surface-container",
+                    )}
+                  >
+                    <p class="text-lg font-bold leading-snug text-primary">
+                      “{a.beat}”
+                    </p>
+                    <p class="mt-1 text-base leading-relaxed text-on-surface">
+                      {a.body}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </Specimen>
+            <Specimen label="Caption & CTA style (BRAND.md examples — illustrative, not real stories)">
+              <div class="grid gap-6 md:grid-cols-2">
+                <ul class="space-y-2">
+                  {BRAND.captionExamples.map((c) => (
+                    <li key={c} class="text-base italic leading-relaxed">
+                      “{c}”
+                    </li>
+                  ))}
+                </ul>
+                <ul class="space-y-2">
+                  {BRAND.ctaExamples.map((c) => (
+                    <li
+                      key={c}
+                      class="text-base font-bold leading-relaxed text-primary"
+                    >
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Specimen>
+            <Specimen label="Rules for writing">
+              <ul class="list-disc space-y-1 pl-5 text-base leading-relaxed">
+                {BRAND.rules.map((r) => <li key={r}>{r}</li>)}
+              </ul>
+            </Specimen>
+            <Specimen label="Logo on its three grounds (header yellow, footer black, white)">
+              <div class="grid gap-4 md:grid-cols-3">
+                <div class="flex h-32 items-center justify-center rounded-card bg-yellow p-6">
+                  <img
+                    src={asset("/images/logo-color.png")}
+                    alt="Favor Care logo, full color"
+                    class="max-h-16 w-auto"
+                  />
+                </div>
+                <div class="flex h-32 items-center justify-center rounded-card bg-black p-6">
+                  <img
+                    src={asset("/logo-white.svg")}
+                    alt="Favor Care logo, white"
+                    class="max-h-16 w-auto"
+                  />
+                </div>
+                <div class="flex h-32 items-center justify-center rounded-card border border-primary/15 bg-white p-6">
+                  <img
+                    src={asset("/logo-black.svg")}
+                    alt="Favor Care logo, black"
+                    class="max-h-16 w-auto"
+                  />
+                </div>
+              </div>
+            </Specimen>
+          </Group>
+
           <Group
             id="tokens"
             title="Design tokens"
-            intro="Defined in assets/styles.css @theme and documented in DESIGN.md."
+            intro="Defined in assets/styles.css @theme and documented in DESIGN.md — use these, never hardcoded hex. tokens_test.ts keeps this list in sync with @theme."
           >
-            <Specimen label="Colors (surfaces & actions)">
-              <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-                {[
-                  ["primary", "bg-primary"],
-                  ["yellow", "bg-yellow"],
-                  ["article-yellow", "bg-article-yellow"],
-                  ["black", "bg-black"],
-                  ["surface-dim", "bg-surface-dim"],
-                  ["surface-container", "bg-surface-container"],
-                  ["link", "bg-link"],
-                  ["tertiary", "bg-tertiary"],
-                  ["light", "bg-light"],
-                  ["archive-ink", "bg-archive-ink"],
-                  ["archive-muted", "bg-archive-muted"],
-                  ["adbreak", "bg-adbreak"],
-                ].map(([name, cls]) => (
-                  <div key={name} class="flex items-center gap-3">
-                    <span
-                      class={cx(
-                        "h-10 w-10 rounded-[10px] border border-primary/15",
-                        cls,
-                      )}
-                    />
-                    <code class="text-sm text-on-surface">{name}</code>
+            {COLOR_GROUPS.map((g) => (
+              <Specimen key={g.title} label={g.title}>
+                <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+                  {g.tokens.map((t) => (
+                    <div key={t.name} class="flex items-center gap-3">
+                      <span
+                        class={cx(
+                          "h-10 w-10 shrink-0 rounded-[10px] border border-primary/15",
+                          t.cls,
+                        )}
+                      />
+                      <span class="min-w-0">
+                        <code class="block truncate text-sm text-on-surface">
+                          {t.name}
+                        </code>
+                        <code class="block text-xs text-on-surface-variant">
+                          {t.hex}
+                        </code>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </Specimen>
+            ))}
+            <Specimen label="Contrast — DESIGN.md's Do's and Don'ts, measured (AA body text needs 4.5:1)">
+              <div class="grid gap-3 md:grid-cols-2">
+                {CONTRAST_PAIRS.map((p) => {
+                  const ratio = contrastRatio(p.fg, p.bg);
+                  return (
+                    <div
+                      key={p.label}
+                      class="flex items-stretch overflow-hidden rounded-[10px] border border-primary/15"
+                    >
+                      <span
+                        class={cx(
+                          "flex w-28 shrink-0 items-center justify-center text-lg font-bold",
+                          p.cls,
+                        )}
+                      >
+                        Aa
+                      </span>
+                      <span class="flex flex-1 flex-col justify-center px-4 py-2">
+                        <span class="text-sm text-on-surface">{p.label}</span>
+                        <span
+                          class={cx(
+                            "text-sm font-bold",
+                            p.intent === "do" ? "text-primary" : "text-error",
+                          )}
+                        >
+                          {ratio.toFixed(2)}:1 —{" "}
+                          {p.intent === "do" ? "Do" : "Don't"}
+                        </span>
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </Specimen>
+            <Specimen label="Radii — square system, plus the measured rounds">
+              <div class="flex flex-wrap gap-6">
+                {RADII.map((r) => (
+                  <div key={r.name} class="flex flex-col items-center gap-2">
+                    <span class={cx("h-32 w-44 bg-yellow", r.cls)} />
+                    <code class="text-sm text-on-surface">
+                      {r.name} · {r.value}
+                    </code>
                   </div>
                 ))}
               </div>
@@ -303,15 +493,29 @@ export default define.page(function StorybookPage() {
           </Group>
 
           <Group id="page-structure" title="Page structure">
-            <Specimen label="PageHero — gradient overlay shell (real about-page hero)">
+            <Specimen label="PageHero + PageTitle + HeroLead — gradient overlay shell (real about-page hero)">
               <PageHero
                 image={ABOUT.hero.image}
                 imageClass="bg-[position:50%_0]"
               >
-                <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
-                  {ABOUT.hero.title}
-                </h1>
+                <PageTitle>{ABOUT.hero.title}</PageTitle>
+                <HeroLead measureClass="max-w-[260px] md:max-w-[460px] lg:max-w-[630px]">
+                  {ABOUT.hero.body}
+                </HeroLead>
               </PageHero>
+            </Specimen>
+            <Specimen label='PageTitle — weight="semibold-md-bold" (get-involved, signup) / tone="primary" size="contact" (contact)'>
+              <div class="space-y-8">
+                <div class="rounded-card bg-primary p-6">
+                  <PageTitle weight="semibold-md-bold">
+                    {GET_INVOLVED.hero.title}
+                  </PageTitle>
+                  <HeroLead>{GET_INVOLVED.hero.subtitle}</HeroLead>
+                </div>
+                <PageTitle tone="primary" size="contact">
+                  {CONTACT.heroTitle}
+                </PageTitle>
+              </div>
             </Specimen>
             <Specimen label="CtaBand">
               <CtaBand
@@ -437,7 +641,7 @@ export default define.page(function StorybookPage() {
           <Group
             id="forms"
             title="Forms"
-            intro="InputField / TextareaField power the ContactForm island (whose two WP-measured SEND dialects are intentionally bespoke); ChoiceGroup + VolunteerSignupForm build the /signup volunteer application."
+            intro="InputField / TextareaField power the ContactForm island (whose two WP-measured SEND dialects are intentionally bespoke) and the NewsletterForm; ChoiceGroup + VolunteerSignupForm build the /signup volunteer application."
           >
             <Specimen label="InputField / TextareaField">
               <div class="mx-auto grid max-w-[540px] gap-4">
@@ -486,6 +690,17 @@ export default define.page(function StorybookPage() {
                 />
               </div>
             </Specimen>
+            <Specimen
+              label="NewsletterForm — the contact page's Carers Newsletter (48px inputs and black-on-yellow submit: deliberate a11y fixes over WP)"
+              dark
+            >
+              <NewsletterForm
+                title={CONTACT.newsletter.title}
+                fields={CONTACT.newsletter.fields}
+                cta={CONTACT.newsletter.cta}
+                action={`mailto:${CONTACT.form.recipient}`}
+              />
+            </Specimen>
             <Specimen label="VolunteerSignupForm — the /signup application (demo: submit disabled so clicks can't reach the live formResponse)">
               <VolunteerSignupForm demo />
             </Specimen>
@@ -494,7 +709,7 @@ export default define.page(function StorybookPage() {
           <Group
             id="chrome"
             title="Chrome &amp; islands"
-            intro="Header, Footer, Navbar and MobileNav render on this page — inspect them live. Popup, Carousel, Slideshow and ContactForm have specimens above."
+            intro="Header (with Navbar on desktop and MobileNav below md) and Footer render on this page — inspect them live, and resize below 768px for MobileNav. Popup, Carousel, Slideshow and ContactForm have specimens above."
           >
             <p class="text-sm text-on-surface-variant">
               No specimens in this group — the chrome above and the islands in
