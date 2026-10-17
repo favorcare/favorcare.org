@@ -30,25 +30,37 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 
 ## Scripts
 
-| Command            | Description                                                    |
-| ------------------ | -------------------------------------------------------------- |
-| `deno task setup`  | One-time setup: deps, commit template, commit-msg hook.        |
-| `deno task dev`    | Start the Vite dev server with hot reload.                     |
-| `deno task build`  | Production build into `_fresh/`.                               |
-| `deno task start`  | Serve the production build (`deno serve -A _fresh/server.js`). |
-| `deno task check`  | Run `deno fmt --check`, `deno lint`, and `deno check`.         |
-| `deno task test`   | Run the unit tests (`deno test -A`).                           |
-| `deno task update` | Run the Fresh updater.                                         |
+| Command                     | Description                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------- |
+| `deno task setup`           | One-time setup: deps, commit template, commit-msg hook.                           |
+| `deno task dev`             | Start the Vite dev server with hot reload.                                        |
+| `deno task build`           | Production build into `_fresh/`.                                                  |
+| `deno task start`           | Serve the production build (`deno serve -A _fresh/server.js`).                    |
+| `deno task deploy`          | Build, then deploy to Cloudflare Workers (see [DEPLOYMENT.md](DEPLOYMENT.md)).    |
+| `deno task deploy:dry-run`  | Build and validate the Worker bundle without deploying.                           |
+| `deno task check`           | Run `deno fmt --check`, `deno lint`, and `deno check`.                            |
+| `deno task test`            | Run the unit tests (`deno test -A`).                                              |
+| `deno task assets:pull`     | Pull `static/images/` from the R2 media bucket (rclone; see `scripts/assets.ts`). |
+| `deno task assets:push`     | Push `static/images/` to the R2 media bucket.                                     |
+| `deno task clone:reference` | Screenshot the WordPress reference (needs Playwright chromium).                   |
+| `deno task clone:diff`      | Visual-diff the Fresh pages against the reference screenshots.                    |
+| `deno task update`          | Run the Fresh updater.                                                            |
 
 ## Project structure
 
 ```
-routes/      File-system routes (pages)
-components/  Reusable Preact server components
-islands/     Client-side interactive components (hydrated)
-static/      Static assets served as-is (logos, images)
-assets/      Global styles — the Tailwind v4 theme lives in styles.css
-main.ts      Fresh app entry — registers static files + file routes
+routes/         File-system routes (pages); _app.tsx is the root layout
+components/     Reusable Preact server components
+islands/        Client-side interactive components (hydrated)
+static/         Static assets served as-is (logos, favicon; images/ syncs from R2)
+assets/         Global styles — the Tailwind v4 theme lives in styles.css
+scripts/        One-off tooling: setup, R2 asset sync, WP clone-diff
+migration/      WordPress → Fresh migration notes and runbooks
+ideas/          IA reference (proposed.svg) and the retired v1 design
+utils.ts        define.page / handlers / middleware helpers + the shared State
+vite.config.ts  Build config — Fresh + Tailwind plugins; Cloudflare joins when CF=1
+wrangler.jsonc  Cloudflare Workers config
+main.ts         Fresh app entry — registers static files + file routes
 ```
 
 ## Documentation
@@ -66,6 +78,22 @@ main.ts      Fresh app entry — registers static files + file routes
   by phase.
 - **[AGENTS.md](AGENTS.md)** — guidance for AI coding agents (Claude Code
   v2.1.277+ reads it directly).
+
+## Contributing
+
+1. **Branch, never `main`.** Work on a short-lived branch — `feat/…`, `fix/…`,
+   `docs/…` — and open a PR. A merge to `main` deploys, so nothing is ever
+   pushed to `main` directly.
+2. **Check before you push.** Run `deno task check` and `deno task test`; CI
+   runs both on every PR (`.github/workflows/check.yml`).
+3. **Conventional commits.** `deno task setup` installs the commit template and
+   the commit-msg hook that enforce the format.
+4. **Docs travel with code.** Token changes update DESIGN.md first; component
+   changes update COMPONENTS.md and `/storybook` in the same PR.
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for the full workflow, and
+[AGENTS.md](AGENTS.md) for AI-coding-agent conventions (including: no AI
+attribution trailers in commits or PRs).
 
 ## Impostor Syndrome Disclaimer
 

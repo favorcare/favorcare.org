@@ -88,11 +88,12 @@ elevation:
   sm: 0 1px 2px rgba(0, 0, 0, 0.06)
   md: 0 4px 12px rgba(0, 0, 0, 0.08)
   lg: 0 16px 40px rgba(0, 0, 0, 0.12)
-  card: 0 1px 3px rgba(25, 23, 24, 0.08)layout:
-      contentContainerMaxWidth: 1140px
-      headerContainerMaxWidth: 1200px
-      breakpoints: 768 / 1025 (Elementor); Tailwind 768 / 1024 accepted
-      gridColumns: 12
+  card: 0 1px 3px rgba(25, 23, 24, 0.08)
+layout:
+  contentContainerMaxWidth: 1140px
+  headerContainerMaxWidth: 1200px
+  breakpoints: 768 / 1025 (Elementor); Tailwind 768 / 1024 accepted
+  gridColumns: 12
 ---
 
 ## Overview

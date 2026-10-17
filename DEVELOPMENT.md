@@ -146,7 +146,8 @@ secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
 ## AI agents
 
 - **Skills** — `.claude/skills/` (mirrored to `.opencode/skill`) ships
-  repo-level skills: `plan-change`, `new-component`, `new-page`.
+  repo-level skills: `plan-change`, `new-component`, `new-page` (anatomy and how
+  to add one in [Repo skills](#repo-skills) below).
 - **Docs lookup** — `.mcp.json` provides the project-scope `context7` MCP server
   (live Fresh/Deno/Tailwind/Cloudflare docs). Claude Code picks it up
   automatically; recent OpenCode versions read the same file, otherwise add the
@@ -156,6 +157,23 @@ secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
   trailers). Both are local to each clone.
 - **CI** — every PR runs `deno task check` + `deno task test`
   (`.github/workflows/check.yml`); deploys stay on Cloudflare Workers Builds.
+
+### Repo skills
+
+Each skill is a `SKILL.md` under `.claude/skills/<name>/` with `name` +
+`description` frontmatter. Harnesses auto-discover them — `.opencode/skill` is a
+symlink to `.claude/skills/`, so nothing is mirrored by hand and per-skill
+copies are never needed.
+
+The `description` is the trigger: harnesses match it against the task at hand.
+Phrase it as "do X — use when Y" and keep it in sync with the body under it.
+
+To add one:
+
+1. Create `.claude/skills/<name>/SKILL.md` (kebab-case name, frontmatter first).
+2. Mention the new skill in [AGENTS.md](AGENTS.md) (intro and "Where things
+   live") and in the Skills bullet above.
+3. Nothing else — the symlink covers every other harness.
 
 ## Current state & roadmap
 
