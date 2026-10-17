@@ -44,7 +44,7 @@ interface SignupPageData {
   serveAreas?: string[];
 }
 
-function collectValues(form: FormData): {
+export function collectValues(form: FormData): {
   values: Record<string, string>;
   serveAreas: string[];
 } {
@@ -58,7 +58,7 @@ function collectValues(form: FormData): {
   return { values, serveAreas: form.getAll("serve-areas").map(String) };
 }
 
-function buildForwardBody(form: FormData): URLSearchParams {
+export function buildForwardBody(form: FormData): URLSearchParams {
   const e = SIGNUP.entries;
   const s = (name: string) => String(form.get(name) ?? "").trim();
   const body = new URLSearchParams();

@@ -13,10 +13,11 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 
 1. **Install Deno** — see the
    [official guide](https://docs.deno.com/runtime/getting_started/installation/).
-2. Install dependencies (the project uses `nodeModulesDir: manual`):
+2. Install dependencies and one-time git hygiene (commit-message template +
+   commit-msg hook; the project uses `nodeModulesDir: manual`):
 
    ```sh
-   deno install
+   deno task setup
    ```
 
 3. Start the dev server:
@@ -31,10 +32,12 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 
 | Command            | Description                                                    |
 | ------------------ | -------------------------------------------------------------- |
+| `deno task setup`  | One-time setup: deps, commit template, commit-msg hook.        |
 | `deno task dev`    | Start the Vite dev server with hot reload.                     |
 | `deno task build`  | Production build into `_fresh/`.                               |
 | `deno task start`  | Serve the production build (`deno serve -A _fresh/server.js`). |
 | `deno task check`  | Run `deno fmt --check`, `deno lint`, and `deno check`.         |
+| `deno task test`   | Run the unit tests (`deno test -A`).                           |
 | `deno task update` | Run the Fresh updater.                                         |
 
 ## Project structure
@@ -52,10 +55,17 @@ main.ts      Fresh app entry — registers static files + file routes
 
 - **[DEVELOPMENT.md](DEVELOPMENT.md)** — local setup, architecture, and
   conventions.
+- **[COMPONENTS.md](COMPONENTS.md)** — the component catalog and page-building
+  rules. Reuse before you build.
 - **[DESIGN.md](DESIGN.md)** — the design system (colors, type, components).
   Source of truth for styling tokens.
-- **[AGENTS.md](AGENTS.md)** — guidance for AI coding agents (`CLAUDE.md` is a
-  symlink to this).
+- **[BRAND.md](BRAND.md)** — brand voice and content style. How we write.
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** — Cloudflare Workers deployment, previews,
+  secrets, rollback.
+- **[MIGRATION.md](MIGRATION.md)** — the WordPress → Fresh migration plan, phase
+  by phase.
+- **[AGENTS.md](AGENTS.md)** — guidance for AI coding agents (Claude Code
+  v2.1.277+ reads it directly).
 
 ## Impostor Syndrome Disclaimer
 

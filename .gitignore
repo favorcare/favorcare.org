@@ -92,7 +92,10 @@ vendor/
 
 
 .gstack/
-.claude/
+# .claude is ignored except the versioned agent skills (all AI tools share
+# them; .opencode/skill symlinks here).
+.claude/*
+!.claude/skills/
 docs/
 .firecrawl/
 .zcode/

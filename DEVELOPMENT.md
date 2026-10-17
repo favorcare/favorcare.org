@@ -11,7 +11,7 @@ Everything you need to run, build, and extend favorcare.org locally.
 ## Getting started
 
 ```sh
-deno install     # populate node_modules (nodeModulesDir: manual)
+deno task setup  # deps + git hygiene (commit template, commit-msg hook)
 deno task dev    # start the dev server
 ```
 
@@ -21,15 +21,17 @@ Open the URL printed in the terminal (typically <http://localhost:8000>).
 
 | Task                   | Command           |
 | ---------------------- | ----------------- |
+| One-time setup         | `deno task setup` |
 | Develop                | `deno task dev`   |
 | Type / format / lint   | `deno task check` |
+| Unit tests             | `deno task test`  |
 | Format code            | `deno fmt`        |
 | Lint                   | `deno lint`       |
 | Production build       | `deno task build` |
 | Serve production build | `deno task start` |
 
-`deno task check` runs `deno fmt --check && deno lint && deno check` — run it
-before considering any work done.
+`deno task check` runs `deno fmt --check && deno lint && deno check` — run it,
+plus `deno task test`, before considering any work done.
 
 ## Architecture
 
@@ -98,6 +100,23 @@ export default define.page(function WhatWeDo() {
 - New components get a `/storybook` specimen and a COMPONENTS.md entry in the
   same change.
 
+## Testing
+
+`deno task test` runs `deno test -A`. Tests live next to the code as `*_test.ts`
+(see [`routes/signup_test.ts`](routes/signup_test.ts)).
+
+- **Pure logic gets tests** — handler helpers, validation, islands math, content
+  helpers. New or changed logic ships with passing tests in the same change.
+- **Server-rendered markup doesn't** — that's covered by `deno task check` and a
+  visual pass on `/storybook`.
+
+## Copy & content
+
+User-facing copy follows [**BRAND.md**](BRAND.md) — raw, authentic, hopeful;
+reality → hope → ask; never invent people, quotes, or stats. Canonical strings
+live in [`components/content.ts`](components/content.ts) and
+[`components/posts.ts`](components/posts.ts).
+
 ## Assets (images)
 
 `static/images/` is on its way to being served from Cloudflare R2 rather than
@@ -120,19 +139,23 @@ git (see [MIGRATION.md](MIGRATION.md), Phase 2):
 
 ## Deployment
 
-`deno task build` outputs a server bundle to `_fresh/` (`deno task start` serves
-it locally). Production targets **Cloudflare Workers** — Deno Deploy shuts down
-in 2027 following the Cloudflare acquisition (see MIGRATION.md):
+Production runs on **Cloudflare Workers** and deploys automatically on every
+push to `main` — a merge to `main` is a deploy. The full flow (previews,
+secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
 
-- `deno task deploy` — builds, then deploys via wrangler (`wrangler.jsonc`,
-  worker entry `server.js`; the `cloudflare()` vite plugin loads only under
-  `CF=1`, so dev/build/start stay on the standard Fresh flow).
-- Easiest: connect the repo in the Cloudflare dashboard (Workers → Create →
-  import from GitHub) — builds on push to `main`, preview URLs per PR.
-- Secrets (`ASSET_BASE_URL`; later `PAYMONGO_*`/`RESEND_*`/`MAILCHIMP_*`) live
-  in the dashboard or via `wrangler secret put`, never in git.
-- Reference:
-  [Fresh on Cloudflare Workers](https://usefresh.dev/docs/deployment/cloudflare-workers).
+## AI agents
+
+- **Skills** — `.claude/skills/` (mirrored to `.opencode/skill`) ships
+  repo-level skills: `plan-change`, `new-component`, `new-page`.
+- **Docs lookup** — `.mcp.json` provides the project-scope `context7` MCP server
+  (live Fresh/Deno/Tailwind/Cloudflare docs). Claude Code picks it up
+  automatically; recent OpenCode versions read the same file, otherwise add the
+  same server under the `mcp` key of `opencode.json`.
+- **Commit hygiene** — `deno task setup` wires the `.gitmessage` template and
+  the `.githooks/commit-msg` hook (conventional subjects, no AI attribution
+  trailers). Both are local to each clone.
+- **CI** — every PR runs `deno task check` + `deno task test`
+  (`.github/workflows/check.yml`); deploys stay on Cloudflare Workers Builds.
 
 ## Current state & roadmap
 
@@ -152,9 +175,10 @@ All five primary-nav pages plus utility pages exist (this replaces the earlier
 | `/storybook`    | Component library                                   |
 
 The broader program — migrating favorcare.org off WordPress/Elementor onto this
-stack as a visual clone, with a native donation checkout, R2 media, and a Deno
-Deploy cutover — is planned phase-by-phase in [**MIGRATION.md**](MIGRATION.md).
-The IA reference remains [ideas/proposed.svg](ideas/proposed.svg).
+stack as a visual clone, with a native donation checkout, R2 media, and a
+Cloudflare Workers cutover — is planned phase-by-phase in
+[**MIGRATION.md**](MIGRATION.md). The IA reference remains
+[ideas/proposed.svg](ideas/proposed.svg).
 
 **Known gaps that gate production cutover** (see the migration plan):
 

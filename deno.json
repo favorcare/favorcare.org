@@ -2,6 +2,8 @@
   "nodeModulesDir": "manual",
   "tasks": {
     "check": "deno fmt --check && deno lint . && deno check",
+    "test": "deno test -A",
+    "setup": "deno run -A scripts/setup.ts",
     "dev": "vite",
     "build": "vite build",
     "start": "deno serve -A _fresh/server.js",
@@ -41,6 +43,7 @@
   },
   "imports": {
     "@/": "./",
+    "@std/assert": "jsr:@std/assert@^1",
     "@cloudflare/vite-plugin": "npm:@cloudflare/vite-plugin@^1.63.1",
     "fresh": "jsr:@fresh/core@^2.3.3",
     "lucide-preact": "npm:lucide-preact@^1.55.0",
