@@ -1,0 +1,12 @@
+# <type>(<scope>): imperative summary — 72 chars max
+#
+# type:    feat | fix | docs | chore | refactor | test
+# scope:   the area touched, e.g. signup, tokens, components, deploy, repo
+# subject: imperative mood, no trailing period
+#
+# Body (optional): explain WHY, wrapped at ~72 columns. End with a
+# verification line, e.g.:
+#     Verified: deno task check clean; deno task test 10 passed.
+#
+# NEVER add Co-Authored-By or "Generated with …" trailers — commits are
+# attributed to the human author only. The commit-msg hook rejects them.
