@@ -13,10 +13,11 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 
 1. **Install Deno** — see the
    [official guide](https://docs.deno.com/runtime/getting_started/installation/).
-2. Install dependencies (the project uses `nodeModulesDir: manual`):
+2. Install dependencies and one-time git hygiene (commit-message template +
+   commit-msg hook; the project uses `nodeModulesDir: manual`):
 
    ```sh
-   deno install
+   deno task setup
    ```
 
 3. Start the dev server:
@@ -31,6 +32,7 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 
 | Command            | Description                                                    |
 | ------------------ | -------------------------------------------------------------- |
+| `deno task setup`  | One-time setup: deps, commit template, commit-msg hook.        |
 | `deno task dev`    | Start the Vite dev server with hot reload.                     |
 | `deno task build`  | Production build into `_fresh/`.                               |
 | `deno task start`  | Serve the production build (`deno serve -A _fresh/server.js`). |

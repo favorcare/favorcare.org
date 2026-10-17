@@ -11,7 +11,7 @@ Everything you need to run, build, and extend favorcare.org locally.
 ## Getting started
 
 ```sh
-deno install     # populate node_modules (nodeModulesDir: manual)
+deno task setup  # deps + git hygiene (commit template, commit-msg hook)
 deno task dev    # start the dev server
 ```
 
@@ -21,6 +21,7 @@ Open the URL printed in the terminal (typically <http://localhost:8000>).
 
 | Task                   | Command           |
 | ---------------------- | ----------------- |
+| One-time setup         | `deno task setup` |
 | Develop                | `deno task dev`   |
 | Type / format / lint   | `deno task check` |
 | Unit tests             | `deno task test`  |
@@ -141,6 +142,20 @@ git (see [MIGRATION.md](MIGRATION.md), Phase 2):
 Production runs on **Cloudflare Workers** and deploys automatically on every
 push to `main` — a merge to `main` is a deploy. The full flow (previews,
 secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
+
+## AI agents
+
+- **Skills** — `.claude/skills/` (mirrored to `.opencode/skill`) ships
+  repo-level skills: `plan-change`, `new-component`, `new-page`.
+- **Docs lookup** — `.mcp.json` provides the project-scope `context7` MCP server
+  (live Fresh/Deno/Tailwind/Cloudflare docs). Claude Code picks it up
+  automatically; recent OpenCode versions read the same file, otherwise add the
+  same server under the `mcp` key of `opencode.json`.
+- **Commit hygiene** — `deno task setup` wires the `.gitmessage` template and
+  the `.githooks/commit-msg` hook (conventional subjects, no AI attribution
+  trailers). Both are local to each clone.
+- **CI** — every PR runs `deno task check` + `deno task test`
+  (`.github/workflows/check.yml`); deploys stay on Cloudflare Workers Builds.
 
 ## Current state & roadmap
 
