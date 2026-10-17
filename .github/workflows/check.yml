@@ -1,0 +1,28 @@
+# CI check for every PR: format + lint + typecheck + unit tests.
+# (Deployment itself runs on Cloudflare Workers Builds — see
+# scripts/ci-cloudflare-build.sh and DEPLOYMENT.md.)
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Install dependencies
+        run: deno install
+
+      - name: Check (fmt, lint, typecheck)
+        run: deno task check
+
+      - name: Test
+        run: deno task test
