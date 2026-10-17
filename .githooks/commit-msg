@@ -26,10 +26,10 @@ if [ -z "$first_line" ]; then
   exit 1
 fi
 
-pattern='^(feat|fix|docs|chore|refactor|test)(\([^)]+\))?!?: .+'
+pattern='^(feat|fix|docs|chore|refactor|test|ci)(\([^)]+\))?!?: .+'
 if ! printf '%s\n' "$first_line" | grep -Eq "$pattern"; then
   echo "commit-msg: subject must be 'type(scope): summary'" >&2
-  echo "  types: feat fix docs chore refactor test" >&2
+  echo "  types: feat fix docs chore refactor test ci" >&2
   echo "  was: $first_line" >&2
   exit 1
 fi

@@ -1,6 +1,6 @@
 # <type>(<scope>): imperative summary — 72 chars max
 #
-# type:    feat | fix | docs | chore | refactor | test
+# type:    feat | fix | docs | chore | refactor | test | ci
 # scope:   the area touched, e.g. signup, tokens, components, deploy, repo
 # subject: imperative mood, no trailing period
 #
