@@ -1,7 +1,9 @@
 # AGENTS.md
 
 Guidance for AI coding agents working in this repo. Claude Code (v2.1.277+)
-reads this file directly — no `CLAUDE.md` needed.
+reads this file directly — no `CLAUDE.md` needed. Repo-level agent skills
+(`plan-change`, `new-component`, `new-page`) live in `.claude/skills/`, mirrored
+to `.opencode/skill` so every harness sees them.
 
 ## What this is
 
@@ -12,7 +14,7 @@ Fresh 2 + Tailwind CSS v4 + Preact**.
 ## Commands
 
 ```sh
-deno install     # populate node_modules (nodeModulesDir: manual)
+deno task setup  # one-time: deps + commit template + commit-msg hook
 deno task dev    # dev server (URL printed in terminal, ~http://localhost:8000)
 deno task build  # production build -> _fresh/
 deno task start  # serve the production build
@@ -72,6 +74,10 @@ When a token changes, update **DESIGN.md** first, then mirror it in
 - **Accessibility / DESIGN.md rules:** touch targets ≥ 48px (`min-h-12`), body
   text ≥ 16px with ≥ 1.5 line-height. Link Yellow (`yellow`) is an
   accent/surface color — never body text on white (fails contrast).
+- **Docstrings on exports.** Every exported component/function/type gets a brief
+  JSDoc block: what it renders or returns, the props that matter, and — when
+  values were cloned from the WP pages — the measured dialect (see
+  `components/Button.tsx` for the house style).
 
 ## Workflow
 
@@ -82,10 +88,34 @@ When a token changes, update **DESIGN.md** first, then mirror it in
   type is one of `feat`, `fix`, `docs`, `chore`, `refactor`; scope is the area
   (`signup`, `deploy`, `tokens`, …). The body explains the why and ends with a
   verification line, e.g.
-  `Verified: deno task check clean; deno task test 10 passed.`
+  `Verified: deno task check clean; deno task test 10 passed.` The `.gitmessage`
+  template and the `commit-msg` hook installed by `deno task setup` enforce this
+  locally.
 - **No AI attribution trailers.** Never add `Co-Authored-By: …` or "Generated
   with …" trailers to commits or PRs. Commits are attributed to the human author
   only.
+
+## Tooling
+
+Agents work with what's already installed and **ask before installing anything**
+— propose the exact command, then wait for the user to run or approve it. Never
+install silently.
+
+| Tool                | Needed for                           | Note                                                                                |
+| ------------------- | ------------------------------------ | ----------------------------------------------------------------------------------- |
+| `deno`              | everything                           | Required.                                                                           |
+| `gh`                | branches → PRs                       | PRs are the only way work lands; check with `command -v gh`.                        |
+| `wrangler`          | deploys                              | **No global install** — always `deno run -A npm:wrangler` (see `deno task deploy`). |
+| `rclone`            | `assets:pull/push`                   | One-time R2 setup; walkthrough in `scripts/assets.ts` header.                       |
+| Playwright browsers | `scripts/clone-diff.ts` visual diffs | `deno run -A npm:playwright install chromium` if the task needs it.                 |
+
+- **Missing tool?** Say so, give the copy-pasteable install command (prefer
+  `brew install …` on macOS), and wait for approval.
+- **MCP:** `.mcp.json` ships the project-scope `context7` server — use it for
+  live Fresh/Deno/Tailwind/Cloudflare docs instead of guessing APIs.
+- **User-level skills/plugins** (superpowers, impeccable, motion, handoff, …)
+  live outside this repo. If a task would benefit from one, propose the install
+  command and wait — don't set them up unprompted.
 
 ## Testing
 
@@ -108,6 +138,8 @@ islands/      Client-hydrated interactive components.
 static/       Assets served as-is — logos, /images/orgs/{PCNC,DSWD}.png.
 assets/styles.css   Tailwind v4 @theme tokens + base layer.
 main.ts       Fresh app entry (static files + fsRoutes).
+.claude/skills/  Repo-level agent skills; .opencode/skill symlinks here.
+.githooks/    commit-msg enforcement — activate with `deno task setup`.
 ```
 
 ## Gotchas
