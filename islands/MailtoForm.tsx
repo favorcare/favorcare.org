@@ -33,12 +33,17 @@ export default function MailtoForm(
 ) {
   const onSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    // Only real checkboxes map "on" to "Yes" in the email body.
+    const checkboxes = [...form.elements].flatMap((el) =>
+      el instanceof HTMLInputElement && el.type === "checkbox" ? [el.name] : []
+    );
     const note = noteField ? String(data.get(noteField) ?? "") : undefined;
     globalThis.location.href = composeMailto({
       recipient,
       subject: composeSubject(subject, data),
-      fields: formFields(data, labels),
+      fields: formFields(data, labels, checkboxes),
       note,
     });
   };

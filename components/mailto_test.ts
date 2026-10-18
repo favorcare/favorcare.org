@@ -53,7 +53,7 @@ function contactHref(data: FormData): string {
       prefix: CONTACT.form.subjectPrefix,
       nameFields: ["first-name", "last-name"],
     }, data),
-    fields: formFields(data, CONTACT.form.labels),
+    fields: formFields(data, CONTACT.form.labels, ["newsletter"]),
     note: String(data.get("message") ?? ""),
   });
 }
@@ -99,6 +99,14 @@ Deno.test("the opted-in newsletter line reads as a labeled Yes", () => {
       "How can I help?",
       "See you Sunday.",
     ].join("\n"),
+  );
+});
+
+Deno.test("only declared checkboxes map 'on' to Yes", () => {
+  const data = form({ phone: "on", newsletter: "on" });
+  assertEquals(
+    formFields(data, { phone: "Phone", newsletter: "Opt-in" }, ["newsletter"]),
+    [{ label: "Phone", value: "on" }, { label: "Opt-in", value: "Yes" }],
   );
 });
 

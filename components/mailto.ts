@@ -51,18 +51,22 @@ function read(data: FormData, name: string): string {
 /**
  * Read `labels` (input name to body label, in body order) out of
  * `data`, trimming values. A key of `a+b` joins inputs `a` and `b` with a
- * space under one label (`"first-name+last-name": "Name"`). A checked
- * checkbox (`"on"`) reads as "Yes". Blank fields are kept; `composeMailto`
- * skips them.
+ * space under one label (`"first-name+last-name": "Name"`). Inputs named
+ * in `checkboxes` read as "Yes" when checked (`"on"`); a typed "on"
+ * elsewhere stays as typed. Blank fields are kept; `composeMailto` skips
+ * them.
  */
 export function formFields(
   data: FormData,
   labels: Record<string, string>,
+  checkboxes: Iterable<string> = [],
 ): MailtoField[] {
+  const boxes = new Set(checkboxes);
   return Object.entries(labels).map(([names, label]) => {
-    const value = names.split("+").map((n) => read(data, n)).filter(Boolean)
-      .join(" ");
-    return { label, value: value === "on" ? "Yes" : value };
+    const value = names.split("+").map((n) =>
+      boxes.has(n) && read(data, n) === "on" ? "Yes" : read(data, n)
+    ).filter(Boolean).join(" ");
+    return { label, value };
   });
 }
 
