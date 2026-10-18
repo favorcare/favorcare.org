@@ -5,6 +5,7 @@ import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
 import { PageHero } from "../../components/PageHero.tsx";
 import { cx } from "../../components/cx.ts";
+import { Gallery } from "../../components/Gallery.tsx";
 import { gutter } from "../../components/layout/Container.tsx";
 import type { ArticleBlock, Post } from "../../components/posts.ts";
 import { getPost } from "../../components/posts.ts";
@@ -91,28 +92,13 @@ function Block({ block }: { block: ArticleBlock }) {
           ))}
         </>
       );
-    case "gallery": {
-      // Static class names — Tailwind can't generate dynamic ones.
-      const cols = {
-        1: "grid-cols-1",
-        2: "grid-cols-2",
-        3: "grid-cols-3",
-        4: "grid-cols-4",
-      }[block.images.length] ?? "grid-cols-3";
+    case "gallery":
       return (
-        <div class={`grid gap-4 ${cols}`}>
-          {block.images.map((src) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              loading="lazy"
-              class="w-full object-cover"
-            />
-          ))}
-        </div>
+        <Gallery
+          variant="article"
+          images={block.images.map((src) => ({ src, alt: "" }))}
+        />
       );
-    }
     case "cta":
       return (
         <div class="space-y-4 rounded-xl bg-adbreak px-5 py-[30px] text-center">
