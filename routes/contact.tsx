@@ -5,7 +5,7 @@ import { Footer } from "../components/Footer.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Faq } from "../components/Faq.tsx";
 import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
-import ContactForm from "../islands/ContactForm.tsx";
+import { ContactForm } from "../components/ContactForm.tsx";
 import { CONTACT } from "../components/content.ts";
 import { NewsletterForm } from "../components/NewsletterForm.tsx";
 import { PageTitle } from "../components/PageTitle.tsx";
@@ -77,7 +77,8 @@ export default define.page(function ContactPage() {
               title={CONTACT.newsletter.title}
               fields={CONTACT.newsletter.fields}
               cta={CONTACT.newsletter.cta}
-              action={`mailto:${CONTACT.form.recipient}`}
+              recipient={CONTACT.form.recipient}
+              subject={CONTACT.newsletter.subject}
             />
           </div>
         </section>
