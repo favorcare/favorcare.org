@@ -4,6 +4,9 @@ import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { PageHero } from "../components/PageHero.tsx";
+import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
+import { cx } from "../components/cx.ts";
+import { gutter } from "../components/layout/Container.tsx";
 import { Button } from "../components/Button.tsx";
 import Popup from "../islands/Popup.tsx";
 import { VolunteerSignupForm } from "../components/VolunteerSignupForm.tsx";
@@ -155,12 +158,8 @@ export default define.page<typeof handler>(function SignupPage({ data }) {
       <Header />
       <main id="main-content" tabIndex={-1}>
         <PageHero image={SIGNUP.hero.image}>
-          <h1 class="text-center text-[38px] font-semibold leading-none text-white md:text-[56px] md:font-bold lg:text-[70px]">
-            {SIGNUP.hero.title}
-          </h1>
-          <p class="mx-auto mt-4 max-w-[280px] text-center text-sm leading-relaxed text-white md:max-w-[560px] md:text-[15px] md:leading-[26px] lg:max-w-[784px] lg:text-lg lg:leading-relaxed">
-            {SIGNUP.hero.subtitle}
-          </p>
+          <PageTitle weight="semibold-md-bold">{SIGNUP.hero.title}</PageTitle>
+          <HeroLead>{SIGNUP.hero.subtitle}</HeroLead>
         </PageHero>
 
         {
@@ -175,7 +174,7 @@ export default define.page<typeof handler>(function SignupPage({ data }) {
           cta={SIGNUP.gateCta}
         />
 
-        <section class="px-5 pb-20 pt-10 md:px-2.5 lg:px-0">
+        <section class={cx(gutter(), "pb-20 pt-10")}>
           <div class="mx-auto w-full max-w-[750px]">
             {data.ok
               ? (

@@ -2,6 +2,7 @@ import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { cx } from "../components/cx.ts";
 import { frame } from "../components/layout/Container.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Eyebrow } from "../components/Eyebrow.tsx";
@@ -84,8 +85,10 @@ export default define.page(function Home() {
             about right); stacked about-first on mobile, as on WP. */
         }
         <section
-          class={frame("home") +
-            " grid items-center gap-10 pb-16 md:grid-cols-2 md:pb-20 lg:gap-[88px]"}
+          class={cx(
+            frame("home"),
+            "grid items-center gap-10 pb-16 md:grid-cols-2 md:pb-20 lg:gap-[88px]",
+          )}
         >
           <div class="md:order-2">
             <Eyebrow>{HOME.about.eyebrow}</Eyebrow>
@@ -115,7 +118,7 @@ export default define.page(function Home() {
 
         {/* What we do: centered heading + the six-program media carousel. */}
         <section
-          class={frame("home") + " py-16 text-center md:py-20"}
+          class={cx(frame("home"), "py-16 text-center md:py-20")}
         >
           <Eyebrow>{HOME.whatWeDo.eyebrow}</Eyebrow>
           <SectionHeading
@@ -171,8 +174,10 @@ export default define.page(function Home() {
             and the contact form in a rounded yellow card right. */
         }
         <section
-          class={frame("home") +
-            " grid items-center gap-10 py-16 lg:grid-cols-2"}
+          class={cx(
+            frame("home"),
+            "grid items-center gap-10 py-16 lg:grid-cols-2",
+          )}
         >
           <img
             src={HOME.takeAction.image}
@@ -201,7 +206,10 @@ export default define.page(function Home() {
         {/* We'd love to hear from you: black strip with email. */}
         <section class="bg-black px-5 py-12 md:px-10 lg:py-[70px]">
           <div
-            class={frame() + " grid items-center gap-6 md:grid-cols-[1fr_auto]"}
+            class={cx(
+              frame(),
+              "grid items-center gap-6 md:grid-cols-[1fr_auto]",
+            )}
           >
             <div>
               <h2 class="text-[38px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[48px]">

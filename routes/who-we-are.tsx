@@ -5,7 +5,9 @@ import { Footer } from "../components/Footer.tsx";
 import { PageHero } from "../components/PageHero.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button } from "../components/Button.tsx";
-import { frame } from "../components/layout/Container.tsx";
+import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
+import { cx } from "../components/cx.ts";
+import { frame, gutter } from "../components/layout/Container.tsx";
 import { ABOUT } from "../components/content.ts";
 
 // Who-we-are page cloned from the WP `about` page (post 1831, staging =
@@ -37,12 +39,10 @@ export default define.page(function WhoWeArePage() {
           image={ABOUT.hero.image}
           imageClass="bg-[position:50%_0] lg:bg-[position:0_-68px]"
         >
-          <h1 class="text-center text-[38px] font-bold leading-none text-white md:text-[56px] lg:text-[70px]">
-            {ABOUT.hero.title}
-          </h1>
-          <p class="mx-auto mt-4 max-w-[260px] text-center text-sm leading-relaxed text-white md:max-w-[460px] md:text-[15px] md:leading-[26px] lg:max-w-[630px] lg:text-lg lg:leading-relaxed">
+          <PageTitle>{ABOUT.hero.title}</PageTitle>
+          <HeroLead measureClass="max-w-[260px] md:max-w-[460px] lg:max-w-[630px]">
             {ABOUT.hero.body}
-          </p>
+          </HeroLead>
         </PageHero>
 
         {
@@ -50,8 +50,8 @@ export default define.page(function WhoWeArePage() {
             50/50 with a 30px gap); stacked photo-first below md with the
             copy left-aligned. */
         }
-        <section class="px-5 pt-5 md:px-2.5 md:pt-20 lg:px-0">
-          <div class={frame() + "grid gap-6 md:grid-cols-2 md:gap-[30px]"}>
+        <section class={cx(gutter(), "pt-5 md:pt-20")}>
+          <div class={cx(frame(), "grid gap-6 md:grid-cols-2 md:gap-[30px]")}>
             <img
               src={ABOUT.mission.image}
               alt="Children of a community served by Favor Care"
@@ -75,8 +75,13 @@ export default define.page(function WhoWeArePage() {
             white→yellow over its bottom quarter on md+, giving the page
             its yellow band into the gallery. Stacked photo-first below md. */
         }
-        <section class="px-5 pt-5 md:bg-linear-to-b md:from-white md:from-76% md:to-yellow md:px-2.5 md:pt-20 md:pb-[130px] lg:px-0">
-          <div class={frame() + "grid gap-6 md:grid-cols-2 md:gap-[30px]"}>
+        <section
+          class={cx(
+            gutter(),
+            "pt-5 md:bg-linear-to-b md:from-white md:from-76% md:to-yellow md:pt-20 md:pb-[130px]",
+          )}
+        >
+          <div class={cx(frame(), "grid gap-6 md:grid-cols-2 md:gap-[30px]")}>
             <img
               src={ABOUT.vision.image}
               alt="A Favor Care outreach moment"
@@ -106,7 +111,12 @@ export default define.page(function WhoWeArePage() {
             the section fades white→yellow to meet the yellow gallery
             strip. */
         }
-        <section class="bg-linear-to-b from-white to-yellow px-5 py-[25px] md:bg-none md:px-2.5 md:py-[30px] lg:px-0">
+        <section
+          class={cx(
+            gutter(),
+            "bg-linear-to-b from-white to-yellow py-[25px] md:bg-none md:py-[30px]",
+          )}
+        >
           <div class={frame()}>
             <SectionHeading title={ABOUT.valuesTitle} align="left-center-md" />
             <div class="mt-6 space-y-4 text-center text-primary">
@@ -126,7 +136,10 @@ export default define.page(function WhoWeArePage() {
         }
         <section class="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
           <div
-            class={frame() + "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5"}
+            class={cx(
+              frame(),
+              "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5",
+            )}
           >
             <img
               src={ABOUT.gallery[0].src}
@@ -160,7 +173,12 @@ export default define.page(function WhoWeArePage() {
             portrait with the name/role beside it (two per row) from md up,
             and stacked portrait-over-caption below md. */
         }
-        <section class="px-5 py-[25px] md:bg-linear-to-b md:from-yellow md:to-white md:to-15% md:px-2.5 md:py-0 md:pt-20 md:pb-[30px] lg:px-0 lg:pb-[50px]">
+        <section
+          class={cx(
+            gutter(),
+            "py-[25px] md:bg-linear-to-b md:from-yellow md:to-white md:to-15% md:py-0 md:pt-20 md:pb-[30px] lg:pb-[50px]",
+          )}
+        >
           <div class={frame()}>
             <SectionHeading title={ABOUT.team.title} align="center" />
             <p class="mx-auto mt-4 max-w-[638px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
@@ -193,7 +211,7 @@ export default define.page(function WhoWeArePage() {
           /* Take action: WP centers the copy and button but leaves the
             heading left-aligned — quirk kept. */
         }
-        <section class="px-5 py-[50px] md:px-2.5 md:py-0 md:pt-20 lg:px-0">
+        <section class={cx(gutter(), "py-[50px] md:py-0 md:pt-20")}>
           <div class={frame()}>
             <SectionHeading title={ABOUT.takeAction.title} align="left" />
             <p class="mx-auto mt-4 max-w-[695px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">

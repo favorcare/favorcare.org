@@ -4,6 +4,8 @@ import { define } from "../../utils.ts";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
 import { PageHero } from "../../components/PageHero.tsx";
+import { cx } from "../../components/cx.ts";
+import { gutter } from "../../components/layout/Container.tsx";
 import type { ArticleBlock, Post } from "../../components/posts.ts";
 import { getPost } from "../../components/posts.ts";
 
@@ -52,7 +54,7 @@ export default define.page<typeof handler>(({ data }) => {
           </h1>
         </PageHero>
 
-        <article class="px-5 pb-24 pt-[100px] md:px-2.5 lg:px-0">
+        <article class={cx(gutter(), "pb-24 pt-[100px]")}>
           <div class="mx-auto w-full max-w-[1120px] space-y-6">
             {post.blocks.map((block, i) => <Block key={i} block={block} />)}
           </div>
