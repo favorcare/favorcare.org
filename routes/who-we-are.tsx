@@ -7,6 +7,8 @@ import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button } from "../components/Button.tsx";
 import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
 import { cx } from "../components/cx.ts";
+import { Gallery } from "../components/Gallery.tsx";
+import { TeamGrid } from "../components/TeamGrid.tsx";
 import { frame, gutter } from "../components/layout/Container.tsx";
 import { ABOUT } from "../components/content.ts";
 
@@ -132,41 +134,13 @@ export default define.page(function WhoWeArePage() {
         {
           /* Gallery: 2×2 rounded-photo grid (30px radius). The mobile
             strip sits on yellow; md+ is plain white. WP's mobile gallery
-            reorders the photos — applied with order utilities. */
+            reorders the photos (huddle, volunteers, aetas, dental). */
         }
-        <section class="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
-          <div
-            class={cx(
-              frame(),
-              "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5",
-            )}
-          >
-            <img
-              src={ABOUT.gallery[0].src}
-              alt={ABOUT.gallery[0].alt}
-              class="order-2 aspect-3/2 w-full rounded-card object-cover md:order-1"
-              loading="lazy"
-            />
-            <img
-              src={ABOUT.gallery[1].src}
-              alt={ABOUT.gallery[1].alt}
-              class="order-4 aspect-3/2 w-full rounded-card object-cover md:order-2"
-              loading="lazy"
-            />
-            <img
-              src={ABOUT.gallery[2].src}
-              alt={ABOUT.gallery[2].alt}
-              class="order-1 aspect-3/2 w-full rounded-card object-cover md:order-3"
-              loading="lazy"
-            />
-            <img
-              src={ABOUT.gallery[3].src}
-              alt={ABOUT.gallery[3].alt}
-              class="order-3 aspect-3/2 w-full rounded-card object-cover md:order-4"
-              loading="lazy"
-            />
-          </div>
-        </section>
+        <Gallery
+          variant="tiles"
+          images={ABOUT.gallery}
+          mobileOrder={[2, 4, 1, 3]}
+        />
 
         {
           /* Team: heading + five members. WP lays each member out as a
@@ -184,26 +158,7 @@ export default define.page(function WhoWeArePage() {
             <p class="mx-auto mt-4 max-w-[638px] text-center text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
               {ABOUT.team.subtitle}
             </p>
-            <ul class="mt-8 flex flex-col items-center gap-6 md:mt-[70px] md:grid md:grid-cols-2 md:gap-x-2.5 md:gap-y-[30px] md:px-[42px] lg:gap-x-7 lg:gap-y-10 lg:px-[46px]">
-              {ABOUT.team.members.map((m) => (
-                <li class="flex flex-col items-center text-center md:flex-row md:items-start md:text-left">
-                  <img
-                    src={m.photo}
-                    alt={m.photoAlt}
-                    class="h-[245px] w-[204px] object-cover md:h-[225px] md:w-[166px] lg:h-[282px] lg:w-[233px]"
-                    loading="lazy"
-                  />
-                  <div class="mt-3.5 md:ml-2.5 md:mt-0 md:pt-2.5 lg:ml-6">
-                    <h3 class="text-[25px] font-bold leading-none text-primary md:font-medium lg:text-[30px]">
-                      {m.name}
-                    </h3>
-                    <p class="mt-1 text-sm font-normal text-on-surface md:text-base md:font-medium">
-                      {m.role}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <TeamGrid members={ABOUT.team.members} />
           </div>
         </section>
 
