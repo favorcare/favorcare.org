@@ -12,7 +12,7 @@ import { PageHero } from "../components/PageHero.tsx";
 import { VideoEmbed } from "../components/VideoEmbed.tsx";
 import { MapEmbed } from "../components/MapEmbed.tsx";
 import Carousel from "../islands/Carousel.tsx";
-import ContactForm from "../islands/ContactForm.tsx";
+import { ContactForm } from "../components/ContactForm.tsx";
 import { CAROUSEL, HOME } from "../components/content.ts";
 
 // Homepage cloned from the WP `favor-care-homepage` page (post 6002,
