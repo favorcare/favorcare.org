@@ -6,9 +6,11 @@ export type ButtonVariant =
   | "black"
   | "white"
   | "outline-white"
-  | "outline-black";
+  | "outline-black"
+  | "outline-primary"
+  | "ghost";
 
-export type ButtonSize = "sm" | "md" | "lg" | "xl" | "header";
+export type ButtonSize = "sm" | "md" | "lg" | "xl" | "header" | "form";
 
 export type ButtonShape = "pill" | "rounded-30" | "rounded-50";
 
@@ -26,6 +28,11 @@ const VARIANTS: Record<ButtonVariant, string> = {
     "border-[3px] border-white text-white transition-colors hover:bg-white hover:text-black",
   "outline-black":
     "border-[3px] border-black bg-white text-black transition-colors hover:bg-black hover:text-white",
+  // The home contact form's SEND: hairline primary outline that fills on hover.
+  "outline-primary":
+    "border border-primary bg-transparent text-primary transition-all hover:bg-primary hover:text-on-primary",
+  // Paints nothing, so it sits on the give-now yellow card; fades on hover.
+  ghost: "bg-transparent text-black transition-opacity hover:opacity-80",
 };
 
 const SIZES: Record<ButtonSize, string> = {
@@ -39,6 +46,8 @@ const SIZES: Record<ButtonSize, string> = {
   xl: "px-10 py-3 text-[22px] leading-none",
   // Header DONATE / mobile DONATE.
   header: "min-h-12 px-6 text-base lg:text-lg",
+  // Form submits (contact SEND): 20px label at every width.
+  form: "min-h-12 px-6 text-xl",
 };
 
 const SHAPES: Record<ButtonShape, string> = {

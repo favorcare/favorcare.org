@@ -10,6 +10,14 @@ export interface Cta {
   href: string;
 }
 
+/** One who-we-are team member: portrait plus name and role caption. */
+export interface TeamMember {
+  name: string;
+  role: string;
+  photo: string;
+  photoAlt: string;
+}
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -179,7 +187,7 @@ export const ABOUT = {
   ],
   // Canonical 4 images in the desktop/tablet order; the mobile variant of
   // the WP gallery reorders them (huddle, volunteers, aetas, dental),
-  // which the route applies with order utilities below md.
+  // which the route passes to `Gallery` as `mobileOrder={[2, 4, 1, 3]}`.
   gallery: [
     {
       src: asset("/images/pages/who-we-are/gallery-volunteers.jpg"),
@@ -251,7 +259,7 @@ export const ABOUT = {
   team: {
     title: string;
     subtitle: string;
-    members: { name: string; role: string; photo: string; photoAlt: string }[];
+    members: TeamMember[];
   };
   takeAction: { title: string; body: string; cta: Cta };
 };
@@ -476,6 +484,8 @@ export const CONTACT = {
       },
     ],
     cta: "SUBSCRIBE",
+    // Email subject prefix for signups (followed by "— First Last").
+    subject: "Carers Newsletter signup",
   },
   love: {
     // WP uses a straight apostrophe on this page (home uses curly).
@@ -486,14 +496,35 @@ export const CONTACT = {
   },
   // Google Maps embed query from the WP widget address field.
   mapQuery: "Favor Church, EDSA Shangri-La, Mandaluyong City",
-  form: { recipient: "info@favorcare.org" },
+  // mailto composition for the contact forms (see components/mailto.ts):
+  // the subject reads "<subjectPrefix> — First Last"; `labels` maps input
+  // names to email-body labels in body order ("a+b" joins two inputs).
+  form: {
+    recipient: "info@favorcare.org",
+    subjectPrefix: "Website contact",
+    labels: {
+      "first-name+last-name": "Name",
+      email: "Email",
+      phone: "Phone",
+      newsletter: "Subscribed to the newsletter",
+    },
+  },
 } satisfies {
   heroTitle: string;
   faqs: { q: string; a: string }[];
-  newsletter: { title: string; fields: NewsletterField[]; cta: string };
+  newsletter: {
+    title: string;
+    fields: NewsletterField[];
+    cta: string;
+    subject: string;
+  };
   love: { title: string; body: string; email: string };
   mapQuery: string;
-  form: { recipient: string };
+  form: {
+    recipient: string;
+    subjectPrefix: string;
+    labels: Record<string, string>;
+  };
 };
 
 export const GIVENOW = {
@@ -555,6 +586,8 @@ export const GIVENOW = {
       ],
       submit: "SUBMIT",
       recipient: "finance@favorcare.org",
+      // Email subject prefix (followed by "— <contact name>").
+      subject: "Tax-deductible giving",
     },
   },
   us: {
@@ -619,6 +652,7 @@ export const GIVENOW = {
       fields: string[];
       submit: string;
       recipient: string;
+      subject: string;
     };
   };
   us: {

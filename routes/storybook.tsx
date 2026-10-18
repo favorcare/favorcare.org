@@ -10,9 +10,13 @@ import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Container, frame } from "../components/layout/Container.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { TextareaField } from "../components/TextareaField.tsx";
+import { FormField } from "../components/FormField.tsx";
+import { TaxDeductibleForm } from "../components/TaxDeductibleForm.tsx";
 import { ChoiceGroup } from "../components/ChoiceGroup.tsx";
 import { VolunteerSignupForm } from "../components/VolunteerSignupForm.tsx";
 import { NewsletterForm } from "../components/NewsletterForm.tsx";
+import { ContactForm } from "../components/ContactForm.tsx";
+import MailtoForm from "../islands/MailtoForm.tsx";
 
 // Page structure
 import { PageHero } from "../components/PageHero.tsx";
@@ -23,6 +27,8 @@ import { Faq } from "../components/Faq.tsx";
 import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
 import { VideoEmbed } from "../components/VideoEmbed.tsx";
 import { PostCard } from "../components/PostCard.tsx";
+import { Gallery } from "../components/Gallery.tsx";
+import { TeamGrid } from "../components/TeamGrid.tsx";
 
 // Icons + real content (specimens render with real copy, never lorem)
 import {
@@ -59,7 +65,6 @@ import { Footer } from "../components/Footer.tsx";
 import Popup from "../islands/Popup.tsx";
 import Carousel from "../islands/Carousel.tsx";
 import Slideshow from "../islands/Slideshow.tsx";
-import ContactForm from "../islands/ContactForm.tsx";
 
 // The living component catalog and brand reference. Every component the
 // real pages are built from has a specimen here; COMPONENTS.md is the
@@ -137,6 +142,12 @@ const BUTTON_MATRIX = [
 
 export default define.page(function StorybookPage() {
   const post = listPosts()[0];
+  // A real multi-photo gallery from the newest post that has one.
+  const galleryImages = post.blocks.flatMap((b) =>
+    b.type === "gallery" ? [b.images] : []
+  ).find((images) =>
+    images.length > 1
+  ) ?? [];
   return (
     <>
       <Head>
@@ -427,6 +438,24 @@ export default define.page(function StorybookPage() {
                 ))}
               </div>
             </Specimen>
+            <Specimen label="Button — transparent variants on the yellow card (outline-primary = home SEND, ghost = give-now SUBMIT; both at size form / lg)">
+              <div class="flex flex-wrap items-center gap-4 rounded-card bg-yellow p-6">
+                <Button variant="outline-primary" size="form" href="#actions">
+                  outline-primary
+                </Button>
+                <Button variant="black" size="form" href="#actions">
+                  black · form
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  shape="rounded-30"
+                  href="#actions"
+                >
+                  ghost
+                </Button>
+              </div>
+            </Specimen>
             <Specimen label="Button — sizes sm / md / header">
               <div class="flex flex-wrap items-center gap-4">
                 <Button variant="yellow" size="sm" href="#actions">sm</Button>
@@ -559,6 +588,22 @@ export default define.page(function StorybookPage() {
                 </div>
               )}
             </Specimen>
+            <Specimen label='Gallery variant="tiles" — who-we-are 2×2 (mobileOrder [2,4,1,3] applies below md)'>
+              <Gallery
+                variant="tiles"
+                images={ABOUT.gallery}
+                mobileOrder={[2, 4, 1, 3]}
+              />
+            </Specimen>
+            <Specimen label='Gallery variant="article" — post photos, columns by count (real post gallery)'>
+              <Gallery
+                variant="article"
+                images={galleryImages.map((src) => ({ src, alt: "" }))}
+              />
+            </Specimen>
+            <Specimen label="TeamGrid — who-we-are team (real members)">
+              <TeamGrid members={ABOUT.team.members} />
+            </Specimen>
             <Specimen label="VideoEmbed (lazy YouTube)">
               <div class="mx-auto max-w-[540px]">
                 <VideoEmbed
@@ -584,11 +629,6 @@ export default define.page(function StorybookPage() {
                 images={WHAT_WE_DO.programs[0].slides}
                 label="Education photos"
               />
-            </Specimen>
-            <Specimen label="ContactForm — home variant">
-              <div class="rounded-card bg-yellow p-6 text-black [&_a]:text-black">
-                <ContactForm newsletter />
-              </div>
             </Specimen>
             <Specimen label="Popup — native dialog (Prayer Hub; WP trigger is hidden at every breakpoint, storybook-only)">
               <Popup
@@ -641,7 +681,7 @@ export default define.page(function StorybookPage() {
           <Group
             id="forms"
             title="Forms"
-            intro="InputField / TextareaField power the ContactForm island (whose two WP-measured SEND dialects are intentionally bespoke) and the NewsletterForm; ChoiceGroup + VolunteerSignupForm build the /signup volunteer application."
+            intro="FormField wraps InputField / TextareaField in ContactForm, NewsletterForm and TaxDeductibleForm, which all submit through the MailtoForm island (components/mailto.ts composes the email); ChoiceGroup + VolunteerSignupForm build the /signup volunteer application."
           >
             <Specimen label="InputField / TextareaField">
               <div class="mx-auto grid max-w-[540px] gap-4">
@@ -662,6 +702,44 @@ export default define.page(function StorybookPage() {
                     placeholder="PROOF OF DONATION"
                     ariaLabel="Proof of donation"
                   />
+                </div>
+              </div>
+            </Specimen>
+            <Specimen label="FormField — tone (black / white / primary) × size (sm / base) and the mobile label split (resize across md)">
+              <div class="grid gap-4 md:grid-cols-3">
+                <div class="rounded-card bg-yellow p-4">
+                  <FormField
+                    label="FIRST NAME"
+                    labelMobile="FIRST NAME*"
+                    tone="black"
+                  >
+                    <InputField
+                      name="sb-ff-black"
+                      placeholder="First Name*"
+                      ariaLabel="First name"
+                      class="w-full"
+                    />
+                  </FormField>
+                </div>
+                <div class="rounded-card bg-black p-4">
+                  <FormField label="EMAIL ADDRESS" tone="white" size="base">
+                    <InputField
+                      name="sb-ff-white"
+                      placeholder="Email*"
+                      ariaLabel="Email address"
+                      class="w-full"
+                    />
+                  </FormField>
+                </div>
+                <div class="rounded-card bg-yellow p-4">
+                  <FormField label="CONTACT NAME" tone="primary" size="base">
+                    <InputField
+                      name="sb-ff-primary"
+                      placeholder="Contact Name"
+                      ariaLabel="Contact name"
+                      class="w-full"
+                    />
+                  </FormField>
                 </div>
               </div>
             </Specimen>
@@ -698,8 +776,50 @@ export default define.page(function StorybookPage() {
                 title={CONTACT.newsletter.title}
                 fields={CONTACT.newsletter.fields}
                 cta={CONTACT.newsletter.cta}
-                action={`mailto:${CONTACT.form.recipient}`}
+                recipient={CONTACT.form.recipient}
+                subject={CONTACT.newsletter.subject}
               />
+            </Specimen>
+            <Specimen label="MailtoForm — the bare submit seam under every form here: labeled fields in, mailto: out (subject = prefix + name inputs; action= stays as the no-JS fallback)">
+              <MailtoForm
+                recipient={CONTACT.form.recipient}
+                subject={{
+                  prefix: CONTACT.form.subjectPrefix,
+                  nameFields: ["first-name"],
+                }}
+                labels={{ "first-name": "Name", email: "Email" }}
+                class="mx-auto flex max-w-[400px] flex-col gap-4"
+              >
+                <FormField label="FIRST NAME">
+                  <InputField
+                    name="first-name"
+                    placeholder="FIRST NAME"
+                    ariaLabel="First name"
+                    class="w-full"
+                  />
+                </FormField>
+                <FormField label="EMAIL">
+                  <InputField
+                    type="email"
+                    name="email"
+                    placeholder="EMAIL"
+                    ariaLabel="Email"
+                    class="w-full"
+                  />
+                </FormField>
+                <Button type="submit" variant="black" size="form">SEND</Button>
+              </MailtoForm>
+            </Specimen>
+            <Specimen label="ContactForm — home variant (MailtoForm: SEND opens an email to the inbox with the typed fields)">
+              <div class="rounded-card bg-yellow p-6 text-black [&_a]:text-black">
+                <ContactForm newsletter />
+              </div>
+            </Specimen>
+            <Specimen label="ContactForm — contact-page variant (48px fields, WP labels and the mobile * split, black SEND)">
+              <ContactForm page="contact" />
+            </Specimen>
+            <Specimen label="TaxDeductibleForm — the give-now tax card (59px borderless fields, ghost SUBMIT; emails finance@)">
+              <TaxDeductibleForm {...GIVENOW.ph.taxDeductible} />
             </Specimen>
             <Specimen label="VolunteerSignupForm — the /signup application (demo: submit disabled so clicks can't reach the live formResponse)">
               <VolunteerSignupForm demo />
@@ -709,7 +829,7 @@ export default define.page(function StorybookPage() {
           <Group
             id="chrome"
             title="Chrome &amp; islands"
-            intro="Header (with Navbar on desktop and MobileNav below md) and Footer render on this page — inspect them live, and resize below 768px for MobileNav. Popup, Carousel, Slideshow and ContactForm have specimens above."
+            intro="Header (with Navbar on desktop and MobileNav below md) and Footer render on this page — inspect them live, and resize below 768px for MobileNav. Popup, Carousel and Slideshow have specimens above; MailtoForm is the submit seam under every form specimen."
           >
             <p class="text-sm text-on-surface-variant">
               No specimens in this group — the chrome above and the islands in

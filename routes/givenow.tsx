@@ -6,7 +6,7 @@ import { PageHero } from "../components/PageHero.tsx";
 import { SectionHeading } from "../components/layout/SectionHeading.tsx";
 import { Button } from "../components/Button.tsx";
 import { BankCard } from "../components/BankCard.tsx";
-import { InputField } from "../components/InputField.tsx";
+import { TaxDeductibleForm } from "../components/TaxDeductibleForm.tsx";
 import { GIVENOW } from "../components/content.ts";
 
 // Give-now page cloned from the WP page (post 7122, staging = canonical)
@@ -127,47 +127,7 @@ export default define.page(function GiveNowPage() {
             mobile — mirrored with order-first. */
         }
         <section class="order-first px-2.5 pb-16 pt-2.5 md:order-none md:px-5 md:pt-0 lg:px-0">
-          <div class="mx-auto w-full max-w-[833px] rounded-card bg-yellow p-[50px]">
-            <SectionHeading
-              title={GIVENOW.ph.taxDeductible.title}
-              align="left"
-              size="56"
-              leading="tight"
-              class="text-[38px]"
-            />
-            <p class="mt-4 text-lg leading-relaxed text-primary">
-              {GIVENOW.ph.taxDeductible.intro}
-            </p>
-            <form
-              action={`mailto:${GIVENOW.ph.taxDeductible.recipient}`}
-              method="post"
-              class="mt-8 flex flex-col gap-4"
-            >
-              {GIVENOW.ph.taxDeductible.fields.map((f) => (
-                <label key={f} class="block">
-                  <span class="mb-1 block text-base font-semibold text-primary">
-                    {f}
-                  </span>
-                  <InputField
-                    size="give-now"
-                    type={f === "CONTACT EMAIL" ? "email" : "text"}
-                    name={f.toLowerCase().replace(/ /g, "-")}
-                    placeholder={f
-                      .toLowerCase()
-                      .replace(/^\w|\s\w/g, (c) =>
-                        c.toUpperCase())}
-                    ariaLabel={f}
-                  />
-                </label>
-              ))}
-              <button
-                type="submit"
-                class="mt-2 h-14 w-full rounded-card text-[22px] font-bold text-black transition-opacity hover:opacity-80"
-              >
-                {GIVENOW.ph.taxDeductible.submit}
-              </button>
-            </form>
-          </div>
+          <TaxDeductibleForm {...GIVENOW.ph.taxDeductible} />
         </section>
 
         {
