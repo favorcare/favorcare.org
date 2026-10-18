@@ -23,6 +23,8 @@ import { Faq } from "../components/Faq.tsx";
 import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
 import { VideoEmbed } from "../components/VideoEmbed.tsx";
 import { PostCard } from "../components/PostCard.tsx";
+import { Gallery } from "../components/Gallery.tsx";
+import { TeamGrid } from "../components/TeamGrid.tsx";
 
 // Icons + real content (specimens render with real copy, never lorem)
 import {
@@ -137,6 +139,12 @@ const BUTTON_MATRIX = [
 
 export default define.page(function StorybookPage() {
   const post = listPosts()[0];
+  // A real multi-photo gallery from the newest post that has one.
+  const galleryImages = post.blocks.flatMap((b) =>
+    b.type === "gallery" ? [b.images] : []
+  ).find((images) =>
+    images.length > 1
+  ) ?? [];
   return (
     <>
       <Head>
@@ -558,6 +566,22 @@ export default define.page(function StorybookPage() {
                   <PostCard post={post} />
                 </div>
               )}
+            </Specimen>
+            <Specimen label='Gallery variant="tiles" — who-we-are 2×2 (mobileOrder [2,4,1,3] applies below md)'>
+              <Gallery
+                variant="tiles"
+                images={ABOUT.gallery}
+                mobileOrder={[2, 4, 1, 3]}
+              />
+            </Specimen>
+            <Specimen label='Gallery variant="article" — post photos, columns by count (real post gallery)'>
+              <Gallery
+                variant="article"
+                images={galleryImages.map((src) => ({ src, alt: "" }))}
+              />
+            </Specimen>
+            <Specimen label="TeamGrid — who-we-are team (real members)">
+              <TeamGrid members={ABOUT.team.members} />
             </Specimen>
             <Specimen label="VideoEmbed (lazy YouTube)">
               <div class="mx-auto max-w-[540px]">
