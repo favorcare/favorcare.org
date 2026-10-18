@@ -36,14 +36,16 @@ export default define.page(function Home() {
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: photo on black with a yellow-to-black gradient overlay;
-            left-aligned display headline. The h1 scale is the homepage's
+            left-aligned display headline, vertically centered in the
+            fixed 540px desktop band (justify-center; the PageHero shell
+            only centers horizontally). The h1 scale is the homepage's
             own (38/56/70, leading 0.95) and stays in the route. */
         }
         <PageHero
           image={HOME.hero.image}
           geometry="bare"
           framePad="home"
-          sectionClass="items-center bg-black py-20 md:py-28 lg:h-[540px] lg:py-0"
+          sectionClass="justify-center bg-black py-20 md:py-28 lg:h-[540px] lg:py-0"
         >
           <h1 class="max-w-[570px] text-[38px] font-semibold leading-[0.95] tracking-[-2.3px] text-white md:text-[56px] lg:text-[70px] lg:leading-[57px]">
             {HOME.hero.headline}
