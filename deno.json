@@ -26,7 +26,8 @@
   "exclude": [
     "**/_fresh/*",
     "static",
-    "server.js"
+    "server.js",
+    ".claude/worktrees"
   ],
   "fmt": {
     "include": [
