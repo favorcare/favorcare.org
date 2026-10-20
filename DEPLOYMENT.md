@@ -36,10 +36,12 @@ deno task deploy:dry-run   # build, then a dry run (no deploy)
 
 ## Assets (R2)
 
-Post images are served from Cloudflare R2 at `assets.favorcare.media`. The
-pipeline and one-time setup are in
-[`migration/runbooks/phase2-r2-assets.md`](migration/runbooks/phase2-r2-assets.md);
-day-to-day it is `deno task assets:pull` / `deno task assets:push`.
+Post images live in git under `static/images/` and are served in production from
+Cloudflare R2 at `assets.favorcare.media`. Merging image changes to main
+triggers the sync-assets workflow, which mirrors the tree to the bucket; the
+local `deno task assets:pull` / `assets:push` tasks remain for bootstrapping and
+manual parity fixes (rclone — see
+[`migration/runbooks/phase2-r2-assets.md`](migration/runbooks/phase2-r2-assets.md)).
 
 ## Rollback & cutover
 

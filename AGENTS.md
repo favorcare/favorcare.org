@@ -135,7 +135,9 @@ components/   Reusable server components — see COMPONENTS.md for the catalog.
 components/layout/  Container/frame + SectionHeading.
 components/icons.tsx  The only icon seam (lucide + simple-icons).
 islands/      Client-hydrated interactive components.
-static/       Assets served as-is — logos, /images/orgs/{PCNC,DSWD}.png.
+static/       Assets served as-is — logos, favicon, and the tracked
+              static/images/ tree (CI mirrors it to the R2 media bucket;
+              prod serves the bucket via ASSET_BASE_URL — utils/assets.ts).
 assets/styles.css   Tailwind v4 @theme tokens + base layer.
 main.ts       Fresh app entry (static files + fsRoutes).
 .claude/skills/  Repo-level agent skills; .opencode/skill symlinks here.

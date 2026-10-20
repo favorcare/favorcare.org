@@ -30,21 +30,21 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 
 ## Scripts
 
-| Command                     | Description                                                                       |
-| --------------------------- | --------------------------------------------------------------------------------- |
-| `deno task setup`           | One-time setup: deps, commit template, commit-msg hook.                           |
-| `deno task dev`             | Start the Vite dev server with hot reload.                                        |
-| `deno task build`           | Production build into `_fresh/`.                                                  |
-| `deno task start`           | Serve the production build (`deno serve -A _fresh/server.js`).                    |
-| `deno task deploy`          | Build, then deploy to Cloudflare Workers (see [DEPLOYMENT.md](DEPLOYMENT.md)).    |
-| `deno task deploy:dry-run`  | Build and validate the Worker bundle without deploying.                           |
-| `deno task check`           | Run `deno fmt --check`, `deno lint`, and `deno check`.                            |
-| `deno task test`            | Run the unit tests (`deno test -A`).                                              |
-| `deno task assets:pull`     | Pull `static/images/` from the R2 media bucket (rclone; see `scripts/assets.ts`). |
-| `deno task assets:push`     | Push `static/images/` to the R2 media bucket.                                     |
-| `deno task clone:reference` | Screenshot the WordPress reference (needs Playwright chromium).                   |
-| `deno task clone:diff`      | Visual-diff the Fresh pages against the reference screenshots.                    |
-| `deno task update`          | Run the Fresh updater.                                                            |
+| Command                     | Description                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| `deno task setup`           | One-time setup: deps, commit template, commit-msg hook.                        |
+| `deno task dev`             | Start the Vite dev server with hot reload.                                     |
+| `deno task build`           | Production build into `_fresh/`.                                               |
+| `deno task start`           | Serve the production build (`deno serve -A _fresh/server.js`).                 |
+| `deno task deploy`          | Build, then deploy to Cloudflare Workers (see [DEPLOYMENT.md](DEPLOYMENT.md)). |
+| `deno task deploy:dry-run`  | Build and validate the Worker bundle without deploying.                        |
+| `deno task check`           | Run `deno fmt --check`, `deno lint`, and `deno check`.                         |
+| `deno task test`            | Run the unit tests (`deno test -A`).                                           |
+| `deno task assets:pull`     | Bootstrap/parity check: pull `static/images/` from R2 (rclone).                |
+| `deno task assets:push`     | Manual publish to R2 (normally done by CI on merge to main).                   |
+| `deno task clone:reference` | Screenshot the WordPress reference (needs Playwright chromium).                |
+| `deno task clone:diff`      | Visual-diff the Fresh pages against the reference screenshots.                 |
+| `deno task update`          | Run the Fresh updater.                                                         |
 
 ## Project structure
 
@@ -52,7 +52,7 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
 routes/         File-system routes (pages); _app.tsx is the root layout
 components/     Reusable Preact server components
 islands/        Client-side interactive components (hydrated)
-static/         Static assets served as-is (logos, favicon; images/ syncs from R2)
+static/         Static assets served as-is (logos, favicon, images/ — tracked in git; CI mirrors to R2)
 assets/         Global styles — the Tailwind v4 theme lives in styles.css
 scripts/        One-off tooling: setup, R2 asset sync, WP clone-diff
 migration/      WordPress → Fresh migration notes and runbooks

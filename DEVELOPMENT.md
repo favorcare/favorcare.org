@@ -119,19 +119,17 @@ live in [`components/content.ts`](components/content.ts) and
 
 ## Assets (images)
 
-`static/images/` is on its way to being served from Cloudflare R2 rather than
-git (see [MIGRATION.md](MIGRATION.md), Phase 2):
+`static/images/` is tracked in git and served in production from Cloudflare R2
+(see [MIGRATION.md](MIGRATION.md), Phase 2):
 
-- **Local dev** images resolve from `static/images/` as-is. The directory is
-  populated on fresh clones with `deno task assets:pull` (requires
-  [rclone](https://rclone.io/) and the `favorcare-media` remote — one-time setup
-  documented in `scripts/assets.ts`).
-- **Adding images**: drop them in `static/images/`, then run
-  `deno task assets:push` to publish them to R2. The directory is gitignored, so
-  git will not pick them up.
-- **Transitional rule** (until Phase 2 flips CDN serving on): images committed
-  before this rule are still tracked and still deploy — for any _new_ image that
-  must ship before the CDN is live, use `git add -f static/images/…`.
+- **Local dev** images resolve from `static/images/` as-is — the tracked files
+  ship with the clone, no rclone or R2 setup needed.
+- **Adding images**: drop them in `static/images/` and commit. Merging to main
+  triggers the sync-assets workflow, which publishes the tree to R2
+  (`.github/workflows/sync-assets.yml`). The local `deno task assets:push`
+  remains for manual/hotfix publishes (requires [rclone](https://rclone.io/) and
+  the `favorcare-media` remote — one-time setup documented in
+  `scripts/assets.ts`).
 - In markup, always reference images through `asset()` from
   [`utils/assets.ts`](utils/assets.ts) — it returns the local path in dev and
   prefixes `ASSET_BASE_URL` (the R2 custom domain) in production. Root-level

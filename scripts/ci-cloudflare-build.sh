@@ -26,4 +26,14 @@ deno install
 # Stage 1: standard Fresh build -> _fresh/server.js + _fresh/client/**
 deno task build
 
+# static/images/ is tracked for contributor clones, but production markup
+# references every image through the R2 CDN base (ASSET_BASE_URL — see
+# utils/assets.ts). Strip the repo copies from the bundle so deploys stay
+# slim; Workers Static Assets would otherwise upload ~60 MB of never-served
+# files on every deploy.
+if [ -d _fresh/client/images ]; then
+  rm -rf _fresh/client/images
+  echo ":: stripped _fresh/client/images from the deploy bundle"
+fi
+
 echo ":: build stage complete"

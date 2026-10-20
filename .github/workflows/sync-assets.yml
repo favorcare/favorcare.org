@@ -1,0 +1,67 @@
+# Mirror static/images/ to the Cloudflare R2 media bucket when it changes on
+# main. static/images/ is tracked in git (contributor-friendly clones); this
+# job makes git the source of truth — contributors commit an image and CI
+# publishes it, no local rclone or Cloudflare access needed. Production keeps
+# serving the bucket via the CDN base (ASSET_BASE_URL — see utils/assets.ts).
+#
+# Copy is additive (plain `rclone copy`, no --delete) so a stale checkout can
+# never delete from the bucket. Requires repo secrets (same R2 token as the
+# local `deno task assets:push` setup — see migration/runbooks/phase2-r2-assets.md):
+#   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
+name: sync-assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "static/images/**"
+
+# Serialize runs; additive copies are idempotent, so a queued duplicate is
+# harmless — it just re-copies nothing.
+concurrency:
+  group: sync-assets
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install rclone (pinned)
+        run: |
+          curl -fsSLo /tmp/rclone.zip \
+            https://downloads.rclone.org/v1.75.2/rclone-v1.75.2-linux-amd64.zip
+          unzip -j /tmp/rclone.zip 'rclone-*/rclone' -d /tmp
+          sudo install -m 0755 /tmp/rclone /usr/local/bin/rclone
+          rclone version | head -1
+
+      - name: Check secrets are present
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$R2_ACCESS_KEY_ID" ] ||
+            [ -z "$R2_SECRET_ACCESS_KEY" ]; then
+            echo "::error::R2 secrets missing — add R2_ACCOUNT_ID," \
+              "R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY as repo secrets" \
+              "(see .github/workflows/sync-assets.yml header)."
+            exit 1
+          fi
+
+      - name: Configure rclone remote
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          rclone config create r2 s3 \
+            provider=Cloudflare \
+            "endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            "access_key_id=${R2_ACCESS_KEY_ID}" \
+            "secret_access_key=${R2_SECRET_ACCESS_KEY}"
+
+      - name: Publish static/images/ to R2
+        run: rclone copy -P static/images r2:favorcare-media/images

@@ -1,7 +1,11 @@
 // Sync static/images/ with the Cloudflare R2 media bucket.
 //
-//   deno task assets:pull   # R2 -> static/images (fresh clones, dev setup)
-//   deno task assets:push   # static/images -> R2 (after adding new images)
+//   deno task assets:pull   # R2 -> static/images (bucket-parity check)
+//   deno task assets:push   # static/images -> R2 (manual publish)
+//
+// static/images/ is tracked in git: clones get images for free, and merges
+// to main are published automatically by .github/workflows/sync-assets.yml.
+// These tasks remain for bootstrapping a bucket and manual/hotfix pushes.
 //
 // Prerequisites (one-time — full walkthrough in
 // migration/runbooks/phase2-r2-assets.md):
