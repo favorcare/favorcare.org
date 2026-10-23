@@ -138,24 +138,28 @@ remains open in `migration/inventory.md`.)_
       `scripts/assets.ts` + `deno task assets:pull|assets:push` — plain `copy`,
       no `--delete`.)_
 
-**Asset-serving architecture (added 2026-10-11):**
+**Asset-serving architecture (added 2026-10-11; assets re-tracked in git
+2026-10-20):**
 
-- **One bucket, two prefixes**: `images/**` (this repo's assets, synced via
-  `deno task assets:push`) and `wp-content/uploads/**` (legacy WP media).
+- **One bucket, two prefixes**: `images/**` (this repo's assets, mirrored by CI
+  from git — `.github/workflows/sync-assets.yml`) and `wp-content/uploads/**`
+  (legacy WP media).
 - **Dev = local, prod = CDN**: every image path in markup goes through `asset()`
   from `utils/assets.ts` — returns the local `static/images/...` path when
   `ASSET_BASE_URL` is unset (dev), prefixes `https://assets.favorcare.media`
   when set on the Cloudflare Workers project (prod). Landed 2026-10-11 (all 22
   literals wrapped).
-- **`static/images/` is gitignored** — new images are published with
-  `assets:push`, never via git. Gitignored assets cannot be CI-synced (CI only
-  sees git), so publishing is a local push; that is the accepted trade-off for
-  slim deploys.
-- **No-404 sequencing for untracking**: populate the bucket → set
-  `ASSET_BASE_URL` on the Deploy project → verify prod serves images from R2 →
-  only then `git rm -r --cached static/images`. Until that point,
-  already-tracked images keep deploying; the transitional escape hatch for new
-  images is `git add -f`.
+- **`static/images/` is tracked in git** (re-visited 2026-10-20 — this
+  supersedes the 2026-10-11 untracking below): contributor-friendly clones
+  render the full site with zero setup, and git is the source of truth — merging
+  an image to main triggers the sync-assets workflow, which additively copies
+  the tree to the bucket. No local rclone or Cloudflare access needed to
+  publish. Prod still serves the bucket, and the build stage strips
+  `_fresh/client/images` so deploys stay slim (the original reason for
+  untracking).
+- **No-404 sequencing for untracking (2026-10-11, historical)**: populate the
+  bucket → set `ASSET_BASE_URL` on the Deploy project → verify prod serves
+  images from R2 → only then `git rm -r --cached static/images`.
 - **R2 over Cloudinary**: R2 preserves exact legacy URL paths (Cloudinary's
   transform-URL format cannot), has zero egress, and shares the Cloudflare
   account with DNS. If Cloudinary's on-the-fly transforms are ever wanted, the
