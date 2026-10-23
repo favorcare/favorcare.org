@@ -197,6 +197,41 @@ analytics markup at all.
 **Privacy** — the privacy policy already discloses Google Analytics; keep PII
 out of event props (MIGRATION.md rule: no donor PII in analytics).
 
+### Search Console & Bing Webmaster Tools — operator runbook
+
+Free, no code, and the demand-side complement to GA4: the queries people
+actually type to find favorcare.org, per-page impressions/clicks, and indexing
+status. GA4 sees what visitors did; Search Console sees how they got here.
+Verification is DNS-only — the human runs every step below (it is all dashboard
+work; nothing touches a server):
+
+1. **Google Search Console** — <https://search.google.com/search-console> →
+   **Add property** → choose **Domain** (not URL-prefix) → enter
+   `favorcare.org`.
+2. Google shows a TXT record — copy the full `google-site-verification=…`
+   string.
+3. **Cloudflare dashboard** — favorcare.org → **DNS → Records → Add record**:
+   Type `TXT`, Name `@`, Content the copied string, TTL auto.
+4. Back in Search Console → **Verify** (Cloudflare propagates in minutes).
+5. Submit the sitemap: Search Console → **Sitemaps** →
+   `https://favorcare.org/sitemap.xml`. **Gap:** no `sitemap.xml` / `robots.txt`
+   exists yet (deliberate follow-up) — until one lands, use the **URL
+   Inspection** tool to request indexing for key pages by hand.
+6. **Bing Webmaster Tools** — <https://www.bing.com/webmasters> → **Import from
+   Google Search Console** — one click reuses the same verification.
+
+Gotchas:
+
+- **Domain property over URL-prefix** — URL-prefix verifies one exact scheme +
+  host and wants an HTML file at a precise path (i.e. a route); the DNS TXT
+  covers `https`, `http`, and every subdomain at once.
+- **Keep the TXT record** — re-verification later (domain moves, team changes)
+  may need it again.
+- `/storybook` already sends `noindex, nofollow` and Search Console respects it
+  — keep it out of any future sitemap.
+- Google re-crawls on its own schedule (days, not minutes); "Request indexing"
+  only nudges a single URL.
+
 ## Deployment
 
 Production runs on **Cloudflare Workers** and deploys automatically on every

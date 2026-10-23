@@ -1,5 +1,5 @@
 // Client-side analytics behavior — the one island behind every tracked
-// event: vendor bootstraps (GA4 gtag config, the official Mixpanel snippet,
+// event: vendor bootstraps (GA4 gtag config, the Mixpanel lib loader —
 // injected here as script elements so inline JS stays out of the SSR
 // markup), UTM capture on landing (utils/utm.ts), a single delegated click
 // listener for `[data-track]` elements, and the `track()` fan-out to every
@@ -23,7 +23,7 @@ import {
 export interface TrackingProps {
   /** GA4 measurement ID — injects the official gtag config bootstrap. */
   ga4Id?: string;
-  /** Mixpanel project token — injects the official lib bootstrap. */
+  /** Mixpanel project token — loads the lib and inits with it. */
   mixpanelToken?: string;
 }
 
@@ -33,6 +33,10 @@ interface GtagFn {
 }
 
 interface MixpanelFn {
+  init(
+    token: string,
+    config?: Record<string, unknown>,
+  ): void;
   track(eventName: string, props?: Record<string, unknown>): void;
 }
 
@@ -54,10 +58,36 @@ function bootstrapGtag(id: string): void {
   document.head.appendChild(script);
 }
 
-/** The official Mixpanel bootstrap (queueing stub + lib loader). */
-function bootstrapMixpanel(token: string): string {
-  return `(function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"people"===a&&(d+=".people");for(var c=0;c<b._i.length;c++)d+=" "+b._i[c][0];return d};g("mixpanel","time");g(a,"init");g(a,"track");g(a,"register");g(a,"register_once");g(a,"alias");g(a,"name_tag");g(a,"set_config");g(a,"people.set");g(a,"people.set_once");g(a,"people.increment");g(a,"people.append");g(a,"people.union");b._i.push([e,f,c])};b.__SV=1;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
-mixpanel.init('${token}');`;
+/**
+ * Install the Mixpanel lib: early `track` calls queue in a stub (same
+ * semantics as Mixpanel's own bootstrap snippet, without the minified
+ * string); the real lib replaces the stub on load, then we init with the
+ * token — `track_pageview` on, since all three vendors do pageviews — and
+ * flush the queue.
+ */
+function bootstrapMixpanel(token: string): void {
+  const w = globalThis as TrackingWindow;
+  if (w.mixpanel) return; // already stubbed or the real lib
+  const queue: Array<[string, Record<string, unknown> | undefined]> = [];
+  // `__SV` is the snippet/lib version handshake — without it the lib logs
+  // a misleading "Version mismatch" warning on load.
+  const stub: MixpanelFn & { __SV: number } = {
+    __SV: 1.2,
+    init: () => {},
+    track: (name, props) => void queue.push([name, props]),
+  };
+  w.mixpanel = stub;
+  const lib = document.createElement("script");
+  lib.async = true;
+  lib.src = "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";
+  lib.onload = () => {
+    const mp = (globalThis as { mixpanel?: MixpanelFn }).mixpanel;
+    if (!mp || mp === stub || typeof mp.init !== "function") return;
+    mp.init(token, { track_pageview: true });
+    for (const [name, props] of queue) mp.track(name, props);
+    queue.length = 0;
+  };
+  document.head.appendChild(lib);
 }
 
 /** The browser's localStorage as a UtmStore. */
@@ -100,16 +130,13 @@ export default function Tracking({ ga4Id, mixpanelToken }: TrackingProps) {
     // listeners and injected bootstraps are deliberately never removed.
     if (w.__FC_TRACKING__) return;
     w.__FC_TRACKING__ = true;
+    w.favorcareTrack = track;
 
-    // Vendor bootstraps — official inline snippets, token inlined from this
-    // repo's own config (never user input).
+    // Vendor bootstraps — tokens inlined from this repo's own config
+    // (never user input); gtag's config is a tiny inline script, Mixpanel
+    // loads its lib directly.
     if (ga4Id) bootstrapGtag(ga4Id);
-    if (mixpanelToken && !document.querySelector("script[data-fc-mp]")) {
-      const script = document.createElement("script");
-      script.setAttribute("data-fc-mp", "true");
-      script.textContent = bootstrapMixpanel(mixpanelToken);
-      document.head.appendChild(script);
-    }
+    if (mixpanelToken) bootstrapMixpanel(mixpanelToken);
 
     // Record a campaign landing: first touch once, last touch refreshed.
     const store = browserStore();
