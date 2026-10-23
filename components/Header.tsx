@@ -21,7 +21,13 @@ export function Header() {
         <Navbar />
 
         <div class="flex items-center gap-2">
-          <Button variant="black" size="header" href="/givenow">
+          <Button
+            variant="black"
+            size="header"
+            href="/givenow"
+            track="donate_click"
+            trackProps={{ location: "header" }}
+          >
             DONATE
           </Button>
           <MobileNav />
