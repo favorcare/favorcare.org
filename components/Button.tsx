@@ -87,6 +87,12 @@ export interface ButtonProps {
   tabIndex?: number;
   /** Buttons only (form submits) — e.g. the storybook's demo signup form. */
   disabled?: boolean;
+  /** Analytics: fire a named event on click — islands/Tracking.tsx
+   * delegates clicks on `[data-track]` (e.g. track="donate_click"). */
+  track?: string;
+  /** String props attached to the `track` event (JSON-encoded into
+   * `data-track-props`). Only meaningful together with `track`. */
+  trackProps?: Record<string, string>;
   class?: string;
   children?: ComponentChildren;
 }
@@ -102,11 +108,19 @@ export function Button(
     type = "button",
     tabIndex,
     disabled,
+    track,
+    trackProps,
     class: extra,
     children,
   }: ButtonProps,
 ) {
   const className = buttonClasses({ variant, size, shape }, extra);
+  const trackAttrs = track
+    ? {
+      "data-track": track,
+      "data-track-props": trackProps && JSON.stringify(trackProps),
+    }
+    : {};
   if (href !== undefined) {
     return (
       <a
@@ -115,6 +129,7 @@ export function Button(
         rel={rel}
         tabIndex={tabIndex}
         class={className}
+        {...trackAttrs}
       >
         {children}
       </a>
@@ -126,6 +141,7 @@ export function Button(
       tabIndex={tabIndex}
       disabled={disabled}
       class={className}
+      {...trackAttrs}
     >
       {children}
     </button>

@@ -12,7 +12,13 @@
   // would remove dashboard-added ones. Read by server.js from the env
   // binding (see utils/assets.ts).
   "vars": {
-    "ASSET_BASE_URL": "https://assets.favorcare.media"
+    "ASSET_BASE_URL": "https://assets.favorcare.media",
+    // Analytics identifiers (utils/analytics.ts) — public, committed here
+    // like ASSET_BASE_URL. Empty string = that vendor's snippet never
+    // renders. Local dev reads .env instead (see .env.example).
+    "GA4_MEASUREMENT_ID": "",
+    "MIXPANEL_TOKEN": "",
+    "CLOUDFLARE_ANALYTICS_TOKEN": ""
   },
   // Fresh's client build output, served natively by Workers Static Assets
   // (assets match first; everything else falls through to the SSR worker).

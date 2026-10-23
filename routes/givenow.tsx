@@ -50,6 +50,7 @@ export default define.page(function GiveNowPage() {
             shape="rounded-30"
             href={GIVENOW.hero.cta.href}
             class="relative"
+            track="give_hero_click"
           >
             {GIVENOW.hero.cta.label}
           </Button>
@@ -109,6 +110,8 @@ export default define.page(function GiveNowPage() {
                 href={GIVENOW.ph.online.cta.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                track="give_online_click"
+                trackProps={{ region: "ph" }}
               >
                 <span class="md:hidden">
                   {GIVENOW.ph.online.cta.labelMobile}
@@ -200,6 +203,8 @@ export default define.page(function GiveNowPage() {
                   href={GIVENOW.us.creditDebit.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  track="give_online_click"
+                  trackProps={{ region: "us" }}
                 >
                   {GIVENOW.us.creditDebit.label}
                 </Button>
@@ -230,6 +235,8 @@ export default define.page(function GiveNowPage() {
               target="_blank"
               rel="noopener noreferrer"
               class="mt-8"
+              track="give_online_click"
+              trackProps={{ region: "au" }}
             >
               {GIVENOW.au.cta.label}
             </Button>

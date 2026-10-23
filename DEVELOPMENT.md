@@ -135,6 +135,68 @@ live in [`components/content.ts`](components/content.ts) and
   prefixes `ASSET_BASE_URL` (the R2 custom domain) in production. Root-level
   files (`/logo-*.svg`, favicon) are not part of this scheme.
 
+## Analytics & UTM tracking
+
+Three free vendors, all key-driven and independently optional — an unset key
+means that vendor's snippet never renders, and `components/Analytics.tsx`
+returns null (no island, no scripts) when all three are unset:
+
+| Key                          | Vendor                   | Where to get it                                             |
+| ---------------------------- | ------------------------ | ----------------------------------------------------------- |
+| `GA4_MEASUREMENT_ID`         | Google Analytics 4       | GA Admin → Data streams → Web → Measurement ID (`G-…`)      |
+| `MIXPANEL_TOKEN`             | Mixpanel                 | Project → Settings → Project Settings → Project Token       |
+| `CLOUDFLARE_ANALYTICS_TOKEN` | Cloudflare Web Analytics | dash.cloudflare.com → Web Analytics → your site → the token |
+
+The keys are public identifiers, not secrets. Where they live:
+
+- **Local dev** — copy `.env.example` to `.env` and fill in what you have;
+  `deno task dev` bridges the file into the process env via
+  [`vite.config.ts`](vite.config.ts) (real env vars always win).
+- **Production (Workers)** — fill the values in `wrangler.jsonc` `"vars"`
+  (committed, like `ASSET_BASE_URL`; dashboard-added vars are wiped on every
+  deploy). `server.js` stashes them on `globalThis` for
+  [`utils/analytics.ts`](utils/analytics.ts) — the same pattern as the asset
+  base.
+
+### UTM attribution
+
+A landing whose URL carries `utm_*` params writes two touches to localStorage
+(pure logic in [`utils/utm.ts`](utils/utm.ts), tested): `fc_utm_first` once per
+browser, `fc_utm_last` refreshed on every campaign landing. Every custom event
+carries both as `first_utm_*` / `last_utm_*` props, so conversions report the
+campaign that produced them even when they happen on a page the campaign didn't
+land on. In GA4, register those keys as custom dimensions to break reports down
+by them; Mixpanel shows event properties out of the box.
+
+### Events
+
+| Event               | Fires when                                                        | Source                  |
+| ------------------- | ----------------------------------------------------------------- | ----------------------- |
+| page_view           | every page (automatic in all three vendors)                       | snippets                |
+| `donate_click`      | header DONATE pill (`location: "header"`)                         | `Button track` prop     |
+| `cta_band_click`    | black closing-band CTA (`CtaBand`)                                | `Button track` prop     |
+| `give_hero_click`   | give-now hero GIVE NOW                                            | `Button track` prop     |
+| `give_online_click` | give-now portal buttons (`region`: ph / us / au)                  | `Button track` prop     |
+| `contact_submit`    | ContactForm submits (home card + contact page)                    | `MailtoForm trackEvent` |
+| `newsletter_submit` | NewsletterForm submits                                            | `MailtoForm trackEvent` |
+| `tax_proof_submit`  | TaxDeductibleForm submits                                         | `MailtoForm trackEvent` |
+| `volunteer_submit`  | /signup submit click (best effort — the form POSTs to the server) | `Button track` prop     |
+
+To instrument anything else: `<Button track="name">`, any element with
+`data-track="name"` (plus optional `data-track-props` JSON), or
+`track("name", { … })` from an island / `favorcareTrack(…)` in the console — all
+three fan out to every configured vendor with UTM attribution merged in.
+
+### Verifying
+
+Set the keys in `.env`, `deno task dev`, then: GA4 → Admin → DebugView, Mixpanel
+→ Live view, Cloudflare → Web Analytics. Click a tracked CTA or run
+`favorcareTrack("demo")` in the console. With no keys set, view-source shows no
+analytics markup at all.
+
+**Privacy** — the privacy policy already discloses Google Analytics; keep PII
+out of event props (MIGRATION.md rule: no donor PII in analytics).
+
 ## Deployment
 
 Production runs on **Cloudflare Workers** and deploys automatically on every

@@ -41,6 +41,7 @@ export function NewsletterForm(
       </h2>
       <MailtoForm
         recipient={recipient}
+        trackEvent="newsletter_submit"
         subject={{
           prefix: subject,
           nameFields: fields.filter((f) => f.type === "text").map((f) =>

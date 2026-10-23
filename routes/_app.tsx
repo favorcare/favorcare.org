@@ -1,5 +1,6 @@
 import { define } from "../utils.ts";
 import Popup from "../islands/Popup.tsx";
+import { Analytics } from "../components/Analytics.tsx";
 import { POPUPS } from "../components/content.ts";
 
 export default define.page(function App({ Component }) {
@@ -44,6 +45,12 @@ export default define.page(function App({ Component }) {
         >
           {POPUPS.accreditation.body}
         </Popup>
+        {
+          /* Vendor analytics (GA4 / Mixpanel / CF Web Analytics) + the
+            Tracking island — renders nothing unless keys are set (see
+            DEVELOPMENT.md "Analytics & UTM tracking"). */
+        }
+        <Analytics />
       </body>
     </html>
   );

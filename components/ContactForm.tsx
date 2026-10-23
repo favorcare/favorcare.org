@@ -41,6 +41,7 @@ export function ContactForm(
     return (
       <MailtoForm
         {...mail}
+        trackEvent="contact_submit"
         class="mx-auto flex w-full max-w-[684px] flex-col gap-[18px]"
       >
         <FormField label="FIRST NAME" labelMobile="FIRST NAME*">
@@ -98,7 +99,11 @@ export function ContactForm(
   }
 
   return (
-    <MailtoForm {...mail} class="grid gap-4 sm:grid-cols-2">
+    <MailtoForm
+      {...mail}
+      trackEvent="contact_submit"
+      class="grid gap-4 sm:grid-cols-2"
+    >
       <FormField label="FIRST NAME">
         <InputField
           name="first-name"

@@ -65,6 +65,7 @@ export function TaxDeductibleForm(
       <p class="mt-4 text-lg leading-relaxed text-primary">{intro}</p>
       <MailtoForm
         recipient={recipient}
+        trackEvent="tax_proof_submit"
         subject={{ prefix: subject, nameFields: ["contact-name"] }}
         labels={Object.fromEntries(fields.map((f) => [taxField(f).name, f]))}
         class="mt-8 flex flex-col gap-4"

@@ -230,7 +230,13 @@ export function VolunteerSignupForm(
         </div>
 
         <div class="mt-2 flex justify-center">
-          <Button variant="yellow" size="md" type="submit" disabled={demo}>
+          <Button
+            variant="yellow"
+            size="md"
+            type="submit"
+            disabled={demo}
+            track="volunteer_submit"
+          >
             SUBMIT
           </Button>
         </div>

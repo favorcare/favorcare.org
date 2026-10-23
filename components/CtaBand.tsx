@@ -26,7 +26,12 @@ export function CtaBand({ title, body, cta, class: extra }: CtaBandProps) {
         {body}
       </p>
       <div class="mt-7">
-        <Button variant="yellow" size="sm" href={cta.href}>
+        <Button
+          variant="yellow"
+          size="sm"
+          href={cta.href}
+          track="cta_band_click"
+        >
           {cta.label}
         </Button>
       </div>

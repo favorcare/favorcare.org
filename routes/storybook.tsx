@@ -62,6 +62,8 @@ import {
 import { asset } from "../utils/assets.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { Analytics } from "../components/Analytics.tsx";
+import Tracking from "../islands/Tracking.tsx";
 import Popup from "../islands/Popup.tsx";
 import Carousel from "../islands/Carousel.tsx";
 import Slideshow from "../islands/Slideshow.tsx";
@@ -85,6 +87,7 @@ const SECTIONS = [
   { id: "islands", label: "Islands" },
   { id: "forms", label: "Forms" },
   { id: "chrome", label: "Chrome" },
+  { id: "analytics", label: "Analytics" },
 ] as const;
 
 function Group(
@@ -835,6 +838,37 @@ export default define.page(function StorybookPage() {
               No specimens in this group — the chrome above and the islands in
               the previous group are the reference.
             </p>
+          </Group>
+
+          <Group
+            id="analytics"
+            title="Analytics"
+            intro="components/Analytics.tsx + islands/Tracking.tsx — invisible chrome, mounted site-wide in routes/_app.tsx. GA4, Mixpanel and Cloudflare Web Analytics snippets render only when their keys are set (wrangler.jsonc vars / .env — see DEVELOPMENT.md, section Analytics & UTM tracking)."
+          >
+            <Specimen label="Analytics + Tracking — this page mounts both, so tracking behaves here exactly as on a real page (Analytics renders nothing visible; with keys set its snippets + island are in the DOM)">
+              <div class="flex flex-wrap items-center gap-6">
+                <Analytics />
+                <Tracking />
+                <Button
+                  variant="yellow"
+                  size="md"
+                  href="#analytics"
+                  track="storybook_demo_click"
+                  trackProps={{ source: "storybook" }}
+                >
+                  Track a demo click
+                </Button>
+                <p class="max-w-[480px] text-sm text-on-surface-variant">
+                  Clicking fires <code>storybook_demo_click</code>{" "}
+                  with first/last-touch UTM props. Watch it in Mixpanel Live
+                  view / GA4 DebugView when keys are set, or call{" "}
+                  <code>
+                    {'favorcareTrack("demo", { note: "hi" })'}
+                  </code>{" "}
+                  in the console.
+                </p>
+              </div>
+            </Specimen>
           </Group>
         </div>
       </main>
