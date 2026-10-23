@@ -241,8 +241,9 @@ secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
 ## AI agents
 
 - **Skills** — `.claude/skills/` (mirrored to `.opencode/skill`) ships
-  repo-level skills: `plan-change`, `new-component`, `new-page` (anatomy and how
-  to add one in [Repo skills](#repo-skills) below).
+  repo-level skills: `plan-change`, `new-component`, `new-page` for building,
+  plus the task gates `verify`, `instrument-event`, `env-var`, `new-post`,
+  `a11y` (anatomy and how to add one in [Repo skills](#repo-skills) below).
 - **Docs lookup** — `.mcp.json` provides the project-scope `context7` MCP server
   (live Fresh/Deno/Tailwind/Cloudflare docs). Claude Code picks it up
   automatically; recent OpenCode versions read the same file, otherwise add the

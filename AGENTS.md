@@ -1,9 +1,10 @@
 # AGENTS.md
 
 Guidance for AI coding agents working in this repo. Claude Code (v2.1.277+)
-reads this file directly — no `CLAUDE.md` needed. Repo-level agent skills
-(`plan-change`, `new-component`, `new-page`) live in `.claude/skills/`, mirrored
-to `.opencode/skill` so every harness sees them.
+reads this file directly — no `CLAUDE.md` needed. Repo-level agent skills live
+in `.claude/skills/`, mirrored to `.opencode/skill` so every harness sees them:
+`plan-change`, `new-component`, `new-page` for building, plus task gates
+`verify`, `instrument-event`, `env-var`, `new-post`, and `a11y`.
 
 ## What this is
 
