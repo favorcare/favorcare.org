@@ -15,7 +15,7 @@ deno task setup  # deps + git hygiene (commit template, commit-msg hook)
 deno task dev    # start the dev server
 ```
 
-Open the URL printed in the terminal (typically <http://localhost:8000>).
+Open the URL printed in the terminal (typically <http://localhost:5173>).
 
 ## Common tasks
 
