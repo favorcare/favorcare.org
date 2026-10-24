@@ -26,7 +26,7 @@ Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
    deno task dev
    ```
 
-4. Open the URL printed in the terminal (typically <http://localhost:8000>).
+4. Open the URL printed in the terminal (typically <http://localhost:5173>).
 
 ## Scripts
 
@@ -65,6 +65,8 @@ main.ts         Fresh app entry — registers static files + file routes
 
 ## Documentation
 
+- **[GETTING-STARTED.md](GETTING-STARTED.md)** — new to code, or working through
+  an AI agent? Start here: machine setup to first pull request.
 - **[DEVELOPMENT.md](DEVELOPMENT.md)** — local setup, architecture, and
   conventions.
 - **[COMPONENTS.md](COMPONENTS.md)** — the component catalog and page-building
@@ -80,6 +82,10 @@ main.ts         Fresh app entry — registers static files + file routes
   v2.1.277+ reads it directly).
 
 ## Contributing
+
+New to code, or working through an AI agent?
+**[GETTING-STARTED.md](GETTING-STARTED.md)** walks the whole loop on this repo —
+machine setup, your first agent edit, your first pull request.
 
 1. **Branch, never `main`.** Work on a short-lived branch — `feat/…`, `fix/…`,
    `docs/…` — and open a PR. A merge to `main` deploys, so nothing is ever
