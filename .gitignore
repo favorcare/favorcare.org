@@ -96,6 +96,8 @@ vendor/
 # them; .opencode/skill symlinks here).
 .claude/*
 !.claude/skills/
+# docs/ is machine-local agent scratch (plans, specs, fieldnotes); the durable
+# record is PRs + MIGRATION.md. Deliberately never committed.
 docs/
 .firecrawl/
 .zcode/
