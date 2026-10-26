@@ -240,9 +240,10 @@ secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
 
 ## AI agents
 
-- **Skills** — `.claude/skills/` (mirrored to `.opencode/skill`) ships
-  repo-level skills: `plan-change`, `new-component`, `new-page` (anatomy and how
-  to add one in [Repo skills](#repo-skills) below).
+- **Skills** — `.agents/skills/` (the cross-harness home; `.claude/skills/`
+  holds per-skill symlinks for Claude Code) ships repo-level skills:
+  `plan-change`, `new-component`, `new-page`, `new-post` (anatomy and how to add
+  one in [Repo skills](#repo-skills) below).
 - **Docs lookup** — `.mcp.json` provides the project-scope `context7` MCP server
   (live Fresh/Deno/Tailwind/Cloudflare docs). Claude Code picks it up
   automatically; recent OpenCode versions read the same file, otherwise add the
@@ -255,20 +256,25 @@ secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
 
 ### Repo skills
 
-Each skill is a `SKILL.md` under `.claude/skills/<name>/` with `name` +
-`description` frontmatter. Harnesses auto-discover them — `.opencode/skill` is a
-symlink to `.claude/skills/`, so nothing is mirrored by hand and per-skill
-copies are never needed.
+Each skill is a `SKILL.md` under `.agents/skills/<name>/` with `name` +
+`description` frontmatter. That directory is the cross-harness home: OpenCode
+and ZCode read `.agents/skills/` natively; Claude Code requires
+`.claude/skills/`, so each skill also gets a symlink there (Claude Code's
+documented pattern — a `<skill-name>` entry in `.claude/skills/` may be a
+symlink to a directory elsewhere). `.opencode/skill` symlinks the whole tree for
+older OpenCode versions. On Windows without symlink support, ZCode and OpenCode
+still see `.agents/skills/` — only Claude Code loses the pointers.
 
 The `description` is the trigger: harnesses match it against the task at hand.
 Phrase it as "do X — use when Y" and keep it in sync with the body under it.
 
 To add one:
 
-1. Create `.claude/skills/<name>/SKILL.md` (kebab-case name, frontmatter first).
-2. Mention the new skill in [AGENTS.md](AGENTS.md) (intro and "Where things
+1. Create `.agents/skills/<name>/SKILL.md` (kebab-case name, frontmatter first).
+2. `ln -s ../../.agents/skills/<name> .claude/skills/<name>` so Claude Code
+   discovers it too.
+3. Mention the new skill in [AGENTS.md](AGENTS.md) (intro and "Where things
    live") and in the Skills bullet above.
-3. Nothing else — the symlink covers every other harness.
 
 ## Current state & roadmap
 
