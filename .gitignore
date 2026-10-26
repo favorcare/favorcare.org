@@ -101,6 +101,9 @@ vendor/
 docs/
 .firecrawl/
 .zcode/
+# per-machine agent-tool state (not tracked; collaborators generate their own)
+.superpowers/
+.kilo/
 
 # Migration working data (DB dumps, pulled uploads) must live outside the
 # repo entirely; this ignore rule is a tripwire only.

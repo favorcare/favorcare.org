@@ -2,8 +2,9 @@
 
 Guidance for AI coding agents working in this repo. Claude Code (v2.1.277+)
 reads this file directly — no `CLAUDE.md` needed. Repo-level agent skills
-(`plan-change`, `new-component`, `new-page`) live in `.claude/skills/`, mirrored
-to `.opencode/skill` so every harness sees them.
+(`plan-change`, `new-component`, `new-page`, `new-post`) live in
+`.agents/skills/` — the cross-harness home OpenCode and ZCode read natively;
+`.claude/skills/` holds per-skill symlinks so Claude Code sees them too.
 
 ## What this is
 
@@ -142,7 +143,8 @@ static/       Assets served as-is — logos, favicon, and the tracked
               prod serves the bucket via ASSET_BASE_URL — utils/assets.ts).
 assets/styles.css   Tailwind v4 @theme tokens + base layer.
 main.ts       Fresh app entry (static files + fsRoutes).
-.claude/skills/  Repo-level agent skills; .opencode/skill symlinks here.
+.agents/skills/  Repo-level agent skills (real home); .claude/skills/ and
+                .opencode/skill symlink in for Claude Code / older OpenCode.
 .githooks/    commit-msg enforcement — activate with `deno task setup`.
 MIGRATION.md  The WP→Fresh program board: phases, gates, open decisions.
 migration/    Pipeline working area — its contract is migration/CONTEXT.md.
