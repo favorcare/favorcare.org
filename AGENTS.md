@@ -15,7 +15,7 @@ Fresh 2 + Tailwind CSS v4 + Preact**.
 
 ```sh
 deno task setup  # one-time: deps + commit template + commit-msg hook
-deno task dev    # dev server (URL printed in terminal, ~http://localhost:8000)
+deno task dev    # dev server (URL printed in terminal, typically http://localhost:5173)
 deno task build  # production build -> _fresh/
 deno task start  # serve the production build
 deno task check  # fmt --check + lint + deno check  (run before claiming done)
@@ -144,6 +144,9 @@ assets/styles.css   Tailwind v4 @theme tokens + base layer.
 main.ts       Fresh app entry (static files + fsRoutes).
 .claude/skills/  Repo-level agent skills; .opencode/skill symlinks here.
 .githooks/    commit-msg enforcement — activate with `deno task setup`.
+MIGRATION.md  The WP→Fresh program board: phases, gates, open decisions.
+migration/    Pipeline working area — its contract is migration/CONTEXT.md.
+docs/         Untracked local scratch (agent plans, fieldnotes); never in git.
 ```
 
 ## Gotchas
