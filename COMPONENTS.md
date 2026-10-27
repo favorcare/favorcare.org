@@ -72,16 +72,19 @@ markup.
 ### Icons — `components/icons.tsx`
 
 The single seam for every glyph. Stroke UI icons from **lucide** (`CloseIcon`,
-`MenuIcon`, `ChevronLeftIcon`, `ChevronRightIcon`, `PlusIcon`, `MailIcon` —
-sizes in px, stroke semantics preserved) and filled brand glyphs from
-**simple-icons** (`BrandIcon` with `name="facebook" | "instagram" | "youtube"`).
-Nothing else imports an icon package.
+`MenuIcon`, `ChevronLeftIcon`, `ChevronRightIcon`, `PlusIcon`, `MailIcon`,
+`CoffeeIcon` — sizes in px, stroke semantics preserved) and filled brand glyphs
+from **simple-icons** (`BrandIcon` with
+`name="facebook" | "instagram"
+| "youtube"`). Nothing else imports an icon
+package.
 
 ### Content data
 
 | Module          | File                       | Holds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `content.ts`    | `components/content.ts`    | all page copy: `HOME`, `CAROUSEL`, `ABOUT`, `WHAT_WE_DO`, `CONTACT`, `GIVENOW`, `POPUPS` (prayer-hub, volunteer disclaimer + guidelines, accreditation — live WP ids in the source comment), `GET_INVOLVED`, `SIGNUP` (the /signup volunteer application: page copy, form options, privacy notice, and the Google formResponse entry-id map), `PRIVACY`, `BRAND` (BRAND.md voice, verbatim — tested — for the storybook brand group), `SOCIAL_LINKS` + shared types (`Cta`, `PopupCta`, `PopupBlock`, `FaqItem`, `NewsletterField`, `CarouselSlide`, `SocialLink`) |
+| `cfac.ts`       | `components/cfac.ts`       | the Coffee for a Cause campaign (`/coffeeforacause`): `CFAC` (chrome, hero, story, impact, FAQ, closing, thanks copy + the donate seam), `CFAC_EVENTS` + `cfacDonateProps()` (analytics contract — every donate click carries `fund: "cfac"`), `CFAC_COLORS` / `CFAC_CONTRAST_PAIRS` (the scoped palette data behind the storybook CFAC group and the AA gate in `cfac_test.ts`). Copy is team-supplied; `TBD` strings are placeholders that must not ship.                                                                                                        |
 | `posts.ts`      | `components/posts.ts`      | the `POSTS` archive + `getPost`/`listPosts`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `navigation.ts` | `components/navigation.ts` | `NAV` + `UTILITY_LINKS`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `tokens.ts`     | `components/tokens.ts`     | `COLOR_GROUPS` (every `@theme` color by role, with hex — `tokens_test.ts` keeps it in sync with `assets/styles.css`), `RADII`, `CONTRAST_PAIRS`, and `contrastRatio()` (WCAG) — the data behind the storybook's token and contrast specimens                                                                                                                                                                                                                                                                                                                       |
@@ -94,6 +97,20 @@ Nothing else imports an icon package.
 | `Header`  | `components/Header.tsx` | yellow bar: logo, `Navbar`, DONATE pill, `MobileNav`                                      |
 | `Footer`  | `components/Footer.tsx` | black column: logo, `SOCIAL_LINKS` icon row, blurb, accreditation `Popup`, dynamic © year |
 | `Navbar`  | `components/Navbar.tsx` | desktop nav (hidden below md)                                                             |
+
+### CFAC campaign (sub-brand)
+
+The Coffee for a Cause pages (`routes/coffeeforacause/`) are a **sub-brand**:
+the same shared catalog, re-skinned by the `.cfac` theme scope in
+`assets/styles.css` (documented in DESIGN.md, "Sub-brand themes") — token
+utilities resolve against the scoped variables, so no component here hardcodes a
+hex. `routes/coffeeforacause/_layout.tsx` wraps every CFAC route in the scope
+plus this chrome.
+
+| Component    | File                         | Props                                                                                                     | Used by                              |
+| ------------ | ---------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `CfacHeader` | `components/cfac/Header.tsx` | none — espresso bar, campaign wordmark (text lockup until the brand kit's logo lands), single DONATE pill | every CFAC route (via `_layout.tsx`) |
+| `CfacFooter` | `components/cfac/Footer.tsx` | none — slim roast band: wordmark, blurb, `SOCIAL_LINKS` row, main-site link, © year                       | every CFAC route (via `_layout.tsx`) |
 
 ### Forms
 
@@ -124,6 +141,7 @@ Nothing else imports an icon package.
 | `Slideshow`  | `islands/Slideshow.tsx`  | what-we-do program photo slideshow                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `MailtoForm` | `islands/MailtoForm.tsx` | the one hydrated submit seam for every site form: `recipient`, `subject` (string, or `{prefix, nameFields}` for "Website contact — First Last"), `labels` (input name to email-body label, in order), `noteField?`, `trackEvent?` (fire a named event on submit — see `Tracking`), `class`, server-rendered `children`. Composes a `mailto:` via the pure `components/mailto.ts` (`composeMailto`, `formFields`, `composeSubject` — tested); `action="mailto:…"` is the no-JS fallback                                                                               |
 | `Tracking`   | `islands/Tracking.tsx`   | the analytics behavior island (mounted by `Analytics`, singleton-guarded): records first/last-touch UTM attribution on landing (pure logic in `utils/utm.ts` — tested), one delegated click listener for `[data-track]` elements (+ optional `data-track-props` JSON), and `track(event, props?)` fanning out to GA4 + Mixpanel with attribution merged in (call-site props win). Exposed as `window.favorcareTrack` for console debugging; a no-op when no vendor is configured                                                                                     |
+| `TrackView`  | `islands/TrackView.tsx`  | fires a named event once on mount via `track()` (`event`, `props?`) — the view-based seam for pages a visitor arrives at without clicking (e.g. `cfac_donate_success` on the /coffeeforacause/thanks post-donation landing). Renders nothing; a no-op when no vendor is configured                                                                                                                                                                                                                                                                                   |
 
 ## Known gaps (deliberate follow-ups)
 

@@ -36,6 +36,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CloseIcon,
+  CoffeeIcon,
   MailIcon,
   MenuIcon,
   PlusIcon,
@@ -52,6 +53,9 @@ import {
   SIGNUP,
   WHAT_WE_DO,
 } from "../components/content.ts";
+import { CFAC_COLORS, CFAC_CONTRAST_PAIRS } from "../components/cfac.ts";
+import { CfacFooter } from "../components/cfac/Footer.tsx";
+import { CfacHeader } from "../components/cfac/Header.tsx";
 import { listPosts } from "../components/posts.ts";
 import {
   COLOR_GROUPS,
@@ -64,6 +68,7 @@ import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { Analytics } from "../components/Analytics.tsx";
 import Tracking from "../islands/Tracking.tsx";
+import TrackView from "../islands/TrackView.tsx";
 import Popup from "../islands/Popup.tsx";
 import Carousel from "../islands/Carousel.tsx";
 import Slideshow from "../islands/Slideshow.tsx";
@@ -87,6 +92,7 @@ const SECTIONS = [
   { id: "islands", label: "Islands" },
   { id: "forms", label: "Forms" },
   { id: "chrome", label: "Chrome" },
+  { id: "cfac", label: "CFAC theme" },
   { id: "analytics", label: "Analytics" },
 ] as const;
 
@@ -142,6 +148,18 @@ const BUTTON_MATRIX = [
   { variant: "outline-white", label: "outline-white" },
   { variant: "outline-black", label: "outline-black" },
 ] as const;
+
+// Literal class table for the CFAC swatches — Tailwind can't see dynamic
+// `bg-${token}` names, same reason Gallery maps literal grid-cols tables.
+const CFAC_SWATCH: Record<string, string> = {
+  black: "bg-black",
+  primary: "bg-primary",
+  yellow: "bg-yellow",
+  surface: "bg-surface",
+  "surface-container": "bg-surface-container",
+  "on-surface": "bg-on-surface",
+  link: "bg-link",
+};
 
 export default define.page(function StorybookPage() {
   const post = listPosts()[0];
@@ -511,6 +529,7 @@ export default define.page(function StorybookPage() {
                 <ChevronRightIcon size={30} />
                 <PlusIcon size={14} />
                 <MailIcon size={22} />
+                <CoffeeIcon size={24} />
               </div>
             </Specimen>
             <Specimen label="Brand glyphs (simple-icons, fill)" dark>
@@ -838,6 +857,105 @@ export default define.page(function StorybookPage() {
               No specimens in this group — the chrome above and the islands in
               the previous group are the reference.
             </p>
+          </Group>
+
+          {
+            /* The Coffee for a Cause sub-brand: everything renders inside
+              a live `.cfac` scope, so these specimens show exactly what
+              /coffeeforacause sees. */
+          }
+          <Group
+            id="cfac"
+            title="CFAC theme"
+            intro="The Coffee for a Cause sub-brand (routes/coffeeforacause/): a scoped token override in assets/styles.css re-skins the shared catalog inside any .cfac wrapper — no component edits, no hardcoded hex. PLACEHOLDER palette pending the brand kit; DESIGN.md 'Sub-brand themes' documents the mechanism, cfac_test.ts gates the contrast."
+          >
+            <div class="cfac space-y-6">
+              <Specimen label="Scoped palette (CFAC_COLORS — utilities resolve through the scope, hexes from the override block)">
+                <ul class="flex flex-wrap gap-5">
+                  {CFAC_COLORS.map((c) => (
+                    <li key={c.token} class="flex items-center gap-3">
+                      <span
+                        class={cx(
+                          "inline-block h-12 w-12 rounded-full border border-primary/15",
+                          CFAC_SWATCH[c.token],
+                        )}
+                        aria-hidden="true"
+                      />
+                      <span class="text-sm leading-snug">
+                        <span class="block font-bold text-primary">
+                          {c.token}
+                        </span>
+                        <span class="text-on-surface-variant">{c.hex}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Specimen>
+              <Specimen label="Contrast (measured on the scoped pairs — the test enforces every one at AA)">
+                <ul class="grid gap-2 md:grid-cols-2">
+                  {CFAC_CONTRAST_PAIRS.map((p) => (
+                    <li
+                      key={p.label}
+                      class="flex items-center justify-between gap-3 rounded-card bg-surface-container-lowest px-4 py-2 text-sm"
+                    >
+                      <span class="text-on-surface">{p.label}</span>
+                      <span class="font-bold text-primary">
+                        {contrastRatio(p.fg, p.bg).toFixed(2)}:1
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Specimen>
+              <Specimen label="Buttons — the shared catalog, re-skinned by the scope">
+                <div class="flex flex-wrap items-center gap-4">
+                  <Button variant="yellow" size="md">
+                    DONATE
+                  </Button>
+                  <Button variant="black" size="md">
+                    Back to the campaign
+                  </Button>
+                  <Button variant="outline-black" size="md">
+                    favorcare.org
+                  </Button>
+                </div>
+              </Specimen>
+              <Specimen label="Type & labels in scope (Eyebrow, SectionHeading, links)">
+                <div class="space-y-3">
+                  <Eyebrow>A fundraising campaign of Favor Care</Eyebrow>
+                  <SectionHeading
+                    title="One cup can change a story."
+                    size="card"
+                  />
+                  <p class="text-base">
+                    <a href="#cfac">A roast-toned link</a>{" "}
+                    hovers to caramel, like the site's red→yellow pair.
+                  </p>
+                </div>
+              </Specimen>
+              <Specimen label="Campaign chrome — CfacHeader / CfacFooter render inside the scope exactly as on /coffeeforacause">
+                <div class="overflow-hidden rounded-[10px]">
+                  <CfacHeader />
+                  <div class="bg-surface p-5 text-sm text-on-surface-variant">
+                    …page content…
+                  </div>
+                  <CfacFooter />
+                </div>
+              </Specimen>
+              <Specimen label="TrackView — fires a named event once on mount (the thanks-page conversion seam; renders nothing)">
+                <div class="flex items-center gap-4">
+                  <TrackView
+                    event="storybook_demo_view"
+                    props={{ source: "storybook" }}
+                  />
+                  <p class="max-w-[520px] text-sm text-on-surface-variant">
+                    This specimen mounted <code>storybook_demo_view</code>{" "}
+                    on page load — watch for it in Mixpanel Live view / GA4
+                    DebugView when keys are set. On /coffeeforacause/thanks it
+                    fires <code>cfac_donate_success</code>.
+                  </p>
+                </div>
+              </Specimen>
+            </div>
           </Group>
 
           <Group

@@ -10,7 +10,15 @@
 // its original was a 14-grid glyph, so it uses `absoluteStrokeWidth` to
 // hold a true 2px at any size; `MailIcon` (new, no filled predecessor)
 // does the same.
-import { ChevronLeft, ChevronRight, Mail, Menu, Plus, X } from "lucide-preact";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Coffee,
+  Mail,
+  Menu,
+  Plus,
+  X,
+} from "lucide-preact";
 import { siFacebook, siInstagram, siYoutube } from "simple-icons";
 
 export interface IconProps {
@@ -59,6 +67,19 @@ export function PlusIcon({ size = 14, class: cls }: IconProps) {
 export function MailIcon({ size = 22, class: cls }: IconProps) {
   return (
     <Mail
+      aria-hidden="true"
+      size={size}
+      strokeWidth={2}
+      absoluteStrokeWidth
+      class={cls}
+    />
+  );
+}
+
+/** The Coffee for a Cause campaign glyph (stroke, currentColor). */
+export function CoffeeIcon({ size = 24, class: cls }: IconProps) {
+  return (
+    <Coffee
       aria-hidden="true"
       size={size}
       strokeWidth={2}

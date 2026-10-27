@@ -9,7 +9,14 @@ const CHROME_ONLY = new Set(["Navbar", "MobileNav"]);
 
 async function componentExports(): Promise<string[]> {
   const names: string[] = [];
-  for (const dir of ["components", "components/layout", "islands"]) {
+  for (
+    const dir of [
+      "components",
+      "components/layout",
+      "components/cfac",
+      "islands",
+    ]
+  ) {
     for await (const entry of Deno.readDir(dir)) {
       if (!entry.isFile || !entry.name.endsWith(".tsx")) continue;
       const src = await Deno.readTextFile(`${dir}/${entry.name}`);
