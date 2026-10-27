@@ -3,7 +3,12 @@ import Popup from "../islands/Popup.tsx";
 import { Analytics } from "../components/Analytics.tsx";
 import { POPUPS } from "../components/content.ts";
 
-export default define.page(function App({ Component }) {
+export default define.page(function App({ Component, url }) {
+  // The campaign sub-brand is a focused donation funnel with its own
+  // chrome — the site-wide accreditation popup (whose CTA leaks donors to
+  // /givenow) stays on favorcare.org pages only.
+  const isCampaign = url.pathname === "/coffeeforacause" ||
+    url.pathname.startsWith("/coffeeforacause/");
   return (
     <html lang="en">
       <head>
@@ -36,15 +41,21 @@ export default define.page(function App({ Component }) {
         <Component />
         {
           /* WP accreditation popup (elementor 7281): auto-opens 3s after
-            page load, once per browser session, on every page. */
+            page load, once per browser session, on every page — except the
+            CFAC campaign funnel (see isCampaign above). */
         }
-        <Popup
-          auto={{ delayMs: 3000, sessionKey: "favorcare-accreditation-popup" }}
-          title={POPUPS.accreditation.title}
-          cta={POPUPS.accreditation.cta}
-        >
-          {POPUPS.accreditation.body}
-        </Popup>
+        {!isCampaign && (
+          <Popup
+            auto={{
+              delayMs: 3000,
+              sessionKey: "favorcare-accreditation-popup",
+            }}
+            title={POPUPS.accreditation.title}
+            cta={POPUPS.accreditation.cta}
+          >
+            {POPUPS.accreditation.body}
+          </Popup>
+        )}
         {
           /* Vendor analytics (GA4 / Mixpanel / CF Web Analytics) + the
             Tracking island — renders nothing unless keys are set (see

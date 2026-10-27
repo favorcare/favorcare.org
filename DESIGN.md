@@ -1,5 +1,5 @@
 ---
-version: "2.2 (WordPress base, as-built)"
+version: "2.3 (WordPress base, as-built; + CFAC sub-brand scope)"
 name: Favor Care
 description: >-
   Design tokens for the Fresh rebuild, transcribed from the live
@@ -163,6 +163,37 @@ Cards, photo tiles, gallery media, and the yellow content cards round at
 square-corner global is overridden by every page template and is not part of
 this system.
 
+## Sub-brand themes
+
+Campaigns that need their own look (so far: **Coffee for a Cause**) reuse the
+component catalog and change only the token _values_ inside a scoped wrapper:
+
+- **Mechanism** — Tailwind v4 utilities resolve `var(--color-*)` at the element
+  they land on, so re-declaring the variables inside a class (the `.cfac` block
+  at the end of `assets/styles.css`) re-skins every component beneath it. No
+  component edits, no hardcoded hex. The block lives _after_ the `@layer` base
+  so `tokens_test.ts`'s `@theme` parity check is untouched, and un-overridden
+  tokens (error, tertiary, radii, fonts) keep site values.
+- **Application** — `routes/coffeeforacause/_layout.tsx` wraps every CFAC route
+  in `<div class="cfac …">`, so `/coffeeforacause` and `/coffeeforacause/thanks`
+  (and any future campaign page in the folder) inherit the theme and the
+  campaign chrome.
+- **What CFAC remaps today** (sampled from the campaign team's published art —
+  the "Where your cup goes" deck + Social Campaign Brief in Favor Care's
+  TeamBrain; treatment: warm + hopeful + playful): near-black → deep forest
+  green `#14291b` (primary), black → darkest forest `#0e1f15` (bands, pill
+  labels), Link Yellow → marigold `#f7a708` (accent), link red → forest
+  `#2f6b44`, and the cream surface ramp shifted to the deck's warm creams
+  (`#fbf4e4` surface). No official spec sheet exists yet, so these are sampled
+  approximations normalized for token use — swap hexes in place if the team
+  publishes one. Font stays Inter until the team names the deck's rounded
+  display face.
+- **Guardrails** — the a11y floors apply unchanged (body ≥16px/1.5, touch
+  targets ≥48px, Link-Yellow-class accents never as body text on white). Every
+  scoped text/background pair must clear **4.5:1**; `components/cfac_test.ts`
+  enforces it, and the `/storybook` "CFAC theme" group renders the scope live
+  with measured ratios.
+
 ## Do's and Don'ts
 
 **Do**
@@ -185,3 +216,5 @@ this system.
   surface/accent-on-dark color.
 - Don't use the v1 gold/purple/green palette or glow shadows — retired with
   `ideas/design-v1.md`.
+- Don't hardcode CFAC (or any sub-brand) hexes in components — sub-brand colors
+  live in the scope block (`assets/styles.css`) and DESIGN.md only.

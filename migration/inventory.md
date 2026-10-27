@@ -7,22 +7,22 @@ redirect map.
 
 ## Pages
 
-| Live URL (indexed)                                   | Staging content         | Fresh route     | Decision                          |
-| ---------------------------------------------------- | ----------------------- | --------------- | --------------------------------- |
-| `/`                                                  | home                    | `/`             | clone                             |
-| `/about`                                             | about                   | `/who-we-are`   | clone + 301                       |
-| `/what-we-do`                                        | what-we-do (6 programs) | `/what-we-do`   | clone                             |
-| `/get-involved`                                      | get-involved            | `/get-involved` | clone                             |
-| `/contact`                                           | contact                 | `/contact`      | clone                             |
-| `/news-updates`                                      | post archive            | `/news-updates` | clone                             |
-| `/givenow`                                           | donation hub            | `/givenow`      | clone (Phase 6 checkout)          |
-| `/privacy-policy`                                    | privacy                 | —               | clone (Phase 7; route TBD)        |
-| `/coffeeforacause`                                   | P60k campaign page      | —               | open                              |
-| `/bne`                                               | Brisbane location page  | —               | open                              |
-| `/shop`, `/shop-woocommerce`, `/cart`, `/my-account` | WooCommerce             | —               | 301 → `/givenow`                  |
-| `/tickets-checkout`, `/tickets-order`                | event ticketing         | —               | 301 → `/givenow`                  |
-| `/donate`, `/give` (live 302s)                       | —                       | —               | 301 → `/givenow`                  |
-| `/pampanga-2024` (dead link on live)                 | draft, never published  | —               | no redirect; don't carry the link |
+| Live URL (indexed)                                   | Staging content         | Fresh route        | Decision                                                                                     |
+| ---------------------------------------------------- | ----------------------- | ------------------ | -------------------------------------------------------------------------------------------- |
+| `/`                                                  | home                    | `/`                | clone                                                                                        |
+| `/about`                                             | about                   | `/who-we-are`      | clone + 301                                                                                  |
+| `/what-we-do`                                        | what-we-do (6 programs) | `/what-we-do`      | clone                                                                                        |
+| `/get-involved`                                      | get-involved            | `/get-involved`    | clone                                                                                        |
+| `/contact`                                           | contact                 | `/contact`         | clone                                                                                        |
+| `/news-updates`                                      | post archive            | `/news-updates`    | clone                                                                                        |
+| `/givenow`                                           | donation hub            | `/givenow`         | clone (Phase 6 checkout)                                                                     |
+| `/privacy-policy`                                    | privacy                 | —                  | clone (Phase 7; route TBD)                                                                   |
+| `/coffeeforacause`                                   | P60k campaign page      | `/coffeeforacause` | clone (rebuilt as the CFAC campaign sub-brand; copy is fresh from the team, not the WP page) |
+| `/bne`                                               | Brisbane location page  | —                  | open                                                                                         |
+| `/shop`, `/shop-woocommerce`, `/cart`, `/my-account` | WooCommerce             | —                  | 301 → `/givenow`                                                                             |
+| `/tickets-checkout`, `/tickets-order`                | event ticketing         | —                  | 301 → `/givenow`                                                                             |
+| `/donate`, `/give` (live 302s)                       | —                       | —                  | 301 → `/givenow`                                                                             |
+| `/pampanga-2024` (dead link on live)                 | draft, never published  | —                  | no redirect; don't carry the link                                                            |
 
 ## Posts (staging slugs are canonical; live slugs redirect)
 

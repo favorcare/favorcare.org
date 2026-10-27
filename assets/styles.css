@@ -130,3 +130,74 @@ dialog::backdrop {
     animation: none;
   }
 }
+
+/*
+ * Sub-brand theme scope: Coffee for a Cause (CFAC).
+ *
+ * Every component is styled with token utilities (bg-primary, text-on-surface,
+ * rounded-card…), and in Tailwind v4 those utilities resolve the `--color-*`
+ * custom properties at the element they land on. Re-declaring the variables
+ * inside `.cfac` therefore re-skins the whole component catalog beneath the
+ * wrapper — no component edits, no hardcoded hex. Un-overridden tokens
+ * (error, tertiary, article-yellow, radii, fonts) keep the site values.
+ *
+ * Design-token rule unchanged: DESIGN.md documents this scope first
+ * ("Sub-brand themes"); this block mirrors it.
+ *
+ * VALUES: sampled from the campaign team's published art — the "Where your
+ * cup goes" carousel deck + Social Campaign Brief in Favor Care's TeamBrain
+ * (forest-green + marigold on cream; treatment "WARM + HOPE + PLAYFUL").
+ * The team has published no spec sheet yet, so these are sampled
+ * approximations of the rendered mockups, normalized for token use; all
+ * text pairs hold AA (≥ 4.5:1, enforced by components/cfac_test.ts). If an
+ * official brand sheet lands, swap hexes in place and re-run the test.
+ */
+.cfac {
+  /* Deep forest green replaces near-black: headings, text-primary accents,
+     solid dark controls, and — via --color-black — every bg-black band and
+     text-black pill label on CFAC pages. */
+  --color-black: #0e1f15;
+  --color-primary: #14291b;
+  --color-on-primary: #fcf8ec;
+  --color-primary-container: #2a4633;
+  --color-on-primary-container: #edf2e4;
+  --color-primary-hover: #0d1f14;
+  --color-primary-active: #1d3626;
+
+  /* Marigold replaces Link Yellow: the pill fill, header-bar fill, eyebrows
+     on dark, and the link hover — the campaign's signature accent. */
+  --color-yellow: #f7a708;
+  --color-link: #2f6b44;
+  --color-link-hover: #f7a708;
+
+  /* Warm cream surface ramp + green ink (sampled from the slide
+     backgrounds and card fills). */
+  --color-surface: #fbf4e4;
+  --color-surface-dim: #f5ebd7;
+  --color-surface-bright: #fffdf4;
+  --color-surface-container-lowest: #fcf8ec;
+  --color-surface-container-low: #f7eed8;
+  --color-surface-container: #f1e5c6;
+  --color-surface-container-high: #e9d9ae;
+  --color-surface-container-highest: #dfcb92;
+  --color-background: #fbf4e4;
+  --color-on-background: #1c2a20;
+  --color-on-surface: #1c2a20;
+  --color-on-surface-variant: #5a6b5e;
+  --color-outline: #6b7a6e;
+  --color-outline-variant: #c9c6ae;
+
+  /* The secondary pair + the light-on-dark card text dialect. */
+  --color-secondary: #f1e5c6;
+  --color-on-secondary: #1c2a20;
+  --color-secondary-container: #fcf8ec;
+  --color-on-secondary-container: #1c2a20;
+  --color-light: #fcf8ec;
+
+  /* Program accents from the deck (matcha #5c7e2d, terracotta #e45434,
+     violet #945ccc) stay out of the token scope until a component needs
+     them — the campaign chips are social-media art, not site tokens yet.
+     A CFAC display font loads via <link> in
+     routes/coffeeforacause/_layout.tsx and overrides --font-sans here when
+     the team names one (the deck's rounded display face is unspecified). */
+}

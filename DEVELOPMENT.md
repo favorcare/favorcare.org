@@ -61,6 +61,10 @@ Tailwind v4 is configured entirely in CSS — **there is no
   [**DESIGN.md**](DESIGN.md). They generate utilities like `bg-primary`,
   `text-on-surface`, and `rounded-full`.
 - **Inter** is loaded via a Google Fonts `<link>` in `routes/_app.tsx`.
+- **Sub-brands** (Coffee for a Cause) re-theme the shared catalog through a
+  scoped variable override (`.cfac` in `assets/styles.css`) applied by their
+  nested layout — see DESIGN.md, "Sub-brand themes". Never hardcode sub-brand
+  hexes in components.
 
 To change a color or radius, update the token in **DESIGN.md** first, then
 mirror it in `assets/styles.css`.
@@ -170,17 +174,18 @@ by them; Mixpanel shows event properties out of the box.
 
 ### Events
 
-| Event               | Fires when                                                        | Source                  |
-| ------------------- | ----------------------------------------------------------------- | ----------------------- |
-| page_view           | every page (automatic in all three vendors)                       | snippets                |
-| `donate_click`      | header DONATE pill (`location: "header"`)                         | `Button track` prop     |
-| `cta_band_click`    | black closing-band CTA (`CtaBand`)                                | `Button track` prop     |
-| `give_hero_click`   | give-now hero GIVE NOW                                            | `Button track` prop     |
-| `give_online_click` | give-now portal buttons (`region`: ph / us / au)                  | `Button track` prop     |
-| `contact_submit`    | ContactForm submits (home card + contact page)                    | `MailtoForm trackEvent` |
-| `newsletter_submit` | NewsletterForm submits                                            | `MailtoForm trackEvent` |
-| `tax_proof_submit`  | TaxDeductibleForm submits                                         | `MailtoForm trackEvent` |
-| `volunteer_submit`  | /signup submit click (best effort — the form POSTs to the server) | `Button track` prop     |
+| Event                 | Fires when                                                            | Source                  |
+| --------------------- | --------------------------------------------------------------------- | ----------------------- |
+| page_view             | every page (automatic in all three vendors)                           | snippets                |
+| `donate_click`        | header DONATE pill (`location: "header"`)                             | `Button track` prop     |
+| `cta_band_click`      | black closing-band CTA (`CtaBand`)                                    | `Button track` prop     |
+| `give_hero_click`     | give-now hero GIVE NOW                                                | `Button track` prop     |
+| `give_online_click`   | give-now portal buttons (`region`: ph / us / au)                      | `Button track` prop     |
+| `contact_submit`      | ContactForm submits (home card + contact page)                        | `MailtoForm trackEvent` |
+| `newsletter_submit`   | NewsletterForm submits                                                | `MailtoForm trackEvent` |
+| `tax_proof_submit`    | TaxDeductibleForm submits                                             | `MailtoForm trackEvent` |
+| `volunteer_submit`    | /signup submit click (best effort — the form POSTs to the server)     | `Button track` prop     |
+| `cfac_donate_success` | /coffeeforacause/thanks mount (post-donation landing; `fund: "cfac"`) | `TrackView` island      |
 
 To instrument anything else: `<Button track="name">`, any element with
 `data-track="name"` (plus optional `data-track-props` JSON), or
@@ -281,17 +286,18 @@ To add one:
 All five primary-nav pages plus utility pages exist (this replaces the earlier
 "homepage only" status):
 
-| Route           | Page                                                |
-| --------------- | --------------------------------------------------- |
-| `/`             | Homepage                                            |
-| `/who-we-are`   | Who we are (mission, vision, team, finances)        |
-| `/what-we-do`   | What we do (6 programs)                             |
-| `/news-updates` | Stories & impact (post listing; `/posts` 308s here) |
-| `/get-involved` | Get involved (volunteer, newsletter, give)          |
-| `/givenow`      | Donate hub (PH/US/AU giving methods)                |
-| `/contact`      | Contact us (form, FAQ, newsletter)                  |
-| `/posts/<slug>` | Individual news posts                               |
-| `/storybook`    | Component library                                   |
+| Route              | Page                                                                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------- |
+| `/`                | Homepage                                                                                       |
+| `/who-we-are`      | Who we are (mission, vision, team, finances)                                                   |
+| `/what-we-do`      | What we do (6 programs)                                                                        |
+| `/news-updates`    | Stories & impact (post listing; `/posts` 308s here)                                            |
+| `/get-involved`    | Get involved (volunteer, newsletter, give)                                                     |
+| `/givenow`         | Donate hub (PH/US/AU giving methods)                                                           |
+| `/coffeeforacause` | Coffee for a Cause campaign (+ `/coffeeforacause/thanks` post-donation page) — sub-brand theme |
+| `/contact`         | Contact us (form, FAQ, newsletter)                                                             |
+| `/posts/<slug>`    | Individual news posts                                                                          |
+| `/storybook`       | Component library                                                                              |
 
 The broader program — migrating favorcare.org off WordPress/Elementor onto this
 stack as a visual clone, with a native donation checkout, R2 media, and a
