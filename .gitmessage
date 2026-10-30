@@ -6,7 +6,7 @@
 #
 # Body (optional): explain WHY, wrapped at ~72 columns. End with a
 # verification line, e.g.:
-#     Verified: deno task check clean; deno task test 10 passed.
+#     Verified: pnpm check clean; pnpm test 10 passed.
 #
 # NEVER add Co-Authored-By or "Generated with …" trailers — commits are
 # attributed to the human author only. The commit-msg hook rejects them.

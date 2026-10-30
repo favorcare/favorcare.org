@@ -1,5 +1,5 @@
 # EditorConfig — https://editorconfig.org
-# deno fmt is the formatter of record (see deno.json); this keeps every
+# Prettier is the formatter of record (see .prettierrc.json); this keeps every
 # other tool aligned with it.
 root = true
 

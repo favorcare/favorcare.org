@@ -1,16 +1,16 @@
-// Clone-parity harness: screenshots + text parity between the Fresh app and
+// Clone-parity harness: screenshots + text parity between the vinext app and
 // the canonical WordPress site (staging.favorcare.org).
 //
 //   pnpm clone:reference             # capture WP reference screenshots
 //   pnpm clone:diff                       # capture + compare w/ reference
 //   node scripts/clone-diff.ts compare --against <dir>
 //                                         # pixel-diff current/ vs a saved
-//                                         # baseline (e.g. fresh-baseline/)
+//                                         # baseline (e.g. app-baseline/)
 //   pnpm clone:diff -- --pages home  # single page
 //
 // Output (default ../migration-files/clone-diff — outside the repo):
 //   reference/<page>-<width>.png|.txt     one-time WP captures
-//   current/<page>-<width>.png|.txt       Fresh captures per run
+//   current/<page>-<width>.png|.txt       app captures per run
 //   report.html / report.md               side-by-sides + text-parity report
 //
 // Screenshots are full-page at 360/768/1280 with animations disabled and
@@ -22,14 +22,14 @@ import { chromium } from "playwright";
 
 const WP_BASE = "https://staging.favorcare.org";
 const baseFlag = process.argv.indexOf("--base");
-const FRESH_BASE =
+const APP_BASE =
   baseFlag !== -1 ? process.argv[baseFlag + 1] : "http://127.0.0.1:5173";
 const WIDTHS = [360, 768, 1280];
 
 interface Pair {
   page: string;
-  wp: string | null; // null = not on WP (Fresh-only)
-  fresh: string | null; // null = route not built yet
+  wp: string | null; // null = not on WP (app-only)
+  app: string | null; // null = route not built yet
   /** "chrome" = also hide header/footer/nav on both sides. Used for
    * privacy-policy: WP serves that page a stale header template while
    * the clone standardizes on the site-wide chrome (documented quirk). */
@@ -37,33 +37,32 @@ interface Pair {
 }
 
 const PAIRS: Pair[] = [
-  { page: "home", wp: "/", fresh: "/" },
-  { page: "about", wp: "/about", fresh: "/who-we-are" },
-  { page: "what-we-do", wp: "/what-we-do", fresh: "/what-we-do" },
-  { page: "get-involved", wp: "/get-involved", fresh: "/get-involved" },
-  { page: "contact", wp: "/contact", fresh: "/contact" },
-  { page: "givenow", wp: "/givenow", fresh: "/givenow" },
-  { page: "news-updates", wp: "/posts", fresh: "/posts" },
+  { page: "home", wp: "/", app: "/" },
+  { page: "about", wp: "/about", app: "/who-we-are" },
+  { page: "what-we-do", wp: "/what-we-do", app: "/what-we-do" },
+  { page: "get-involved", wp: "/get-involved", app: "/get-involved" },
+  { page: "contact", wp: "/contact", app: "/contact" },
+  { page: "givenow", wp: "/givenow", app: "/givenow" },
+  { page: "news-updates", wp: "/posts", app: "/posts" },
   {
     page: "post-tondo",
     wp: "/posts/seen-valued-and-cared-for-our-medical-outreach-in-tondo-manila",
-    fresh:
-      "/posts/seen-valued-and-cared-for-our-medical-outreach-in-tondo-manila",
+    app: "/posts/seen-valued-and-cared-for-our-medical-outreach-in-tondo-manila",
   },
   {
     page: "post-antipolo",
     wp: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
-    fresh: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
+    app: "/posts/every-child-matters-bringing-health-and-care-to-antipolo",
   },
   {
     page: "post-five-arms",
     wp: "/posts/five-arms-of-favor-care",
-    fresh: "/posts/five-arms-of-favor-care",
+    app: "/posts/five-arms-of-favor-care",
   },
   {
     page: "privacy-policy",
     wp: "/privacy-policy",
-    fresh: "/privacy-policy",
+    app: "/privacy-policy",
     mask: "chrome",
   },
 ];
@@ -101,7 +100,7 @@ async function capture(url: string, dir: string, name: string, chrome = true) {
         content:
           `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}` +
           // WP renders unopened Elementor popups into the DOM (their text
-          // lands in innerText); Fresh <dialog>s are display:none when
+          // lands in innerText); the app's <dialog>s are display:none when
           // closed. Mask the WP popups so text parity compares page
           // content, not hidden dialogs.
           `.dialog-widget{display:none!important}` +
@@ -146,8 +145,8 @@ function dedupe(lines: string[]): string[] {
 function diffLines(a: string[], b: string[]) {
   const setA = new Set(a),
     setB = new Set(b);
-  const missing = a.filter((l) => !setB.has(l)); // on WP, not on Fresh
-  const extra = b.filter((l) => !setA.has(l)); // on Fresh, not on WP
+  const missing = a.filter((l) => !setB.has(l)); // on WP, not in the app
+  const extra = b.filter((l) => !setA.has(l)); // in the app, not on WP
   return { missing, extra };
 }
 
@@ -251,19 +250,19 @@ const html: string[] = [
 ];
 
 for (const p of pairs) {
-  if (!p.fresh) {
+  if (!p.app) {
     report.push(
-      `## ${p.page}\n\n- Fresh route not built yet (reference captured only).\n`,
+      `## ${p.page}\n\n- App route not built yet (reference captured only).\n`,
     );
     continue;
   }
   console.log(`diff: ${p.page}`);
-  await capture(FRESH_BASE + p.fresh, `${OUT}/current`, p.page, !p.mask);
+  await capture(APP_BASE + p.app, `${OUT}/current`, p.page, !p.mask);
 
   report.push(`## ${p.page}\n`);
-  report.push(`- WP \`${p.wp}\` vs Fresh \`${p.fresh}\`\n`);
+  report.push(`- WP \`${p.wp}\` vs app \`${p.app}\`\n`);
   html.push(
-    `<h2>${p.page}</h2><p><code>${p.wp}</code> vs <code>${p.fresh}</code></p>`,
+    `<h2>${p.page}</h2><p><code>${p.wp}</code> vs <code>${p.app}</code></p>`,
   );
   let hasRef = false;
   for (const width of WIDTHS) {
@@ -289,7 +288,7 @@ for (const p of pairs) {
       }
       if (extra.length) {
         report.push(
-          `extra (Fresh only, first 10): ${extra
+          `extra (app only, first 10): ${extra
             .slice(0, 10)
             .map((l) => `\n  + ${l.slice(0, 90)}`)
             .join("")}\n`,

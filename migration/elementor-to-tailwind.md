@@ -87,7 +87,7 @@ Kit colors map to v2 tokens — never hardcode hex:
 ## Definition of done per page
 
 1. Structure mirrors the widget tree section-by-section (canonical variants).
-2. Text parity: `deno task clone:diff` missing/extra counts ≈ 0 (or every
-   remaining diff listed + explained in the PR).
+2. Text parity: `pnpm clone:diff` missing/extra counts ≈ 0 (or every remaining
+   diff listed + explained in the PR).
 3. Visual: side-by-side composites in `report.html` reviewed by a human.
-4. `deno task check` green; axe pass on the final version.
+4. `pnpm check` green; axe pass on the final version.

@@ -2,7 +2,7 @@
 // Elementor kit tokens, per-page widget trees, a widget census, Yoast meta,
 // Name-Your-Price fund pricing, template conditions, snippets, redirects.
 //
-//   deno run -A migration/scripts/extract-elementor.ts <dump.sql> <outdir>
+//   node migration/scripts/extract-elementor.ts <dump.sql> <outdir>
 //
 // <outdir> must live OUTSIDE this repo (it holds content + code snippets —
 // never commit it). Reads the dump only; writes only into <outdir>.
@@ -17,16 +17,21 @@
 //   kit's settings (_elementor_page_settings) are PHP-serialize() strings —
 //   both are decoded here.
 
-const [dumpPath, outDir] = Deno.args;
+import { createReadStream } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
+// Named imports: this file declares its own `process()` row router below.
+import { argv, exit } from "node:process";
+
+const [dumpPath, outDir] = argv.slice(2);
 if (!dumpPath || !outDir) {
   console.error(
-    "usage: deno run -A migration/scripts/extract-elementor.ts <dump.sql> <outdir>",
+    "usage: node migration/scripts/extract-elementor.ts <dump.sql> <outdir>",
   );
-  Deno.exit(64);
+  exit(64);
 }
 
-await Deno.mkdir(outDir, { recursive: true });
-await Deno.mkdir(`${outDir}/pages`, { recursive: true });
+await mkdir(outDir, { recursive: true });
+await mkdir(`${outDir}/pages`, { recursive: true });
 
 // ---------- SQL value decoding ----------
 
@@ -225,7 +230,7 @@ const snippets: unknown[][] = [];
 const redirects: unknown[][] = [];
 const otherMetaStats = { rows: 0, revisionsSkipped: 0 };
 
-const file = await Deno.open(dumpPath);
+const file = createReadStream(dumpPath);
 const decoder = new TextDecoder();
 let buf = "";
 
@@ -319,7 +324,7 @@ function handleLine(line: string) {
   }
 }
 
-for await (const chunk of file.readable) {
+for await (const chunk of file) {
   buf += decoder.decode(chunk, { stream: true });
   let nl: number;
   while ((nl = buf.indexOf("\n")) !== -1) {
@@ -332,7 +337,7 @@ if (buf.trim()) handleLine(buf.trimEnd());
 // ---------- Decode + emit ----------
 
 const write = (name: string, data: unknown) =>
-  Deno.writeTextFile(`${outDir}/${name}`, JSON.stringify(data, null, 2));
+  writeFile(`${outDir}/${name}`, JSON.stringify(data, null, 2));
 
 // Kit tokens.
 const kitId = Number(elementorOptions["elementor_active_kit"] ?? 66);
@@ -388,7 +393,7 @@ for (const [id, post] of posts) {
         }`,
       );
     }
-    await Deno.writeTextFile(
+    await writeFile(
       `${outDir}/pages/${id}-${post.post_name || "noslug"}.json`,
       JSON.stringify(
         { post, meta: { ...m, _elementor_data: undefined }, tree },
