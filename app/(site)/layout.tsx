@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import Popup from "../../islands/Popup.tsx";
-import { POPUPS } from "../../components/content.ts";
+import { AccreditationPopup } from "../../components/AccreditationPopup.tsx";
 
 // Layout for favorcare.org proper (everything except the CFAC campaign).
 // WP accreditation popup (elementor 7281): auto-opens 3s after page load,
@@ -11,16 +10,12 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
-      <Popup
+      <AccreditationPopup
         auto={{
           delayMs: 3000,
           sessionKey: "favorcare-accreditation-popup",
         }}
-        title={POPUPS.accreditation.title}
-        cta={POPUPS.accreditation.cta}
-      >
-        {POPUPS.accreditation.body}
-      </Popup>
+      />
     </>
   );
 }

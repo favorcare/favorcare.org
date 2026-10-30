@@ -65,6 +65,7 @@ import {
 import { asset } from "../../../utils/assets.ts";
 import { Header } from "../../../components/Header.tsx";
 import { Footer } from "../../../components/Footer.tsx";
+import { AccreditationPopup } from "../../../components/AccreditationPopup.tsx";
 import { Analytics } from "../../../components/Analytics.tsx";
 import Tracking from "../../../islands/Tracking.tsx";
 import TrackView from "../../../islands/TrackView.tsx";
@@ -700,17 +701,13 @@ export default function StorybookPage() {
                 {POPUPS.volunteer.body}
               </Popup>
             </Specimen>
-            <Specimen label="Popup — auto-open once per session (accreditation; fires 1.5s after load, as mounted site-wide in _app at 3s)">
-              <Popup
+            <Specimen label="AccreditationPopup — WP 7281 layout on the Popup accreditation variant, auto-open once per session (fires 1.5s after load here; site-wide in the (site) layout at 3s)">
+              <AccreditationPopup
                 auto={{
                   delayMs: 1500,
                   sessionKey: "storybook-accreditation-auto",
                 }}
-                title={POPUPS.accreditation.title}
-                cta={POPUPS.accreditation.cta}
-              >
-                {POPUPS.accreditation.body}
-              </Popup>
+              />
             </Specimen>
             <Specimen label="Popup — auto-open every visit + closesPopup CTA (the /signup commitment gate: the guidelines must be agreed before the form; the trigger here stands in for the auto-open)">
               <Popup

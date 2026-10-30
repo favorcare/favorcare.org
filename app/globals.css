@@ -9,6 +9,8 @@
  */
 @theme {
   --font-sans: "Inter", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  /* Accreditation popup body only (WP: Prompt 300). */
+  --font-prompt: "Prompt", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Near-black brand primary (header bar, footer, dark sections, solid CTAs). */
   --color-primary: #191718;
@@ -72,6 +74,9 @@
   --color-archive-ink: #0c0d0e;
   --color-archive-muted: #69727d;
   --color-adbreak: #f5f5f5;
+  /* WP accreditation popup (7281): dialog surface + DONATE hairline. */
+  --color-popup: #f3f3f3;
+  --color-popup-cta-border: #9aa8ba;
 
   /* Fully square system (WP): sm..xl are 0. The clone adds two measured
      rounds — 30px cards/media (rounded-card) and the give-now jumbo
@@ -108,6 +113,11 @@
 
 dialog::backdrop {
   background: rgb(0 0 0 / 0.5);
+}
+
+/* WP accreditation popup overlay (#elementor-popup-modal-7281). */
+.popup-accreditation::backdrop {
+  background: rgb(32 32 32 / 0.53);
 }
 
 /* WP accreditation popup entrance (elementor: entrance_animation fadeIn,
