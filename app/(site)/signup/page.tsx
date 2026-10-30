@@ -21,9 +21,11 @@ export const metadata: Metadata = {
   description: SIGNUP.hero.subtitle,
 };
 
-export default async function SignupPage(
-  { searchParams }: { searchParams: Promise<{ ok?: string | string[] }> },
-) {
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ ok?: string | string[] }>;
+}) {
   const ok = (await searchParams).ok === "1";
   return (
     <>
@@ -34,11 +36,9 @@ export default async function SignupPage(
           <HeroLead>{SIGNUP.hero.subtitle}</HeroLead>
         </PageHero>
 
-        {
-          /* The commitment gate: auto-opens over the form on every visit —
+        {/* The commitment gate: auto-opens over the form on every visit —
             the guidelines must be agreed before serving. The trigger
-            beside the form reopens them. */
-        }
+            beside the form reopens them. */}
         <Popup
           auto={{ delayMs: 400 }}
           title={POPUPS.volunteerGuidelines.title}
@@ -48,43 +48,41 @@ export default async function SignupPage(
 
         <section className={cx(gutter(), "pb-20 pt-10")}>
           <div className="mx-auto w-full max-w-[750px]">
-            {ok
-              ? (
-                <div className="rounded-card bg-yellow p-8 text-center md:p-12">
-                  <h2 className="text-[25px] font-bold leading-tight text-black md:text-[30px]">
-                    {SIGNUP.success.title}
-                  </h2>
-                  <p className="mx-auto mt-3 max-w-[480px] text-base leading-relaxed text-black">
-                    {SIGNUP.success.body}
-                  </p>
-                  <Button
-                    variant="black"
-                    href={SIGNUP.success.back.href}
-                    className="mt-8"
-                  >
-                    {SIGNUP.success.back.label}
-                  </Button>
-                </div>
-              )
-              : (
-                <>
-                  <div className="flex justify-center">
-                    <Popup
-                      trigger={SIGNUP.reviewTrigger}
-                      triggerClass="min-h-12 text-sm font-bold uppercase tracking-wider text-primary underline"
-                      title={POPUPS.volunteerGuidelines.title}
-                      blocks={POPUPS.volunteerGuidelines.blocks}
-                      cta={SIGNUP.gateCta}
-                    />
-                  </div>
-                  <SignupForm
-                    copy={{
-                      options: SIGNUP.options,
-                      privacyNotice: SIGNUP.privacyNotice,
-                    }}
+            {ok ? (
+              <div className="rounded-card bg-yellow p-8 text-center md:p-12">
+                <h2 className="text-[25px] font-bold leading-tight text-black md:text-[30px]">
+                  {SIGNUP.success.title}
+                </h2>
+                <p className="mx-auto mt-3 max-w-[480px] text-base leading-relaxed text-black">
+                  {SIGNUP.success.body}
+                </p>
+                <Button
+                  variant="black"
+                  href={SIGNUP.success.back.href}
+                  className="mt-8"
+                >
+                  {SIGNUP.success.back.label}
+                </Button>
+              </div>
+            ) : (
+              <>
+                <div className="flex justify-center">
+                  <Popup
+                    trigger={SIGNUP.reviewTrigger}
+                    triggerClass="min-h-12 text-sm font-bold uppercase tracking-wider text-primary underline"
+                    title={POPUPS.volunteerGuidelines.title}
+                    blocks={POPUPS.volunteerGuidelines.blocks}
+                    cta={SIGNUP.gateCta}
                   />
-                </>
-              )}
+                </div>
+                <SignupForm
+                  copy={{
+                    options: SIGNUP.options,
+                    privacyNotice: SIGNUP.privacyNotice,
+                  }}
+                />
+              </>
+            )}
           </div>
         </section>
       </main>

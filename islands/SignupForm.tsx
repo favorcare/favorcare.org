@@ -13,9 +13,13 @@ import { submitSignup } from "../app/(site)/signup/actions.ts";
  * Props: `copy` — the form's slice of SIGNUP (plain data); `demo` — storybook
  * specimen: disables submit so a click can't reach the live endpoint.
  */
-export default function SignupForm(
-  { copy, demo }: { copy: VolunteerSignupCopy; demo?: boolean },
-) {
+export default function SignupForm({
+  copy,
+  demo,
+}: {
+  copy: VolunteerSignupCopy;
+  demo?: boolean;
+}) {
   const [state, formAction] = useActionState<SignupState, FormData>(
     submitSignup,
     {},

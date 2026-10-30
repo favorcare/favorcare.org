@@ -16,7 +16,10 @@ export function Footer() {
           className="h-12 w-auto"
         />
 
-        <ul className="flex items-center gap-5" aria-label="Social media and email">
+        <ul
+          className="flex items-center gap-5"
+          aria-label="Social media and email"
+        >
           {SOCIAL_LINKS.map((s) => (
             <li key={s.label}>
               <a
@@ -24,9 +27,11 @@ export function Footer() {
                 aria-label={s.label}
                 className="inline-flex h-12 w-12 items-center justify-center text-white transition-opacity hover:opacity-70"
               >
-                {s.icon === "mail"
-                  ? <MailIcon size={22} />
-                  : <BrandIcon name={s.icon} size={22} />}
+                {s.icon === "mail" ? (
+                  <MailIcon size={22} />
+                ) : (
+                  <BrandIcon name={s.icon} size={22} />
+                )}
               </a>
             </li>
           ))}

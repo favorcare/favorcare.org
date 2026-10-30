@@ -62,10 +62,8 @@ export default function Slideshow({ images, label }: SlideshowProps) {
           ))}
         </div>
 
-        {
-          /* Pagination overlays the photo's bottom edge (WP positions it
-            inside the widget, so it adds no layout height). */
-        }
+        {/* Pagination overlays the photo's bottom edge (WP positions it
+            inside the widget, so it adds no layout height). */}
         <div className="absolute inset-x-0 bottom-2 flex justify-center gap-2">
           {images.map((image, i) => (
             <button

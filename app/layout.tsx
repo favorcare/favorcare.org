@@ -36,11 +36,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         {children}
-        {
-          /* Vendor analytics (GA4 / Mixpanel / CF Web Analytics) + the
+        {/* Vendor analytics (GA4 / Mixpanel / CF Web Analytics) + the
             Tracking island — renders nothing unless keys are set (see
-            DEVELOPMENT.md "Analytics & UTM tracking"). */
-        }
+            DEVELOPMENT.md "Analytics & UTM tracking"). */}
         <Analytics />
       </body>
     </html>

@@ -32,9 +32,9 @@ function parse(href: string) {
 // dropped here and in composeMailto.
 function legacy(data: FormData) {
   const field = (name: string) => String(data.get(name) ?? "").trim();
-  const subject = `Website contact — ${field("first-name")} ${
-    field("last-name")
-  }`.trim();
+  const subject = `Website contact — ${field("first-name")} ${field(
+    "last-name",
+  )}`.trim();
   const body = [
     `Name: ${field("first-name")} ${field("last-name")}`.trim(),
     `Email: ${field("email")}`,
@@ -42,7 +42,9 @@ function legacy(data: FormData) {
     field("newsletter") === "on" ? "Subscribed to the newsletter" : null,
     "",
     field("message"),
-  ].filter((line) => line !== null).join("\n");
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
   return { subject, body };
 }
 
@@ -50,10 +52,13 @@ function legacy(data: FormData) {
 function contactHref(data: FormData): string {
   return composeMailto({
     recipient: CONTACT.form.recipient,
-    subject: composeSubject({
-      prefix: CONTACT.form.subjectPrefix,
-      nameFields: ["first-name", "last-name"],
-    }, data),
+    subject: composeSubject(
+      {
+        prefix: CONTACT.form.subjectPrefix,
+        nameFields: ["first-name", "last-name"],
+      },
+      data,
+    ),
     fields: formFields(data, CONTACT.form.labels, ["newsletter"]),
     note: String(data.get("message") ?? ""),
   });
@@ -70,10 +75,13 @@ const typed = {
 test("composeSubject reproduces 'Website contact — First Last'", () => {
   const data = form(typed);
   deepStrictEqual(
-    composeSubject({
-      prefix: CONTACT.form.subjectPrefix,
-      nameFields: ["first-name", "last-name"],
-    }, data),
+    composeSubject(
+      {
+        prefix: CONTACT.form.subjectPrefix,
+        nameFields: ["first-name", "last-name"],
+      },
+      data,
+    ),
     legacy(data).subject,
   );
   deepStrictEqual(legacy(data).subject, "Website contact — Maria Cruz");
@@ -107,7 +115,10 @@ test("only declared checkboxes map 'on' to Yes", () => {
   const data = form({ phone: "on", newsletter: "on" });
   deepStrictEqual(
     formFields(data, { phone: "Phone", newsletter: "Opt-in" }, ["newsletter"]),
-    [{ label: "Phone", value: "on" }, { label: "Opt-in", value: "Yes" }],
+    [
+      { label: "Phone", value: "on" },
+      { label: "Opt-in", value: "Yes" },
+    ],
   );
 });
 
@@ -138,12 +149,14 @@ test("composeMailto percent-encodes the subject and body", () => {
 });
 
 test("composeMailto omits the blank line when there are no fields", () => {
-  const { body } = parse(composeMailto({
-    recipient: "a@b.co",
-    subject: "s",
-    fields: [{ label: "Name", value: "" }],
-    note: "just a note",
-  }));
+  const { body } = parse(
+    composeMailto({
+      recipient: "a@b.co",
+      subject: "s",
+      fields: [{ label: "Name", value: "" }],
+      note: "just a note",
+    }),
+  );
   deepStrictEqual(body, "just a note");
 });
 
@@ -163,6 +176,9 @@ test("formFields keeps label order, trims, and joins a+b keys", () => {
 test("composeSubject handles literal, named, and nameless subjects", () => {
   const subject: MailtoSubject = { prefix: "Sign up", nameFields: ["n"] };
   deepStrictEqual(composeSubject("Plain", form({})), "Plain");
-  deepStrictEqual(composeSubject(subject, form({ n: " Ana " })), "Sign up — Ana");
+  deepStrictEqual(
+    composeSubject(subject, form({ n: " Ana " })),
+    "Sign up — Ana",
+  );
   deepStrictEqual(composeSubject(subject, form({ n: " " })), "Sign up");
 });

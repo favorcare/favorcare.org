@@ -21,10 +21,9 @@ export interface TaxField {
 export function taxField(label: string): TaxField {
   return {
     name: label.toLowerCase().replace(/ /g, "-"),
-    placeholder: label.toLowerCase().replace(
-      /^\w|\s\w/g,
-      (c) => c.toUpperCase(),
-    ),
+    placeholder: label
+      .toLowerCase()
+      .replace(/^\w|\s\w/g, (c) => c.toUpperCase()),
     type: label === "CONTACT EMAIL" ? "email" : "text",
   };
 }
@@ -50,9 +49,14 @@ export interface TaxDeductibleFormProps {
  * OF DONATION is typed text). Place it in a section — the route owns the
  * outer spacing (and the mobile order-first quirk).
  */
-export function TaxDeductibleForm(
-  { title, intro, fields, submit, recipient, subject }: TaxDeductibleFormProps,
-) {
+export function TaxDeductibleForm({
+  title,
+  intro,
+  fields,
+  submit,
+  recipient,
+  subject,
+}: TaxDeductibleFormProps) {
   return (
     <div className="mx-auto w-full max-w-[833px] rounded-card bg-yellow p-[50px]">
       <SectionHeading

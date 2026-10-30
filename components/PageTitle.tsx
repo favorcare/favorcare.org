@@ -41,15 +41,13 @@ export interface PageTitleProps {
  * The page `<h1>`: centered, leading-none, on the measured 38/56/70 scale.
  * Pair it with `HeroLead` inside a `PageHero`.
  */
-export function PageTitle(
-  {
-    tone = "white",
-    weight = "bold",
-    size = "hero",
-    className: extra,
-    children,
-  }: PageTitleProps,
-) {
+export function PageTitle({
+  tone = "white",
+  weight = "bold",
+  size = "hero",
+  className: extra,
+  children,
+}: PageTitleProps) {
   return (
     <h1
       className={cx(

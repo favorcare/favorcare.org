@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function CfacThanksPage() {
   return (
     <>
-            <TrackView event={CFAC_EVENTS.success} props={{ fund: "cfac" }} />
+      <TrackView event={CFAC_EVENTS.success} props={{ fund: "cfac" }} />
 
       <section
         className={cx(

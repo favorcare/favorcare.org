@@ -46,7 +46,10 @@ test("recordUtms writes first + last on a fresh browser", () => {
     "?utm_source=fb&utm_medium=social&utm_campaign=easter",
     1000,
   );
-  deepStrictEqual(writes.map((w) => w.key), [FIRST_TOUCH_KEY, LAST_TOUCH_KEY]);
+  deepStrictEqual(
+    writes.map((w) => w.key),
+    [FIRST_TOUCH_KEY, LAST_TOUCH_KEY],
+  );
   for (const { key, value } of writes) store.set(key, value);
   deepStrictEqual(readUtm(store, FIRST_TOUCH_KEY), {
     source: "fb",
@@ -69,7 +72,10 @@ test("recordUtms never overwrites first touch", () => {
     "?utm_source=newsletter&utm_medium=email&utm_campaign=easter",
     2000,
   );
-  deepStrictEqual(writes.map((w) => w.key), [LAST_TOUCH_KEY]);
+  deepStrictEqual(
+    writes.map((w) => w.key),
+    [LAST_TOUCH_KEY],
+  );
   deepStrictEqual(readUtm(store, FIRST_TOUCH_KEY), {
     source: "fb",
     medium: "social",
@@ -85,13 +91,11 @@ test("recordUtms refreshes last touch on every UTM landing", () => {
       ts: 1000,
     }),
   });
-  for (
-    const { key, value } of recordUtms(
-      store,
-      "?utm_source=fb&utm_medium=social",
-      3000,
-    )
-  ) {
+  for (const { key, value } of recordUtms(
+    store,
+    "?utm_source=fb&utm_medium=social",
+    3000,
+  )) {
     store.set(key, value);
   }
   deepStrictEqual(readUtm(store, LAST_TOUCH_KEY)?.ts, 3000);

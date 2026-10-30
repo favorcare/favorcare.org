@@ -15,9 +15,11 @@ export function generateStaticParams() {
   return listPosts().map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata(
-  { params }: { params: Params },
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
   const post = getPost((await params).slug);
   if (!post) return {};
   return {
@@ -65,7 +67,9 @@ export default async function PostPage({ params }: { params: Params }) {
 
         <article className={cx(gutter(), "pb-24 pt-[100px]")}>
           <div className="mx-auto w-full max-w-[1120px] space-y-6">
-            {post.blocks.map((block, i) => <Block key={i} block={block} />)}
+            {post.blocks.map((block, i) => (
+              <Block key={i} block={block} />
+            ))}
           </div>
         </article>
       </main>
@@ -114,26 +118,22 @@ function Block({ block }: { block: ArticleBlock }) {
             {block.heading}
           </h2>
           {block.parts.map((part, i) =>
-            part.kind === "text"
-              ? (
-                <p className="text-base leading-6 text-primary" key={i}>
-                  {part.text}
-                </p>
-              )
-              : (
-                <div key={i}>
-                  {
-                    /* Article-system pill (WP `articleContentAdBreak`) —
-                      its own geometry, outside the site Button dialects. */
-                  }
-                  <a
-                    href={part.href}
-                    className="inline-block rounded-card bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
-                  >
-                    {part.label}
-                  </a>
-                </div>
-              )
+            part.kind === "text" ? (
+              <p className="text-base leading-6 text-primary" key={i}>
+                {part.text}
+              </p>
+            ) : (
+              <div key={i}>
+                {/* Article-system pill (WP `articleContentAdBreak`) —
+                      its own geometry, outside the site Button dialects. */}
+                <a
+                  href={part.href}
+                  className="inline-block rounded-card bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
+                >
+                  {part.label}
+                </a>
+              </div>
+            ),
           )}
         </div>
       );

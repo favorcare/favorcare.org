@@ -46,8 +46,7 @@ export const HOME = {
   },
   careUpdates: {
     heading: "Care Updates:",
-    body:
-      "Favor Care is currently seeking Corporate Sponsorship to raise ₱50 million to expand the school — purchasing an additional lot of land, and for the construction of school facilities that will allow us to expand into Grades 1-3 and eventually 4-6, significantly increasing school intake and providing education to children who would otherwise have no access to it. Currently, the school has 185 students. With the added classrooms, Redemptio Christian School can provide free education to over 500 students.",
+    body: "Favor Care is currently seeking Corporate Sponsorship to raise ₱50 million to expand the school — purchasing an additional lot of land, and for the construction of school facilities that will allow us to expand into Grades 1-3 and eventually 4-6, significantly increasing school intake and providing education to children who would otherwise have no access to it. Currently, the school has 185 students. With the added classrooms, Redemptio Christian School can provide free education to over 500 students.",
     image: asset("/images/pages/home/care-updates-yt-header.png"),
     imageAlt: "Care Updates video header",
     video: { id: "zPlPPJDo-ew", title: "Redemptio Christian School expansion" },
@@ -55,43 +54,37 @@ export const HOME = {
   about: {
     eyebrow: "ABOUT US",
     title: "Building hope and transforming lives",
-    body:
-      "Through our dedicated efforts in education, societal integration, disaster relief, and community development, we empower individuals and communities to overcome adversity.",
+    body: "Through our dedicated efforts in education, societal integration, disaster relief, and community development, we empower individuals and communities to overcome adversity.",
     cta: { label: "LEARN MORE", href: "/who-we-are" },
   },
   whatWeDo: {
     eyebrow: "WHAT WE DO",
     title: "We address the needs that are right in front of us.",
-    body:
-      "Favor Care serves different communities through innovative projects and partnerships. By focusing on these critical areas, we strive to make a meaningful impact and inspire hope for a better future for them.",
+    body: "Favor Care serves different communities through innovative projects and partnerships. By focusing on these critical areas, we strive to make a meaningful impact and inspire hope for a better future for them.",
   },
   stories: {
     title: "Stories of changed lives",
     // WP shows this intro only in the tablet (768px) variant.
     intro:
       "From empowering individuals with education and skills to fostering inclusive communities and providing vital relief during crises, our efforts have made a tangible impact.",
-    body:
-      "The story of people touched through Favor Care. Be it a bar of soap or a can of sardines they receive, or medical attention for a skin problem, a newly rebuilt house gutted down by fire or a prayer for blessing, God moves in their heart. And they are never the same again.",
+    body: "The story of people touched through Favor Care. Be it a bar of soap or a can of sardines they receive, or medical attention for a skin problem, a newly rebuilt house gutted down by fire or a prayer for blessing, God moves in their heart. And they are never the same again.",
     video: { id: "ujLV_UJCscc", title: "Stories of changed lives" },
   },
   takeAction: {
     title: "Take Action",
-    body:
-      "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
+    body: "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
     cta: { label: "GET INVOLVED", href: "/get-involved" },
     image: asset("/images/pages/home/take-action-portrait.jpg"),
     imageAlt: "A Favor Care outreach beneficiary smiling",
   },
   contact: {
     title: "Get in touch with us",
-    body:
-      "Reach out to Favor Care and discover how you can contribute to building a better tomorrow.",
+    body: "Reach out to Favor Care and discover how you can contribute to building a better tomorrow.",
     loveTitle: "We'd love to hear from you!",
     loveBody:
       "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
     map: {
-      src:
-        "https://maps.google.com/maps?q=favor%20Church%2C%20edsa%20Shangrila&t=m&z=16&output=embed&iwloc=near",
+      src: "https://maps.google.com/maps?q=favor%20Church%2C%20edsa%20Shangrila&t=m&z=16&output=embed&iwloc=near",
       title: "Favor Church at EDSA Shangri-La on Google Maps",
     },
   },
@@ -156,20 +149,17 @@ export const ABOUT = {
   // embed), and the three get-involved call-to-action cards.
   hero: {
     title: "About us",
-    body:
-      "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
+    body: "Favor Care is a faith-based humanitarian organization committed to help improve the lives of communities through compassion ministries.",
     image: asset("/images/pages/who-we-are/hero-bg.jpg"),
   },
   mission: {
     label: "Mission",
-    body:
-      "To develop and fund projects for the marginalized that address needs of homelessness, hunger, poverty, and education in the Philippines.",
+    body: "To develop and fund projects for the marginalized that address needs of homelessness, hunger, poverty, and education in the Philippines.",
     image: asset("/images/pages/who-we-are/mission.png"),
   },
   vision: {
     label: "Vision",
-    body:
-      "To create a better future by giving hope and opportunities to those who are trapped by poverty and circumstances beyond their control.",
+    body: "To create a better future by giving hope and opportunities to those who are trapped by poverty and circumstances beyond their control.",
     image: asset("/images/pages/who-we-are/vision.jpg"),
   },
   valuesTitle: "Core Values",
@@ -245,8 +235,7 @@ export const ABOUT = {
   },
   takeAction: {
     title: "Take Action",
-    body:
-      "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
+    body: "Join us in our mission to address homelessness, hunger, poverty, and education. Together, we can create lasting impact and hope for a better future.",
     cta: { label: "GET INVOLVED", href: "/get-involved" },
   },
 } satisfies {
@@ -284,8 +273,7 @@ export const WHAT_WE_DO = {
       label: "Education:",
       summary:
         "We offer quality education for kids in economically deprived communities.",
-      body:
-        "Redemptio Christian School caters to preschoolers along the floodway in Barangay San Juan, Taytay, Rizal. We give free books, uniforms and other educational materials. Their physical health, together with the rest of their family, is also taken care of through our community medical clinic.",
+      body: "Redemptio Christian School caters to preschoolers along the floodway in Barangay San Juan, Taytay, Rizal. We give free books, uniforms and other educational materials. Their physical health, together with the rest of their family, is also taken care of through our community medical clinic.",
       slides: [
         {
           src: asset("/images/pages/what-we-do/education-1.jpg"),
@@ -305,8 +293,7 @@ export const WHAT_WE_DO = {
       label: "Societal Reintegration:",
       summary:
         "We help inmates prepare for their release from their prison term.",
-      body:
-        "\u201cWhat\u2019s in store for me when I\u2019m out?\u201d is a question that haunts those who are awaiting release from prison. Around a thousand Persons Deprived of Liberty (PDL), commonly known as inmates, at the Correctional Institution for Women in Mandaluyong City are part of Favor Church-CIW and each Sunday, they attend services held at the maximum, medium and minimum camps. This serves as a venue for them to start a vibrant journey with God. They can experience real freedom and a new perspective that allows them to look beyond their present circumstances to the exciting life that awaits them outside. Their physical and emotional needs are also looked after through our community medical clinic and livelihood trainings to prepare them in their journey back to society.",
+      body: "\u201cWhat\u2019s in store for me when I\u2019m out?\u201d is a question that haunts those who are awaiting release from prison. Around a thousand Persons Deprived of Liberty (PDL), commonly known as inmates, at the Correctional Institution for Women in Mandaluyong City are part of Favor Church-CIW and each Sunday, they attend services held at the maximum, medium and minimum camps. This serves as a venue for them to start a vibrant journey with God. They can experience real freedom and a new perspective that allows them to look beyond their present circumstances to the exciting life that awaits them outside. Their physical and emotional needs are also looked after through our community medical clinic and livelihood trainings to prepare them in their journey back to society.",
       slides: [
         {
           src: asset("/images/pages/what-we-do/reintegration-1.jpg"),
@@ -326,8 +313,7 @@ export const WHAT_WE_DO = {
       label: "Disaster Relief:",
       summary:
         "We provide quick response and prompt assistance to disaster victims to help mitigate the devastating impact of such calamities.",
-      body:
-        "Early this year, a fire hit a community in Taytay, Rizal, damaging the homes of 47 families, including three students from Redemptio Christian School. The next day, Favor Care distributed food packs and sleeping implements to all the victim families. We also helped rebuild the homes of the preschoolers, with one of them, from the ground up. We also provided sewing machines to another family, whose livelihood was lost to the fire.",
+      body: "Early this year, a fire hit a community in Taytay, Rizal, damaging the homes of 47 families, including three students from Redemptio Christian School. The next day, Favor Care distributed food packs and sleeping implements to all the victim families. We also helped rebuild the homes of the preschoolers, with one of them, from the ground up. We also provided sewing machines to another family, whose livelihood was lost to the fire.",
       slides: [
         {
           src: asset("/images/pages/what-we-do/disaster-relief-1.jpg"),
@@ -347,8 +333,7 @@ export const WHAT_WE_DO = {
       label: "Community Development:",
       summary:
         "We initiate programs and activities to help improve the quality of life of less-resourced communities.",
-      body:
-        "Health is wealth. No more is this true than in financially-challenged places where medical attention is not a priority nor an option. Our community medical clinic helped treat the lingering skin problems of the women in CIW, along with their other health concerns. \u201cMasaya Maging Magulang,\u201d a positive parenting seminar for the parents and guardians of students from Redemptio Christian School, served as a safe space for them to share their challenges of disciplining their children amidst their unfortunate circumstances. All these and other projects in the pipeline are aimed at ministering to the people\u2019s basic needs and giving them a taste of the abundant life God has promised even for the here and now.",
+      body: "Health is wealth. No more is this true than in financially-challenged places where medical attention is not a priority nor an option. Our community medical clinic helped treat the lingering skin problems of the women in CIW, along with their other health concerns. \u201cMasaya Maging Magulang,\u201d a positive parenting seminar for the parents and guardians of students from Redemptio Christian School, served as a safe space for them to share their challenges of disciplining their children amidst their unfortunate circumstances. All these and other projects in the pipeline are aimed at ministering to the people\u2019s basic needs and giving them a taste of the abundant life God has promised even for the here and now.",
       slides: [
         {
           src: asset("/images/pages/what-we-do/community-development-1.jpg"),
@@ -368,8 +353,7 @@ export const WHAT_WE_DO = {
       label: "Training:",
       summary:
         "We offer training programs to empower communities to respond to the needs within their context; as well as build capacity among our volunteers, enabling them to efficiently respond to emergency situations.",
-      body:
-        "Favor Care organizes training as part of our capacity-building and to equip our volunteers to efficiently respond to the needs around us. Seminars, such as parenting, for instance, also address needs in the communities we are reaching. Also part of this are the conferences we organize for pastors and church leaders, to make them more effective in the task of Kingdom building.",
+      body: "Favor Care organizes training as part of our capacity-building and to equip our volunteers to efficiently respond to the needs around us. Seminars, such as parenting, for instance, also address needs in the communities we are reaching. Also part of this are the conferences we organize for pastors and church leaders, to make them more effective in the task of Kingdom building.",
       slides: [
         {
           src: asset("/images/pages/what-we-do/training-1.png"),
@@ -389,8 +373,7 @@ export const WHAT_WE_DO = {
       label: "Partnership Resourcing:",
       summary:
         "We partner with other organizations for optimal resource sharing, which results in wider reach and greater impact in the communities.",
-      body:
-        "One organization cannot accomplish the task alone. This is why networking is very important. As much as Favor Care is blessed through the generosity of others, we are helping other like-minded organizations in terms of funding support, manpower resources and expertise so they too can accomplish their mandate.",
+      body: "One organization cannot accomplish the task alone. This is why networking is very important. As much as Favor Care is blessed through the generosity of others, we are helping other like-minded organizations in terms of funding support, manpower resources and expertise so they too can accomplish their mandate.",
       slides: [
         {
           src: asset("/images/pages/what-we-do/partnership-resourcing-1.jpeg"),
@@ -409,14 +392,12 @@ export const WHAT_WE_DO = {
   ],
   donate: {
     title: "Donate",
-    body:
-      "Your generosity can change lives. Every contribution helps create a brighter future.",
+    body: "Your generosity can change lives. Every contribution helps create a brighter future.",
     cta: { label: "GIVE", href: "/givenow" },
   },
   takeAction: {
     title: "Take Action",
-    body:
-      "Join us in creating opportunities. Together, we can transform lives.",
+    body: "Join us in creating opportunities. Together, we can transform lives.",
     cta: { label: "GET INVOLVED", href: "/get-involved" },
   },
 } satisfies {
@@ -490,8 +471,7 @@ export const CONTACT = {
   love: {
     // WP uses a straight apostrophe on this page (home uses curly).
     title: "We'd love to hear from you!",
-    body:
-      "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
+    body: "Reach out to us for more information about our projects, to get involved, or to offer support. Together, we can make a difference.",
     email: "info@favorcare.org",
   },
   // Google Maps embed query from the WP widget address field.
@@ -563,8 +543,7 @@ export const GIVENOW = {
     },
     online: {
       title: "Give Online",
-      body:
-        "Give easily through Maya, GrabPay, GCash via QRPH, or Online Banking.",
+      body: "Give easily through Maya, GrabPay, GCash via QRPH, or Online Banking.",
       cta: {
         label: "Open Portal",
         labelMobile: "Credit / Debit",
@@ -594,8 +573,7 @@ export const GIVENOW = {
     title: "United States (USD)",
     // WP renders this as two lines (a <br> after "Inc.,") with an nbsp
     // before the company name.
-    body:
-      "If you’re giving from the United States, you can send your donation through\u00a0Favor Foundation USA Inc.,",
+    body: "If you’re giving from the United States, you can send your donation through\u00a0Favor Foundation USA Inc.,",
     body2:
       "our registered 501(c)(3) nonprofit organization. All contributions made through Favor Foundation USA Inc. are tax-deductible to the extent permitted by law.",
     bankTransfer: {
@@ -615,8 +593,7 @@ export const GIVENOW = {
     },
     creditDebit: {
       label: "Credit / Debit",
-      href:
-        "https://www.zeffy.com/en-US/donation-form/bbd839f7-8d34-428c-891c-3b16fa35a374",
+      href: "https://www.zeffy.com/en-US/donation-form/bbd839f7-8d34-428c-891c-3b16fa35a374",
     },
   },
   au: {
@@ -626,8 +603,7 @@ export const GIVENOW = {
       "Click the\u00a0J1158N\u00a0(FAVOR FOUNDATION COMMUNITY DEVELOPMENT) under Credit Card Tab to Donate.",
     cta: {
       label: "Donate through Global Development Group",
-      href:
-        "https://globaldevelopmentgroup.org/Donate?projectNum=J1158N&projectName=Favor%20Foundation",
+      href: "https://globaldevelopmentgroup.org/Donate?projectNum=J1158N&projectName=Favor%20Foundation",
     },
   },
 } satisfies {
@@ -716,8 +692,7 @@ export const POPUPS = {
   prayerHub: {
     title: "PRAYER HUB",
     kicker: "Join us every Thursday, 7:00-7:15pm on Zoom",
-    body:
-      "The Prayer Hub is our regularly weekly 15-minute corporate prayer time to intercede for our programs and activities. We also take time for urgent calls to pray for those affected by disasters, both here and elsewhere in the world.",
+    body: "The Prayer Hub is our regularly weekly 15-minute corporate prayer time to intercede for our programs and activities. We also take time for urgent calls to pray for those affected by disasters, both here and elsewhere in the world.",
     cta: {
       label: "PRAY WITH US",
       href: "https://us02web.zoom.us/j/9566304454",
@@ -728,8 +703,7 @@ export const POPUPS = {
   // its Review Guidelines button chains into the full guidelines doc.
   volunteer: {
     title: "Volunteer Commitment & Lifestyle Guidelines",
-    body:
-      "Before signing up to serve, please take the time to review our Volunteer Commitment and Lifestyle Guidelines to see how you are aligned to our values.",
+    body: "Before signing up to serve, please take the time to review our Volunteer Commitment and Lifestyle Guidelines to see how you are aligned to our values.",
     cta: { label: "REVIEW GUIDELINES", opensChain: true } satisfies PopupCta,
   },
   // The full guidelines doc (7737), verbatim including its structure; its
@@ -740,24 +714,20 @@ export const POPUPS = {
     blocks: [
       {
         type: "p",
-        text:
-          "At Favor Care, volunteering is more than simply filling a spot on a roster—it’s about contributing to something meaningful and helping create a positive environment for everyone involved. Each time we serve, we represent the values of this community both on and off the platform.",
+        text: "At Favor Care, volunteering is more than simply filling a spot on a roster—it’s about contributing to something meaningful and helping create a positive environment for everyone involved. Each time we serve, we represent the values of this community both on and off the platform.",
       },
       {
         type: "p",
-        text:
-          "These Volunteer Commitment Guidelines are designed to help us build a safe, respectful, and supportive environment where people feel welcome, valued, and encouraged.",
+        text: "These Volunteer Commitment Guidelines are designed to help us build a safe, respectful, and supportive environment where people feel welcome, valued, and encouraged.",
       },
       {
         type: "p",
-        text:
-          "Please take a moment to read through these guidelines carefully. They are an important part of how we stay aligned, work well together, and serve effectively as a team.",
+        text: "Please take a moment to read through these guidelines carefully. They are an important part of how we stay aligned, work well together, and serve effectively as a team.",
       },
       { type: "h", text: "Boundaries" },
       {
         type: "p",
-        text:
-          "To ensure a safe, respectful, and comfortable environment for everyone in our community, we observe the following boundaries and guidelines:",
+        text: "To ensure a safe, respectful, and comfortable environment for everyone in our community, we observe the following boundaries and guidelines:",
       },
       {
         type: "ul",
@@ -769,18 +739,15 @@ export const POPUPS = {
       { type: "h", text: "Lifestyle Guidelines" },
       {
         type: "p",
-        text:
-          "Volunteering is a meaningful responsibility that reflects the values and culture of our community. We ask all volunteers to approach serving with integrity, humility, and a desire to positively influence those around them.",
+        text: "Volunteering is a meaningful responsibility that reflects the values and culture of our community. We ask all volunteers to approach serving with integrity, humility, and a desire to positively influence those around them.",
       },
       {
         type: "p",
-        text:
-          "We recognize that everyone is on a personal journey of growth, and no one is expected to be perfect. At the same time, volunteering requires a level of personal responsibility and alignment with the standards we uphold as a community.",
+        text: "We recognize that everyone is on a personal journey of growth, and no one is expected to be perfect. At the same time, volunteering requires a level of personal responsibility and alignment with the standards we uphold as a community.",
       },
       {
         type: "p",
-        text:
-          "Because of this, individuals who are currently navigating significant personal challenges such as:",
+        text: "Because of this, individuals who are currently navigating significant personal challenges such as:",
       },
       {
         type: "ul",
@@ -793,13 +760,11 @@ export const POPUPS = {
       },
       {
         type: "p",
-        text:
-          "may be encouraged to take time to focus on personal growth before stepping into a volunteer role.",
+        text: "may be encouraged to take time to focus on personal growth before stepping into a volunteer role.",
       },
       {
         type: "p",
-        text:
-          "Our heart is always to support people in their journey. If someone desires guidance, support, or accountability, our team is committed to walking alongside them and helping them move forward in a healthy and positive direction.",
+        text: "Our heart is always to support people in their journey. If someone desires guidance, support, or accountability, our team is committed to walking alongside them and helping them move forward in a healthy and positive direction.",
       },
     ] satisfies PopupBlock[],
     cta: {
@@ -809,8 +774,7 @@ export const POPUPS = {
   },
   accreditation: {
     title: "We’re officially PCNC and DSWD Accredited!",
-    body:
-      "Our accreditation affirms our commitment to transparency, integrity, and impact. Thank you for partnering with us as we serve communities with excellence.",
+    body: "Our accreditation affirms our commitment to transparency, integrity, and impact. Thank you for partnering with us as we serve communities with excellence.",
     cta: { label: "DONATE", href: "/givenow" } satisfies PopupCta,
   },
 };
@@ -838,15 +802,13 @@ export const GET_INVOLVED = {
   cards: [
     {
       title: "Carers Newsletter",
-      body:
-        "Learn more about the latest on Favor Care when you sign up to receive our regular newsletter Favor Carers.",
+      body: "Learn more about the latest on Favor Care when you sign up to receive our regular newsletter Favor Carers.",
       cta: { label: "SUBSCRIBE", href: "/contact#newsletter" },
       image: asset("/images/pages/get-involved/newsletter-aetas.jpg"),
     },
     {
       title: "Volunteer",
-      body:
-        "Sign up as a Favor Care volunteer for our Sunday services at Favor-CIW, community medical clinic and other programs and activities.",
+      body: "Sign up as a Favor Care volunteer for our Sunday services at Favor-CIW, community medical clinic and other programs and activities.",
       cta: {
         label: "SERVE",
         // Opens POPUPS.volunteer (the disclaimer) via the Popup island on
@@ -859,8 +821,7 @@ export const GET_INVOLVED = {
     },
     {
       title: "Donate",
-      body:
-        "Your donation makes a world of difference. Every donation brings hope and creates opportunities for a better future.",
+      body: "Your donation makes a world of difference. Every donation brings hope and creates opportunities for a better future.",
       cta: { label: "GIVE", href: "/givenow" },
       image: asset("/images/pages/get-involved/donate.jpg"),
     },
@@ -895,8 +856,7 @@ export const SIGNUP = {
   gateCta: { label: "I AGREE, CONTINUE TO THE FORM" } satisfies PopupCta,
   success: {
     title: "Thank you for signing up to serve!",
-    body:
-      "We have received your volunteer application. Our team will be in touch with you soon — keep an eye on your inbox.",
+    body: "We have received your volunteer application. Our team will be in touch with you soon — keep an eye on your inbox.",
     back: {
       label: "BACK TO GET INVOLVED",
       href: "/get-involved",
@@ -950,8 +910,7 @@ export const SIGNUP = {
       { type: "h", text: "Personal Information" },
       {
         type: "p",
-        text:
-          "We collect the personal information from you when you manually or electronically submit the following, but not limited to:",
+        text: "We collect the personal information from you when you manually or electronically submit the following, but not limited to:",
       },
       {
         type: "ul",
@@ -966,35 +925,29 @@ export const SIGNUP = {
       { type: "h", text: "Use" },
       {
         type: "p",
-        text:
-          "All information we collect shall be kept private and confidential by Favor Care Foundation, Inc. and shall be used solely for legal purposes as mandated by the Data Privacy Act and other relevant laws. Information that are matters of public interest, however, may be disclosed to the public subject to applicable laws, rules, and regulations. Pictures and videos taken during any official activity of Favor Church (such as sunday services, connect groups, family nights, presence nights, conferences, camps) may also be used in Favor Church’s social media and other promotional or publicity materials.",
+        text: "All information we collect shall be kept private and confidential by Favor Care Foundation, Inc. and shall be used solely for legal purposes as mandated by the Data Privacy Act and other relevant laws. Information that are matters of public interest, however, may be disclosed to the public subject to applicable laws, rules, and regulations. Pictures and videos taken during any official activity of Favor Church (such as sunday services, connect groups, family nights, presence nights, conferences, camps) may also be used in Favor Church’s social media and other promotional or publicity materials.",
       },
       { type: "h", text: "Protection Measures" },
       {
         type: "p",
-        text:
-          "Only authorized Favor Care personnel has access to these personal information, the exchange of which will be facilitated through email and hard copy. Storage shall be within a period as may be authorized by law. Physical records shall be disposed through shredding, while digital files shall be anonymized.",
+        text: "Only authorized Favor Care personnel has access to these personal information, the exchange of which will be facilitated through email and hard copy. Storage shall be within a period as may be authorized by law. Physical records shall be disposed through shredding, while digital files shall be anonymized.",
       },
       { type: "h", text: "Contact us" },
       {
         type: "p",
-        text:
-          "You have the right to ask for a copy of any personal information we hold about you, as well as ask for correction. For data privacy concerns and/or feedback regarding this privacy notice, please fill out the Data Access, Alteration, and/or Complaint Form and file with the Data Protection Officer three (3) printed copies of the form enclosed in a sealed and labeled envelope (whether Access, Alteration, and/or Complaint). Kindly address it to:",
+        text: "You have the right to ask for a copy of any personal information we hold about you, as well as ask for correction. For data privacy concerns and/or feedback regarding this privacy notice, please fill out the Data Access, Alteration, and/or Complaint Form and file with the Data Protection Officer three (3) printed copies of the form enclosed in a sealed and labeled envelope (whether Access, Alteration, and/or Complaint). Kindly address it to:",
       },
       {
         type: "p",
-        text:
-          "Data Protection Officer\nFavor Care Inc.\nLevel 6 East Wing\nShangri-la Plaza\nEDSA, Mandaluyong City",
+        text: "Data Protection Officer\nFavor Care Inc.\nLevel 6 East Wing\nShangri-la Plaza\nEDSA, Mandaluyong City",
       },
       {
         type: "p",
-        text:
-          "Or you may send in portable document format (PDF) a copy of the form to dpo@favor.church.",
+        text: "Or you may send in portable document format (PDF) a copy of the form to dpo@favor.church.",
       },
       {
         type: "p",
-        text:
-          "Rest assured that Favor Care implements strict security controls to protect your personal information.",
+        text: "Rest assured that Favor Care implements strict security controls to protect your personal information.",
       },
     ] satisfies PopupBlock[],
   },
@@ -1208,8 +1161,7 @@ export const BRAND = {
     },
     {
       title: "Impact-oriented",
-      body:
-        "highlight not just the need, but the change happening because of generosity.",
+      body: "highlight not just the need, but the change happening because of generosity.",
     },
   ],
   arc: [

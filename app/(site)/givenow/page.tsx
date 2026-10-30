@@ -28,12 +28,10 @@ export const metadata: Metadata = {
 export default function GiveNowPage() {
   return (
     <>
-            <Header />
+      <Header />
       <main id="main-content" tabIndex={-1} className="flex flex-col">
-        {
-          /* Hero: photo with a flat 50% black overlay (no gradient on
-            this page), 76px title, ghost-white GIVE NOW pill → #give. */
-        }
+        {/* Hero: photo with a flat 50% black overlay (no gradient on
+            this page), 76px title, ghost-white GIVE NOW pill → #give. */}
         <PageHero
           image={GIVENOW.hero.image}
           overlay="flat"
@@ -56,10 +54,8 @@ export default function GiveNowPage() {
           </Button>
         </PageHero>
 
-        {
-          /* How to Give + the three PH cards (3px black outline, radius
-            30, min-height 225 on md+). */
-        }
+        {/* How to Give + the three PH cards (3px black outline, radius
+            30, min-height 225 on md+). */}
         <section id="give" className="px-5 py-16 md:py-20">
           <SectionHeading
             title={GIVENOW.howToGive.title}
@@ -82,7 +78,9 @@ export default function GiveNowPage() {
               <p className="text-base text-black">
                 {GIVENOW.ph.bankTransfer.accountNumber}
               </p>
-              <p className="text-base text-black">{GIVENOW.ph.bankTransfer.bank}</p>
+              <p className="text-base text-black">
+                {GIVENOW.ph.bankTransfer.bank}
+              </p>
             </BankCard>
             <BankCard title={GIVENOW.ph.checks.title} className="md:flex-1">
               <p className="text-left text-base text-black">
@@ -124,20 +122,16 @@ export default function GiveNowPage() {
           </div>
         </section>
 
-        {
-          /* Tax-Deductible Giving: the yellow card (radius 30, pad 50,
+        {/* Tax-Deductible Giving: the yellow card (radius 30, pad 50,
             56px left-aligned heading). WP renders it above the hero on
-            mobile — mirrored with order-first. */
-        }
+            mobile — mirrored with order-first. */}
         <section className="order-first px-2.5 pb-16 pt-2.5 md:order-none md:px-5 md:pt-0 lg:px-0">
           <TaxDeductibleForm {...GIVENOW.ph.taxDeductible} />
         </section>
 
-        {
-          /* United States: 32px heading, desktop-only 501(c)(3) copy, two
+        {/* United States: 32px heading, desktop-only 501(c)(3) copy, two
             black cards (3px border, radius 30) — bank details differ per
-            breakpoint on WP, both kept. */
-        }
+            breakpoint on WP, both kept. */}
         <section className="px-5 py-16">
           <div className="mx-auto w-full max-w-[960px]">
             <SectionHeading
@@ -191,11 +185,7 @@ export default function GiveNowPage() {
                   {GIVENOW.us.bankTransferMobile.bank}
                 </p>
               </BankCard>
-              <BankCard
-                tone="dark"
-                gap="4"
-                title={GIVENOW.ph.online.title}
-              >
+              <BankCard tone="dark" gap="4" title={GIVENOW.ph.online.title}>
                 <Button
                   variant="white"
                   size="lg"
@@ -213,10 +203,8 @@ export default function GiveNowPage() {
           </div>
         </section>
 
-        {
-          /* Australia: GDG J1158N copy + the white pill with a 3px black
-            border. */
-        }
+        {/* Australia: GDG J1158N copy + the white pill with a 3px black
+            border. */}
         <section className="px-5 py-16">
           <div className="mx-auto w-full max-w-[960px] text-center">
             <SectionHeading

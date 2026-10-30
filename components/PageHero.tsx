@@ -38,29 +38,30 @@ export interface PageHeroProps {
 // photo, overlay wash, and optionally the 1140px frame. The shell is
 // shared here; the subpage title and subtitle live in PageTitle.tsx, and
 // the homepage/give-now/posts title dialects stay in their routes.
-export function PageHero(
-  {
-    image,
-    imageClass,
-    overlay = "gradient",
-    overlayClass,
-    geometry = "standard",
-    framePad = "page",
-    framed = true,
-    sectionClass,
-    frameClass,
-    children,
-  }: PageHeroProps,
-) {
-  const body = framed
-    ? <div className={cx(frame(framePad), "relative", frameClass)}>{children}</div>
-    : children;
+export function PageHero({
+  image,
+  imageClass,
+  overlay = "gradient",
+  overlayClass,
+  geometry = "standard",
+  framePad = "page",
+  framed = true,
+  sectionClass,
+  frameClass,
+  children,
+}: PageHeroProps) {
+  const body = framed ? (
+    <div className={cx(frame(framePad), "relative", frameClass)}>
+      {children}
+    </div>
+  ) : (
+    children
+  );
   return (
     <section
       className={cx(
         "relative flex flex-col items-center",
-        geometry === "standard" &&
-          "gap-4 py-[35px] pb-10 md:py-25 lg:pb-45",
+        geometry === "standard" && "gap-4 py-[35px] pb-10 md:py-25 lg:pb-45",
         sectionClass,
       )}
     >
@@ -73,10 +74,12 @@ export function PageHero(
         <div
           className={cx(
             "absolute inset-0",
-            overlay === "flat" ? "bg-black/50" : cx(
-              "bg-linear-to-t from-black to-yellow",
-              overlayClass ?? "opacity-[0.54]",
-            ),
+            overlay === "flat"
+              ? "bg-black/50"
+              : cx(
+                  "bg-linear-to-t from-black to-yellow",
+                  overlayClass ?? "opacity-[0.54]",
+                ),
           )}
           aria-hidden="true"
         />

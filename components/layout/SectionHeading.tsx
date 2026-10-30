@@ -56,18 +56,16 @@ export interface SectionHeadingProps {
   className?: string;
 }
 
-export function SectionHeading(
-  {
-    title,
-    tone = "primary",
-    weight = "bold",
-    align,
-    size = "section",
-    leading = "none",
-    tracking,
-    className: extra,
-  }: SectionHeadingProps,
-) {
+export function SectionHeading({
+  title,
+  tone = "primary",
+  weight = "bold",
+  align,
+  size = "section",
+  leading = "none",
+  tracking,
+  className: extra,
+}: SectionHeadingProps) {
   return (
     <h2
       className={cx(

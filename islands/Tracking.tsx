@@ -35,10 +35,7 @@ interface GtagFn {
 }
 
 interface MixpanelFn {
-  init(
-    token: string,
-    config?: Record<string, unknown>,
-  ): void;
+  init(token: string, config?: Record<string, unknown>): void;
   track(eventName: string, props?: Record<string, unknown>): void;
 }
 
@@ -55,8 +52,7 @@ function bootstrapGtag(id: string): void {
   if (document.querySelector("script[data-fc-gtag]")) return;
   const script = document.createElement("script");
   script.setAttribute("data-fc-gtag", "true");
-  script.textContent =
-    `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');`;
+  script.textContent = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');`;
   document.head.appendChild(script);
 }
 
@@ -142,18 +138,20 @@ export default function Tracking({ ga4Id, mixpanelToken }: TrackingProps) {
 
     // Record a campaign landing: first touch once, last touch refreshed.
     const store = browserStore();
-    for (
-      const { key, value } of recordUtms(store, globalThis.location.search)
-    ) {
+    for (const { key, value } of recordUtms(
+      store,
+      globalThis.location.search,
+    )) {
       store.set(key, value);
     }
 
     // One delegated listener drives every `[data-track]` element, so
     // server-rendered CTAs stay measurable without shipping an island each.
     document.addEventListener("click", (event) => {
-      const el = event.target instanceof Element
-        ? event.target.closest<HTMLElement>("[data-track]")
-        : null;
+      const el =
+        event.target instanceof Element
+          ? event.target.closest<HTMLElement>("[data-track]")
+          : null;
       const name = el?.dataset.track;
       if (!el || !name) return;
       let props: Record<string, unknown> = {};

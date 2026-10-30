@@ -6,7 +6,10 @@ import { getPost, listPosts, POSTS } from "./posts.ts";
 
 test("listPosts sorts newest first", () => {
   const dates = listPosts().map((p) => p.date);
-  deepStrictEqual(dates, [...dates].sort((a, b) => b.localeCompare(a)));
+  deepStrictEqual(
+    dates,
+    [...dates].sort((a, b) => b.localeCompare(a)),
+  );
 });
 
 test("getPost resolves known slugs and misses cleanly", () => {

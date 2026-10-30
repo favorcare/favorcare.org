@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
-            <Header />
+      <Header />
       <main id="main-content" tabIndex={-1} className="bg-white">
         <section className="px-2.5 pb-24 pt-14 md:px-5 lg:px-0">
           <div className="mx-auto w-full max-w-[780px]">
@@ -28,23 +28,18 @@ export default function PrivacyPage() {
             </h1>
             <div className="mt-12 space-y-5">
               {PRIVACY.blocks.map((b, i) =>
-                "h" in b
-                  ? (
-                    <h2
-                      key={i}
-                      className="pt-5 text-[32px] font-medium leading-tight text-primary"
-                    >
-                      {b.h}
-                    </h2>
-                  )
-                  : (
-                    <p
-                      key={i}
-                      className="text-base leading-6 text-primary"
-                    >
-                      {b.p}
-                    </p>
-                  )
+                "h" in b ? (
+                  <h2
+                    key={i}
+                    className="pt-5 text-[32px] font-medium leading-tight text-primary"
+                  >
+                    {b.h}
+                  </h2>
+                ) : (
+                  <p key={i} className="text-base leading-6 text-primary">
+                    {b.p}
+                  </p>
+                ),
               )}
             </div>
           </div>

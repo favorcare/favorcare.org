@@ -10,16 +10,14 @@ export interface TextareaFieldProps {
 }
 
 // Multiline sibling of InputField — same border + gold focus ring.
-export function TextareaField(
-  {
-    name,
-    placeholder,
-    required,
-    ariaLabel,
-    rows = 5,
-    className: extra,
-  }: TextareaFieldProps,
-) {
+export function TextareaField({
+  name,
+  placeholder,
+  required,
+  ariaLabel,
+  rows = 5,
+  className: extra,
+}: TextareaFieldProps) {
   return (
     <textarea
       name={name}

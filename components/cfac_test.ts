@@ -24,11 +24,7 @@ test("every CFAC text/background pair clears the 4.5:1 AA bar", () => {
 });
 
 test("CFAC CTAs are placeholders or real https links — never invented URLs", () => {
-  const hrefs = [
-    CFAC.donate.href,
-    CFAC.hero.cta.href,
-    CFAC.closing.cta.href,
-  ];
+  const hrefs = [CFAC.donate.href, CFAC.hero.cta.href, CFAC.closing.cta.href];
   for (const href of hrefs) {
     ok(
       href === "#" || href.startsWith("https://"),

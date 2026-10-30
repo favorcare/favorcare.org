@@ -33,10 +33,15 @@ export interface MailtoFormProps {
  * server-rendered children, so only this wrapper ships JS. When a real form
  * backend lands, replace `onSubmit` here and every form follows.
  */
-export default function MailtoForm(
-  { recipient, subject, labels, noteField, trackEvent, className: extra, children }:
-    MailtoFormProps,
-) {
+export default function MailtoForm({
+  recipient,
+  subject,
+  labels,
+  noteField,
+  trackEvent,
+  className: extra,
+  children,
+}: MailtoFormProps) {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (trackEvent) track(trackEvent);
@@ -44,7 +49,7 @@ export default function MailtoForm(
     const data = new FormData(form);
     // Only real checkboxes map "on" to "Yes" in the email body.
     const checkboxes = [...form.elements].flatMap((el) =>
-      el instanceof HTMLInputElement && el.type === "checkbox" ? [el.name] : []
+      el instanceof HTMLInputElement && el.type === "checkbox" ? [el.name] : [],
     );
     const note = noteField ? String(data.get(noteField) ?? "") : undefined;
     globalThis.location.href = composeMailto({

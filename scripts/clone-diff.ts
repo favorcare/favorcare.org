@@ -22,9 +22,8 @@ import { chromium } from "playwright";
 
 const WP_BASE = "https://staging.favorcare.org";
 const baseFlag = process.argv.indexOf("--base");
-const FRESH_BASE = baseFlag !== -1
-  ? process.argv[baseFlag + 1]
-  : "http://127.0.0.1:5173";
+const FRESH_BASE =
+  baseFlag !== -1 ? process.argv[baseFlag + 1] : "http://127.0.0.1:5173";
 const WIDTHS = [360, 768, 1280];
 
 interface Pair {
@@ -70,15 +69,15 @@ const PAIRS: Pair[] = [
 ];
 
 const args = process.argv.slice(2);
-const mode = args[0] === "reference"
-  ? "reference"
-  : args[0] === "compare"
-  ? "compare"
-  : "diff";
+const mode =
+  args[0] === "reference"
+    ? "reference"
+    : args[0] === "compare"
+      ? "compare"
+      : "diff";
 const outFlag = args.findIndex((a: string) => a === "--out");
-const OUT = outFlag !== -1
-  ? args[outFlag + 1]
-  : "../migration-files/clone-diff";
+const OUT =
+  outFlag !== -1 ? args[outFlag + 1] : "../migration-files/clone-diff";
 const againstFlag = args.findIndex((a: string) => a === "--against");
 const AGAINST = againstFlag !== -1 ? args[againstFlag + 1] : null;
 const pagesFlag = args.findIndex((a: string) => a === "--pages");
@@ -118,12 +117,12 @@ async function capture(url: string, dir: string, name: string, chrome = true) {
       });
       const text = await page.evaluate(() => document.body?.innerText ?? "");
       const normalized = dedupe(
-        text.split("\n").map((l) => l.trim()).filter(Boolean),
+        text
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean),
       );
-      await writeFile(
-        `${dir}/${name}-${width}.txt`,
-        normalized.join("\n"),
-      );
+      await writeFile(`${dir}/${name}-${width}.txt`, normalized.join("\n"));
       await context.close();
     }
   } finally {
@@ -145,7 +144,8 @@ function dedupe(lines: string[]): string[] {
 }
 
 function diffLines(a: string[], b: string[]) {
-  const setA = new Set(a), setB = new Set(b);
+  const setA = new Set(a),
+    setB = new Set(b);
   const missing = a.filter((l) => !setB.has(l)); // on WP, not on Fresh
   const extra = b.filter((l) => !setA.has(l)); // on Fresh, not on WP
   return { missing, extra };
@@ -154,7 +154,7 @@ function diffLines(a: string[], b: string[]) {
 await mkdir(`${OUT}/reference`, { recursive: true });
 await mkdir(`${OUT}/current`, { recursive: true });
 
-const pairs = PAIRS.filter((p) => (!only || only.includes(p.page)));
+const pairs = PAIRS.filter((p) => !only || only.includes(p.page));
 
 if (mode === "compare") {
   if (!AGAINST) {
@@ -199,14 +199,16 @@ if (mode === "compare") {
             ctx.drawImage(img, 0, 0);
             return ctx.getImageData(0, 0, w, h).data;
           };
-          const da = px(ia), db = px(ib);
+          const da = px(ia),
+            db = px(ib);
           let diff = 0;
           for (let i = 0; i < da.length; i += 4) {
             if (
               Math.abs(da[i] - db[i]) > tol ||
               Math.abs(da[i + 1] - db[i + 1]) > tol ||
               Math.abs(da[i + 2] - db[i + 2]) > tol
-            ) diff++;
+            )
+              diff++;
           }
           return {
             sizes: `${ia.width}x${ia.height}→${ib.width}x${ib.height}`,
@@ -279,16 +281,18 @@ for (const p of pairs) {
       );
       if (missing.length) {
         report.push(
-          `missing (WP only, first 10): ${
-            missing.slice(0, 10).map((l) => `\n  - ${l.slice(0, 90)}`).join("")
-          }\n`,
+          `missing (WP only, first 10): ${missing
+            .slice(0, 10)
+            .map((l) => `\n  - ${l.slice(0, 90)}`)
+            .join("")}\n`,
         );
       }
       if (extra.length) {
         report.push(
-          `extra (Fresh only, first 10): ${
-            extra.slice(0, 10).map((l) => `\n  + ${l.slice(0, 90)}`).join("")
-          }\n`,
+          `extra (Fresh only, first 10): ${extra
+            .slice(0, 10)
+            .map((l) => `\n  + ${l.slice(0, 90)}`)
+            .join("")}\n`,
         );
       }
       html.push(
@@ -305,8 +309,5 @@ for (const p of pairs) {
 }
 
 await writeFile(`${OUT}/report.md`, report.join("\n"));
-await writeFile(
-  `${OUT}/report.html`,
-  html.join("\n") + "</body></html>",
-);
+await writeFile(`${OUT}/report.html`, html.join("\n") + "</body></html>");
 console.log(`report -> ${OUT}/report.{md,html}`);

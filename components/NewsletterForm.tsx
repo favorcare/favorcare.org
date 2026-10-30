@@ -31,9 +31,14 @@ export interface NewsletterFormProps {
  * is the standard yellow `Button` with black text, like every other yellow
  * pill on the site.
  */
-export function NewsletterForm(
-  { title, fields, cta, recipient, subject, className: extra }: NewsletterFormProps,
-) {
+export function NewsletterForm({
+  title,
+  fields,
+  cta,
+  recipient,
+  subject,
+  className: extra,
+}: NewsletterFormProps) {
   return (
     <div className={extra}>
       <h2 className="text-center text-[28px] font-bold leading-tight text-white md:text-[36px] lg:leading-none">
@@ -44,9 +49,9 @@ export function NewsletterForm(
         trackEvent="newsletter_submit"
         subject={{
           prefix: subject,
-          nameFields: fields.filter((f) => f.type === "text").map((f) =>
-            f.name
-          ),
+          nameFields: fields
+            .filter((f) => f.type === "text")
+            .map((f) => f.name),
         }}
         labels={Object.fromEntries(fields.map((f) => [f.name, f.label]))}
         className="mx-auto mt-8 w-full max-w-[400px] space-y-4"

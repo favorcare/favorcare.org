@@ -238,8 +238,8 @@ export function relativeLuminance(hex: string): number {
 
 /** WCAG contrast ratio between two `#rrggbb` colors (1–21). */
 export function contrastRatio(a: string, b: string): number {
-  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) =>
-    y - x
+  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort(
+    (x, y) => y - x,
   );
   return (hi + 0.05) / (lo + 0.05);
 }

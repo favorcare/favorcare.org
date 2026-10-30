@@ -41,17 +41,12 @@ test("tileOrder is empty without a usable mobileOrder", () => {
 });
 
 test("class tables hold literal strings that appear in Gallery.tsx", async () => {
-  const src = await readFile(
-    new URL("./Gallery.tsx", import.meta.url),
-    "utf8",
-  );
-  for (
-    const [table, pattern] of [
-      [MOBILE_ORDER, /^order-\d$/],
-      [DESKTOP_ORDER, /^md:order-\d$/],
-      [COLUMNS, /^grid-cols-\d$/],
-    ] as const
-  ) {
+  const src = await readFile(new URL("./Gallery.tsx", import.meta.url), "utf8");
+  for (const [table, pattern] of [
+    [MOBILE_ORDER, /^order-\d$/],
+    [DESKTOP_ORDER, /^md:order-\d$/],
+    [COLUMNS, /^grid-cols-\d$/],
+  ] as const) {
     for (const [n, cls] of Object.entries(table)) {
       ok(pattern.test(cls), `unexpected class shape: ${cls}`);
       ok(cls.endsWith(`-${n}`), `${cls} filed under ${n}`);

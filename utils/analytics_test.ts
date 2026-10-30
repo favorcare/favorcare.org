@@ -21,13 +21,11 @@ test("resolveAnalyticsConfig with nothing set is empty", () => {
 test("getAnalyticsConfig returns a config object (dev: usually empty)", () => {
   const config = getAnalyticsConfig();
   deepStrictEqual(typeof config, "object");
-  for (
-    const key of [
-      "ga4MeasurementId",
-      "mixpanelToken",
-      "cloudflareAnalyticsToken",
-    ] as const
-  ) {
+  for (const key of [
+    "ga4MeasurementId",
+    "mixpanelToken",
+    "cloudflareAnalyticsToken",
+  ] as const) {
     if (config[key] !== undefined) ok(config[key]!.length > 0);
   }
 });

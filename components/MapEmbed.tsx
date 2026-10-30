@@ -7,9 +7,9 @@ export interface MapEmbedProps {
 
 /** Build the no-API-key embed URL the WP google_maps widget used. */
 export function mapEmbedSrc(query: string): string {
-  return `https://www.google.com/maps?q=${
-    encodeURIComponent(query)
-  }&output=embed`;
+  return `https://www.google.com/maps?q=${encodeURIComponent(
+    query,
+  )}&output=embed`;
 }
 
 // Google Maps embed for the WP google_maps widget (favor Church, EDSA

@@ -30,15 +30,13 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-            <Header />
+      <Header />
       <main id="main-content" tabIndex={-1}>
-        {
-          /* Hero: photo on black with a yellow-to-black gradient overlay;
+        {/* Hero: photo on black with a yellow-to-black gradient overlay;
             left-aligned display headline, vertically centered in the
             fixed 540px desktop band (justify-center; the PageHero shell
             only centers horizontally). The h1 scale is the homepage's
-            own (38/56/70, leading 0.95) and stays in the route. */
-        }
+            own (38/56/70, leading 0.95) and stays in the route. */}
         <PageHero
           image={HOME.hero.image}
           geometry="bare"
@@ -50,11 +48,9 @@ export default function Home() {
           </h1>
         </PageHero>
 
-        {
-          /* Care Updates: rounded yellow card with heading, copy, and the
+        {/* Care Updates: rounded yellow card with heading, copy, and the
             campaign video header image (image hidden below tablet, as on
-            WP). One-off 10px mobile gutter — not the home frame dialect. */
-        }
+            WP). One-off 10px mobile gutter — not the home frame dialect. */}
         <section className="mx-auto w-full max-w-[1140px] px-2.5 py-16 md:px-10 md:py-20 lg:px-0 lg:pt-[30px] lg:pb-10">
           <div className="rounded-card bg-yellow px-5 py-5 md:px-[50px]">
             <SectionHeading
@@ -63,7 +59,9 @@ export default function Home() {
                   <span className="md:hidden lg:inline">
                     {HOME.careUpdates.heading}
                   </span>
-                  <span className="hidden md:inline lg:hidden">Care Updates</span>
+                  <span className="hidden md:inline lg:hidden">
+                    Care Updates
+                  </span>
                 </>
               }
               tone="black"
@@ -80,10 +78,8 @@ export default function Home() {
           </div>
         </section>
 
-        {
-          /* About + Care Updates video: two columns on md+ (video left,
-            about right); stacked about-first on mobile, as on WP. */
-        }
+        {/* About + Care Updates video: two columns on md+ (video left,
+            about right); stacked about-first on mobile, as on WP. */}
         <section
           className={cx(
             frame("home"),
@@ -117,9 +113,7 @@ export default function Home() {
         </section>
 
         {/* What we do: centered heading + the six-program media carousel. */}
-        <section
-          className={cx(frame("home"), "py-16 text-center md:py-20")}
-        >
+        <section className={cx(frame("home"), "py-16 text-center md:py-20")}>
           <Eyebrow>{HOME.whatWeDo.eyebrow}</Eyebrow>
           <SectionHeading
             title={HOME.whatWeDo.title}
@@ -136,10 +130,8 @@ export default function Home() {
           </div>
         </section>
 
-        {
-          /* Stories of changed lives: heading, story copy, video. WP shows
-            the intro line only in the tablet variant. */
-        }
+        {/* Stories of changed lives: heading, story copy, video. WP shows
+            the intro line only in the tablet variant. */}
         <section className="mx-auto w-full max-w-[1140px] px-2.5 py-16 pb-24 md:pb-28 lg:px-0 lg:pb-32">
           <SectionHeading
             title={HOME.stories.title}
@@ -169,10 +161,8 @@ export default function Home() {
           cta={HOME.takeAction.cta}
         />
 
-        {
-          /* Portrait + Get in touch: portrait left (desktop only, as on WP)
-            and the contact form in a rounded yellow card right. */
-        }
+        {/* Portrait + Get in touch: portrait left (desktop only, as on WP)
+            and the contact form in a rounded yellow card right. */}
         <section
           className={cx(
             frame("home"),
@@ -228,10 +218,8 @@ export default function Home() {
           </div>
         </section>
 
-        {
-          /* Map: full-bleed Google Maps embed (favor Church, EDSA
-            Shangri-La). */
-        }
+        {/* Map: full-bleed Google Maps embed (favor Church, EDSA
+            Shangri-La). */}
         <MapEmbed src={HOME.contact.map.src} title={HOME.contact.map.title} />
       </main>
       <Footer />

@@ -13,16 +13,17 @@ export function CfacFooter() {
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 px-6 text-center">
         <span className="flex items-center gap-2.5">
           <CoffeeIcon size={26} className="text-yellow" />
-          <span className="text-lg font-bold leading-none">
-            {CFAC.name}
-          </span>
+          <span className="text-lg font-bold leading-none">{CFAC.name}</span>
         </span>
 
         <p className="max-w-xl text-sm leading-relaxed text-white/80">
           {CFAC.footer.blurb}
         </p>
 
-        <ul className="flex items-center gap-5" aria-label="Social media and email">
+        <ul
+          className="flex items-center gap-5"
+          aria-label="Social media and email"
+        >
           {SOCIAL_LINKS.map((s) => (
             <li key={s.label}>
               <a
@@ -32,9 +33,11 @@ export function CfacFooter() {
                 rel="noopener noreferrer"
                 className="inline-flex h-12 w-12 items-center justify-center text-white transition-opacity hover:opacity-70"
               >
-                {s.icon === "mail"
-                  ? <MailIcon size={22} />
-                  : <BrandIcon name={s.icon} size={22} />}
+                {s.icon === "mail" ? (
+                  <MailIcon size={22} />
+                ) : (
+                  <BrandIcon name={s.icon} size={22} />
+                )}
               </a>
             </li>
           ))}

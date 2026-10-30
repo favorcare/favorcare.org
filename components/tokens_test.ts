@@ -14,9 +14,9 @@ async function themeColors(): Promise<Map<string, string>> {
   const css = await readFile("app/globals.css", "utf8");
   const theme = css.slice(css.indexOf("@theme"), css.indexOf("@layer"));
   return new Map(
-    [...theme.matchAll(/--color-([a-z-]+):\s*(#[0-9a-fA-F]{6})/g)].map((
-      [, name, hex],
-    ) => [name, hex.toLowerCase()]),
+    [...theme.matchAll(/--color-([a-z-]+):\s*(#[0-9a-fA-F]{6})/g)].map(
+      ([, name, hex]) => [name, hex.toLowerCase()],
+    ),
   );
 }
 

@@ -4,8 +4,7 @@ export type InputFieldSize = "md" | "give-now";
 
 const SIZES: Record<InputFieldSize, string> = {
   // The default per DESIGN.md input-field: 48px tall, hairline border.
-  md:
-    "h-12 rounded border border-outline-variant bg-surface text-base focus:border-primary",
+  md: "h-12 rounded border border-outline-variant bg-surface text-base focus:border-primary",
   // The give-now tax card's measured input: 59px, 5px radius, borderless
   // white on the yellow card (WP measures no border there).
   "give-now": "h-[59px] w-full rounded-[5px] border-0 bg-white text-lg",
@@ -23,18 +22,16 @@ export interface InputFieldProps {
 }
 
 // Text input: gold focus ring throughout; size picks the measured dialect.
-export function InputField(
-  {
-    type = "text",
-    name,
-    value,
-    placeholder,
-    required,
-    ariaLabel,
-    size = "md",
-    className: extra,
-  }: InputFieldProps,
-) {
+export function InputField({
+  type = "text",
+  name,
+  value,
+  placeholder,
+  required,
+  ariaLabel,
+  size = "md",
+  className: extra,
+}: InputFieldProps) {
   return (
     <input
       type={type}

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-            <Header />
+      <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Heading + contact form (single column, WP's 684px frame). */}
         <section className={cx(gutter(), "pb-20 pt-[50px] md:pt-20")}>
@@ -45,11 +45,9 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {
-          /* FAQ: centered heading, 51px accordion rows with 16px bold
+        {/* FAQ: centered heading, 51px accordion rows with 16px bold
             titles, all collapsed (answers excluded from innerText, as on
-            WP). */
-        }
+            WP). */}
         <section className={cx(gutter(), "pb-20")}>
           <div className="mx-auto w-full max-w-[750px]">
             <SectionHeading
@@ -63,11 +61,9 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {
-          /* Carers Newsletter — anchor target for /get-involved's
+        {/* Carers Newsletter — anchor target for /get-involved's
             SUBSCRIBE. Black band with the NewsletterForm: three labeled
-            fields (400px) and a yellow SUBSCRIBE pill. */
-        }
+            fields (400px) and a yellow SUBSCRIBE pill. */}
         <section
           id="newsletter"
           className={cx(gutter(), "bg-black pb-5 pt-20")}
@@ -83,11 +79,9 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {
-          /* We'd love to hear from you + map, both on black. WP renders
+        {/* We'd love to hear from you + map, both on black. WP renders
             the email address at a 1px font size — invisible, but present
-            in text. */
-        }
+            in text. */}
         <section className={cx(gutter(), "bg-black py-[60px]")}>
           <div className={frame()}>
             <h2 className="text-left text-[38px] font-bold leading-tight text-white md:text-[36px] lg:text-[48px] lg:font-medium lg:leading-none">

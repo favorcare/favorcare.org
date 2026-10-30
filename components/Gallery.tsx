@@ -96,7 +96,10 @@ export function Gallery({ images, variant, mobileOrder }: GalleryProps) {
   return (
     <section className="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
       <div
-        className={cx(frame(), "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5")}
+        className={cx(
+          frame(),
+          "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5",
+        )}
       >
         {images.map((img, i) => {
           const [mobile, md] = tileOrder(i, mobileOrder);

@@ -33,13 +33,11 @@ export const metadata: Metadata = {
 export default function GetInvolvedPage() {
   return (
     <>
-            <Header />
+      <Header />
       <main id="main-content" tabIndex={-1}>
-        {
-          /* Hero: the volunteers photo with the black→yellow gradient
+        {/* Hero: the volunteers photo with the black→yellow gradient
             overlay, centered title + subtitle. WP's mobile title reads
-            "Get involved" (lowercase w) — kept as measured. */
-        }
+            "Get involved" (lowercase w) — kept as measured. */}
         <PageHero image={GET_INVOLVED.hero.image}>
           <PageTitle weight="semibold-md-bold">
             <span className="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
@@ -48,12 +46,10 @@ export default function GetInvolvedPage() {
           <HeroLead>{GET_INVOLVED.hero.subtitle}</HeroLead>
         </PageHero>
 
-        {
-          /* Three photo + black-card rows. The cards round only their
+        {/* Three photo + black-card rows. The cards round only their
             outer side (newsletter/donate cards sit right, volunteer sits
             left), stacked photo-over-card below md with the card inset
-            to 300px. */
-        }
+            to 300px. */}
         {GET_INVOLVED.cards.map((card, i) => (
           <Fragment key={card.title}>
             <section className={cx(gutter(), "pt-5 md:pt-10")}>
@@ -82,46 +78,42 @@ export default function GetInvolvedPage() {
                   <p className="max-w-[80%] text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                     {card.body}
                   </p>
-                  {i === 1
-                    ? (
-                      /* The WP SERVE button is an elementor popup trigger,
+                  {i === 1 ? (
+                    /* The WP SERVE button is an elementor popup trigger,
                         not a link — the Popup island's own button wears the
                         white pill via buttonClasses. */
-                      <Popup
-                        trigger={card.cta.label}
-                        triggerClass={buttonClasses(
-                          { variant: "white", size: "md" },
-                          "mt-2",
-                        )}
-                        title={POPUPS.volunteer.title}
-                        cta={POPUPS.volunteer.cta}
-                        chain={{
-                          title: POPUPS.volunteerGuidelines.title,
-                          blocks: POPUPS.volunteerGuidelines.blocks,
-                          cta: POPUPS.volunteerGuidelines.cta,
-                        }}
-                      >
-                        {POPUPS.volunteer.body}
-                      </Popup>
-                    )
-                    : (
-                      <Button
-                        variant="white"
-                        href={card.cta.href}
-                        className="mt-2"
-                      >
-                        {card.cta.label}
-                      </Button>
-                    )}
+                    <Popup
+                      trigger={card.cta.label}
+                      triggerClass={buttonClasses(
+                        { variant: "white", size: "md" },
+                        "mt-2",
+                      )}
+                      title={POPUPS.volunteer.title}
+                      cta={POPUPS.volunteer.cta}
+                      chain={{
+                        title: POPUPS.volunteerGuidelines.title,
+                        blocks: POPUPS.volunteerGuidelines.blocks,
+                        cta: POPUPS.volunteerGuidelines.cta,
+                      }}
+                    >
+                      {POPUPS.volunteer.body}
+                    </Popup>
+                  ) : (
+                    <Button
+                      variant="white"
+                      href={card.cta.href}
+                      className="mt-2"
+                    >
+                      {card.cta.label}
+                    </Button>
+                  )}
                 </div>
               </div>
             </section>
 
-            {
-              /* Divider bands: 200/270/500px tall; the first shows its
+            {/* Divider bands: 200/270/500px tall; the first shows its
                 photo from md up, the second is blank on WP (its
-                background never applies) — kept as an empty spacer. */
-            }
+                background never applies) — kept as an empty spacer. */}
             {i < GET_INVOLVED.cards.length - 1 && (
               <div
                 className="relative h-[200px] md:h-[270px] lg:h-[500px]"

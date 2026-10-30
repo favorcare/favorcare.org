@@ -18,11 +18,11 @@ export type ArticleCtaPart =
 
 export type ArticleBlock =
   | {
-    /** Pull-quote; WP renders selected ones in the article yellow #F2B705. */
-    type: "quote";
-    text: string;
-    yellow?: boolean;
-  }
+      /** Pull-quote; WP renders selected ones in the article yellow #F2B705. */
+      type: "quote";
+      text: string;
+      yellow?: boolean;
+    }
   | { type: "heading"; text: string }
   | { type: "text"; paragraphs: string[] }
   | { type: "gallery"; images: string[] }
@@ -61,8 +61,7 @@ export const POSTS: Post[] = [
     blocks: [
       {
         type: "quote",
-        text:
-          "Care begins with seeing a need — and choosing to do something about it.",
+        text: "Care begins with seeing a need — and choosing to do something about it.",
         yellow: false,
       },
       {
@@ -117,8 +116,7 @@ export const POSTS: Post[] = [
       },
       {
         type: "quote",
-        text:
-          "Assistance to Persons Deprived of Liberty — Care Without Conditions",
+        text: "Assistance to Persons Deprived of Liberty — Care Without Conditions",
         yellow: false,
       },
       {
@@ -187,8 +185,7 @@ export const POSTS: Post[] = [
         parts: [
           {
             kind: "text",
-            text:
-              "Redemptio Christian School serves 185 students today. With more classrooms, it can reach over 500 children who would otherwise have no access to education.",
+            text: "Redemptio Christian School serves 185 students today. With more classrooms, it can reach over 500 children who would otherwise have no access to education.",
           },
           { kind: "button", label: "DONATE NOW", href: "/givenow" },
         ],
@@ -257,8 +254,7 @@ export const POSTS: Post[] = [
         parts: [
           {
             kind: "text",
-            text:
-              "Care is something we can all contribute to. Give, volunteer your time and skills, or partner with Favor Care to help expand its reach.",
+            text: "Care is something we can all contribute to. Give, volunteer your time and skills, or partner with Favor Care to help expand its reach.",
           },
           { kind: "button", label: "GET INVOLVED", href: "/get-involved" },
           { kind: "button", label: "DONATE", href: "/givenow" },
@@ -284,8 +280,7 @@ export const POSTS: Post[] = [
       },
       {
         type: "quote",
-        text:
-          "It is about caring for people, building relationships, and ensuring that communities have access to the support they need.",
+        text: "It is about caring for people, building relationships, and ensuring that communities have access to the support they need.",
         yellow: false,
       },
       {
@@ -306,8 +301,7 @@ export const POSTS: Post[] = [
           },
           {
             kind: "text",
-            text:
-              "Join Favor Care as a volunteer and become part of a mission that brings health, hope, and compassion to children and communities in need.",
+            text: "Join Favor Care as a volunteer and become part of a mission that brings health, hope, and compassion to children and communities in need.",
           },
           { kind: "button", label: "VOLUNTEER WITH US", href: "/get-involved" },
         ],
@@ -342,13 +336,11 @@ export const POSTS: Post[] = [
         parts: [
           {
             kind: "text",
-            text:
-              "A single gift can mean a healthier, happier future for a child.",
+            text: "A single gift can mean a healthier, happier future for a child.",
           },
           {
             kind: "text",
-            text:
-              "Support Favor Care’s outreach and help ensure no child goes without the care they deserve.",
+            text: "Support Favor Care’s outreach and help ensure no child goes without the care they deserve.",
           },
           { kind: "button", label: "GIVE TODAY", href: "/givenow" },
         ],
@@ -378,8 +370,7 @@ export const POSTS: Post[] = [
     blocks: [
       {
         type: "quote",
-        text:
-          "It's true what they say — you never really know how blessed you are until you come face-to-face with the reality of others.",
+        text: "It's true what they say — you never really know how blessed you are until you come face-to-face with the reality of others.",
         yellow: false,
       },
       {
@@ -421,8 +412,7 @@ export const POSTS: Post[] = [
       },
       {
         type: "quote",
-        text:
-          "By the end of the day, we were able to serve more than 200 patients.",
+        text: "By the end of the day, we were able to serve more than 200 patients.",
         yellow: true,
       },
       {
@@ -441,8 +431,7 @@ export const POSTS: Post[] = [
           },
           {
             kind: "text",
-            text:
-              "Join Favor Care as a volunteer and help bring health, hope, and compassion to the communities that need it most.",
+            text: "Join Favor Care as a volunteer and help bring health, hope, and compassion to the communities that need it most.",
           },
           { kind: "button", label: "VOLUNTEER WITH US", href: "/get-involved" },
         ],
@@ -476,13 +465,11 @@ export const POSTS: Post[] = [
           },
           {
             kind: "text",
-            text:
-              "We want to bring more help and more medicine to more communities. Help us make that happen.",
+            text: "We want to bring more help and more medicine to more communities. Help us make that happen.",
           },
           {
             kind: "text",
-            text:
-              "Favor Care is also a PCNC-certified NGO. You can partner with us through your company’s CSR program and request a certificate for your annual tax deduction.",
+            text: "Favor Care is also a PCNC-certified NGO. You can partner with us through your company’s CSR program and request a certificate for your annual tax deduction.",
           },
           {
             kind: "button",

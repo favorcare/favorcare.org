@@ -101,34 +101,41 @@ const SECTIONS = [
   { id: "analytics", label: "Analytics" },
 ] as const;
 
-function Group(
-  { id, title, intro, children }: {
-    id: string;
-    title: string;
-    intro?: string;
-    children: ReactNode;
-  },
-) {
+function Group({
+  id,
+  title,
+  intro,
+  children,
+}: {
+  id: string;
+  title: string;
+  intro?: string;
+  children: ReactNode;
+}) {
   return (
     <section id={id} className="scroll-mt-24">
       <div className="border-b border-primary/15 pb-3">
         <h2 className="text-[25px] font-bold leading-none text-primary md:text-[30px]">
           {title}
         </h2>
-        {intro && <p className="mt-1 text-sm text-on-surface-variant">{intro}</p>}
+        {intro && (
+          <p className="mt-1 text-sm text-on-surface-variant">{intro}</p>
+        )}
       </div>
       <div className="mt-6 space-y-6">{children}</div>
     </section>
   );
 }
 
-function Specimen(
-  { label, dark, children }: {
-    label: string;
-    dark?: boolean;
-    children: ReactNode;
-  },
-) {
+function Specimen({
+  label,
+  dark,
+  children,
+}: {
+  label: string;
+  dark?: boolean;
+  children: ReactNode;
+}) {
   return (
     <div>
       <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
@@ -169,14 +176,12 @@ const CFAC_SWATCH: Record<string, string> = {
 export default function StorybookPage() {
   const post = listPosts()[0];
   // A real multi-photo gallery from the newest post that has one.
-  const galleryImages = post.blocks.flatMap((b) =>
-    b.type === "gallery" ? [b.images] : []
-  ).find((images) =>
-    images.length > 1
-  ) ?? [];
+  const galleryImages =
+    post.blocks
+      .flatMap((b) => (b.type === "gallery" ? [b.images] : []))
+      .find((images) => images.length > 1) ?? [];
   return (
     <>
-      
       <Header />
       <header className="bg-black px-5 py-10">
         <PageTitle>Component Library</PageTitle>
@@ -281,7 +286,9 @@ export default function StorybookPage() {
             </Specimen>
             <Specimen label="Rules for writing">
               <ul className="list-disc space-y-1 pl-5 text-base leading-relaxed">
-                {BRAND.rules.map((r) => <li key={r}>{r}</li>)}
+                {BRAND.rules.map((r) => (
+                  <li key={r}>{r}</li>
+                ))}
               </ul>
             </Specimen>
             <Specimen label="Logo on its three grounds (header yellow, footer black, white)">
@@ -358,7 +365,9 @@ export default function StorybookPage() {
                         Aa
                       </span>
                       <span className="flex flex-1 flex-col justify-center px-4 py-2">
-                        <span className="text-sm text-on-surface">{p.label}</span>
+                        <span className="text-sm text-on-surface">
+                          {p.label}
+                        </span>
                         <span
                           className={cx(
                             "text-sm font-bold",
@@ -377,7 +386,10 @@ export default function StorybookPage() {
             <Specimen label="Radii — square system, plus the measured rounds">
               <div className="flex flex-wrap gap-6">
                 {RADII.map((r) => (
-                  <div key={r.name} className="flex flex-col items-center gap-2">
+                  <div
+                    key={r.name}
+                    className="flex flex-col items-center gap-2"
+                  >
                     <span className={cx("h-32 w-44 bg-yellow", r.cls)} />
                     <code className="text-sm text-on-surface">
                       {r.name} · {r.value}
@@ -424,10 +436,7 @@ export default function StorybookPage() {
             <Specimen label="SectionHeading — tone / weight / size / align">
               <div className="space-y-6">
                 <SectionHeading title={ABOUT.valuesTitle} align="center" />
-                <SectionHeading
-                  title={HOME.about.title}
-                  weight="semibold"
-                />
+                <SectionHeading title={HOME.about.title} weight="semibold" />
                 <SectionHeading
                   title={GIVENOW.us.title}
                   size="32"
@@ -480,8 +489,12 @@ export default function StorybookPage() {
             </Specimen>
             <Specimen label="Button — sizes sm / md / header">
               <div className="flex flex-wrap items-center gap-4">
-                <Button variant="yellow" size="sm" href="#actions">sm</Button>
-                <Button variant="yellow" size="md" href="#actions">md</Button>
+                <Button variant="yellow" size="sm" href="#actions">
+                  sm
+                </Button>
+                <Button variant="yellow" size="md" href="#actions">
+                  md
+                </Button>
                 <Button variant="black" size="header" href="#actions">
                   header
                 </Button>
@@ -839,7 +852,9 @@ export default function StorybookPage() {
                     className="w-full"
                   />
                 </FormField>
-                <Button type="submit" variant="black" size="form">SEND</Button>
+                <Button type="submit" variant="black" size="form">
+                  SEND
+                </Button>
               </MailtoForm>
             </Specimen>
             <Specimen label="ContactForm — home variant (MailtoForm: SEND opens an email to the inbox with the typed fields)">
@@ -875,11 +890,9 @@ export default function StorybookPage() {
             </p>
           </Group>
 
-          {
-            /* The Coffee for a Cause sub-brand: everything renders inside
+          {/* The Coffee for a Cause sub-brand: everything renders inside
               a live `.cfac` scope, so these specimens show exactly what
-              /coffeeforacause sees. */
-          }
+              /coffeeforacause sees. */}
           <Group
             id="cfac"
             title="CFAC theme"
@@ -943,8 +956,8 @@ export default function StorybookPage() {
                     size="card"
                   />
                   <p className="text-base">
-                    <a href="#cfac">A roast-toned link</a>{" "}
-                    hovers to caramel, like the site's red→yellow pair.
+                    <a href="#cfac">A roast-toned link</a> hovers to caramel,
+                    like the site's red→yellow pair.
                   </p>
                 </div>
               </Specimen>
@@ -964,8 +977,8 @@ export default function StorybookPage() {
                     props={{ source: "storybook" }}
                   />
                   <p className="max-w-[520px] text-sm text-on-surface-variant">
-                    This specimen mounted <code>storybook_demo_view</code>{" "}
-                    on page load — watch for it in Mixpanel Live view / GA4
+                    This specimen mounted <code>storybook_demo_view</code> on
+                    page load — watch for it in Mixpanel Live view / GA4
                     DebugView when keys are set. On /coffeeforacause/thanks it
                     fires <code>cfac_donate_success</code>.
                   </p>
@@ -993,13 +1006,11 @@ export default function StorybookPage() {
                   Track a demo click
                 </Button>
                 <p className="max-w-[480px] text-sm text-on-surface-variant">
-                  Clicking fires <code>storybook_demo_click</code>{" "}
-                  with first/last-touch UTM props. Watch it in Mixpanel Live
-                  view / GA4 DebugView when keys are set, or call{" "}
-                  <code>
-                    {'favorcareTrack("demo", { note: "hi" })'}
-                  </code>{" "}
-                  in the console.
+                  Clicking fires <code>storybook_demo_click</code> with
+                  first/last-touch UTM props. Watch it in Mixpanel Live view /
+                  GA4 DebugView when keys are set, or call{" "}
+                  <code>{'favorcareTrack("demo", { note: "hi" })'}</code> in the
+                  console.
                 </p>
               </div>
             </Specimen>

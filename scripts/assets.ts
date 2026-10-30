@@ -41,9 +41,8 @@ if (command !== "pull" && command !== "push") {
   process.exit(64);
 }
 
-const [src, dst] = command === "pull"
-  ? [BUCKET, LOCAL_DIR]
-  : [LOCAL_DIR, BUCKET];
+const [src, dst] =
+  command === "pull" ? [BUCKET, LOCAL_DIR] : [LOCAL_DIR, BUCKET];
 
 const code = await new Promise<number>((resolve) => {
   const rclone = spawn("rclone", ["copy", "-P", src, dst], {

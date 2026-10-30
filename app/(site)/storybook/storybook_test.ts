@@ -13,22 +13,19 @@ const CHROME_ONLY = new Set(["Navbar", "MobileNav"]);
 
 async function componentExports(): Promise<string[]> {
   const names: string[] = [];
-  for (
-    const dir of [
-      "components",
-      "components/layout",
-      "components/cfac",
-      "islands",
-    ]
-  ) {
+  for (const dir of [
+    "components",
+    "components/layout",
+    "components/cfac",
+    "islands",
+  ]) {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
       if (!entry.isFile() || !entry.name.endsWith(".tsx")) continue;
       const src = await readFile(`${dir}/${entry.name}`, "utf8");
-      for (
-        const [, name] of src.matchAll(
-          /^export (?:default )?function ([A-Z]\w*)/gm,
-        )
-      ) names.push(name);
+      for (const [, name] of src.matchAll(
+        /^export (?:default )?function ([A-Z]\w*)/gm,
+      ))
+        names.push(name);
     }
   }
   return names.sort();
@@ -36,16 +33,21 @@ async function componentExports(): Promise<string[]> {
 
 test("every exported component has a /storybook specimen", async () => {
   const story = await readFile(STORY_PATH, "utf8");
-  const missing = (await componentExports()).filter((name) =>
-    !CHROME_ONLY.has(name) && !new RegExp(`<${name}[\\s/>]`).test(story)
+  const missing = (await componentExports()).filter(
+    (name) =>
+      !CHROME_ONLY.has(name) && !new RegExp(`<${name}[\\s/>]`).test(story),
   );
-  deepStrictEqual(missing, [], "add a specimen to app/(site)/storybook/page.tsx");
+  deepStrictEqual(
+    missing,
+    [],
+    "add a specimen to app/(site)/storybook/page.tsx",
+  );
 });
 
 test("every exported component is listed in COMPONENTS.md", async () => {
   const catalog = await readFile("COMPONENTS.md", "utf8");
-  const missing = (await componentExports()).filter((name) =>
-    !catalog.includes(`\`${name}\``)
+  const missing = (await componentExports()).filter(
+    (name) => !catalog.includes(`\`${name}\``),
   );
   deepStrictEqual(missing, [], "add a row to COMPONENTS.md");
 });
@@ -56,8 +58,8 @@ test("storybook jump-nav matches its groups", async () => {
   const navIds = [
     ...nav.slice(0, nav.indexOf("] as const")).matchAll(/id: "([^"]+)"/g),
   ].map((m) => m[1]);
-  const groupIds = [...story.matchAll(/<Group\s+id="([^"]+)"/g)].map((m) =>
-    m[1]
+  const groupIds = [...story.matchAll(/<Group\s+id="([^"]+)"/g)].map(
+    (m) => m[1],
   );
   deepStrictEqual(navIds, groupIds);
 });

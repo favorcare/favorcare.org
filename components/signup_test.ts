@@ -25,12 +25,14 @@ function form(entries: Record<string, string | string[]>): FormData {
 }
 
 test("collectValues gathers required fields and serve areas", () => {
-  const { values, serveAreas } = collectValues(form({
-    "first-name": "Maria",
-    "email": "maria@example.com",
-    "consent": "yes",
-    "serve-areas": ["medical", "education"],
-  }));
+  const { values, serveAreas } = collectValues(
+    form({
+      "first-name": "Maria",
+      email: "maria@example.com",
+      consent: "yes",
+      "serve-areas": ["medical", "education"],
+    }),
+  );
   deepStrictEqual(values["first-name"], "Maria");
   deepStrictEqual(values["email"], "maria@example.com");
   deepStrictEqual(values["consent"], "yes");
@@ -38,21 +40,28 @@ test("collectValues gathers required fields and serve areas", () => {
 });
 
 test("collectValues keeps the free-text 'how did you hear' answer", () => {
-  const { values } = collectValues(form({
-    "hear-about": "__other_option__",
-    "hear-about-other": "A church friend",
-  }));
+  const { values } = collectValues(
+    form({
+      "hear-about": "__other_option__",
+      "hear-about-other": "A church friend",
+    }),
+  );
   deepStrictEqual(values["hear-about-other"], "A church friend");
 });
 
 test("buildForwardBody maps fields to the Google entry ids", () => {
-  const body = buildForwardBody(form({
-    "first-name": "Maria",
-    "dob": "2001-03-04",
-    "email": "maria@example.com",
-  }));
+  const body = buildForwardBody(
+    form({
+      "first-name": "Maria",
+      dob: "2001-03-04",
+      email: "maria@example.com",
+    }),
+  );
   deepStrictEqual(body.get(`entry.${SIGNUP.entries.firstName}`), "Maria");
-  deepStrictEqual(body.get(`entry.${SIGNUP.entries.email}`), "maria@example.com");
+  deepStrictEqual(
+    body.get(`entry.${SIGNUP.entries.email}`),
+    "maria@example.com",
+  );
   // The date input gives ISO YYYY-MM-DD — verified against formResponse:
   // Google stores exactly this.
   deepStrictEqual(body.get(`entry.${SIGNUP.entries.dob}`), "2001-03-04");
@@ -60,17 +69,19 @@ test("buildForwardBody maps fields to the Google entry ids", () => {
 
 test("buildForwardBody appends each serve area under one entry id", () => {
   const body = buildForwardBody(form({ "serve-areas": ["medical", "relief"] }));
-  deepStrictEqual(
-    body.getAll(`entry.${SIGNUP.entries.serveAreas}`),
-    ["medical", "relief"],
-  );
+  deepStrictEqual(body.getAll(`entry.${SIGNUP.entries.serveAreas}`), [
+    "medical",
+    "relief",
+  ]);
 });
 
 test("buildForwardBody handles Google's other-option convention", () => {
-  const body = buildForwardBody(form({
-    "hear-about": "__other_option__",
-    "hear-about-other": "A church friend",
-  }));
+  const body = buildForwardBody(
+    form({
+      "hear-about": "__other_option__",
+      "hear-about-other": "A church friend",
+    }),
+  );
   deepStrictEqual(
     body.get(`entry.${SIGNUP.entries.hearAbout}`),
     "__other_option__",

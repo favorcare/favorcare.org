@@ -25,11 +25,8 @@ export const metadata: Metadata = {
 export default function CfaCausePage() {
   return (
     <>
-      
-      {
-        /* Hero: photo + the black→yellow wash (in scope: roast→caramel),
-          bare geometry like the give-now hero, centered title + pill. */
-      }
+      {/* Hero: photo + the black→yellow wash (in scope: roast→caramel),
+          bare geometry like the give-now hero, centered title + pill. */}
       <PageHero
         image={asset("/images/pages/give-now/hero.jpg")}
         overlay="gradient"
@@ -57,9 +54,7 @@ export default function CfaCausePage() {
         </Button>
       </PageHero>
 
-      {
-        /* The idea: reality → hope, the BRAND.md arc's first two beats. */
-      }
+      {/* The idea: reality → hope, the BRAND.md arc's first two beats. */}
       <section className={cx(frame("page"), "py-16 md:py-20")}>
         <div className="max-w-[780px]">
           <Eyebrow>{CFAC.story.eyebrow}</Eyebrow>
@@ -85,12 +80,13 @@ export default function CfaCausePage() {
         </div>
       </section>
 
-      {
-        /* What your cup funds: cream band, three cards. Facts TBD from
-          the team — cards carry no invented numbers. */
-      }
+      {/* What your cup funds: cream band, three cards. Facts TBD from
+          the team — cards carry no invented numbers. */}
       <section
-        className={cx(gutter("page"), "bg-surface-container-low py-16 md:py-20")}
+        className={cx(
+          gutter("page"),
+          "bg-surface-container-low py-16 md:py-20",
+        )}
       >
         <div className={cx(frame("page"), "text-center")}>
           <Eyebrow>{CFAC.impact.eyebrow}</Eyebrow>
@@ -106,11 +102,7 @@ export default function CfaCausePage() {
           <div className="mt-10 grid gap-6 text-left md:grid-cols-2 lg:grid-cols-3">
             {CFAC.impact.cards.map((c) => (
               <div key={c.title} className="rounded-card bg-surface p-6">
-                <SectionHeading
-                  title={c.title}
-                  size="card"
-                  leading="tight"
-                />
+                <SectionHeading title={c.title} size="card" leading="tight" />
                 <p className="mt-3 text-base leading-relaxed text-on-surface">
                   {c.body}
                 </p>
@@ -120,9 +112,7 @@ export default function CfaCausePage() {
         </div>
       </section>
 
-      {
-        /* Good to know: the bordered-rows accordion from the catalog. */
-      }
+      {/* Good to know: the bordered-rows accordion from the catalog. */}
       <section className={cx(frame("page"), "py-16 md:py-20")}>
         <div className="max-w-[780px]">
           <Eyebrow>{CFAC.faq.eyebrow}</Eyebrow>
@@ -136,10 +126,8 @@ export default function CfaCausePage() {
         </div>
       </section>
 
-      {
-        /* The ask: closing band composed directly (CtaBand hardcodes its
-          own track event; this page needs fund: "cfac" on the click). */
-      }
+      {/* The ask: closing band composed directly (CtaBand hardcodes its
+          own track event; this page needs fund: "cfac" on the click). */}
       <section className="bg-black px-5 py-14 text-center md:py-16 lg:py-20">
         <h2 className="text-[28px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[56px]">
           {CFAC.closing.title}

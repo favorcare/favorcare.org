@@ -43,13 +43,11 @@ export const CFAC = {
     beats: [
       {
         label: "THE REALITY",
-        body:
-          "Most giving asks you to add something new to your life — a donation, a pledge, a sacrifice. Coffee for a Cause asks for nothing new at all. It takes the cup you were already going to drink and lets it carry hope to someone who has none.",
+        body: "Most giving asks you to add something new to your life — a donation, a pledge, a sacrifice. Coffee for a Cause asks for nothing new at all. It takes the cup you were already going to drink and lets it carry hope to someone who has none.",
       },
       {
         label: "THE HOPE",
-        body:
-          "Generosity stops being an occasion and becomes a habit. By pouring meaning into the most ordinary, daily ritual there is, your ordinary cup becomes someone’s extraordinary tomorrow.",
+        body: "Generosity stops being an occasion and becomes a habit. By pouring meaning into the most ordinary, daily ritual there is, your ordinary cup becomes someone’s extraordinary tomorrow.",
       },
     ],
   },
@@ -111,8 +109,7 @@ export const CFAC = {
   },
   thanks: {
     title: "Thank you for pouring hope.",
-    body:
-      "TBD — one warm sentence confirming the gift and what it sets in motion.",
+    body: "TBD — one warm sentence confirming the gift and what it sets in motion.",
     next: [
       "TBD — what happens next, step 1 (e.g. receipt/email confirmation).",
       "TBD — when and how the donor sees impact (story, photo, report).",

@@ -59,7 +59,11 @@ const SHAPES: Record<ButtonShape, string> = {
 /** Class string for a Button's look — reused by non-Button controls that
  *  must match the pill system (e.g. Popup's trigger on get-involved). */
 export function buttonClasses(
-  { variant = "yellow", size = "md", shape = "pill" }: {
+  {
+    variant = "yellow",
+    size = "md",
+    shape = "pill",
+  }: {
     variant?: ButtonVariant;
     size?: ButtonSize;
     shape?: ButtonShape;
@@ -97,29 +101,27 @@ export interface ButtonProps {
   children?: ReactNode;
 }
 
-export function Button(
-  {
-    variant = "yellow",
-    size = "md",
-    shape = "pill",
-    href,
-    target,
-    rel,
-    type = "button",
-    tabIndex,
-    disabled,
-    track,
-    trackProps,
-    className: extra,
-    children,
-  }: ButtonProps,
-) {
+export function Button({
+  variant = "yellow",
+  size = "md",
+  shape = "pill",
+  href,
+  target,
+  rel,
+  type = "button",
+  tabIndex,
+  disabled,
+  track,
+  trackProps,
+  className: extra,
+  children,
+}: ButtonProps) {
   const className = buttonClasses({ variant, size, shape }, extra);
   const trackAttrs = track
     ? {
-      "data-track": track,
-      "data-track-props": trackProps && JSON.stringify(trackProps),
-    }
+        "data-track": track,
+        "data-track-props": trackProps && JSON.stringify(trackProps),
+      }
     : {};
   if (href !== undefined) {
     return (

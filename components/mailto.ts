@@ -31,17 +31,20 @@ export interface MailtoMessage {
  * skipped), then the optional `note` after a blank line. Subject and body
  * are `encodeURIComponent`'d.
  */
-export function composeMailto(
-  { recipient, subject, fields, note }: MailtoMessage,
-): string {
+export function composeMailto({
+  recipient,
+  subject,
+  fields,
+  note,
+}: MailtoMessage): string {
   const lines = fields
     .filter((f) => f.value.trim() !== "")
     .map((f) => `${f.label}: ${f.value}`);
   const text = note?.trim();
   if (text) lines.push(...(lines.length ? [""] : []), text);
-  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${
-    encodeURIComponent(lines.join("\n"))
-  }`;
+  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+    lines.join("\n"),
+  )}`;
 }
 
 function read(data: FormData, name: string): string {
@@ -63,9 +66,13 @@ export function formFields(
 ): MailtoField[] {
   const boxes = new Set(checkboxes);
   return Object.entries(labels).map(([names, label]) => {
-    const value = names.split("+").map((n) =>
-      boxes.has(n) && read(data, n) === "on" ? "Yes" : read(data, n)
-    ).filter(Boolean).join(" ");
+    const value = names
+      .split("+")
+      .map((n) =>
+        boxes.has(n) && read(data, n) === "on" ? "Yes" : read(data, n),
+      )
+      .filter(Boolean)
+      .join(" ");
     return { label, value };
   });
 }
@@ -74,12 +81,11 @@ export function formFields(
  * Resolve a `MailtoSubject` against the submitted `data`. With a
  * name-based subject, a blank name leaves just the prefix.
  */
-export function composeSubject(
-  subject: MailtoSubject,
-  data: FormData,
-): string {
+export function composeSubject(subject: MailtoSubject, data: FormData): string {
   if (typeof subject === "string") return subject;
-  const name = subject.nameFields.map((n) => read(data, n)).filter(Boolean)
+  const name = subject.nameFields
+    .map((n) => read(data, n))
+    .filter(Boolean)
     .join(" ");
   return name ? `${subject.prefix} — ${name}` : subject.prefix;
 }

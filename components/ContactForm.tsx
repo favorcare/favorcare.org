@@ -24,9 +24,10 @@ export interface ContactFormProps {
  *    source quirk kept. Accessibility over fidelity: fields are the 48px
  *    `InputField` (WP measures 40px).
  */
-export function ContactForm(
-  { page = "home", newsletter = false }: ContactFormProps,
-) {
+export function ContactForm({
+  page = "home",
+  newsletter = false,
+}: ContactFormProps) {
   const mail = {
     recipient: CONTACT.form.recipient,
     subject: {
@@ -92,7 +93,9 @@ export function ContactForm(
           />
         </FormField>
         <div className="mt-1.5 flex justify-center">
-          <Button type="submit" variant="black" size="form">SEND</Button>
+          <Button type="submit" variant="black" size="form">
+            SEND
+          </Button>
         </div>
       </MailtoForm>
     );

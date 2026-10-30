@@ -36,27 +36,27 @@ export interface FormFieldProps {
  * control, wrapped in a `<label>` so a click on the text focuses the input.
  * Spacing between fields comes from the parent form (gap), or `className`.
  */
-export function FormField(
-  {
-    label,
-    labelMobile,
-    tone = "black",
-    size = "sm",
-    className: extra,
-    children,
-  }: FormFieldProps,
-) {
+export function FormField({
+  label,
+  labelMobile,
+  tone = "black",
+  size = "sm",
+  className: extra,
+  children,
+}: FormFieldProps) {
   return (
     <label className={cx("block", extra)}>
-      <span className={cx("mb-1 block font-semibold", SIZES[size], TONES[tone])}>
-        {labelMobile
-          ? (
-            <>
-              <span className="md:hidden">{labelMobile}</span>
-              <span className="hidden md:inline">{label}</span>
-            </>
-          )
-          : label}
+      <span
+        className={cx("mb-1 block font-semibold", SIZES[size], TONES[tone])}
+      >
+        {labelMobile ? (
+          <>
+            <span className="md:hidden">{labelMobile}</span>
+            <span className="hidden md:inline">{label}</span>
+          </>
+        ) : (
+          label
+        )}
       </span>
       {children}
     </label>

@@ -21,16 +21,14 @@ export interface BankCardProps {
 // Bank/giving detail card from the give-now page: radius 30, 3px border,
 // centered stack. Extracted from the three PH cards and the US card pair
 // (which WP ships twice with different bank details per breakpoint).
-export function BankCard(
-  {
-    title,
-    children,
-    tone = "light",
-    gap = "2",
-    display = "flex",
-    className: extra,
-  }: BankCardProps,
-) {
+export function BankCard({
+  title,
+  children,
+  tone = "light",
+  gap = "2",
+  display = "flex",
+  className: extra,
+}: BankCardProps) {
   return (
     <div
       className={cx(

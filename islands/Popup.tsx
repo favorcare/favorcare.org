@@ -39,19 +39,21 @@ function Blocks({ blocks }: { blocks: PopupBlock[] }) {
   return (
     <>
       {blocks.map((b, i) =>
-        b.type === "h"
-          ? (
-            <h3 key={i} className="mt-4 font-semibold text-on-surface first:mt-0">
-              {b.text}
-            </h3>
-          )
-          : b.type === "ul"
-          ? (
-            <ul key={i} className="mt-2 list-disc space-y-1 pl-5">
-              {b.items?.map((item, j) => <li key={j}>{item}</li>)}
-            </ul>
-          )
-          : <p key={i} className="mt-2 first:mt-0">{b.text}</p>
+        b.type === "h" ? (
+          <h3 key={i} className="mt-4 font-semibold text-on-surface first:mt-0">
+            {b.text}
+          </h3>
+        ) : b.type === "ul" ? (
+          <ul key={i} className="mt-2 list-disc space-y-1 pl-5">
+            {b.items?.map((item, j) => (
+              <li key={j}>{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} className="mt-2 first:mt-0">
+            {b.text}
+          </p>
+        ),
       )}
     </>
   );
@@ -61,10 +63,16 @@ function Blocks({ blocks }: { blocks: PopupBlock[] }) {
 // Esc-to-close, focus containment, and ::backdrop for free. Covers all
 // three WP popup shapes: click trigger (footer accreditation, get-involved
 // SERVE), auto-open with a once-per-session guard, and chained dialogs.
-export default function Popup(
-  { trigger, triggerClass, title, children, blocks, cta, auto, chain }:
-    PopupProps,
-) {
+export default function Popup({
+  trigger,
+  triggerClass,
+  title,
+  children,
+  blocks,
+  cta,
+  auto,
+  chain,
+}: PopupProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const chainRef = useRef<HTMLDialogElement>(null);
 
@@ -90,7 +98,7 @@ export default function Popup(
       }
     }, auto.delayMs ?? 3000);
     return () => clearTimeout(t);
-  // Depend on the primitives: an `auto` object literal is new every render.
+    // Depend on the primitives: an `auto` object literal is new every render.
   }, [auto?.delayMs, auto?.sessionKey]);
 
   const dialogClass =
@@ -122,9 +130,9 @@ export default function Popup(
     return (
       <a
         href={cta.href}
-        {...cta.external
+        {...(cta.external
           ? { target: "_blank", rel: "noopener noreferrer" }
-          : {}}
+          : {})}
         className={ctaClass}
       >
         {cta.label}
@@ -180,15 +188,12 @@ export default function Popup(
       {chain && (
         <dialog ref={chainRef} aria-label={chain.title} className={dialogClass}>
           <div className="relative p-8">
-            {closeBtn(() =>
-              chainRef.current?.close()
-            )}
+            {closeBtn(() => chainRef.current?.close())}
 
             <h2 className="pr-10 text-xl font-semibold">{chain.title}</h2>
             <div className="mt-3 text-base leading-relaxed text-on-surface-variant">
               <Blocks blocks={chain.blocks} />
-              {ctaNode(chain.cta, undefined, () =>
-                chainRef.current?.close())}
+              {ctaNode(chain.cta, undefined, () => chainRef.current?.close())}
             </div>
           </div>
         </dialog>

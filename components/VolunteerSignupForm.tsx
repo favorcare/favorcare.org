@@ -33,39 +33,50 @@ function NoticeBlocks({ blocks }: { blocks: PopupBlock[] }) {
   return (
     <>
       {blocks.map((b, i) =>
-        b.type === "h"
-          ? (
-            <h4 key={i} className="mt-3 font-bold text-on-surface first:mt-0">
-              {b.text}
-            </h4>
-          )
-          : b.type === "ul"
-          ? (
-            <ul key={i} className="mt-2 list-disc space-y-1 pl-5">
-              {b.items?.map((item, j) => <li key={j}>{item}</li>)}
-            </ul>
-          )
-          : <p key={i} className="mt-2 whitespace-pre-line first:mt-0">{b.text}</p>
+        b.type === "h" ? (
+          <h4 key={i} className="mt-3 font-bold text-on-surface first:mt-0">
+            {b.text}
+          </h4>
+        ) : b.type === "ul" ? (
+          <ul key={i} className="mt-2 list-disc space-y-1 pl-5">
+            {b.items?.map((item, j) => (
+              <li key={j}>{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} className="mt-2 whitespace-pre-line first:mt-0">
+            {b.text}
+          </p>
+        ),
       )}
     </>
   );
 }
 
-function TextField(
-  { label, name, type = "text", required, value, ariaLabel }: {
-    label: string;
-    name: string;
-    type?: string;
-    required?: boolean;
-    value?: string;
-    ariaLabel?: string;
-  },
-) {
+function TextField({
+  label,
+  name,
+  type = "text",
+  required,
+  value,
+  ariaLabel,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  value?: string;
+  ariaLabel?: string;
+}) {
   return (
     <label className="block">
       <span className="mb-1 block text-base font-semibold leading-snug text-on-surface">
         {label}
-        {required && <span className="ml-1 text-error" aria-hidden="true">*</span>}
+        {required && (
+          <span className="ml-1 text-error" aria-hidden="true">
+            *
+          </span>
+        )}
       </span>
       <InputField
         type={type}
@@ -86,10 +97,15 @@ function TextField(
 // the Google form's response endpoint (entry ids in SIGNUP.entries). It
 // works without JS too — React posts the form back to the page. Field
 // names are the action's keys.
-export function VolunteerSignupForm(
-  { copy, action, values, serveAreas, error, demo, className: extra }:
-    VolunteerSignupFormProps,
-) {
+export function VolunteerSignupForm({
+  copy,
+  action,
+  values,
+  serveAreas,
+  error,
+  demo,
+  className: extra,
+}: VolunteerSignupFormProps) {
   const v = values ?? {};
   const o = copy.options;
   return (
@@ -104,8 +120,10 @@ export function VolunteerSignupForm(
       )}
 
       <p className="text-sm leading-relaxed text-on-surface-variant">
-        Fields marked with <span className="text-error" aria-hidden="true">*</span>
-        {" "}
+        Fields marked with{" "}
+        <span className="text-error" aria-hidden="true">
+          *
+        </span>{" "}
         are required.
       </p>
 

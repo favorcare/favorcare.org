@@ -29,12 +29,10 @@ export const metadata: Metadata = {
 export default function WhatWeDoPage() {
   return (
     <>
-            <Header />
+      <Header />
       <main id="main-content" tabIndex={-1}>
-        {
-          /* Hero: kids3.png photo (50% 50% at every breakpoint) with the
-            black→yellow gradient overlay at WP's 0.5 opacity. */
-        }
+        {/* Hero: kids3.png photo (50% 50% at every breakpoint) with the
+            black→yellow gradient overlay at WP's 0.5 opacity. */}
         <PageHero
           image={WHAT_WE_DO.hero.image}
           imageClass="bg-[position:50%_50%]"
@@ -46,11 +44,9 @@ export default function WhatWeDoPage() {
           </HeroLead>
         </PageHero>
 
-        {
-          /* Program rows: alternating text/slides split (50/30/50) with
+        {/* Program rows: alternating text/slides split (50/30/50) with
             the slideshow vertically paired against the copy; stacked
-            slideshow-first below md. */
-        }
+            slideshow-first below md. */}
         {WHAT_WE_DO.programs.map((p, i) => (
           <section className={cx(gutter(), "pt-5 first:pt-9 md:pt-20")}>
             <div
@@ -63,12 +59,10 @@ export default function WhatWeDoPage() {
                 <Slideshow images={p.slides} label={`${p.label} photos`} />
               </div>
               <div className={i % 2 === 0 ? "md:order-1" : "md:order-2"}>
-                {
-                  /* WP paints only Education's label + summary; the five
+                {/* WP paints only Education's label + summary; the five
                     other programs keep the boxes but hide them with
                     visibility:hidden at every breakpoint (innerText drops
-                    them) — mirrored with `invisible`. */
-                }
+                    them) — mirrored with `invisible`. */}
                 <SectionHeading
                   title={p.label}
                   align="left"
@@ -89,10 +83,8 @@ export default function WhatWeDoPage() {
           </section>
         ))}
 
-        {
-          /* Donate + Take Action: WP's paired rounded cards — yellow with
-            a black GIVE pill, black with a white GET INVOLVED pill. */
-        }
+        {/* Donate + Take Action: WP's paired rounded cards — yellow with
+            a black GIVE pill, black with a white GET INVOLVED pill. */}
         <section className={cx(gutter(), "py-20")}>
           <div
             className={cx(

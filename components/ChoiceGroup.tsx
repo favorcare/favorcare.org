@@ -24,19 +24,17 @@ export interface ChoiceGroupProps {
 
 // Radio/checkbox group for the signup form family: 48px touch rows,
 // accent-primary controls, required questions marked with a red asterisk.
-export function ChoiceGroup(
-  {
-    legend,
-    name,
-    options,
-    mode = "radio",
-    required,
-    other,
-    selected,
-    columns,
-    className: extra,
-  }: ChoiceGroupProps,
-) {
+export function ChoiceGroup({
+  legend,
+  name,
+  options,
+  mode = "radio",
+  required,
+  other,
+  selected,
+  columns,
+  className: extra,
+}: ChoiceGroupProps) {
   const type = mode === "checkbox" ? "checkbox" : "radio";
   const row = (
     value: string,
@@ -44,7 +42,10 @@ export function ChoiceGroup(
     content: ReactNode,
     key: string,
   ) => (
-    <label key={key} className="flex min-h-12 cursor-pointer items-center gap-3">
+    <label
+      key={key}
+      className="flex min-h-12 cursor-pointer items-center gap-3"
+    >
       <input
         type={type}
         name={name}
@@ -61,7 +62,11 @@ export function ChoiceGroup(
     <fieldset className={cx("min-w-0", extra)}>
       <legend className="mb-2 text-base font-semibold leading-snug text-on-surface">
         {legend}
-        {required && <span className="ml-1 text-error" aria-hidden="true">*</span>}
+        {required && (
+          <span className="ml-1 text-error" aria-hidden="true">
+            *
+          </span>
+        )}
       </legend>
       <div
         className={cx(
@@ -71,7 +76,7 @@ export function ChoiceGroup(
         )}
       >
         {options.map((option) =>
-          row(option, selected?.includes(option) ?? false, option, option)
+          row(option, selected?.includes(option) ?? false, option, option),
         )}
         {other && (
           <label className="flex min-h-12 cursor-pointer flex-wrap items-center gap-x-3 gap-y-1">
@@ -82,7 +87,9 @@ export function ChoiceGroup(
               defaultChecked={selected?.includes("__other_option__") ?? false}
               className="h-5 w-5 shrink-0 accent-primary"
             />
-            <span className="text-base leading-snug text-on-surface">Other:</span>
+            <span className="text-base leading-snug text-on-surface">
+              Other:
+            </span>
             <input
               type="text"
               name={other.name}

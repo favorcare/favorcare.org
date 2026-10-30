@@ -32,12 +32,19 @@ export function CloseIcon({ size = 24, className: cls }: IconProps) {
 }
 
 export function MenuIcon({ size = 24, className: cls }: IconProps) {
-  return <Menu aria-hidden="true" size={size} strokeWidth={2} className={cls} />;
+  return (
+    <Menu aria-hidden="true" size={size} strokeWidth={2} className={cls} />
+  );
 }
 
 export function ChevronLeftIcon({ size = 30, className: cls }: IconProps) {
   return (
-    <ChevronLeft aria-hidden="true" size={size} strokeWidth={2.5} className={cls} />
+    <ChevronLeft
+      aria-hidden="true"
+      size={size}
+      strokeWidth={2.5}
+      className={cls}
+    />
   );
 }
 
@@ -97,9 +104,11 @@ const BRANDS: Record<BrandName, { path: string }> = {
   youtube: siYoutube,
 };
 
-export function BrandIcon(
-  { name, size = 22, className: cls }: IconProps & { name: BrandName },
-) {
+export function BrandIcon({
+  name,
+  size = 22,
+  className: cls,
+}: IconProps & { name: BrandName }) {
   return (
     <svg
       viewBox="0 0 24 24"
