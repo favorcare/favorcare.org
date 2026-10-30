@@ -1,4 +1,6 @@
-import type { ComponentChildren, JSX } from "preact";
+"use client";
+
+import type { FormEvent, ReactNode } from "react";
 import {
   composeMailto,
   composeSubject,
@@ -19,9 +21,9 @@ export interface MailtoFormProps {
   /** Analytics: event name fired on submit (islands/Tracking.tsx), e.g.
    * "newsletter_submit". Omit to leave the form untracked. */
   trackEvent?: string;
-  class?: string;
+  className?: string;
   /** Server-rendered fields and submit button. */
-  children: ComponentChildren;
+  children: ReactNode;
 }
 
 /**
@@ -32,10 +34,10 @@ export interface MailtoFormProps {
  * backend lands, replace `onSubmit` here and every form follows.
  */
 export default function MailtoForm(
-  { recipient, subject, labels, noteField, trackEvent, class: extra, children }:
+  { recipient, subject, labels, noteField, trackEvent, className: extra, children }:
     MailtoFormProps,
 ) {
-  const onSubmit = (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (trackEvent) track(trackEvent);
     const form = event.currentTarget;
@@ -58,7 +60,7 @@ export default function MailtoForm(
       action={`mailto:${recipient}`}
       method="post"
       onSubmit={onSubmit}
-      class={extra}
+      className={extra}
     >
       {children}
     </form>

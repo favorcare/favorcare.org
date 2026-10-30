@@ -1,4 +1,6 @@
-import { useEffect } from "preact/hooks";
+"use client";
+
+import { useEffect } from "react";
 import { track } from "./Tracking.tsx";
 
 export interface TrackViewProps {

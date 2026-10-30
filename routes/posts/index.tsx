@@ -49,23 +49,23 @@ export default define.page<typeof handler>(({ data }) => (
         sectionClass="hidden lg:block"
         frameClass="flex flex-col items-center gap-4 py-25 lg:pb-45"
       >
-        <h1 class="text-center text-[70px] font-bold leading-none text-white">
+        <h1 className="text-center text-[70px] font-bold leading-none text-white">
           News &amp; Updates
         </h1>
-        <p class="mx-auto mt-4 max-w-[798px] text-center text-lg leading-relaxed text-white">
+        <p className="mx-auto mt-4 max-w-[798px] text-center text-lg leading-relaxed text-white">
           {INTRO}
         </p>
       </PageHero>
 
-      <section class={cx(gutter(), "pt-[70px] lg:pt-[46px]")}>
-        <div class={frame()}>
+      <section className={cx(gutter(), "pt-[70px] lg:pt-[46px]")}>
+        <div className={frame()}>
           {
             /* Tag filters: plain text tabs (no pills) — active near-black,
                 inactive gray; stacked and centered below md. */
           }
           <nav
             aria-label="Filter by tag"
-            class="flex flex-col items-center gap-1 text-center md:flex-row md:items-start md:gap-5 md:text-left"
+            className="flex flex-col items-center gap-1 text-center md:flex-row md:items-start md:gap-5 md:text-left"
           >
             {data.tags.map((t) => (
               <a
@@ -73,7 +73,7 @@ export default define.page<typeof handler>(({ data }) => (
                 href={t === "All"
                   ? "/posts"
                   : `/posts?tag=${encodeURIComponent(t)}`}
-                class={`py-1.5 text-[18px] leading-none md:text-[22px] ${
+                className={`py-1.5 text-[18px] leading-none md:text-[22px] ${
                   t === data.active
                     ? "font-semibold text-archive-ink"
                     : "text-archive-muted hover:text-archive-ink"
@@ -84,7 +84,7 @@ export default define.page<typeof handler>(({ data }) => (
             ))}
           </nav>
 
-          <div class="mt-8 grid grid-cols-1 gap-[30px] md:grid-cols-2 md:gap-x-[30px] lg:mt-[70px]">
+          <div className="mt-8 grid grid-cols-1 gap-[30px] md:grid-cols-2 md:gap-x-[30px] lg:mt-[70px]">
             {data.posts.map((p) => <PostCard key={p.slug} post={p} />)}
           </div>
         </div>

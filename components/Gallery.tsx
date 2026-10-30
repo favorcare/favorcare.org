@@ -80,23 +80,23 @@ export interface GalleryProps {
 export function Gallery({ images, variant, mobileOrder }: GalleryProps) {
   if (variant === "article") {
     return (
-      <div class={cx("grid gap-4", galleryCols(images.length))}>
+      <div className={cx("grid gap-4", galleryCols(images.length))}>
         {images.map((img) => (
           <img
             key={img.src}
             src={img.src}
             alt={img.alt}
             loading="lazy"
-            class="w-full object-cover"
+            className="w-full object-cover"
           />
         ))}
       </div>
     );
   }
   return (
-    <section class="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
+    <section className="bg-yellow px-2.5 pb-[30px] md:bg-transparent lg:px-0">
       <div
-        class={cx(frame(), "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5")}
+        className={cx(frame(), "grid grid-cols-2 gap-1 md:gap-[11px] lg:gap-2.5")}
       >
         {images.map((img, i) => {
           const [mobile, md] = tileOrder(i, mobileOrder);
@@ -104,7 +104,7 @@ export function Gallery({ images, variant, mobileOrder }: GalleryProps) {
             <img
               src={img.src}
               alt={img.alt}
-              class={cx(
+              className={cx(
                 mobile,
                 "aspect-3/2 w-full rounded-card object-cover",
                 md,

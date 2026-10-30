@@ -52,17 +52,17 @@ export default define.page(function WhatWeDoPage() {
             slideshow-first below md. */
         }
         {WHAT_WE_DO.programs.map((p, i) => (
-          <section class={cx(gutter(), "pt-5 first:pt-9 md:pt-20")}>
+          <section className={cx(gutter(), "pt-5 first:pt-9 md:pt-20")}>
             <div
-              class={cx(
+              className={cx(
                 frame(),
                 "grid items-center gap-6 md:grid-cols-2 md:gap-[30px]",
               )}
             >
-              <div class={i % 2 === 0 ? "md:order-2" : "md:order-1"}>
+              <div className={i % 2 === 0 ? "md:order-2" : "md:order-1"}>
                 <Slideshow images={p.slides} label={`${p.label} photos`} />
               </div>
-              <div class={i % 2 === 0 ? "md:order-1" : "md:order-2"}>
+              <div className={i % 2 === 0 ? "md:order-1" : "md:order-2"}>
                 {
                   /* WP paints only Education's label + summary; the five
                     other programs keep the boxes but hide them with
@@ -72,16 +72,16 @@ export default define.page(function WhatWeDoPage() {
                 <SectionHeading
                   title={p.label}
                   align="left"
-                  class={i > 0 ? "invisible" : ""}
+                  className={i > 0 ? "invisible" : ""}
                 />
                 <p
-                  class={`mt-1 text-left text-[18px] leading-relaxed text-primary md:mt-2 md:text-[20px] lg:text-[36px] lg:leading-[44px] ${
+                  className={`mt-1 text-left text-[18px] leading-relaxed text-primary md:mt-2 md:text-[20px] lg:text-[36px] lg:leading-[44px] ${
                     i > 0 ? "invisible" : ""
                   }`}
                 >
                   {p.summary}
                 </p>
-                <p class="mt-4 text-left text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg">
+                <p className="mt-4 text-left text-sm leading-relaxed text-primary md:text-[15px] md:leading-[26px] lg:text-lg">
                   {p.body}
                 </p>
               </div>
@@ -93,44 +93,44 @@ export default define.page(function WhatWeDoPage() {
           /* Donate + Take Action: WP's paired rounded cards — yellow with
             a black GIVE pill, black with a white GET INVOLVED pill. */
         }
-        <section class={cx(gutter(), "py-20")}>
+        <section className={cx(gutter(), "py-20")}>
           <div
-            class={cx(
+            className={cx(
               frame(),
               "grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-0 lg:gap-10",
             )}
           >
-            <div class="flex flex-col items-center gap-4 rounded-card bg-yellow px-6 py-6 md:py-25">
+            <div className="flex flex-col items-center gap-4 rounded-card bg-yellow px-6 py-6 md:py-25">
               <SectionHeading
                 title={WHAT_WE_DO.donate.title}
                 tone="black"
                 size="card"
                 align="center"
               />
-              <p class="text-center text-sm leading-relaxed text-black md:text-[15px] md:leading-[26px] lg:text-lg">
+              <p className="text-center text-sm leading-relaxed text-black md:text-[15px] md:leading-[26px] lg:text-lg">
                 {WHAT_WE_DO.donate.body}
               </p>
               <Button
                 variant="black"
-                class="mt-4"
+                className="mt-4"
                 href={WHAT_WE_DO.donate.cta.href}
               >
                 {WHAT_WE_DO.donate.cta.label}
               </Button>
             </div>
-            <div class="flex flex-col items-center gap-4 rounded-card bg-black px-6 py-6 md:py-25">
+            <div className="flex flex-col items-center gap-4 rounded-card bg-black px-6 py-6 md:py-25">
               <SectionHeading
                 title={WHAT_WE_DO.takeAction.title}
                 tone="white"
                 size="card"
                 align="center"
               />
-              <p class="text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg">
+              <p className="text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg">
                 {WHAT_WE_DO.takeAction.body}
               </p>
               <Button
                 variant="white"
-                class="mt-4"
+                className="mt-4"
                 href={WHAT_WE_DO.takeAction.cta.href}
               >
                 {WHAT_WE_DO.takeAction.cta.label}

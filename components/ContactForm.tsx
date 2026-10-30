@@ -42,7 +42,7 @@ export function ContactForm(
       <MailtoForm
         {...mail}
         trackEvent="contact_submit"
-        class="mx-auto flex w-full max-w-[684px] flex-col gap-[18px]"
+        className="mx-auto flex w-full max-w-[684px] flex-col gap-[18px]"
       >
         <FormField label="FIRST NAME" labelMobile="FIRST NAME*">
           <InputField
@@ -50,7 +50,7 @@ export function ContactForm(
             placeholder="First Name*"
             required
             ariaLabel="First name"
-            class="w-full"
+            className="w-full"
           />
         </FormField>
         <FormField label="LAST NAME" labelMobile="LAST NAME*">
@@ -59,7 +59,7 @@ export function ContactForm(
             placeholder="Last Name*"
             required
             ariaLabel="Last name"
-            class="w-full"
+            className="w-full"
           />
         </FormField>
         <FormField label="EMAIL" labelMobile="EMAIL*">
@@ -69,7 +69,7 @@ export function ContactForm(
             placeholder="Email*"
             required
             ariaLabel="Email"
-            class="w-full"
+            className="w-full"
           />
         </FormField>
         <FormField label="PHONE">
@@ -78,7 +78,7 @@ export function ContactForm(
             name="phone"
             placeholder="Email"
             ariaLabel="Phone"
-            class="w-full"
+            className="w-full"
           />
         </FormField>
         <FormField label="MESSAGE" labelMobile="MESSAGE*">
@@ -88,10 +88,10 @@ export function ContactForm(
             required
             ariaLabel="Message"
             rows={3}
-            class="h-24 w-full resize-none"
+            className="h-24 w-full resize-none"
           />
         </FormField>
-        <div class="mt-1.5 flex justify-center">
+        <div className="mt-1.5 flex justify-center">
           <Button type="submit" variant="black" size="form">SEND</Button>
         </div>
       </MailtoForm>
@@ -102,7 +102,7 @@ export function ContactForm(
     <MailtoForm
       {...mail}
       trackEvent="contact_submit"
-      class="grid gap-4 sm:grid-cols-2"
+      className="grid gap-4 sm:grid-cols-2"
     >
       <FormField label="FIRST NAME">
         <InputField
@@ -110,7 +110,7 @@ export function ContactForm(
           placeholder="FIRST NAME"
           required
           ariaLabel="First name"
-          class="w-full"
+          className="w-full"
         />
       </FormField>
       <FormField label="LAST NAME">
@@ -119,7 +119,7 @@ export function ContactForm(
           placeholder="LAST NAME"
           required
           ariaLabel="Last name"
-          class="w-full"
+          className="w-full"
         />
       </FormField>
       <FormField label="EMAIL">
@@ -129,7 +129,7 @@ export function ContactForm(
           placeholder="EMAIL"
           required
           ariaLabel="Email"
-          class="w-full"
+          className="w-full"
         />
       </FormField>
       <FormField label="PHONE">
@@ -138,37 +138,37 @@ export function ContactForm(
           name="phone"
           placeholder="PHONE"
           ariaLabel="Phone"
-          class="w-full"
+          className="w-full"
         />
       </FormField>
       {newsletter && (
-        <div class="sm:col-span-2">
-          <label class="flex min-h-12 items-center gap-3 text-sm font-semibold text-black">
+        <div className="sm:col-span-2">
+          <label className="flex min-h-12 items-center gap-3 text-sm font-semibold text-black">
             <input
               type="checkbox"
               name="newsletter"
-              class="h-5 w-5 accent-primary"
+              className="h-5 w-5 accent-primary"
             />
-            <span class="lg:hidden">
+            <span className="lg:hidden">
               SUBSCRIBE TO OUR WEEKLY EMAIL NEWSLETTER!
             </span>
-            <span class="hidden lg:inline">
+            <span className="hidden lg:inline">
               SUBSCRIBE TO OUR MONTHLY EMAIL NEWSLETTER!
             </span>
           </label>
         </div>
       )}
-      <FormField label="LEAVE US A MESSAGE!" class="sm:col-span-2">
+      <FormField label="LEAVE US A MESSAGE!" className="sm:col-span-2">
         <TextareaField
           name="message"
           placeholder="LEAVE US A MESSAGE!"
           required
           ariaLabel="Message"
           rows={6}
-          class="w-full"
+          className="w-full"
         />
       </FormField>
-      <div class="sm:col-span-2">
+      <div className="sm:col-span-2">
         <Button type="submit" variant="outline-primary" size="form">
           SEND
         </Button>

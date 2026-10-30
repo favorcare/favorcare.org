@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { cx } from "./cx.ts";
 
 export type FormFieldTone = "black" | "white" | "primary";
@@ -26,15 +26,15 @@ export interface FormFieldProps {
   tone?: FormFieldTone;
   /** Label size: `sm` 14px (contact forms) or `base` 16px. */
   size?: FormFieldSize;
-  class?: string;
+  className?: string;
   /** The control: an `InputField`, `TextareaField`, ... */
-  children: ComponentChildren;
+  children: ReactNode;
 }
 
 /**
  * The labeled-control wrapper every form uses: a bold label above its
  * control, wrapped in a `<label>` so a click on the text focuses the input.
- * Spacing between fields comes from the parent form (gap), or `class`.
+ * Spacing between fields comes from the parent form (gap), or `className`.
  */
 export function FormField(
   {
@@ -42,18 +42,18 @@ export function FormField(
     labelMobile,
     tone = "black",
     size = "sm",
-    class: extra,
+    className: extra,
     children,
   }: FormFieldProps,
 ) {
   return (
-    <label class={cx("block", extra)}>
-      <span class={cx("mb-1 block font-semibold", SIZES[size], TONES[tone])}>
+    <label className={cx("block", extra)}>
+      <span className={cx("mb-1 block font-semibold", SIZES[size], TONES[tone])}>
         {labelMobile
           ? (
             <>
-              <span class="md:hidden">{labelMobile}</span>
-              <span class="hidden md:inline">{label}</span>
+              <span className="md:hidden">{labelMobile}</span>
+              <span className="hidden md:inline">{label}</span>
             </>
           )
           : label}

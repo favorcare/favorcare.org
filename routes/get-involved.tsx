@@ -1,4 +1,4 @@
-import { Fragment } from "preact";
+import { Fragment } from "react";
 import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 import { Header } from "../components/Header.tsx";
@@ -42,8 +42,8 @@ export default define.page(function GetInvolvedPage() {
         }
         <PageHero image={GET_INVOLVED.hero.image}>
           <PageTitle weight="semibold-md-bold">
-            <span class="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
-            <span class="hidden md:inline">{GET_INVOLVED.hero.title}</span>
+            <span className="md:hidden">{GET_INVOLVED.hero.titleMobile}</span>
+            <span className="hidden md:inline">{GET_INVOLVED.hero.title}</span>
           </PageTitle>
           <HeroLead>{GET_INVOLVED.hero.subtitle}</HeroLead>
         </PageHero>
@@ -56,18 +56,18 @@ export default define.page(function GetInvolvedPage() {
         }
         {GET_INVOLVED.cards.map((card, i) => (
           <Fragment key={card.title}>
-            <section class={cx(gutter(), "pt-5 md:pt-10")}>
-              <div class={cx(frame(), "grid md:grid-cols-2")}>
+            <section className={cx(gutter(), "pt-5 md:pt-10")}>
+              <div className={cx(frame(), "grid md:grid-cols-2")}>
                 <img
                   src={card.image}
                   alt=""
-                  class={`aspect-3/2 w-full object-cover ${
+                  className={`aspect-3/2 w-full object-cover ${
                     i === 1 ? "md:order-2" : ""
                   }`}
                   loading="lazy"
                 />
                 <div
-                  class={`mx-auto mt-2.5 flex w-[300px] flex-col items-center justify-center gap-5 rounded-r-card bg-black p-6 md:mt-0 md:w-auto md:p-0 md:py-[30px] ${
+                  className={`mx-auto mt-2.5 flex w-[300px] flex-col items-center justify-center gap-5 rounded-r-card bg-black p-6 md:mt-0 md:w-auto md:p-0 md:py-[30px] ${
                     i === 1
                       ? "md:order-1 md:rounded-l-card md:rounded-r-none"
                       : ""
@@ -79,7 +79,7 @@ export default define.page(function GetInvolvedPage() {
                     weight="semibold"
                     align="center"
                   />
-                  <p class="max-w-[80%] text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
+                  <p className="max-w-[80%] text-center text-sm leading-relaxed text-white md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed">
                     {card.body}
                   </p>
                   {i === 1
@@ -108,7 +108,7 @@ export default define.page(function GetInvolvedPage() {
                       <Button
                         variant="white"
                         href={card.cta.href}
-                        class="mt-2"
+                        className="mt-2"
                       >
                         {card.cta.label}
                       </Button>
@@ -124,12 +124,12 @@ export default define.page(function GetInvolvedPage() {
             }
             {i < GET_INVOLVED.cards.length - 1 && (
               <div
-                class="relative h-[200px] md:h-[270px] lg:h-[500px]"
+                className="relative h-[200px] md:h-[270px] lg:h-[500px]"
                 aria-hidden="true"
               >
                 {i === 0 && (
                   <div
-                    class="absolute inset-0 hidden bg-cover bg-[position:100%_50%] md:block"
+                    className="absolute inset-0 hidden bg-cover bg-[position:100%_50%] md:block"
                     style={{
                       backgroundImage: `url(${GET_INVOLVED.bandPhoto})`,
                     }}

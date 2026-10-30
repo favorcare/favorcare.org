@@ -8,19 +8,19 @@ import MobileNav from "../islands/MobileNav.tsx";
 // does not pin the header. Small screens use the burger (MobileNav island).
 export function Header() {
   return (
-    <header class="relative bg-yellow py-2.5 lg:py-[10px]">
-      <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-5 md:px-10">
-        <a href="/" class="flex items-center" aria-label="Favor Care home">
+    <header className="relative bg-yellow py-2.5 lg:py-[10px]">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-5 md:px-10">
+        <a href="/" className="flex items-center" aria-label="Favor Care home">
           <img
             src={asset("/images/logo-color.png")}
             alt="Favor Care"
-            class="h-[50px] w-auto lg:h-[60px]"
+            className="h-[50px] w-auto lg:h-[60px]"
           />
         </a>
 
         <Navbar />
 
-        <div class="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Button
             variant="black"
             size="header"

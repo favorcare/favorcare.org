@@ -34,12 +34,12 @@ export default define.page(function ContactPage() {
       <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Heading + contact form (single column, WP's 684px frame). */}
-        <section class={cx(gutter(), "pb-20 pt-[50px] md:pt-20")}>
-          <div class={frame()}>
+        <section className={cx(gutter(), "pb-20 pt-[50px] md:pt-20")}>
+          <div className={frame()}>
             <PageTitle tone="primary" size="contact">
               {CONTACT.heroTitle}
             </PageTitle>
-            <div class="mt-10 md:mt-[70px]">
+            <div className="mt-10 md:mt-[70px]">
               <ContactForm page="contact" />
             </div>
           </div>
@@ -50,16 +50,16 @@ export default define.page(function ContactPage() {
             titles, all collapsed (answers excluded from innerText, as on
             WP). */
         }
-        <section class={cx(gutter(), "pb-20")}>
-          <div class="mx-auto w-full max-w-[750px]">
+        <section className={cx(gutter(), "pb-20")}>
+          <div className="mx-auto w-full max-w-[750px]">
             <SectionHeading
               title="Frequently Asked Questions"
               align="center"
               weight="bold"
               leading="tight"
-              class="lg:leading-none"
+              className="lg:leading-none"
             />
-            <Faq items={CONTACT.faqs} class="mt-6 md:mt-[46px]" />
+            <Faq items={CONTACT.faqs} className="mt-6 md:mt-[46px]" />
           </div>
         </section>
 
@@ -70,9 +70,9 @@ export default define.page(function ContactPage() {
         }
         <section
           id="newsletter"
-          class={cx(gutter(), "bg-black pb-5 pt-20")}
+          className={cx(gutter(), "bg-black pb-5 pt-20")}
         >
-          <div class={frame()}>
+          <div className={frame()}>
             <NewsletterForm
               title={CONTACT.newsletter.title}
               fields={CONTACT.newsletter.fields}
@@ -88,24 +88,24 @@ export default define.page(function ContactPage() {
             the email address at a 1px font size — invisible, but present
             in text. */
         }
-        <section class={cx(gutter(), "bg-black py-[60px]")}>
-          <div class={frame()}>
-            <h2 class="text-left text-[38px] font-bold leading-tight text-white md:text-[36px] lg:text-[48px] lg:font-medium lg:leading-none">
+        <section className={cx(gutter(), "bg-black py-[60px]")}>
+          <div className={frame()}>
+            <h2 className="text-left text-[38px] font-bold leading-tight text-white md:text-[36px] lg:text-[48px] lg:font-medium lg:leading-none">
               {CONTACT.love.title}
             </h2>
-            <p class="mt-4 max-w-[633px] text-left text-sm leading-relaxed text-white md:text-[15px] lg:text-lg lg:leading-relaxed">
+            <p className="mt-4 max-w-[633px] text-left text-sm leading-relaxed text-white md:text-[15px] lg:text-lg lg:leading-relaxed">
               {CONTACT.love.body}
             </p>
-            <p class="text-[1px] font-bold text-white" aria-hidden="true">
+            <p className="text-[1px] font-bold text-white" aria-hidden="true">
               {CONTACT.love.email}
             </p>
           </div>
         </section>
-        <section class="bg-black px-2.5 pb-2.5 md:px-2.5">
+        <section className="bg-black px-2.5 pb-2.5 md:px-2.5">
           <MapEmbed
             src={mapEmbedSrc(CONTACT.mapQuery)}
             title="Favor Care office location"
-            class="h-[400px] w-full border-0"
+            className="h-[400px] w-full border-0"
           />
         </section>
       </main>

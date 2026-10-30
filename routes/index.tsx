@@ -47,7 +47,7 @@ export default define.page(function Home() {
           framePad="home"
           sectionClass="justify-center bg-black py-20 md:py-28 lg:h-[540px] lg:py-0"
         >
-          <h1 class="max-w-[570px] text-[38px] font-semibold leading-[0.95] tracking-[-2.3px] text-white md:text-[56px] lg:text-[70px] lg:leading-[57px]">
+          <h1 className="max-w-[570px] text-[38px] font-semibold leading-[0.95] tracking-[-2.3px] text-white md:text-[56px] lg:text-[70px] lg:leading-[57px]">
             {HOME.hero.headline}
           </h1>
         </PageHero>
@@ -57,27 +57,27 @@ export default define.page(function Home() {
             campaign video header image (image hidden below tablet, as on
             WP). One-off 10px mobile gutter — not the home frame dialect. */
         }
-        <section class="mx-auto w-full max-w-[1140px] px-2.5 py-16 md:px-10 md:py-20 lg:px-0 lg:pt-[30px] lg:pb-10">
-          <div class="rounded-card bg-yellow px-5 py-5 md:px-[50px]">
+        <section className="mx-auto w-full max-w-[1140px] px-2.5 py-16 md:px-10 md:py-20 lg:px-0 lg:pt-[30px] lg:pb-10">
+          <div className="rounded-card bg-yellow px-5 py-5 md:px-[50px]">
             <SectionHeading
               title={
                 <>
-                  <span class="md:hidden lg:inline">
+                  <span className="md:hidden lg:inline">
                     {HOME.careUpdates.heading}
                   </span>
-                  <span class="hidden md:inline lg:hidden">Care Updates</span>
+                  <span className="hidden md:inline lg:hidden">Care Updates</span>
                 </>
               }
               tone="black"
               leading="tight"
             />
-            <p class="mt-4 text-[14px] leading-relaxed text-black md:text-[15px] lg:text-base">
+            <p className="mt-4 text-[14px] leading-relaxed text-black md:text-[15px] lg:text-base">
               {HOME.careUpdates.body}
             </p>
             <img
               src={HOME.careUpdates.image}
               alt={HOME.careUpdates.imageAlt}
-              class="mt-6 hidden aspect-video w-full object-cover md:block"
+              className="mt-6 hidden aspect-video w-full object-cover md:block"
             />
           </div>
         </section>
@@ -87,30 +87,30 @@ export default define.page(function Home() {
             about right); stacked about-first on mobile, as on WP. */
         }
         <section
-          class={cx(
+          className={cx(
             frame("home"),
             "grid items-center gap-10 pb-16 md:grid-cols-2 md:pb-20 lg:gap-[88px]",
           )}
         >
-          <div class="md:order-2">
+          <div className="md:order-2">
             <Eyebrow>{HOME.about.eyebrow}</Eyebrow>
             <SectionHeading
               title={HOME.about.title}
               weight="semibold"
               leading="tight"
               tracking
-              class="mt-3"
+              className="mt-3"
             />
-            <p class="mt-5 text-[14px] leading-relaxed text-primary/80 md:text-[15px] lg:text-lg">
+            <p className="mt-5 text-[14px] leading-relaxed text-primary/80 md:text-[15px] lg:text-lg">
               {HOME.about.body}
             </p>
-            <div class="mt-7">
+            <div className="mt-7">
               <Button variant="yellow" size="sm" href={HOME.about.cta.href}>
                 {HOME.about.cta.label}
               </Button>
             </div>
           </div>
-          <div class="md:order-1">
+          <div className="md:order-1">
             <VideoEmbed
               id={HOME.careUpdates.video.id}
               title={HOME.careUpdates.video.title}
@@ -120,7 +120,7 @@ export default define.page(function Home() {
 
         {/* What we do: centered heading + the six-program media carousel. */}
         <section
-          class={cx(frame("home"), "py-16 text-center md:py-20")}
+          className={cx(frame("home"), "py-16 text-center md:py-20")}
         >
           <Eyebrow>{HOME.whatWeDo.eyebrow}</Eyebrow>
           <SectionHeading
@@ -128,12 +128,12 @@ export default define.page(function Home() {
             weight="semibold"
             leading="tight"
             tracking
-            class="mx-auto mt-3 max-w-[784px]"
+            className="mx-auto mt-3 max-w-[784px]"
           />
-          <p class="mx-auto mt-5 max-w-[784px] text-[14px] leading-relaxed text-primary/80 md:text-[15px] lg:text-lg">
+          <p className="mx-auto mt-5 max-w-[784px] text-[14px] leading-relaxed text-primary/80 md:text-[15px] lg:text-lg">
             {HOME.whatWeDo.body}
           </p>
-          <div class="mt-10 md:mt-14">
+          <div className="mt-10 md:mt-14">
             <Carousel slides={CAROUSEL} label="What we do programs" />
           </div>
         </section>
@@ -142,7 +142,7 @@ export default define.page(function Home() {
           /* Stories of changed lives: heading, story copy, video. WP shows
             the intro line only in the tablet variant. */
         }
-        <section class="mx-auto w-full max-w-[1140px] px-2.5 py-16 pb-24 md:pb-28 lg:px-0 lg:pb-32">
+        <section className="mx-auto w-full max-w-[1140px] px-2.5 py-16 pb-24 md:pb-28 lg:px-0 lg:pb-32">
           <SectionHeading
             title={HOME.stories.title}
             weight="semibold"
@@ -150,13 +150,13 @@ export default define.page(function Home() {
             tracking
             align="center"
           />
-          <p class="mx-auto mt-5 hidden max-w-[798px] text-center text-[15px] leading-relaxed text-primary/80 md:block lg:hidden">
+          <p className="mx-auto mt-5 hidden max-w-[798px] text-center text-[15px] leading-relaxed text-primary/80 md:block lg:hidden">
             {HOME.stories.intro}
           </p>
-          <p class="mx-auto mt-5 max-w-[798px] text-center text-[14px] leading-relaxed text-primary/80 md:hidden md:text-[15px] lg:block lg:text-lg">
+          <p className="mx-auto mt-5 max-w-[798px] text-center text-[14px] leading-relaxed text-primary/80 md:hidden md:text-[15px] lg:block lg:text-lg">
             {HOME.stories.body}
           </p>
-          <div class="mt-10">
+          <div className="mt-10">
             <VideoEmbed
               id={HOME.stories.video.id}
               title={HOME.stories.video.title}
@@ -176,7 +176,7 @@ export default define.page(function Home() {
             and the contact form in a rounded yellow card right. */
         }
         <section
-          class={cx(
+          className={cx(
             frame("home"),
             "grid items-center gap-10 py-16 lg:grid-cols-2",
           )}
@@ -186,9 +186,9 @@ export default define.page(function Home() {
             alt={HOME.takeAction.imageAlt}
             width={719}
             height={1024}
-            class="hidden aspect-[719/1024] w-full max-w-[719px] object-cover lg:block"
+            className="hidden aspect-[719/1024] w-full max-w-[719px] object-cover lg:block"
           />
-          <div class="mx-auto w-full max-w-[642px] rounded-card bg-yellow p-6 md:p-[50px]">
+          <div className="mx-auto w-full max-w-[642px] rounded-card bg-yellow p-6 md:p-[50px]">
             <SectionHeading
               title={HOME.contact.title}
               tone="black"
@@ -196,34 +196,34 @@ export default define.page(function Home() {
               leading="tight"
               tracking
             />
-            <p class="mt-4 text-[14px] leading-relaxed text-black/80 md:text-[15px] lg:text-lg">
+            <p className="mt-4 text-[14px] leading-relaxed text-black/80 md:text-[15px] lg:text-lg">
               {HOME.contact.body}
             </p>
-            <div class="mt-8 text-black [&_a]:text-black">
+            <div className="mt-8 text-black [&_a]:text-black">
               <ContactForm newsletter />
             </div>
           </div>
         </section>
 
         {/* We'd love to hear from you: black strip with email. */}
-        <section class="bg-black px-5 py-12 md:px-10 lg:py-[70px]">
+        <section className="bg-black px-5 py-12 md:px-10 lg:py-[70px]">
           <div
-            class={cx(
+            className={cx(
               frame(),
               "grid items-center gap-6 md:grid-cols-[1fr_auto]",
             )}
           >
             <div>
-              <h2 class="text-[38px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[48px]">
+              <h2 className="text-[38px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[48px]">
                 {HOME.contact.loveTitle}
               </h2>
-              <p class="mt-4 max-w-[633px] text-[14px] leading-relaxed text-white/80 md:text-[15px] lg:text-lg">
+              <p className="mt-4 max-w-[633px] text-[14px] leading-relaxed text-white/80 md:text-[15px] lg:text-lg">
                 {HOME.contact.loveBody}
               </p>
             </div>
             <a
               href="mailto:info@favorcare.org"
-              class="justify-self-center text-lg font-semibold text-white underline hover:text-yellow"
+              className="justify-self-center text-lg font-semibold text-white underline hover:text-yellow"
             >
               info@favorcare.org
             </a>

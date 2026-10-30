@@ -12,19 +12,19 @@ import { CFAC, CFAC_EVENTS, cfacDonateProps } from "../cfac.ts";
 // exactly as components/Header.tsx does.
 export function CfacHeader() {
   return (
-    <header class="relative bg-primary py-2.5 text-on-primary lg:py-[10px]">
-      <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-5 md:px-10">
+    <header className="relative bg-primary py-2.5 text-on-primary lg:py-[10px]">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-5 md:px-10">
         <a
           href="/coffeeforacause"
-          class="flex items-center gap-2.5"
+          className="flex items-center gap-2.5"
           aria-label="Coffee for a Cause home"
         >
-          <CoffeeIcon size={30} class="text-yellow" />
-          <span class="flex flex-col leading-none">
-            <span class="text-[17px] font-bold md:text-xl">
+          <CoffeeIcon size={30} className="text-yellow" />
+          <span className="flex flex-col leading-none">
+            <span className="text-[17px] font-bold md:text-xl">
               {CFAC.name}
             </span>
-            <span class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-on-primary/80">
+            <span className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-on-primary/80">
               by Favor Care
             </span>
           </span>

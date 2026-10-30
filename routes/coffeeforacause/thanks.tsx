@@ -27,36 +27,36 @@ export default define.page(function CfacThanksPage() {
       <TrackView event={CFAC_EVENTS.success} props={{ fund: "cfac" }} />
 
       <section
-        class={cx(
+        className={cx(
           frame("page"),
           "flex flex-1 flex-col items-center py-20 text-center md:py-24",
         )}
       >
         <Eyebrow>{CFAC.provenance}</Eyebrow>
-        <PageTitle tone="primary" class="mt-4">
+        <PageTitle tone="primary" className="mt-4">
           {CFAC.thanks.title}
         </PageTitle>
-        <p class="mx-auto mt-5 max-w-[620px] text-base leading-relaxed text-on-surface lg:text-lg">
+        <p className="mx-auto mt-5 max-w-[620px] text-base leading-relaxed text-on-surface lg:text-lg">
           {CFAC.thanks.body}
         </p>
 
-        <ul class="mx-auto mt-10 flex max-w-[620px] flex-col gap-4 text-left">
+        <ul className="mx-auto mt-10 flex max-w-[620px] flex-col gap-4 text-left">
           {CFAC.thanks.next.map((step) => (
-            <li class="flex items-start gap-3 rounded-card bg-surface-container-lowest p-5">
+            <li className="flex items-start gap-3 rounded-card bg-surface-container-lowest p-5">
               <span
-                class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-bold text-on-primary"
+                className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-bold text-on-primary"
                 aria-hidden="true"
               >
                 ✓
               </span>
-              <span class="text-base leading-relaxed text-on-surface">
+              <span className="text-base leading-relaxed text-on-surface">
                 {step}
               </span>
             </li>
           ))}
         </ul>
 
-        <div class="mt-12 flex flex-col items-center gap-4 md:flex-row">
+        <div className="mt-12 flex flex-col items-center gap-4 md:flex-row">
           <Button variant="black" size="md" href="/coffeeforacause">
             Back to the campaign
           </Button>

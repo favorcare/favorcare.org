@@ -15,7 +15,7 @@
 // placeholder the team must replace before launch; grep for "TBD".
 //
 // The palette values mirrored here live in the `.cfac` scope block of
-// assets/styles.css (see DESIGN.md, "Sub-brand themes") — sampled from the
+// app/globals.css (see DESIGN.md, "Sub-brand themes") — sampled from the
 // campaign deck's art; cfac_test.ts holds the AA-contrast gate.
 
 export interface CfacCta {
@@ -144,7 +144,7 @@ export function cfacDonateProps(location: string): Record<string, string> {
 
 /**
  * The CFAC palette as rendered — one entry per token the `.cfac` scope
- * overrides (assets/styles.css). Hexes are sampled from the campaign deck's
+ * overrides (app/globals.css). Hexes are sampled from the campaign deck's
  * art (see the scope block comment); the storybook's CFAC group renders
  * these swatches inside the live scope, and cfac_test.ts gates the
  * contrast pairs.

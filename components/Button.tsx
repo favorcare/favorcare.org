@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { cx } from "./cx.ts";
 
 export type ButtonVariant =
@@ -93,8 +93,8 @@ export interface ButtonProps {
   /** String props attached to the `track` event (JSON-encoded into
    * `data-track-props`). Only meaningful together with `track`. */
   trackProps?: Record<string, string>;
-  class?: string;
-  children?: ComponentChildren;
+  className?: string;
+  children?: ReactNode;
 }
 
 export function Button(
@@ -110,7 +110,7 @@ export function Button(
     disabled,
     track,
     trackProps,
-    class: extra,
+    className: extra,
     children,
   }: ButtonProps,
 ) {
@@ -128,7 +128,7 @@ export function Button(
         target={target}
         rel={rel}
         tabIndex={tabIndex}
-        class={className}
+        className={className}
         {...trackAttrs}
       >
         {children}
@@ -140,7 +140,7 @@ export function Button(
       type={type}
       tabIndex={tabIndex}
       disabled={disabled}
-      class={className}
+      className={className}
       {...trackAttrs}
     >
       {children}

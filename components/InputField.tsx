@@ -19,7 +19,7 @@ export interface InputFieldProps {
   required?: boolean;
   ariaLabel?: string;
   size?: InputFieldSize;
-  class?: string;
+  className?: string;
 }
 
 // Text input: gold focus ring throughout; size picks the measured dialect.
@@ -32,7 +32,7 @@ export function InputField(
     required,
     ariaLabel,
     size = "md",
-    class: extra,
+    className: extra,
   }: InputFieldProps,
 ) {
   return (
@@ -43,7 +43,7 @@ export function InputField(
       placeholder={placeholder}
       required={required}
       aria-label={ariaLabel}
-      class={cx(
+      className={cx(
         "flex-1 px-4 text-on-surface outline-none transition-colors",
         "focus:ring-2 focus:ring-primary/30",
         SIZES[size],

@@ -1,5 +1,5 @@
 // Design-token data for the /storybook brand reference. The values mirror
-// the `@theme` block in assets/styles.css (itself transcribed from
+// the `@theme` block in app/globals.css (itself transcribed from
 // DESIGN.md); tokens_test.ts fails if the two drift. Every `cls` is a
 // literal class string so Tailwind's source scan generates it.
 

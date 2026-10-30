@@ -17,7 +17,7 @@ export interface NewsletterFormProps {
   /** Email subject prefix; the submitter's name is appended
    *  (`CONTACT.newsletter.subject`). */
   subject: string;
-  class?: string;
+  className?: string;
 }
 
 /**
@@ -32,11 +32,11 @@ export interface NewsletterFormProps {
  * pill on the site.
  */
 export function NewsletterForm(
-  { title, fields, cta, recipient, subject, class: extra }: NewsletterFormProps,
+  { title, fields, cta, recipient, subject, className: extra }: NewsletterFormProps,
 ) {
   return (
-    <div class={extra}>
-      <h2 class="text-center text-[28px] font-bold leading-tight text-white md:text-[36px] lg:leading-none">
+    <div className={extra}>
+      <h2 className="text-center text-[28px] font-bold leading-tight text-white md:text-[36px] lg:leading-none">
         {title}
       </h2>
       <MailtoForm
@@ -49,7 +49,7 @@ export function NewsletterForm(
           ),
         }}
         labels={Object.fromEntries(fields.map((f) => [f.name, f.label]))}
-        class="mx-auto mt-8 w-full max-w-[400px] space-y-4"
+        className="mx-auto mt-8 w-full max-w-[400px] space-y-4"
       >
         {fields.map((f) => (
           <FormField key={f.name} label={f.label} tone="white" size="base">
@@ -58,12 +58,12 @@ export function NewsletterForm(
               name={f.name}
               placeholder={f.placeholder}
               required={f.required}
-              class="w-full"
+              className="w-full"
             />
           </FormField>
         ))}
-        <div class="flex justify-center pt-4">
-          <Button variant="yellow" type="submit" class="min-w-[149px]">
+        <div className="flex justify-center pt-4">
+          <Button variant="yellow" type="submit" className="min-w-[149px]">
             {cta}
           </Button>
         </div>

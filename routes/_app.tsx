@@ -12,7 +12,7 @@ export default define.page(function App({ Component, url }) {
   return (
     <html lang="en">
       <head>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Favor Care</title>
         <meta
@@ -31,10 +31,10 @@ export default define.page(function App({ Component, url }) {
           rel="stylesheet"
         />
       </head>
-      <body class="bg-surface text-on-surface font-sans antialiased">
+      <body className="bg-surface text-on-surface font-sans antialiased">
         <a
           href="#main-content"
-          class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
         >
           Skip to content
         </a>

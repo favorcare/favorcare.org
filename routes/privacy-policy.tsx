@@ -22,19 +22,19 @@ export default define.page(function PrivacyPage() {
         />
       </Head>
       <Header />
-      <main id="main-content" tabIndex={-1} class="bg-white">
-        <section class="px-2.5 pb-24 pt-14 md:px-5 lg:px-0">
-          <div class="mx-auto w-full max-w-[780px]">
-            <h1 class="text-center text-[48px] font-bold leading-tight text-primary md:text-[40px]">
+      <main id="main-content" tabIndex={-1} className="bg-white">
+        <section className="px-2.5 pb-24 pt-14 md:px-5 lg:px-0">
+          <div className="mx-auto w-full max-w-[780px]">
+            <h1 className="text-center text-[48px] font-bold leading-tight text-primary md:text-[40px]">
               {PRIVACY.title}
             </h1>
-            <div class="mt-12 space-y-5">
+            <div className="mt-12 space-y-5">
               {PRIVACY.blocks.map((b, i) =>
                 "h" in b
                   ? (
                     <h2
                       key={i}
-                      class="pt-5 text-[32px] font-medium leading-tight text-primary"
+                      className="pt-5 text-[32px] font-medium leading-tight text-primary"
                     >
                       {b.h}
                     </h2>
@@ -42,7 +42,7 @@ export default define.page(function PrivacyPage() {
                   : (
                     <p
                       key={i}
-                      class="text-base leading-6 text-primary"
+                      className="text-base leading-6 text-primary"
                     >
                       {b.p}
                     </p>

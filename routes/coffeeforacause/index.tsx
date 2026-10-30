@@ -37,11 +37,11 @@ export default define.page(function CfaCausePage() {
         framed={false}
         sectionClass="justify-center gap-6 px-5 py-[70px] lg:h-[540px] lg:py-0"
       >
-        <Eyebrow class="relative">{CFAC.provenance}</Eyebrow>
-        <h1 class="relative text-center text-[38px] font-bold leading-tight text-white md:text-[70px] md:leading-none">
+        <Eyebrow className="relative">{CFAC.provenance}</Eyebrow>
+        <h1 className="relative text-center text-[38px] font-bold leading-tight text-white md:text-[70px] md:leading-none">
           {CFAC.hero.title}
         </h1>
-        <p class="relative mx-auto max-w-[560px] text-center text-base leading-relaxed text-white lg:text-lg">
+        <p className="relative mx-auto max-w-[560px] text-center text-base leading-relaxed text-white lg:text-lg">
           {CFAC.hero.lead}
         </p>
         <Button
@@ -49,7 +49,7 @@ export default define.page(function CfaCausePage() {
           size="lg"
           shape="rounded-50"
           href={CFAC.hero.cta.href}
-          class="relative"
+          className="relative"
           track={CFAC_EVENTS.donate}
           trackProps={cfacDonateProps("hero")}
         >
@@ -60,23 +60,23 @@ export default define.page(function CfaCausePage() {
       {
         /* The idea: reality → hope, the BRAND.md arc's first two beats. */
       }
-      <section class={cx(frame("page"), "py-16 md:py-20")}>
-        <div class="max-w-[780px]">
+      <section className={cx(frame("page"), "py-16 md:py-20")}>
+        <div className="max-w-[780px]">
           <Eyebrow>{CFAC.story.eyebrow}</Eyebrow>
           <SectionHeading
             title={CFAC.story.title}
             size="section"
             leading="tight"
-            class="mt-3"
+            className="mt-3"
           />
-          <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
             {CFAC.story.beats.map((b) => (
               <div
                 key={b.label}
-                class="rounded-card bg-surface-container-lowest p-6"
+                className="rounded-card bg-surface-container-lowest p-6"
               >
-                <Eyebrow class="text-link">{b.label}</Eyebrow>
-                <p class="mt-3 text-base leading-relaxed text-on-surface">
+                <Eyebrow className="text-link">{b.label}</Eyebrow>
+                <p className="mt-3 text-base leading-relaxed text-on-surface">
                   {b.body}
                 </p>
               </div>
@@ -90,28 +90,28 @@ export default define.page(function CfaCausePage() {
           the team — cards carry no invented numbers. */
       }
       <section
-        class={cx(gutter("page"), "bg-surface-container-low py-16 md:py-20")}
+        className={cx(gutter("page"), "bg-surface-container-low py-16 md:py-20")}
       >
-        <div class={cx(frame("page"), "text-center")}>
+        <div className={cx(frame("page"), "text-center")}>
           <Eyebrow>{CFAC.impact.eyebrow}</Eyebrow>
           <SectionHeading
             title={CFAC.impact.title}
             size="section"
             leading="tight"
-            class="mt-3"
+            className="mt-3"
           />
-          <p class="mx-auto mt-4 max-w-[675px] text-base leading-relaxed text-on-surface-variant">
+          <p className="mx-auto mt-4 max-w-[675px] text-base leading-relaxed text-on-surface-variant">
             {CFAC.impact.subtitle}
           </p>
-          <div class="mt-10 grid gap-6 text-left md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-6 text-left md:grid-cols-2 lg:grid-cols-3">
             {CFAC.impact.cards.map((c) => (
-              <div key={c.title} class="rounded-card bg-surface p-6">
+              <div key={c.title} className="rounded-card bg-surface p-6">
                 <SectionHeading
                   title={c.title}
                   size="card"
                   leading="tight"
                 />
-                <p class="mt-3 text-base leading-relaxed text-on-surface">
+                <p className="mt-3 text-base leading-relaxed text-on-surface">
                   {c.body}
                 </p>
               </div>
@@ -123,16 +123,16 @@ export default define.page(function CfaCausePage() {
       {
         /* Good to know: the bordered-rows accordion from the catalog. */
       }
-      <section class={cx(frame("page"), "py-16 md:py-20")}>
-        <div class="max-w-[780px]">
+      <section className={cx(frame("page"), "py-16 md:py-20")}>
+        <div className="max-w-[780px]">
           <Eyebrow>{CFAC.faq.eyebrow}</Eyebrow>
           <SectionHeading
             title={CFAC.faq.title}
             size="section"
             leading="tight"
-            class="mt-3"
+            className="mt-3"
           />
-          <Faq items={CFAC.faq.items} class="mt-8" />
+          <Faq items={CFAC.faq.items} className="mt-8" />
         </div>
       </section>
 
@@ -140,14 +140,14 @@ export default define.page(function CfaCausePage() {
         /* The ask: closing band composed directly (CtaBand hardcodes its
           own track event; this page needs fund: "cfac" on the click). */
       }
-      <section class="bg-black px-5 py-14 text-center md:py-16 lg:py-20">
-        <h2 class="text-[28px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[56px]">
+      <section className="bg-black px-5 py-14 text-center md:py-16 lg:py-20">
+        <h2 className="text-[28px] font-semibold leading-tight tracking-tight text-white md:text-[39px] lg:text-[56px]">
           {CFAC.closing.title}
         </h2>
-        <p class="mx-auto mt-5 max-w-[675px] text-[14px] leading-relaxed text-white/80 md:text-[15px] lg:text-lg">
+        <p className="mx-auto mt-5 max-w-[675px] text-[14px] leading-relaxed text-white/80 md:text-[15px] lg:text-lg">
           {CFAC.closing.body}
         </p>
-        <div class="mt-7">
+        <div className="mt-7">
           <Button
             variant="yellow"
             size="sm"

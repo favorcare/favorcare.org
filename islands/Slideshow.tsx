@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "preact/hooks";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "../components/icons.tsx";
 
 export interface SlideshowImage {
@@ -42,10 +44,10 @@ export default function Slideshow({ images, label }: SlideshowProps) {
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label={label}>
-      <div class="relative">
+      <div className="relative">
         <div
           ref={trackRef}
-          class="flex h-[300px] w-full snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:h-[323px] lg:h-[400px]"
+          className="flex h-[300px] w-full snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:h-[323px] lg:h-[400px]"
         >
           {images.map((image, i) => (
             <div
@@ -54,7 +56,7 @@ export default function Slideshow({ images, label }: SlideshowProps) {
               role="group"
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${images.length}: ${image.alt}`}
-              class="h-full w-full shrink-0 snap-start bg-cover bg-center"
+              className="h-full w-full shrink-0 snap-start bg-cover bg-center"
               style={{ backgroundImage: `url(${image.src})` }}
             />
           ))}
@@ -64,7 +66,7 @@ export default function Slideshow({ images, label }: SlideshowProps) {
           /* Pagination overlays the photo's bottom edge (WP positions it
             inside the widget, so it adds no layout height). */
         }
-        <div class="absolute inset-x-0 bottom-2 flex justify-center gap-2">
+        <div className="absolute inset-x-0 bottom-2 flex justify-center gap-2">
           {images.map((image, i) => (
             <button
               key={image.src}
@@ -72,7 +74,7 @@ export default function Slideshow({ images, label }: SlideshowProps) {
               aria-label={`Go to slide ${i + 1}: ${image.alt}`}
               aria-current={i === active}
               onClick={() => goTo(i)}
-              class={`h-2 w-2 rounded-full transition-colors ${
+              className={`h-2 w-2 rounded-full transition-colors ${
                 i === active ? "bg-white" : "bg-white/50 hover:bg-white/80"
               }`}
             />
@@ -83,7 +85,7 @@ export default function Slideshow({ images, label }: SlideshowProps) {
           type="button"
           aria-label="Previous slide"
           onClick={() => goTo(active - 1)}
-          class="absolute left-2.5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white"
+          className="absolute left-2.5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white"
         >
           <ChevronLeftIcon size={30} />
         </button>
@@ -91,7 +93,7 @@ export default function Slideshow({ images, label }: SlideshowProps) {
           type="button"
           aria-label="Next slide"
           onClick={() => goTo(active + 1)}
-          class="absolute right-2.5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white"
+          className="absolute right-2.5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white"
         >
           <ChevronRightIcon size={30} />
         </button>

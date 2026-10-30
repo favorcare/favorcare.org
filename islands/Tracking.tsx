@@ -1,3 +1,5 @@
+"use client";
+
 // Client-side analytics behavior — the one island behind every tracked
 // event: vendor bootstraps (GA4 gtag config, the Mixpanel lib loader —
 // injected here as script elements so inline JS stays out of the SSR
@@ -10,7 +12,7 @@
 // and is exposed as `window.favorcareTrack` for console debugging:
 //   favorcareTrack("demo", { note: "hello" })
 
-import { useEffect } from "preact/hooks";
+import { useEffect } from "react";
 import {
   FIRST_TOUCH_KEY,
   LAST_TOUCH_KEY,

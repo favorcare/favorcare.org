@@ -6,7 +6,7 @@ export interface TextareaFieldProps {
   required?: boolean;
   ariaLabel?: string;
   rows?: number;
-  class?: string;
+  className?: string;
 }
 
 // Multiline sibling of InputField — same border + gold focus ring.
@@ -17,7 +17,7 @@ export function TextareaField(
     required,
     ariaLabel,
     rows = 5,
-    class: extra,
+    className: extra,
   }: TextareaFieldProps,
 ) {
   return (
@@ -27,7 +27,7 @@ export function TextareaField(
       required={required}
       aria-label={ariaLabel}
       rows={rows}
-      class={cx(
+      className={cx(
         "rounded border border-outline-variant bg-surface px-4 py-3",
         "text-base text-on-surface outline-none transition-colors",
         "focus:border-primary focus:ring-2 focus:ring-primary/30",

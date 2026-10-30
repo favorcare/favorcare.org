@@ -1,10 +1,10 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { cx } from "./cx.ts";
 
 export interface BankCardProps {
   title: string;
   /** Card body: account lines, buttons — plain dark- or light-mode text. */
-  children: ComponentChildren;
+  children: ReactNode;
   /** `light` = 3px near-black outline on white (PH cards);
    *  `dark` = solid black with white text (US cards). */
   tone?: "light" | "dark";
@@ -15,7 +15,7 @@ export interface BankCardProps {
    *  WP, so the page renders a desktop-only and a mobile-only card. */
   display?: "flex" | "md-only" | "mobile-only";
   /** Layout additions (`md:flex-1` in the PH row). */
-  class?: string;
+  className?: string;
 }
 
 // Bank/giving detail card from the give-now page: radius 30, 3px border,
@@ -28,12 +28,12 @@ export function BankCard(
     tone = "light",
     gap = "2",
     display = "flex",
-    class: extra,
+    className: extra,
   }: BankCardProps,
 ) {
   return (
     <div
-      class={cx(
+      className={cx(
         display === "md-only" && "hidden",
         display !== "md-only" && "flex",
         display === "md-only" && "md:flex",
@@ -45,7 +45,7 @@ export function BankCard(
       )}
     >
       <h3
-        class={cx(
+        className={cx(
           "text-[32px] font-bold leading-tight",
           tone === "dark" ? "text-white" : "text-primary",
         )}

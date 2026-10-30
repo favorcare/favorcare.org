@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { Head } from "fresh/runtime";
 import { define } from "../utils.ts";
 
@@ -101,18 +101,18 @@ function Group(
     id: string;
     title: string;
     intro?: string;
-    children: ComponentChildren;
+    children: ReactNode;
   },
 ) {
   return (
-    <section id={id} class="scroll-mt-24">
-      <div class="border-b border-primary/15 pb-3">
-        <h2 class="text-[25px] font-bold leading-none text-primary md:text-[30px]">
+    <section id={id} className="scroll-mt-24">
+      <div className="border-b border-primary/15 pb-3">
+        <h2 className="text-[25px] font-bold leading-none text-primary md:text-[30px]">
           {title}
         </h2>
-        {intro && <p class="mt-1 text-sm text-on-surface-variant">{intro}</p>}
+        {intro && <p className="mt-1 text-sm text-on-surface-variant">{intro}</p>}
       </div>
-      <div class="mt-6 space-y-6">{children}</div>
+      <div className="mt-6 space-y-6">{children}</div>
     </section>
   );
 }
@@ -121,16 +121,16 @@ function Specimen(
   { label, dark, children }: {
     label: string;
     dark?: boolean;
-    children: ComponentChildren;
+    children: ReactNode;
   },
 ) {
   return (
     <div>
-      <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
         {label}
       </p>
       <div
-        class={cx(
+        className={cx(
           "rounded-[10px] border border-primary/15 p-5",
           dark ? "bg-black" : "bg-white",
         )}
@@ -177,7 +177,7 @@ export default define.page(function StorybookPage() {
       </Head>
 
       <Header />
-      <header class="bg-black px-5 py-10">
+      <header className="bg-black px-5 py-10">
         <PageTitle>Component Library</PageTitle>
         <HeroLead measureClass="max-w-[630px]">
           The living catalog behind COMPONENTS.md, BRAND.md and DESIGN.md —
@@ -188,14 +188,14 @@ export default define.page(function StorybookPage() {
 
       <nav
         aria-label="Storybook sections"
-        class="sticky top-0 z-20 border-b border-primary/15 bg-white/95 backdrop-blur"
+        className="sticky top-0 z-20 border-b border-primary/15 bg-white/95 backdrop-blur"
       >
-        <ul class={cx(frame("page"), "flex gap-1 overflow-x-auto")}>
+        <ul className={cx(frame("page"), "flex gap-1 overflow-x-auto")}>
           {SECTIONS.map((s) => (
-            <li key={s.id} class="shrink-0">
+            <li key={s.id} className="shrink-0">
               <a
                 href={`#${s.id}`}
-                class="inline-flex min-h-12 items-center px-3 text-sm font-semibold text-primary hover:text-link"
+                className="inline-flex min-h-12 items-center px-3 text-sm font-semibold text-primary hover:text-link"
               >
                 {s.label}
               </a>
@@ -204,21 +204,21 @@ export default define.page(function StorybookPage() {
         </ul>
       </nav>
 
-      <main class={cx(frame("page"), "pb-24 pt-10")}>
-        <div class="space-y-16">
+      <main className={cx(frame("page"), "pb-24 pt-10")}>
+        <div className="space-y-16">
           <Group
             id="brand"
             title="Brand"
             intro="Voice and content style from BRAND.md — read it before writing any user-facing copy. Real people, quotes and numbers come only from content.ts and posts.ts."
           >
             <Specimen label="Identity">
-              <dl class="grid gap-4 md:grid-cols-3">
+              <dl className="grid gap-4 md:grid-cols-3">
                 {BRAND.identity.map((i) => (
                   <div key={i.term}>
-                    <dt class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+                    <dt className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
                       {i.term}
                     </dt>
-                    <dd class="mt-1 text-lg font-bold leading-snug text-primary">
+                    <dd className="mt-1 text-lg font-bold leading-snug text-primary">
                       {i.value}
                     </dd>
                   </div>
@@ -226,31 +226,31 @@ export default define.page(function StorybookPage() {
               </dl>
             </Specimen>
             <Specimen label="Storytelling approach">
-              <ol class="grid gap-4 md:grid-cols-2">
+              <ol className="grid gap-4 md:grid-cols-2">
                 {BRAND.storytelling.map((s, n) => (
-                  <li key={s.title} class="text-base leading-relaxed">
-                    <span class="font-bold text-primary">
+                  <li key={s.title} className="text-base leading-relaxed">
+                    <span className="font-bold text-primary">
                       {n + 1}. {s.title}
                     </span>{" "}
-                    <span class="text-on-surface">— {s.body}</span>
+                    <span className="text-on-surface">— {s.body}</span>
                   </li>
                 ))}
               </ol>
             </Specimen>
             <Specimen label="Engagement arc — every story: reality → hope → ask">
-              <ol class="grid gap-3 md:grid-cols-3">
+              <ol className="grid gap-3 md:grid-cols-3">
                 {BRAND.arc.map((a, n) => (
                   <li
                     key={a.beat}
-                    class={cx(
+                    className={cx(
                       "rounded-card p-5",
                       n === 2 ? "bg-yellow text-black" : "bg-surface-container",
                     )}
                   >
-                    <p class="text-lg font-bold leading-snug text-primary">
+                    <p className="text-lg font-bold leading-snug text-primary">
                       “{a.beat}”
                     </p>
-                    <p class="mt-1 text-base leading-relaxed text-on-surface">
+                    <p className="mt-1 text-base leading-relaxed text-on-surface">
                       {a.body}
                     </p>
                   </li>
@@ -258,19 +258,19 @@ export default define.page(function StorybookPage() {
               </ol>
             </Specimen>
             <Specimen label="Caption & CTA style (BRAND.md examples — illustrative, not real stories)">
-              <div class="grid gap-6 md:grid-cols-2">
-                <ul class="space-y-2">
+              <div className="grid gap-6 md:grid-cols-2">
+                <ul className="space-y-2">
                   {BRAND.captionExamples.map((c) => (
-                    <li key={c} class="text-base italic leading-relaxed">
+                    <li key={c} className="text-base italic leading-relaxed">
                       “{c}”
                     </li>
                   ))}
                 </ul>
-                <ul class="space-y-2">
+                <ul className="space-y-2">
                   {BRAND.ctaExamples.map((c) => (
                     <li
                       key={c}
-                      class="text-base font-bold leading-relaxed text-primary"
+                      className="text-base font-bold leading-relaxed text-primary"
                     >
                       {c}
                     </li>
@@ -279,31 +279,31 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Rules for writing">
-              <ul class="list-disc space-y-1 pl-5 text-base leading-relaxed">
+              <ul className="list-disc space-y-1 pl-5 text-base leading-relaxed">
                 {BRAND.rules.map((r) => <li key={r}>{r}</li>)}
               </ul>
             </Specimen>
             <Specimen label="Logo on its three grounds (header yellow, footer black, white)">
-              <div class="grid gap-4 md:grid-cols-3">
-                <div class="flex h-32 items-center justify-center rounded-card bg-yellow p-6">
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="flex h-32 items-center justify-center rounded-card bg-yellow p-6">
                   <img
                     src={asset("/images/logo-color.png")}
                     alt="Favor Care logo, full color"
-                    class="max-h-16 w-auto"
+                    className="max-h-16 w-auto"
                   />
                 </div>
-                <div class="flex h-32 items-center justify-center rounded-card bg-black p-6">
+                <div className="flex h-32 items-center justify-center rounded-card bg-black p-6">
                   <img
                     src={asset("/logo-white.svg")}
                     alt="Favor Care logo, white"
-                    class="max-h-16 w-auto"
+                    className="max-h-16 w-auto"
                   />
                 </div>
-                <div class="flex h-32 items-center justify-center rounded-card border border-primary/15 bg-white p-6">
+                <div className="flex h-32 items-center justify-center rounded-card border border-primary/15 bg-white p-6">
                   <img
                     src={asset("/logo-black.svg")}
                     alt="Favor Care logo, black"
-                    class="max-h-16 w-auto"
+                    className="max-h-16 w-auto"
                   />
                 </div>
               </div>
@@ -317,20 +317,20 @@ export default define.page(function StorybookPage() {
           >
             {COLOR_GROUPS.map((g) => (
               <Specimen key={g.title} label={g.title}>
-                <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                   {g.tokens.map((t) => (
-                    <div key={t.name} class="flex items-center gap-3">
+                    <div key={t.name} className="flex items-center gap-3">
                       <span
-                        class={cx(
+                        className={cx(
                           "h-10 w-10 shrink-0 rounded-[10px] border border-primary/15",
                           t.cls,
                         )}
                       />
-                      <span class="min-w-0">
-                        <code class="block truncate text-sm text-on-surface">
+                      <span className="min-w-0">
+                        <code className="block truncate text-sm text-on-surface">
                           {t.name}
                         </code>
-                        <code class="block text-xs text-on-surface-variant">
+                        <code className="block text-xs text-on-surface-variant">
                           {t.hex}
                         </code>
                       </span>
@@ -340,26 +340,26 @@ export default define.page(function StorybookPage() {
               </Specimen>
             ))}
             <Specimen label="Contrast — DESIGN.md's Do's and Don'ts, measured (AA body text needs 4.5:1)">
-              <div class="grid gap-3 md:grid-cols-2">
+              <div className="grid gap-3 md:grid-cols-2">
                 {CONTRAST_PAIRS.map((p) => {
                   const ratio = contrastRatio(p.fg, p.bg);
                   return (
                     <div
                       key={p.label}
-                      class="flex items-stretch overflow-hidden rounded-[10px] border border-primary/15"
+                      className="flex items-stretch overflow-hidden rounded-[10px] border border-primary/15"
                     >
                       <span
-                        class={cx(
+                        className={cx(
                           "flex w-28 shrink-0 items-center justify-center text-lg font-bold",
                           p.cls,
                         )}
                       >
                         Aa
                       </span>
-                      <span class="flex flex-1 flex-col justify-center px-4 py-2">
-                        <span class="text-sm text-on-surface">{p.label}</span>
+                      <span className="flex flex-1 flex-col justify-center px-4 py-2">
+                        <span className="text-sm text-on-surface">{p.label}</span>
                         <span
-                          class={cx(
+                          className={cx(
                             "text-sm font-bold",
                             p.intent === "do" ? "text-primary" : "text-error",
                           )}
@@ -374,11 +374,11 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Radii — square system, plus the measured rounds">
-              <div class="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-6">
                 {RADII.map((r) => (
-                  <div key={r.name} class="flex flex-col items-center gap-2">
-                    <span class={cx("h-32 w-44 bg-yellow", r.cls)} />
-                    <code class="text-sm text-on-surface">
+                  <div key={r.name} className="flex flex-col items-center gap-2">
+                    <span className={cx("h-32 w-44 bg-yellow", r.cls)} />
+                    <code className="text-sm text-on-surface">
                       {r.name} · {r.value}
                     </code>
                   </div>
@@ -386,17 +386,17 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Type scales (as measured on WP)">
-              <div class="space-y-4">
-                <p class="text-[38px] font-bold leading-none text-primary md:text-[56px] lg:text-[70px]">
+              <div className="space-y-4">
+                <p className="text-[38px] font-bold leading-none text-primary md:text-[56px] lg:text-[70px]">
                   Hero 38/56/70
                 </p>
-                <p class="text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
+                <p className="text-[28px] font-bold leading-none text-primary md:text-[39px] lg:text-[56px]">
                   Section 28/39/56
                 </p>
-                <p class="text-[25px] font-bold leading-none text-primary md:text-[30px] lg:text-[36px]">
+                <p className="text-[25px] font-bold leading-none text-primary md:text-[30px] lg:text-[36px]">
                   Card 25/30/36
                 </p>
-                <p class="text-lg leading-relaxed text-primary">
+                <p className="text-lg leading-relaxed text-primary">
                   Body lg — 18px, 1.5 line-height (the accessibility floor).
                 </p>
               </div>
@@ -405,23 +405,23 @@ export default define.page(function StorybookPage() {
 
           <Group id="layout" title="Layout" intro="components/layout/">
             <Specimen label='Container — pad="page" (10px gutters at 768) vs pad="home" (40px)'>
-              <div class="space-y-3">
+              <div className="space-y-3">
                 <Container
                   pad="page"
-                  class="border-2 border-dashed border-primary/30 py-3 text-center text-sm"
+                  className="border-2 border-dashed border-primary/30 py-3 text-center text-sm"
                 >
                   pad="page"
                 </Container>
                 <Container
                   pad="home"
-                  class="border-2 border-dashed border-primary/30 py-3 text-center text-sm"
+                  className="border-2 border-dashed border-primary/30 py-3 text-center text-sm"
                 >
                   pad="home"
                 </Container>
               </div>
             </Specimen>
             <Specimen label="SectionHeading — tone / weight / size / align">
-              <div class="space-y-6">
+              <div className="space-y-6">
                 <SectionHeading title={ABOUT.valuesTitle} align="center" />
                 <SectionHeading
                   title={HOME.about.title}
@@ -442,13 +442,13 @@ export default define.page(function StorybookPage() {
 
           <Group id="actions" title="Actions" intro="components/Button.tsx">
             <Specimen label="Button — variant × size (shape pill)">
-              <div class="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 {BUTTON_MATRIX.map((v) => (
                   <Button
                     key={v.variant}
                     variant={v.variant}
                     href="#actions"
-                    class={cx(
+                    className={cx(
                       v.variant === "white" || v.variant === "outline-white"
                         ? "bg-surface-container"
                         : "",
@@ -460,7 +460,7 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Button — transparent variants on the yellow card (outline-primary = home SEND, ghost = give-now SUBMIT; both at size form / lg)">
-              <div class="flex flex-wrap items-center gap-4 rounded-card bg-yellow p-6">
+              <div className="flex flex-wrap items-center gap-4 rounded-card bg-yellow p-6">
                 <Button variant="outline-primary" size="form" href="#actions">
                   outline-primary
                 </Button>
@@ -478,7 +478,7 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Button — sizes sm / md / header">
-              <div class="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button variant="yellow" size="sm" href="#actions">sm</Button>
                 <Button variant="yellow" size="md" href="#actions">md</Button>
                 <Button variant="black" size="header" href="#actions">
@@ -487,7 +487,7 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Button — jumbo dialect (lg / xl × rounded-30 / rounded-50)">
-              <div class="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button
                   variant="black"
                   size="lg"
@@ -522,7 +522,7 @@ export default define.page(function StorybookPage() {
             intro="components/icons.tsx — the only place that imports lucide-preact / simple-icons."
           >
             <Specimen label="UI glyphs (lucide, stroke)">
-              <div class="flex items-center gap-8 text-primary">
+              <div className="flex items-center gap-8 text-primary">
                 <CloseIcon size={24} />
                 <MenuIcon size={24} />
                 <ChevronLeftIcon size={30} />
@@ -533,7 +533,7 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="Brand glyphs (simple-icons, fill)" dark>
-              <div class="flex items-center gap-8 text-white">
+              <div className="flex items-center gap-8 text-white">
                 <BrandIcon name="facebook" size={22} />
                 <BrandIcon name="instagram" size={22} />
                 <BrandIcon name="youtube" size={22} />
@@ -556,8 +556,8 @@ export default define.page(function StorybookPage() {
               </PageHero>
             </Specimen>
             <Specimen label='PageTitle — weight="semibold-md-bold" (get-involved, signup) / tone="primary" size="contact" (contact)'>
-              <div class="space-y-8">
-                <div class="rounded-card bg-primary p-6">
+              <div className="space-y-8">
+                <div className="rounded-card bg-primary p-6">
                   <PageTitle weight="semibold-md-bold">
                     {GET_INVOLVED.hero.title}
                   </PageTitle>
@@ -576,20 +576,20 @@ export default define.page(function StorybookPage() {
               />
             </Specimen>
             <Specimen label="BankCard — light (PH) / dark (US)">
-              <div class="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2">
                 <BankCard title={GIVENOW.ph.bankTransfer.title}>
-                  <p class="text-base text-black">
+                  <p className="text-base text-black">
                     {GIVENOW.ph.bankTransfer.accountName}
                   </p>
-                  <p class="text-base text-black">
+                  <p className="text-base text-black">
                     {GIVENOW.ph.bankTransfer.accountNumber}
                   </p>
                 </BankCard>
                 <BankCard tone="dark" title={GIVENOW.us.bankTransfer.title}>
-                  <p class="text-base text-light">
+                  <p className="text-base text-light">
                     {GIVENOW.us.bankTransfer.bank}
                   </p>
-                  <p class="text-base text-light">
+                  <p className="text-base text-light">
                     {`Account Number:\u00a0${GIVENOW.us.bankTransfer.accountNumber}`}
                   </p>
                 </BankCard>
@@ -599,13 +599,13 @@ export default define.page(function StorybookPage() {
 
           <Group id="content" title="Content">
             <Specimen label="Faq (native details/summary)">
-              <div class="mx-auto w-full max-w-[750px]">
+              <div className="mx-auto w-full max-w-[750px]">
                 <Faq items={CONTACT.faqs} />
               </div>
             </Specimen>
             <Specimen label="PostCard">
               {post && (
-                <div class="mx-auto max-w-[540px]">
+                <div className="mx-auto max-w-[540px]">
                   <PostCard post={post} />
                 </div>
               )}
@@ -627,7 +627,7 @@ export default define.page(function StorybookPage() {
               <TeamGrid members={ABOUT.team.members} />
             </Specimen>
             <Specimen label="VideoEmbed (lazy YouTube)">
-              <div class="mx-auto max-w-[540px]">
+              <div className="mx-auto max-w-[540px]">
                 <VideoEmbed
                   id={HOME.careUpdates.video.id}
                   title={HOME.careUpdates.video.title}
@@ -706,7 +706,7 @@ export default define.page(function StorybookPage() {
             intro="FormField wraps InputField / TextareaField in ContactForm, NewsletterForm and TaxDeductibleForm, which all submit through the MailtoForm island (components/mailto.ts composes the email); ChoiceGroup + VolunteerSignupForm build the /signup volunteer application."
           >
             <Specimen label="InputField / TextareaField">
-              <div class="mx-auto grid max-w-[540px] gap-4">
+              <div className="mx-auto grid max-w-[540px] gap-4">
                 <InputField
                   name="sb-name"
                   placeholder="FIRST NAME"
@@ -717,7 +717,7 @@ export default define.page(function StorybookPage() {
                   placeholder="LEAVE US A MESSAGE!"
                   ariaLabel="Message"
                 />
-                <div class="rounded-card bg-yellow p-5">
+                <div className="rounded-card bg-yellow p-5">
                   <InputField
                     size="give-now"
                     name="sb-givenow"
@@ -728,8 +728,8 @@ export default define.page(function StorybookPage() {
               </div>
             </Specimen>
             <Specimen label="FormField — tone (black / white / primary) × size (sm / base) and the mobile label split (resize across md)">
-              <div class="grid gap-4 md:grid-cols-3">
-                <div class="rounded-card bg-yellow p-4">
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-card bg-yellow p-4">
                   <FormField
                     label="FIRST NAME"
                     labelMobile="FIRST NAME*"
@@ -739,34 +739,34 @@ export default define.page(function StorybookPage() {
                       name="sb-ff-black"
                       placeholder="First Name*"
                       ariaLabel="First name"
-                      class="w-full"
+                      className="w-full"
                     />
                   </FormField>
                 </div>
-                <div class="rounded-card bg-black p-4">
+                <div className="rounded-card bg-black p-4">
                   <FormField label="EMAIL ADDRESS" tone="white" size="base">
                     <InputField
                       name="sb-ff-white"
                       placeholder="Email*"
                       ariaLabel="Email address"
-                      class="w-full"
+                      className="w-full"
                     />
                   </FormField>
                 </div>
-                <div class="rounded-card bg-yellow p-4">
+                <div className="rounded-card bg-yellow p-4">
                   <FormField label="CONTACT NAME" tone="primary" size="base">
                     <InputField
                       name="sb-ff-primary"
                       placeholder="Contact Name"
                       ariaLabel="Contact name"
-                      class="w-full"
+                      className="w-full"
                     />
                   </FormField>
                 </div>
               </div>
             </Specimen>
             <Specimen label="ChoiceGroup — radio / checkbox columns / other-with-text">
-              <div class="mx-auto grid max-w-[750px] gap-8">
+              <div className="mx-auto grid max-w-[750px] gap-8">
                 <ChoiceGroup
                   legend="Gender"
                   name="sb-gender"
@@ -810,14 +810,14 @@ export default define.page(function StorybookPage() {
                   nameFields: ["first-name"],
                 }}
                 labels={{ "first-name": "Name", email: "Email" }}
-                class="mx-auto flex max-w-[400px] flex-col gap-4"
+                className="mx-auto flex max-w-[400px] flex-col gap-4"
               >
                 <FormField label="FIRST NAME">
                   <InputField
                     name="first-name"
                     placeholder="FIRST NAME"
                     ariaLabel="First name"
-                    class="w-full"
+                    className="w-full"
                   />
                 </FormField>
                 <FormField label="EMAIL">
@@ -826,14 +826,14 @@ export default define.page(function StorybookPage() {
                     name="email"
                     placeholder="EMAIL"
                     ariaLabel="Email"
-                    class="w-full"
+                    className="w-full"
                   />
                 </FormField>
                 <Button type="submit" variant="black" size="form">SEND</Button>
               </MailtoForm>
             </Specimen>
             <Specimen label="ContactForm — home variant (MailtoForm: SEND opens an email to the inbox with the typed fields)">
-              <div class="rounded-card bg-yellow p-6 text-black [&_a]:text-black">
+              <div className="rounded-card bg-yellow p-6 text-black [&_a]:text-black">
                 <ContactForm newsletter />
               </div>
             </Specimen>
@@ -853,7 +853,7 @@ export default define.page(function StorybookPage() {
             title="Chrome &amp; islands"
             intro="Header (with Navbar on desktop and MobileNav below md) and Footer render on this page — inspect them live, and resize below 768px for MobileNav. Popup, Carousel and Slideshow have specimens above; MailtoForm is the submit seam under every form specimen."
           >
-            <p class="text-sm text-on-surface-variant">
+            <p className="text-sm text-on-surface-variant">
               No specimens in this group — the chrome above and the islands in
               the previous group are the reference.
             </p>
@@ -869,37 +869,37 @@ export default define.page(function StorybookPage() {
             title="CFAC theme"
             intro="The Coffee for a Cause sub-brand (routes/coffeeforacause/): a scoped token override in assets/styles.css re-skins the shared catalog inside any .cfac wrapper — no component edits, no hardcoded hex. PLACEHOLDER palette pending the brand kit; DESIGN.md 'Sub-brand themes' documents the mechanism, cfac_test.ts gates the contrast."
           >
-            <div class="cfac space-y-6">
+            <div className="cfac space-y-6">
               <Specimen label="Scoped palette (CFAC_COLORS — utilities resolve through the scope, hexes from the override block)">
-                <ul class="flex flex-wrap gap-5">
+                <ul className="flex flex-wrap gap-5">
                   {CFAC_COLORS.map((c) => (
-                    <li key={c.token} class="flex items-center gap-3">
+                    <li key={c.token} className="flex items-center gap-3">
                       <span
-                        class={cx(
+                        className={cx(
                           "inline-block h-12 w-12 rounded-full border border-primary/15",
                           CFAC_SWATCH[c.token],
                         )}
                         aria-hidden="true"
                       />
-                      <span class="text-sm leading-snug">
-                        <span class="block font-bold text-primary">
+                      <span className="text-sm leading-snug">
+                        <span className="block font-bold text-primary">
                           {c.token}
                         </span>
-                        <span class="text-on-surface-variant">{c.hex}</span>
+                        <span className="text-on-surface-variant">{c.hex}</span>
                       </span>
                     </li>
                   ))}
                 </ul>
               </Specimen>
               <Specimen label="Contrast (measured on the scoped pairs — the test enforces every one at AA)">
-                <ul class="grid gap-2 md:grid-cols-2">
+                <ul className="grid gap-2 md:grid-cols-2">
                   {CFAC_CONTRAST_PAIRS.map((p) => (
                     <li
                       key={p.label}
-                      class="flex items-center justify-between gap-3 rounded-card bg-surface-container-lowest px-4 py-2 text-sm"
+                      className="flex items-center justify-between gap-3 rounded-card bg-surface-container-lowest px-4 py-2 text-sm"
                     >
-                      <span class="text-on-surface">{p.label}</span>
-                      <span class="font-bold text-primary">
+                      <span className="text-on-surface">{p.label}</span>
+                      <span className="font-bold text-primary">
                         {contrastRatio(p.fg, p.bg).toFixed(2)}:1
                       </span>
                     </li>
@@ -907,7 +907,7 @@ export default define.page(function StorybookPage() {
                 </ul>
               </Specimen>
               <Specimen label="Buttons — the shared catalog, re-skinned by the scope">
-                <div class="flex flex-wrap items-center gap-4">
+                <div className="flex flex-wrap items-center gap-4">
                   <Button variant="yellow" size="md">
                     DONATE
                   </Button>
@@ -920,34 +920,34 @@ export default define.page(function StorybookPage() {
                 </div>
               </Specimen>
               <Specimen label="Type & labels in scope (Eyebrow, SectionHeading, links)">
-                <div class="space-y-3">
+                <div className="space-y-3">
                   <Eyebrow>A fundraising campaign of Favor Care</Eyebrow>
                   <SectionHeading
                     title="One cup can change a story."
                     size="card"
                   />
-                  <p class="text-base">
+                  <p className="text-base">
                     <a href="#cfac">A roast-toned link</a>{" "}
                     hovers to caramel, like the site's red→yellow pair.
                   </p>
                 </div>
               </Specimen>
               <Specimen label="Campaign chrome — CfacHeader / CfacFooter render inside the scope exactly as on /coffeeforacause">
-                <div class="overflow-hidden rounded-[10px]">
+                <div className="overflow-hidden rounded-[10px]">
                   <CfacHeader />
-                  <div class="bg-surface p-5 text-sm text-on-surface-variant">
+                  <div className="bg-surface p-5 text-sm text-on-surface-variant">
                     …page content…
                   </div>
                   <CfacFooter />
                 </div>
               </Specimen>
               <Specimen label="TrackView — fires a named event once on mount (the thanks-page conversion seam; renders nothing)">
-                <div class="flex items-center gap-4">
+                <div className="flex items-center gap-4">
                   <TrackView
                     event="storybook_demo_view"
                     props={{ source: "storybook" }}
                   />
-                  <p class="max-w-[520px] text-sm text-on-surface-variant">
+                  <p className="max-w-[520px] text-sm text-on-surface-variant">
                     This specimen mounted <code>storybook_demo_view</code>{" "}
                     on page load — watch for it in Mixpanel Live view / GA4
                     DebugView when keys are set. On /coffeeforacause/thanks it
@@ -964,7 +964,7 @@ export default define.page(function StorybookPage() {
             intro="components/Analytics.tsx + islands/Tracking.tsx — invisible chrome, mounted site-wide in routes/_app.tsx. GA4, Mixpanel and Cloudflare Web Analytics snippets render only when their keys are set (wrangler.jsonc vars / .env — see DEVELOPMENT.md, section Analytics & UTM tracking)."
           >
             <Specimen label="Analytics + Tracking — this page mounts both, so tracking behaves here exactly as on a real page (Analytics renders nothing visible; with keys set its snippets + island are in the DOM)">
-              <div class="flex flex-wrap items-center gap-6">
+              <div className="flex flex-wrap items-center gap-6">
                 <Analytics />
                 <Tracking />
                 <Button
@@ -976,7 +976,7 @@ export default define.page(function StorybookPage() {
                 >
                   Track a demo click
                 </Button>
-                <p class="max-w-[480px] text-sm text-on-surface-variant">
+                <p className="max-w-[480px] text-sm text-on-surface-variant">
                   Clicking fires <code>storybook_demo_click</code>{" "}
                   with first/last-touch UTM props. Watch it in Mixpanel Live
                   view / GA4 DebugView when keys are set, or call{" "}

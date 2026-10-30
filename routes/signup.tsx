@@ -174,21 +174,21 @@ export default define.page<typeof handler>(function SignupPage({ data }) {
           cta={SIGNUP.gateCta}
         />
 
-        <section class={cx(gutter(), "pb-20 pt-10")}>
-          <div class="mx-auto w-full max-w-[750px]">
+        <section className={cx(gutter(), "pb-20 pt-10")}>
+          <div className="mx-auto w-full max-w-[750px]">
             {data.ok
               ? (
-                <div class="rounded-card bg-yellow p-8 text-center md:p-12">
-                  <h2 class="text-[25px] font-bold leading-tight text-black md:text-[30px]">
+                <div className="rounded-card bg-yellow p-8 text-center md:p-12">
+                  <h2 className="text-[25px] font-bold leading-tight text-black md:text-[30px]">
                     {SIGNUP.success.title}
                   </h2>
-                  <p class="mx-auto mt-3 max-w-[480px] text-base leading-relaxed text-black">
+                  <p className="mx-auto mt-3 max-w-[480px] text-base leading-relaxed text-black">
                     {SIGNUP.success.body}
                   </p>
                   <Button
                     variant="black"
                     href={SIGNUP.success.back.href}
-                    class="mt-8"
+                    className="mt-8"
                   >
                     {SIGNUP.success.back.label}
                   </Button>
@@ -196,7 +196,7 @@ export default define.page<typeof handler>(function SignupPage({ data }) {
               )
               : (
                 <>
-                  <div class="flex justify-center">
+                  <div className="flex justify-center">
                     <Popup
                       trigger={SIGNUP.reviewTrigger}
                       triggerClass="min-h-12 text-sm font-bold uppercase tracking-wider text-primary underline"
@@ -206,7 +206,7 @@ export default define.page<typeof handler>(function SignupPage({ data }) {
                     />
                   </div>
                   <VolunteerSignupForm
-                    class="mt-8"
+                    className="mt-8"
                     values={data.values}
                     serveAreas={data.serveAreas}
                     error={data.error}

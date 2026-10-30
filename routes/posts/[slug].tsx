@@ -48,15 +48,15 @@ export default define.page<typeof handler>(({ data }) => {
           framed={false}
           sectionClass="justify-center gap-1 py-[225px] lg:h-[633px] lg:py-0"
         >
-          <h1 class="relative px-5 text-center text-[32px] font-semibold leading-tight text-white lg:text-[50px]">
+          <h1 className="relative px-5 text-center text-[32px] font-semibold leading-tight text-white lg:text-[50px]">
             {post.heroLines[0]}
             <br />
             {post.heroLines[1]}
           </h1>
         </PageHero>
 
-        <article class={cx(gutter(), "pb-24 pt-[100px]")}>
-          <div class="mx-auto w-full max-w-[1120px] space-y-6">
+        <article className={cx(gutter(), "pb-24 pt-[100px]")}>
+          <div className="mx-auto w-full max-w-[1120px] space-y-6">
             {post.blocks.map((block, i) => <Block key={i} block={block} />)}
           </div>
         </article>
@@ -71,7 +71,7 @@ function Block({ block }: { block: ArticleBlock }) {
     case "quote":
       return (
         <h2
-          class={`text-[22px] font-semibold leading-tight text-primary md:text-[30px] ${
+          className={`text-[22px] font-semibold leading-tight text-primary md:text-[30px] ${
             block.yellow ? "text-article-yellow" : ""
           }`}
         >
@@ -80,7 +80,7 @@ function Block({ block }: { block: ArticleBlock }) {
       );
     case "heading":
       return (
-        <h2 class="text-[22px] font-semibold leading-tight text-primary md:text-[30px]">
+        <h2 className="text-[22px] font-semibold leading-tight text-primary md:text-[30px]">
           {block.text}
         </h2>
       );
@@ -88,7 +88,7 @@ function Block({ block }: { block: ArticleBlock }) {
       return (
         <>
           {block.paragraphs.map((p) => (
-            <p class="text-base leading-6 text-primary">{p}</p>
+            <p className="text-base leading-6 text-primary">{p}</p>
           ))}
         </>
       );
@@ -101,14 +101,14 @@ function Block({ block }: { block: ArticleBlock }) {
       );
     case "cta":
       return (
-        <div class="space-y-4 rounded-xl bg-adbreak px-5 py-[30px] text-center">
-          <h2 class="text-[32px] font-bold leading-tight text-article-yellow">
+        <div className="space-y-4 rounded-xl bg-adbreak px-5 py-[30px] text-center">
+          <h2 className="text-[32px] font-bold leading-tight text-article-yellow">
             {block.heading}
           </h2>
           {block.parts.map((part, i) =>
             part.kind === "text"
               ? (
-                <p class="text-base leading-6 text-primary" key={i}>
+                <p className="text-base leading-6 text-primary" key={i}>
                   {part.text}
                 </p>
               )
@@ -120,7 +120,7 @@ function Block({ block }: { block: ArticleBlock }) {
                   }
                   <a
                     href={part.href}
-                    class="inline-block rounded-card bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
+                    className="inline-block rounded-card bg-article-yellow px-[50px] py-[15px] text-lg font-bold leading-none text-black transition-opacity hover:opacity-90 lg:text-[22px]"
                   >
                     {part.label}
                   </a>

@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "preact/hooks";
-import type { ComponentChildren } from "preact";
+"use client";
+
+import { useEffect, useRef } from "react";
+import type { ReactNode } from "react";
 import { CloseIcon } from "../components/icons.tsx";
 import type { PopupBlock, PopupCta } from "../components/content.ts";
 
@@ -17,10 +19,10 @@ export interface PopupChain {
 export interface PopupProps {
   /** Content of the button that opens the dialog. Omit for auto-opened
    *  popups — no trigger is rendered. */
-  trigger?: ComponentChildren;
+  trigger?: ReactNode;
   triggerClass?: string;
   title: string;
-  children?: ComponentChildren;
+  children?: ReactNode;
   /** Structured body blocks (same shape as a chained dialog's) — rendered
    *  after `children` (the /signup gate shows the full guidelines doc). */
   blocks?: PopupBlock[];
@@ -39,17 +41,17 @@ function Blocks({ blocks }: { blocks: PopupBlock[] }) {
       {blocks.map((b, i) =>
         b.type === "h"
           ? (
-            <h3 key={i} class="mt-4 font-semibold text-on-surface first:mt-0">
+            <h3 key={i} className="mt-4 font-semibold text-on-surface first:mt-0">
               {b.text}
             </h3>
           )
           : b.type === "ul"
           ? (
-            <ul key={i} class="mt-2 list-disc space-y-1 pl-5">
+            <ul key={i} className="mt-2 list-disc space-y-1 pl-5">
               {b.items?.map((item, j) => <li key={j}>{item}</li>)}
             </ul>
           )
-          : <p key={i} class="mt-2 first:mt-0">{b.text}</p>
+          : <p key={i} className="mt-2 first:mt-0">{b.text}</p>
       )}
     </>
   );
@@ -88,7 +90,8 @@ export default function Popup(
       }
     }, auto.delayMs ?? 3000);
     return () => clearTimeout(t);
-  }, [auto]);
+  // Depend on the primitives: an `auto` object literal is new every render.
+  }, [auto?.delayMs, auto?.sessionKey]);
 
   const dialogClass =
     "m-auto max-h-[80vh] w-[min(28rem,92vw)] overflow-y-auto border-0 bg-surface p-0 text-on-surface shadow-lg";
@@ -103,14 +106,14 @@ export default function Popup(
     if (!cta) return null;
     if (cta.closesPopup && onClose) {
       return (
-        <button type="button" onClick={onClose} class={ctaClass}>
+        <button type="button" onClick={onClose} className={ctaClass}>
           {cta.label}
         </button>
       );
     }
     if (cta.opensChain && onOpenChain) {
       return (
-        <button type="button" onClick={onOpenChain} class={ctaClass}>
+        <button type="button" onClick={onOpenChain} className={ctaClass}>
           {cta.label}
         </button>
       );
@@ -122,7 +125,7 @@ export default function Popup(
         {...cta.external
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {}}
-        class={ctaClass}
+        className={ctaClass}
       >
         {cta.label}
       </a>
@@ -134,7 +137,7 @@ export default function Popup(
       type="button"
       aria-label="Close"
       onClick={onClick}
-      class="absolute right-3 top-3 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container"
+      className="absolute right-3 top-3 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container"
     >
       <CloseIcon size={20} />
     </button>
@@ -150,7 +153,7 @@ export default function Popup(
       {trigger !== undefined && (
         <button
           type="button"
-          class={triggerClass}
+          className={triggerClass}
           onClick={() => ref.current?.showModal()}
         >
           {trigger}
@@ -160,13 +163,13 @@ export default function Popup(
       <dialog
         ref={ref}
         aria-label={title}
-        class={`${dialogClass}${auto ? " popup-fade" : ""}`}
+        className={`${dialogClass}${auto ? " popup-fade" : ""}`}
       >
-        <div class="relative p-8">
+        <div className="relative p-8">
           {closeBtn(() => ref.current?.close())}
 
-          <h2 class="pr-10 text-xl font-semibold">{title}</h2>
-          <div class="mt-3 text-base leading-relaxed text-on-surface-variant">
+          <h2 className="pr-10 text-xl font-semibold">{title}</h2>
+          <div className="mt-3 text-base leading-relaxed text-on-surface-variant">
             {children}
             {blocks && <Blocks blocks={blocks} />}
             {ctaNode(cta, openChain, () => ref.current?.close())}
@@ -175,14 +178,14 @@ export default function Popup(
       </dialog>
 
       {chain && (
-        <dialog ref={chainRef} aria-label={chain.title} class={dialogClass}>
-          <div class="relative p-8">
+        <dialog ref={chainRef} aria-label={chain.title} className={dialogClass}>
+          <div className="relative p-8">
             {closeBtn(() =>
               chainRef.current?.close()
             )}
 
-            <h2 class="pr-10 text-xl font-semibold">{chain.title}</h2>
-            <div class="mt-3 text-base leading-relaxed text-on-surface-variant">
+            <h2 className="pr-10 text-xl font-semibold">{chain.title}</h2>
+            <div className="mt-3 text-base leading-relaxed text-on-surface-variant">
               <Blocks blocks={chain.blocks} />
               {ctaNode(chain.cta, undefined, () =>
                 chainRef.current?.close())}
