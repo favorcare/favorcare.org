@@ -84,8 +84,6 @@ $RECYCLE.BIN/
 .env.production.local
 .env.local
 
-# Fresh build directory
-_fresh/
 # npm + other dependencies
 node_modules/
 vendor/
@@ -119,3 +117,8 @@ dist/
 # wrangler dev state + local vars (never commit)
 .wrangler/
 .dev.vars
+.vinext/
+.cloudflare/
+
+# Build output + local env
+.env.local
