@@ -1,8 +1,12 @@
 // Catalog drift guard: every shared component must have a /storybook
 // specimen and a COMPONENTS.md entry, the storybook jump-nav must match
 // its groups, and the BRAND copy rendered there must still be BRAND.md's.
-import { assert, assertEquals } from "@std/assert";
-import { BRAND } from "../components/content.ts";
+import { test } from "vitest";
+import { deepStrictEqual, ok } from "node:assert/strict";
+import { readFile, readdir } from "node:fs/promises";
+import { BRAND } from "../../../components/content.ts";
+
+const STORY_PATH = "app/(site)/storybook/page.tsx";
 
 // Rendered inside Header rather than as their own specimens.
 const CHROME_ONLY = new Set(["Navbar", "MobileNav"]);
@@ -17,9 +21,9 @@ async function componentExports(): Promise<string[]> {
       "islands",
     ]
   ) {
-    for await (const entry of Deno.readDir(dir)) {
-      if (!entry.isFile || !entry.name.endsWith(".tsx")) continue;
-      const src = await Deno.readTextFile(`${dir}/${entry.name}`);
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      if (!entry.isFile() || !entry.name.endsWith(".tsx")) continue;
+      const src = await readFile(`${dir}/${entry.name}`, "utf8");
       for (
         const [, name] of src.matchAll(
           /^export (?:default )?function ([A-Z]\w*)/gm,
@@ -30,24 +34,24 @@ async function componentExports(): Promise<string[]> {
   return names.sort();
 }
 
-Deno.test("every exported component has a /storybook specimen", async () => {
-  const story = await Deno.readTextFile("routes/storybook.tsx");
+test("every exported component has a /storybook specimen", async () => {
+  const story = await readFile(STORY_PATH, "utf8");
   const missing = (await componentExports()).filter((name) =>
     !CHROME_ONLY.has(name) && !new RegExp(`<${name}[\\s/>]`).test(story)
   );
-  assertEquals(missing, [], "add a specimen to routes/storybook.tsx");
+  deepStrictEqual(missing, [], "add a specimen to app/(site)/storybook/page.tsx");
 });
 
-Deno.test("every exported component is listed in COMPONENTS.md", async () => {
-  const catalog = await Deno.readTextFile("COMPONENTS.md");
+test("every exported component is listed in COMPONENTS.md", async () => {
+  const catalog = await readFile("COMPONENTS.md", "utf8");
   const missing = (await componentExports()).filter((name) =>
     !catalog.includes(`\`${name}\``)
   );
-  assertEquals(missing, [], "add a row to COMPONENTS.md");
+  deepStrictEqual(missing, [], "add a row to COMPONENTS.md");
 });
 
-Deno.test("storybook jump-nav matches its groups", async () => {
-  const story = await Deno.readTextFile("routes/storybook.tsx");
+test("storybook jump-nav matches its groups", async () => {
+  const story = await readFile(STORY_PATH, "utf8");
   const nav = story.slice(story.indexOf("const SECTIONS"));
   const navIds = [
     ...nav.slice(0, nav.indexOf("] as const")).matchAll(/id: "([^"]+)"/g),
@@ -55,11 +59,11 @@ Deno.test("storybook jump-nav matches its groups", async () => {
   const groupIds = [...story.matchAll(/<Group\s+id="([^"]+)"/g)].map((m) =>
     m[1]
   );
-  assertEquals(navIds, groupIds);
+  deepStrictEqual(navIds, groupIds);
 });
 
-Deno.test("BRAND copy is verbatim from BRAND.md", async () => {
-  const md = (await Deno.readTextFile("BRAND.md"))
+test("BRAND copy is verbatim from BRAND.md", async () => {
+  const md = (await readFile("BRAND.md", "utf8"))
     .replace(/\*\*|_/g, "")
     .replace(/\s+/g, " ");
   const strings = [
@@ -70,5 +74,5 @@ Deno.test("BRAND copy is verbatim from BRAND.md", async () => {
     ...BRAND.ctaExamples,
     ...BRAND.rules,
   ];
-  for (const s of strings) assert(md.includes(s), `not in BRAND.md: ${s}`);
+  for (const s of strings) ok(md.includes(s), `not in BRAND.md: ${s}`);
 });

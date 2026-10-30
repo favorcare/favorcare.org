@@ -69,6 +69,7 @@ import { Analytics } from "../../../components/Analytics.tsx";
 import Tracking from "../../../islands/Tracking.tsx";
 import TrackView from "../../../islands/TrackView.tsx";
 import Popup from "../../../islands/Popup.tsx";
+import SignupForm from "../../../islands/SignupForm.tsx";
 import Carousel from "../../../islands/Carousel.tsx";
 import Slideshow from "../../../islands/Slideshow.tsx";
 
@@ -643,6 +644,15 @@ export default function StorybookPage() {
           </Group>
 
           <Group id="islands" title="Islands (hydrated)">
+            <Specimen label="SignupForm — the /signup application wired to its Server Action with useActionState (demo: submit disabled so clicks can't reach the live formResponse)">
+              <SignupForm
+                demo
+                copy={{
+                  options: SIGNUP.options,
+                  privacyNotice: SIGNUP.privacyNotice,
+                }}
+              />
+            </Specimen>
             <Specimen label="Carousel — homepage program carousel">
               <Carousel slides={CAROUSEL} label="What we do programs" />
             </Specimen>
@@ -967,7 +977,7 @@ export default function StorybookPage() {
           <Group
             id="analytics"
             title="Analytics"
-            intro="components/Analytics.tsx + islands/Tracking.tsx — invisible chrome, mounted site-wide in routes/_app.tsx. GA4, Mixpanel and Cloudflare Web Analytics snippets render only when their keys are set (wrangler.jsonc vars / .env — see DEVELOPMENT.md, section Analytics & UTM tracking)."
+            intro="components/Analytics.tsx + islands/Tracking.tsx — invisible chrome, mounted site-wide in app/layout.tsx. GA4, Mixpanel and Cloudflare Web Analytics snippets render only when their keys are set (.env.production / .env.local — see DEVELOPMENT.md, section Analytics & UTM tracking)."
           >
             <Specimen label="Analytics + Tracking — this page mounts both, so tracking behaves here exactly as on a real page (Analytics renders nothing visible; with keys set its snippets + island are in the DOM)">
               <div className="flex flex-wrap items-center gap-6">

@@ -1,9 +1,12 @@
 // Clone-parity harness: screenshots + text parity between the Fresh app and
 // the canonical WordPress site (staging.favorcare.org).
 //
-//   deno task clone:reference             # capture WP reference screenshots
-//   deno task clone:diff                  # capture Fresh + compare w/ reference
-//   deno task clone:diff -- --pages home  # single page
+//   pnpm clone:reference             # capture WP reference screenshots
+//   pnpm clone:diff                       # capture + compare w/ reference
+//   node scripts/clone-diff.ts compare --against <dir>
+//                                         # pixel-diff current/ vs a saved
+//                                         # baseline (e.g. fresh-baseline/)
+//   pnpm clone:diff -- --pages home  # single page
 //
 // Output (default ../migration-files/clone-diff — outside the repo):
 //   reference/<page>-<width>.png|.txt     one-time WP captures
@@ -14,6 +17,7 @@
 // fonts loaded. Text parity compares normalized, DEDUPED body text —
 // Elementor duplicates content per breakpoint, so duplicates are dropped.
 
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const WP_BASE = "https://staging.favorcare.org";
@@ -62,13 +66,19 @@ const PAIRS: Pair[] = [
   },
 ];
 
-const args = Deno.args;
-const mode = args[0] === "reference" ? "reference" : "diff";
-const outFlag = args.findIndex((a) => a === "--out");
+const args = process.argv.slice(2);
+const mode = args[0] === "reference"
+  ? "reference"
+  : args[0] === "compare"
+  ? "compare"
+  : "diff";
+const outFlag = args.findIndex((a: string) => a === "--out");
 const OUT = outFlag !== -1
   ? args[outFlag + 1]
   : "../migration-files/clone-diff";
-const pagesFlag = args.findIndex((a) => a === "--pages");
+const againstFlag = args.findIndex((a: string) => a === "--against");
+const AGAINST = againstFlag !== -1 ? args[againstFlag + 1] : null;
+const pagesFlag = args.findIndex((a: string) => a === "--pages");
 const only = pagesFlag !== -1 ? args[pagesFlag + 1].split(",") : null;
 
 async function capture(url: string, dir: string, name: string, chrome = true) {
@@ -107,7 +117,7 @@ async function capture(url: string, dir: string, name: string, chrome = true) {
       const normalized = dedupe(
         text.split("\n").map((l) => l.trim()).filter(Boolean),
       );
-      await Deno.writeTextFile(
+      await writeFile(
         `${dir}/${name}-${width}.txt`,
         normalized.join("\n"),
       );
@@ -138,10 +148,81 @@ function diffLines(a: string[], b: string[]) {
   return { missing, extra };
 }
 
-await Deno.mkdir(`${OUT}/reference`, { recursive: true });
-await Deno.mkdir(`${OUT}/current`, { recursive: true });
+await mkdir(`${OUT}/reference`, { recursive: true });
+await mkdir(`${OUT}/current`, { recursive: true });
 
 const pairs = PAIRS.filter((p) => (!only || only.includes(p.page)));
+
+if (mode === "compare") {
+  if (!AGAINST) {
+    console.error("compare needs --against <baseline dir>");
+    process.exit(64);
+  }
+  // Pixel-diff each current/<page>-<width>.png against the baseline's, in
+  // a browser canvas (no image dependencies). A pixel differs when any
+  // channel is off by more than TOLERANCE; antialiasing noise stays under it.
+  const TOLERANCE = 24;
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  const lines = ["page, width, size(base→cur), differing px %"];
+  for (const p of pairs) {
+    for (const width of WIDTHS) {
+      const name = `${p.page}-${width}.png`;
+      const [a, b] = await Promise.all([
+        readFile(`${AGAINST}/${name}`),
+        readFile(`${OUT}/current/${name}`),
+      ]).catch(() => [null, null]);
+      if (!a || !b) {
+        lines.push(`${p.page}, ${width}, missing capture`);
+        continue;
+      }
+      const r = await page.evaluate(
+        async ([x, y, tol]: [string, string, number]) => {
+          const load = (src: string) =>
+            new Promise<HTMLImageElement>((res, rej) => {
+              const img = new Image();
+              img.onload = () => res(img);
+              img.onerror = rej;
+              img.src = src;
+            });
+          const [ia, ib] = await Promise.all([load(x), load(y)]);
+          const w = Math.max(ia.width, ib.width);
+          const h = Math.max(ia.height, ib.height);
+          const px = (img: HTMLImageElement) => {
+            const c = document.createElement("canvas");
+            c.width = w;
+            c.height = h;
+            const ctx = c.getContext("2d")!;
+            ctx.drawImage(img, 0, 0);
+            return ctx.getImageData(0, 0, w, h).data;
+          };
+          const da = px(ia), db = px(ib);
+          let diff = 0;
+          for (let i = 0; i < da.length; i += 4) {
+            if (
+              Math.abs(da[i] - db[i]) > tol ||
+              Math.abs(da[i + 1] - db[i + 1]) > tol ||
+              Math.abs(da[i + 2] - db[i + 2]) > tol
+            ) diff++;
+          }
+          return {
+            sizes: `${ia.width}x${ia.height}→${ib.width}x${ib.height}`,
+            pct: (diff / (w * h)) * 100,
+          };
+        },
+        [
+          `data:image/png;base64,${a.toString("base64")}`,
+          `data:image/png;base64,${b.toString("base64")}`,
+          TOLERANCE,
+        ] as [string, string, number],
+      );
+      lines.push(`${p.page}, ${width}, ${r.sizes}, ${r.pct.toFixed(3)}%`);
+    }
+  }
+  await browser.close();
+  console.log(lines.join("\n"));
+  process.exit(0);
+}
 
 if (mode === "reference") {
   for (const p of pairs) {
@@ -150,7 +231,7 @@ if (mode === "reference") {
     await capture(WP_BASE + p.wp, `${OUT}/reference`, p.page, !p.mask);
   }
   console.log(`done -> ${OUT}/reference`);
-  Deno.exit(0);
+  process.exit(0);
 }
 
 // diff mode
@@ -185,8 +266,8 @@ for (const p of pairs) {
     const curTxt = `${OUT}/current/${p.page}-${width}.txt`;
     try {
       const [a, b] = await Promise.all([
-        Deno.readTextFile(refTxt),
-        Deno.readTextFile(curTxt),
+        readFile(refTxt, "utf8"),
+        readFile(curTxt, "utf8"),
       ]);
       hasRef = true;
       const { missing, extra } = diffLines(a.split("\n"), b.split("\n"));
@@ -220,8 +301,8 @@ for (const p of pairs) {
   if (!hasRef) report.push("_No reference images found at all._\n");
 }
 
-await Deno.writeTextFile(`${OUT}/report.md`, report.join("\n"));
-await Deno.writeTextFile(
+await writeFile(`${OUT}/report.md`, report.join("\n"));
+await writeFile(
   `${OUT}/report.html`,
   html.join("\n") + "</body></html>",
 );
