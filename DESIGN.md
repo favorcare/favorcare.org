@@ -53,8 +53,11 @@ colors:
   archive-ink: "#0c0d0e"
   archive-muted: "#69727d"
   adbreak: "#f5f5f5"
+  popup: "#f3f3f3"
+  popup-cta-border: "#9aa8ba"
 typography:
   font: Inter (Google Fonts, weights 300–700; Inter Tight available for display)
+  font-prompt: Prompt 300 (Google Fonts) — the accreditation popup body only
   # The page scales actually shipped by the WP-clone pages (measured at
   # 360/768/1280), not the kit's named display styles.
   hero-title: 38px / 56px (768) / 70px (1280) · bold or semibold per page
@@ -133,16 +136,19 @@ cards. Links are dark red `#C8221F` hovering to yellow. The posts article system
 has **its own yellow** `#F2B705` (`article-yellow`) for pull-quotes and ad-break
 CTA cards — do not mix the two up. Three WP-measured one-offs are scoped to
 where they were measured: `archive-ink`/`archive-muted` (the posts archive
-filter links) and `adbreak` (the article ad-break card background).
+filter links) and `adbreak` (the article ad-break card background). The
+accreditation popup (WP 7281) adds two more: `popup` (its `#F3F3F3` dialog
+surface) and `popup-cta-border` (the `#9AA8BA` hairline on its DONATE button).
 
 ## Typography
 
-Inter only, loaded from Google Fonts (weights 300–700; Inter Tight stays
-available). Titles use the measured page scales (see frontmatter): heroes
-38/56/70, section titles 28/39/56, card titles 25/30/36, the give-now jumbo 76px
-from md. Body text keeps ≥16px with ≥1.5 line-height (accessibility floor); card
-body runs 14/15/18 as measured. The gold eyebrow label is 12/14px bold uppercase
-with wide tracking.
+Inter, loaded from Google Fonts (weights 300–700; Inter Tight stays available).
+One scoped exception: the accreditation popup body is Prompt 300
+(`font-prompt`), as on WP. Titles use the measured page scales (see
+frontmatter): heroes 38/56/70, section titles 28/39/56, card titles 25/30/36,
+the give-now jumbo 76px from md. Body text keeps ≥16px with ≥1.5 line-height
+(accessibility floor); card body runs 14/15/18 as measured. The gold eyebrow
+label is 12/14px bold uppercase with wide tracking.
 
 ## Layout
 

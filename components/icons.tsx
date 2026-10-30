@@ -27,8 +27,21 @@ export interface IconProps {
   className?: string;
 }
 
-export function CloseIcon({ size = 24, className: cls }: IconProps) {
-  return <X aria-hidden="true" size={size} strokeWidth={2} className={cls} />;
+/** The X glyph for dialog/overlay closes. `strokeWidth` (default 2) thins
+ *  it for the accreditation popup's hairline WP glyph. */
+export function CloseIcon({
+  size = 24,
+  className: cls,
+  strokeWidth = 2,
+}: IconProps & { strokeWidth?: number }) {
+  return (
+    <X
+      aria-hidden="true"
+      size={size}
+      strokeWidth={strokeWidth}
+      className={cls}
+    />
+  );
 }
 
 export function MenuIcon({ size = 24, className: cls }: IconProps) {

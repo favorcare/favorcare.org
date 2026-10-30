@@ -138,11 +138,17 @@ export const COLOR_GROUPS: ColorGroup[] = [
     ],
   },
   {
-    title: "WP-measured one-offs (scoped to the posts system)",
+    title: "WP-measured one-offs (posts system, accreditation popup)",
     tokens: [
       { name: "archive-ink", cls: "bg-archive-ink", hex: "#0c0d0e" },
       { name: "archive-muted", cls: "bg-archive-muted", hex: "#69727d" },
       { name: "adbreak", cls: "bg-adbreak", hex: "#f5f5f5" },
+      { name: "popup", cls: "bg-popup", hex: "#f3f3f3" },
+      {
+        name: "popup-cta-border",
+        cls: "bg-popup-cta-border",
+        hex: "#9aa8ba",
+      },
     ],
   },
 ];
