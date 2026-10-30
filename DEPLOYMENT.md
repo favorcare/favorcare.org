@@ -17,6 +17,11 @@ deployed with the `cf` CLI through `vinext-cloudflare deploy`.
   updated by every push to that branch. Production is untouched. **Never use
   `vinext-cloudflare deploy --preview` for previews:** `--preview` only selects
   the Vite mode `preview`; it still deploys to Production.
+- The Workers Builds PR comment only links the build log for these previews. The
+  `preview-comment` workflow
+  ([`.github/workflows/preview-comment.yml`](.github/workflows/preview-comment.yml))
+  waits for the Workers Builds check, then posts the preview URL
+  (`https://<branch-slug>.preview.favorcare.media`) as one updated PR comment.
 - Public config is **build-time**: `.env.production` holds
   `NEXT_PUBLIC_ASSET_BASE_URL=https://assets.favorcare.media` and the analytics
   IDs. Change a value, rebuild, redeploy.
