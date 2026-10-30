@@ -1,6 +1,6 @@
 #!/bin/sh
 # commit-msg — enforces AGENTS.md's commit rules locally.
-# Wired up by `deno task setup` (git config core.hooksPath .githooks).
+# Wired up by `pnpm setup` (git config core.hooksPath .githooks).
 #
 # Rejects:
 #   - subjects that are not conventional commits (Merge/Revert exempt)

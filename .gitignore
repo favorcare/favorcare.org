@@ -109,7 +109,7 @@ migration/data/
 
 # Site images ARE tracked (contributor-friendly clones; CI mirrors them to
 # the Cloudflare R2 bucket via .github/workflows/sync-assets.yml — see
-# MIGRATION.md, Phase 2). `deno task assets:pull|push` remains for
+# MIGRATION.md, Phase 2). `pnpm assets:pull|push` remains for
 # bootstrapping and bucket-parity checks only.
 dist/
 .vite/
