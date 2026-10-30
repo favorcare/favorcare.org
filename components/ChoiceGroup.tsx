@@ -49,7 +49,7 @@ export function ChoiceGroup(
         type={type}
         name={name}
         value={value}
-        checked={checked}
+        defaultChecked={checked}
         required={required && mode === "radio" ? true : undefined}
         className="h-5 w-5 shrink-0 accent-primary"
       />
@@ -79,14 +79,14 @@ export function ChoiceGroup(
               type={type}
               name={name}
               value="__other_option__"
-              checked={selected?.includes("__other_option__") ?? false}
+              defaultChecked={selected?.includes("__other_option__") ?? false}
               className="h-5 w-5 shrink-0 accent-primary"
             />
             <span className="text-base leading-snug text-on-surface">Other:</span>
             <input
               type="text"
               name={other.name}
-              value={other.value}
+              defaultValue={other.value}
               placeholder="Please specify"
               aria-label={`${legend} — other`}
               className="h-10 min-w-[12rem] flex-1 rounded border border-outline-variant bg-surface px-3 text-base text-on-surface outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30"

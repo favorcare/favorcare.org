@@ -1,13 +1,17 @@
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { PageHero } from "../components/PageHero.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Button } from "../components/Button.tsx";
-import { BankCard } from "../components/BankCard.tsx";
-import { TaxDeductibleForm } from "../components/TaxDeductibleForm.tsx";
-import { GIVENOW } from "../components/content.ts";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { PageHero } from "../../../components/PageHero.tsx";
+import { SectionHeading } from "../../../components/layout/SectionHeading.tsx";
+import { Button } from "../../../components/Button.tsx";
+import { BankCard } from "../../../components/BankCard.tsx";
+import { TaxDeductibleForm } from "../../../components/TaxDeductibleForm.tsx";
+import { GIVENOW } from "../../../components/content.ts";
+
+export const metadata: Metadata = {
+  title: "Give now — Favor Care",
+  description: GIVENOW.howToGive.subtitle,
+};
 
 // Give-now page cloned from the WP page (post 7122, staging = canonical)
 // + its giving templates. Copy verbatim; geometry follows the measured WP
@@ -21,14 +25,10 @@ import { GIVENOW } from "../components/content.ts";
 // the PH Give Online button reads "Open Portal" desktop / "Credit /
 // Debit" mobile. The tax form submits via mailto until Phase 6/7 gives it
 // a backend (no file upload yet — PROOF OF DONATION noted in the body).
-export default define.page(function GiveNowPage() {
+export default function GiveNowPage() {
   return (
     <>
-      <Head>
-        <title>Give now — Favor Care</title>
-        <meta name="description" content={GIVENOW.howToGive.subtitle} />
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1} className="flex flex-col">
         {
           /* Hero: photo with a flat 50% black overlay (no gradient on
@@ -246,4 +246,4 @@ export default define.page(function GiveNowPage() {
       <Footer />
     </>
   );
-});
+}

@@ -1,22 +1,36 @@
-import { HttpError, page } from "fresh";
-import { Head } from "fresh/runtime";
-import { define } from "../../utils.ts";
-import { Header } from "../../components/Header.tsx";
-import { Footer } from "../../components/Footer.tsx";
-import { PageHero } from "../../components/PageHero.tsx";
-import { cx } from "../../components/cx.ts";
-import { Gallery } from "../../components/Gallery.tsx";
-import { gutter } from "../../components/layout/Container.tsx";
-import type { ArticleBlock, Post } from "../../components/posts.ts";
-import { getPost } from "../../components/posts.ts";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Header } from "../../../../components/Header.tsx";
+import { Footer } from "../../../../components/Footer.tsx";
+import { PageHero } from "../../../../components/PageHero.tsx";
+import { cx } from "../../../../components/cx.ts";
+import { Gallery } from "../../../../components/Gallery.tsx";
+import { gutter } from "../../../../components/layout/Container.tsx";
+import type { ArticleBlock, Post } from "../../../../components/posts.ts";
+import { getPost, listPosts } from "../../../../components/posts.ts";
 
-export const handler = define.handlers({
-  GET(ctx) {
-    const post = getPost(ctx.params.slug);
-    if (!post) throw new HttpError(404, "Post not found");
-    return page({ post });
-  },
-});
+type Params = Promise<{ slug: string }>;
+
+export function generateStaticParams() {
+  return listPosts().map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata(
+  { params }: { params: Params },
+): Promise<Metadata> {
+  const post = getPost((await params).slug);
+  if (!post) return {};
+  return {
+    title: `${post.title} — Favor Care`,
+    description: post.description,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.description,
+      images: [post.hero],
+    },
+  };
+}
 
 // Single post — cloned from the WP articles (staging = canonical): photo
 // hero with the two-line 50px title (32px mobile), then the article flow
@@ -26,18 +40,12 @@ export const handler = define.handlers({
 // full-width, per the source), gray `articleContentAdBreak` CTA cards
 // (#f5f5f5, radius 12, centered, yellow pill buttons), and the About
 // Favor Care footer block on the two outreach posts. Copy is verbatim.
-export default define.page<typeof handler>(({ data }) => {
-  const post: Post = data.post;
+export default async function PostPage({ params }: { params: Params }) {
+  const found = getPost((await params).slug);
+  if (!found) notFound();
+  const post: Post = found;
   return (
     <>
-      <Head>
-        <title>{post.title} — Favor Care</title>
-        <meta name="description" content={post.description} />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description} />
-        <meta property="og:image" content={post.hero} />
-      </Head>
       <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Hero: the post's cover photo with the two-line title. */}
@@ -64,7 +72,7 @@ export default define.page<typeof handler>(({ data }) => {
       <Footer />
     </>
   );
-});
+}
 
 function Block({ block }: { block: ArticleBlock }) {
   switch (block.type) {

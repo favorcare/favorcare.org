@@ -1,14 +1,12 @@
-import { page } from "fresh";
-import { Head } from "fresh/runtime";
-import { define } from "../../utils.ts";
-import { Header } from "../../components/Header.tsx";
-import { Footer } from "../../components/Footer.tsx";
-import { PageHero } from "../../components/PageHero.tsx";
-import { PostCard } from "../../components/PostCard.tsx";
-import { listPosts } from "../../components/posts.ts";
-import { cx } from "../../components/cx.ts";
-import { frame, gutter } from "../../components/layout/Container.tsx";
-import { asset } from "../../utils/assets.ts";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { PageHero } from "../../../components/PageHero.tsx";
+import { PostCard } from "../../../components/PostCard.tsx";
+import { listPosts } from "../../../components/posts.ts";
+import { cx } from "../../../components/cx.ts";
+import { frame, gutter } from "../../../components/layout/Container.tsx";
+import { asset } from "../../../utils/assets.ts";
 
 // Post archive — the canonical WP archive lives at /posts (staging's
 // /news-updates is a 404). Cloned from the WP page (post 7721, staging =
@@ -21,22 +19,22 @@ const INTRO =
 
 const HERO_IMAGE = asset("/images/posts/archive-hero.jpg");
 
-export const handler = define.handlers({
-  GET(ctx) {
-    const tag = ctx.url.searchParams.get("tag");
-    const all = listPosts();
-    const tags = ["All", ...new Set(all.map((p) => p.tag))];
-    const posts = tag && tag !== "All" ? all.filter((p) => p.tag === tag) : all;
-    return page({ posts, tags, active: tag ?? "All" });
-  },
-});
+export const metadata: Metadata = {
+  title: "Favor Care: News & Updates",
+  description: INTRO,
+};
 
-export default define.page<typeof handler>(({ data }) => (
+export default async function PostsPage(
+  { searchParams }: { searchParams: Promise<{ tag?: string | string[] }> },
+) {
+  const { tag: rawTag } = await searchParams;
+  const tag = Array.isArray(rawTag) ? rawTag[0] : rawTag;
+  const all = listPosts();
+  const tags = ["All", ...new Set(all.map((p) => p.tag))];
+  const posts = tag && tag !== "All" ? all.filter((p) => p.tag === tag) : all;
+  const data = { posts, tags, active: tag ?? "All" };
+  return (
   <>
-    <Head>
-      <title>Favor Care: News &amp; Updates</title>
-      <meta name="description" content={INTRO} />
-    </Head>
     <Header />
     <main id="main-content" tabIndex={-1}>
       {
@@ -92,4 +90,5 @@ export default define.page<typeof handler>(({ data }) => (
     </main>
     <Footer />
   </>
-));
+);
+}

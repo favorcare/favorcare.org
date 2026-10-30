@@ -1,5 +1,4 @@
-import { Head } from "fresh/runtime";
-import { define } from "../../utils.ts";
+import type { Metadata } from "next";
 import { PageHero } from "../../components/PageHero.tsx";
 import { SectionHeading } from "../../components/layout/SectionHeading.tsx";
 import { Eyebrow } from "../../components/Eyebrow.tsx";
@@ -10,6 +9,11 @@ import { cx } from "../../components/cx.ts";
 import { CFAC, CFAC_EVENTS, cfacDonateProps } from "../../components/cfac.ts";
 import { asset } from "../../utils/assets.ts";
 
+export const metadata: Metadata = {
+  title: `${CFAC.name} — Favor Care`,
+  description: CFAC.hero.lead,
+};
+
 // The Coffee for a Cause landing page. Composed from the shared catalog —
 // the CFAC look comes entirely from the `.cfac` theme scope in the layout
 // (see assets/styles.css), not from any markup here.
@@ -18,14 +22,10 @@ import { asset } from "../../utils/assets.ts";
 // (BRAND.md: never invent people, quotes, or numbers). The hero photo is a
 // stand-in from the org's own library (give-now hero) until the campaign
 // ships real art — TODO(brand kit): replace CFAC hero image.
-export default define.page(function CfaCausePage() {
+export default function CfaCausePage() {
   return (
     <>
-      <Head>
-        <title>{CFAC.name} — Favor Care</title>
-        <meta name="description" content={CFAC.hero.lead} />
-      </Head>
-
+      
       {
         /* Hero: photo + the black→yellow wash (in scope: roast→caramel),
           bare geometry like the give-now hero, centered title + pill. */
@@ -161,4 +161,4 @@ export default define.page(function CfaCausePage() {
       </section>
     </>
   );
-});
+}

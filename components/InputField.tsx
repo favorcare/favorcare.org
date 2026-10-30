@@ -39,7 +39,7 @@ export function InputField(
     <input
       type={type}
       name={name}
-      value={value}
+      defaultValue={value}
       placeholder={placeholder}
       required={required}
       aria-label={ariaLabel}

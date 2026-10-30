@@ -1,16 +1,20 @@
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Faq } from "../components/Faq.tsx";
-import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
-import { ContactForm } from "../components/ContactForm.tsx";
-import { CONTACT } from "../components/content.ts";
-import { NewsletterForm } from "../components/NewsletterForm.tsx";
-import { PageTitle } from "../components/PageTitle.tsx";
-import { cx } from "../components/cx.ts";
-import { frame, gutter } from "../components/layout/Container.tsx";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { SectionHeading } from "../../../components/layout/SectionHeading.tsx";
+import { Faq } from "../../../components/Faq.tsx";
+import { MapEmbed, mapEmbedSrc } from "../../../components/MapEmbed.tsx";
+import { ContactForm } from "../../../components/ContactForm.tsx";
+import { CONTACT } from "../../../components/content.ts";
+import { NewsletterForm } from "../../../components/NewsletterForm.tsx";
+import { PageTitle } from "../../../components/PageTitle.tsx";
+import { cx } from "../../../components/cx.ts";
+import { frame, gutter } from "../../../components/layout/Container.tsx";
+
+export const metadata: Metadata = {
+  title: "Contact us — Favor Care",
+  description: CONTACT.love.body,
+};
 
 // Contact page cloned from the WP page (post 1845, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at
@@ -24,14 +28,10 @@ import { frame, gutter } from "../components/layout/Container.tsx";
 // yellow SUBSCRIBE pill (no backend yet — it composes a mailto:). The
 // newsletter's 41px inputs and white-on-yellow pill are deliberately not
 // cloned (contrast + touch targets) — see NewsletterForm.
-export default define.page(function ContactPage() {
+export default function ContactPage() {
   return (
     <>
-      <Head>
-        <title>Contact us — Favor Care</title>
-        <meta name="description" content={CONTACT.love.body} />
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1}>
         {/* Heading + contact form (single column, WP's 684px frame). */}
         <section className={cx(gutter(), "pb-20 pt-[50px] md:pt-20")}>
@@ -112,4 +112,4 @@ export default define.page(function ContactPage() {
       <Footer />
     </>
   );
-});
+}

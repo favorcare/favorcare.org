@@ -1,34 +1,33 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
 
 // Primitives
-import { cx } from "../components/cx.ts";
-import { Button } from "../components/Button.tsx";
-import { Eyebrow } from "../components/Eyebrow.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Container, frame } from "../components/layout/Container.tsx";
-import { InputField } from "../components/InputField.tsx";
-import { TextareaField } from "../components/TextareaField.tsx";
-import { FormField } from "../components/FormField.tsx";
-import { TaxDeductibleForm } from "../components/TaxDeductibleForm.tsx";
-import { ChoiceGroup } from "../components/ChoiceGroup.tsx";
-import { VolunteerSignupForm } from "../components/VolunteerSignupForm.tsx";
-import { NewsletterForm } from "../components/NewsletterForm.tsx";
-import { ContactForm } from "../components/ContactForm.tsx";
-import MailtoForm from "../islands/MailtoForm.tsx";
+import { cx } from "../../../components/cx.ts";
+import { Button } from "../../../components/Button.tsx";
+import { Eyebrow } from "../../../components/Eyebrow.tsx";
+import { SectionHeading } from "../../../components/layout/SectionHeading.tsx";
+import { Container, frame } from "../../../components/layout/Container.tsx";
+import { InputField } from "../../../components/InputField.tsx";
+import { TextareaField } from "../../../components/TextareaField.tsx";
+import { FormField } from "../../../components/FormField.tsx";
+import { TaxDeductibleForm } from "../../../components/TaxDeductibleForm.tsx";
+import { ChoiceGroup } from "../../../components/ChoiceGroup.tsx";
+import { VolunteerSignupForm } from "../../../components/VolunteerSignupForm.tsx";
+import { NewsletterForm } from "../../../components/NewsletterForm.tsx";
+import { ContactForm } from "../../../components/ContactForm.tsx";
+import MailtoForm from "../../../islands/MailtoForm.tsx";
 
 // Page structure
-import { PageHero } from "../components/PageHero.tsx";
-import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
-import { CtaBand } from "../components/CtaBand.tsx";
-import { BankCard } from "../components/BankCard.tsx";
-import { Faq } from "../components/Faq.tsx";
-import { MapEmbed, mapEmbedSrc } from "../components/MapEmbed.tsx";
-import { VideoEmbed } from "../components/VideoEmbed.tsx";
-import { PostCard } from "../components/PostCard.tsx";
-import { Gallery } from "../components/Gallery.tsx";
-import { TeamGrid } from "../components/TeamGrid.tsx";
+import { PageHero } from "../../../components/PageHero.tsx";
+import { HeroLead, PageTitle } from "../../../components/PageTitle.tsx";
+import { CtaBand } from "../../../components/CtaBand.tsx";
+import { BankCard } from "../../../components/BankCard.tsx";
+import { Faq } from "../../../components/Faq.tsx";
+import { MapEmbed, mapEmbedSrc } from "../../../components/MapEmbed.tsx";
+import { VideoEmbed } from "../../../components/VideoEmbed.tsx";
+import { PostCard } from "../../../components/PostCard.tsx";
+import { Gallery } from "../../../components/Gallery.tsx";
+import { TeamGrid } from "../../../components/TeamGrid.tsx";
 
 // Icons + real content (specimens render with real copy, never lorem)
 import {
@@ -40,7 +39,7 @@ import {
   MailIcon,
   MenuIcon,
   PlusIcon,
-} from "../components/icons.tsx";
+} from "../../../components/icons.tsx";
 import {
   ABOUT,
   BRAND,
@@ -52,26 +51,31 @@ import {
   POPUPS,
   SIGNUP,
   WHAT_WE_DO,
-} from "../components/content.ts";
-import { CFAC_COLORS, CFAC_CONTRAST_PAIRS } from "../components/cfac.ts";
-import { CfacFooter } from "../components/cfac/Footer.tsx";
-import { CfacHeader } from "../components/cfac/Header.tsx";
-import { listPosts } from "../components/posts.ts";
+} from "../../../components/content.ts";
+import { CFAC_COLORS, CFAC_CONTRAST_PAIRS } from "../../../components/cfac.ts";
+import { CfacFooter } from "../../../components/cfac/Footer.tsx";
+import { CfacHeader } from "../../../components/cfac/Header.tsx";
+import { listPosts } from "../../../components/posts.ts";
 import {
   COLOR_GROUPS,
   CONTRAST_PAIRS,
   contrastRatio,
   RADII,
-} from "../components/tokens.ts";
-import { asset } from "../utils/assets.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { Analytics } from "../components/Analytics.tsx";
-import Tracking from "../islands/Tracking.tsx";
-import TrackView from "../islands/TrackView.tsx";
-import Popup from "../islands/Popup.tsx";
-import Carousel from "../islands/Carousel.tsx";
-import Slideshow from "../islands/Slideshow.tsx";
+} from "../../../components/tokens.ts";
+import { asset } from "../../../utils/assets.ts";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { Analytics } from "../../../components/Analytics.tsx";
+import Tracking from "../../../islands/Tracking.tsx";
+import TrackView from "../../../islands/TrackView.tsx";
+import Popup from "../../../islands/Popup.tsx";
+import Carousel from "../../../islands/Carousel.tsx";
+import Slideshow from "../../../islands/Slideshow.tsx";
+
+export const metadata: Metadata = {
+  title: "Component library — Favor Care",
+  robots: { index: false, follow: false },
+};
 
 // The living component catalog and brand reference. Every component the
 // real pages are built from has a specimen here; COMPONENTS.md is the
@@ -161,7 +165,7 @@ const CFAC_SWATCH: Record<string, string> = {
   link: "bg-link",
 };
 
-export default define.page(function StorybookPage() {
+export default function StorybookPage() {
   const post = listPosts()[0];
   // A real multi-photo gallery from the newest post that has one.
   const galleryImages = post.blocks.flatMap((b) =>
@@ -171,11 +175,7 @@ export default define.page(function StorybookPage() {
   ) ?? [];
   return (
     <>
-      <Head>
-        <title>Component library — Favor Care</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
-
+      
       <Header />
       <header className="bg-black px-5 py-10">
         <PageTitle>Component Library</PageTitle>
@@ -844,7 +844,13 @@ export default define.page(function StorybookPage() {
               <TaxDeductibleForm {...GIVENOW.ph.taxDeductible} />
             </Specimen>
             <Specimen label="VolunteerSignupForm — the /signup application (demo: submit disabled so clicks can't reach the live formResponse)">
-              <VolunteerSignupForm demo />
+              <VolunteerSignupForm
+                demo
+                copy={{
+                  options: SIGNUP.options,
+                  privacyNotice: SIGNUP.privacyNotice,
+                }}
+              />
             </Specimen>
           </Group>
 
@@ -993,4 +999,4 @@ export default define.page(function StorybookPage() {
       <Footer />
     </>
   );
-});
+}

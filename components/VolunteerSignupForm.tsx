@@ -1,12 +1,23 @@
 import type { PopupBlock } from "./content.ts";
-import { SIGNUP } from "./content.ts";
+import type { SIGNUP } from "./content.ts";
 import { Button } from "./Button.tsx";
 import { ChoiceGroup } from "./ChoiceGroup.tsx";
 import { InputField } from "./InputField.tsx";
 import { cx } from "./cx.ts";
 
+/** The slice of `SIGNUP` the form renders. Passed in as a prop so the
+ *  /signup island ships just this copy, not all of content.ts. */
+export interface VolunteerSignupCopy {
+  options: typeof SIGNUP.options;
+  privacyNotice: typeof SIGNUP.privacyNotice;
+}
+
 export interface VolunteerSignupFormProps {
-  /** Previously entered values, for re-renders after a failed POST. */
+  copy: VolunteerSignupCopy;
+  /** The form's action: a Server Action (islands/SignupForm.tsx wires it
+   *  with useActionState). Omit in the storybook specimen. */
+  action?: (formData: FormData) => void;
+  /** Previously entered values, for re-renders after a failed submit. */
   values?: Record<string, string>;
   serveAreas?: string[];
   error?: string;
@@ -69,17 +80,20 @@ function TextField(
 }
 
 // The volunteer application form (all 14 questions of the "Favor Care:
-// Sign Up to Serve" Google form, verbatim). Server-rendered — no client
-// JS: native required/type validation, POST to this route, whose handler
-// forwards the mapped fields to the Google form's response endpoint
-// (entry ids in SIGNUP.entries). Field names are the handler's keys.
+// Sign Up to Serve" Google form, verbatim). Rendered by the SignupForm
+// island: native required/type validation, submitted through a Server
+// Action (app/(site)/signup/actions.ts) that forwards the mapped fields to
+// the Google form's response endpoint (entry ids in SIGNUP.entries). It
+// works without JS too — React posts the form back to the page. Field
+// names are the action's keys.
 export function VolunteerSignupForm(
-  { values, serveAreas, error, demo, className: extra }: VolunteerSignupFormProps,
+  { copy, action, values, serveAreas, error, demo, className: extra }:
+    VolunteerSignupFormProps,
 ) {
   const v = values ?? {};
-  const o = SIGNUP.options;
+  const o = copy.options;
   return (
-    <form method="post" action="/signup" className={cx("min-w-0", extra)}>
+    <form action={action} className={cx("min-w-0", extra)}>
       {error && (
         <p
           role="alert"
@@ -209,11 +223,11 @@ export function VolunteerSignupForm(
               name="consent"
               value="Agree"
               required
-              checked={v["consent"] === "Agree"}
+              defaultChecked={v["consent"] === "Agree"}
               className="mt-1 h-5 w-5 shrink-0 accent-primary"
             />
             <span className="text-sm italic leading-relaxed text-on-surface-variant">
-              {SIGNUP.privacyNotice.consentSentence}
+              {copy.privacyNotice.consentSentence}
               <span className="ml-1 text-error not-italic" aria-hidden="true">
                 *
               </span>
@@ -221,10 +235,10 @@ export function VolunteerSignupForm(
           </label>
           <details className="mt-3 rounded border border-outline-variant bg-surface-dim px-4 py-3">
             <summary className="min-h-8 cursor-pointer text-sm font-bold uppercase tracking-wider text-primary">
-              {SIGNUP.privacyNotice.summary}
+              {copy.privacyNotice.summary}
             </summary>
             <div className="mt-2 text-sm leading-relaxed text-on-surface-variant">
-              <NoticeBlocks blocks={SIGNUP.privacyNotice.blocks} />
+              <NoticeBlocks blocks={copy.privacyNotice.blocks} />
             </div>
           </details>
         </div>

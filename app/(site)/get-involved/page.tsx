@@ -1,16 +1,20 @@
+import type { Metadata } from "next";
 import { Fragment } from "react";
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { PageHero } from "../components/PageHero.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Button, buttonClasses } from "../components/Button.tsx";
-import Popup from "../islands/Popup.tsx";
-import { GET_INVOLVED, POPUPS } from "../components/content.ts";
-import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
-import { cx } from "../components/cx.ts";
-import { frame, gutter } from "../components/layout/Container.tsx";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { PageHero } from "../../../components/PageHero.tsx";
+import { SectionHeading } from "../../../components/layout/SectionHeading.tsx";
+import { Button, buttonClasses } from "../../../components/Button.tsx";
+import Popup from "../../../islands/Popup.tsx";
+import { GET_INVOLVED, POPUPS } from "../../../components/content.ts";
+import { HeroLead, PageTitle } from "../../../components/PageTitle.tsx";
+import { cx } from "../../../components/cx.ts";
+import { frame, gutter } from "../../../components/layout/Container.tsx";
+
+export const metadata: Metadata = {
+  title: "Get involved — Favor Care",
+  description: GET_INVOLVED.hero.subtitle,
+};
 
 // Get-involved page cloned from the WP page (post 1840, staging =
 // canonical). Copy is verbatim; geometry follows the measured WP layout
@@ -26,14 +30,10 @@ import { frame, gutter } from "../components/layout/Container.tsx";
 // volunteer-disclaimer popup (7730), whose Review Guidelines chains into
 // the full guidelines doc (7737) — the newsletter/donate cards keep their
 // plain links.
-export default define.page(function GetInvolvedPage() {
+export default function GetInvolvedPage() {
   return (
     <>
-      <Head>
-        <title>Get involved — Favor Care</title>
-        <meta name="description" content={GET_INVOLVED.hero.subtitle} />
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: the volunteers photo with the black→yellow gradient
@@ -143,4 +143,4 @@ export default define.page(function GetInvolvedPage() {
       <Footer />
     </>
   );
-});
+}

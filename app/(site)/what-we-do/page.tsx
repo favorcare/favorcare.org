@@ -1,15 +1,19 @@
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { PageHero } from "../components/PageHero.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Button } from "../components/Button.tsx";
-import Slideshow from "../islands/Slideshow.tsx";
-import { WHAT_WE_DO } from "../components/content.ts";
-import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
-import { cx } from "../components/cx.ts";
-import { frame, gutter } from "../components/layout/Container.tsx";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { PageHero } from "../../../components/PageHero.tsx";
+import { SectionHeading } from "../../../components/layout/SectionHeading.tsx";
+import { Button } from "../../../components/Button.tsx";
+import Slideshow from "../../../islands/Slideshow.tsx";
+import { WHAT_WE_DO } from "../../../components/content.ts";
+import { HeroLead, PageTitle } from "../../../components/PageTitle.tsx";
+import { cx } from "../../../components/cx.ts";
+import { frame, gutter } from "../../../components/layout/Container.tsx";
+
+export const metadata: Metadata = {
+  title: "What we do — Favor Care",
+  description: WHAT_WE_DO.hero.subtitle,
+};
 
 // What-we-do page cloned from the WP page (post 1835, staging = canonical).
 // Copy is verbatim; geometry follows the measured WP layout at 360/768/1280
@@ -22,14 +26,10 @@ import { frame, gutter } from "../components/layout/Container.tsx";
 // WP hides the five non-Education summaries with visibility:hidden while
 // keeping their space (innerText drops them) — mirrored with `invisible`.
 // WP's 10px hero subtitle on mobile is raised to 14px for legibility.
-export default define.page(function WhatWeDoPage() {
+export default function WhatWeDoPage() {
   return (
     <>
-      <Head>
-        <title>What we do — Favor Care</title>
-        <meta name="description" content={WHAT_WE_DO.hero.subtitle} />
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: kids3.png photo (50% 50% at every breakpoint) with the
@@ -142,4 +142,4 @@ export default define.page(function WhatWeDoPage() {
       <Footer />
     </>
   );
-});
+}

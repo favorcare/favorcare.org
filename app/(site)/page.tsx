@@ -1,19 +1,22 @@
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { cx } from "../components/cx.ts";
-import { frame } from "../components/layout/Container.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Eyebrow } from "../components/Eyebrow.tsx";
-import { Button } from "../components/Button.tsx";
-import { CtaBand } from "../components/CtaBand.tsx";
-import { PageHero } from "../components/PageHero.tsx";
-import { VideoEmbed } from "../components/VideoEmbed.tsx";
-import { MapEmbed } from "../components/MapEmbed.tsx";
-import Carousel from "../islands/Carousel.tsx";
-import { ContactForm } from "../components/ContactForm.tsx";
-import { CAROUSEL, HOME } from "../components/content.ts";
+import type { Metadata } from "next";
+import { Header } from "../../components/Header.tsx";
+import { Footer } from "../../components/Footer.tsx";
+import { cx } from "../../components/cx.ts";
+import { frame } from "../../components/layout/Container.tsx";
+import { SectionHeading } from "../../components/layout/SectionHeading.tsx";
+import { Eyebrow } from "../../components/Eyebrow.tsx";
+import { Button } from "../../components/Button.tsx";
+import { CtaBand } from "../../components/CtaBand.tsx";
+import { PageHero } from "../../components/PageHero.tsx";
+import { VideoEmbed } from "../../components/VideoEmbed.tsx";
+import { MapEmbed } from "../../components/MapEmbed.tsx";
+import Carousel from "../../islands/Carousel.tsx";
+import { ContactForm } from "../../components/ContactForm.tsx";
+import { CAROUSEL, HOME } from "../../components/content.ts";
+
+export const metadata: Metadata = {
+  title: "Favor Care — Giving hope for a better future to those in need",
+};
 
 // Homepage cloned from the WP `favor-care-homepage` page (post 6002,
 // staging = canonical). Copy verbatim; geometry (type sizes, two-column
@@ -24,15 +27,10 @@ import { CAROUSEL, HOME } from "../components/content.ts";
 // WP hides several widgets at every breakpoint; they are not cloned:
 // the Prayer Hub kicker, the hero subhead, the "See Event" button, the
 // TESTIMONY lorem carousel, and About's second paragraph.
-export default define.page(function Home() {
+export default function Home() {
   return (
     <>
-      <Head>
-        <title>
-          Favor Care — Giving hope for a better future to those in need
-        </title>
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: photo on black with a yellow-to-black gradient overlay;
@@ -239,4 +237,4 @@ export default define.page(function Home() {
       <Footer />
     </>
   );
-});
+}

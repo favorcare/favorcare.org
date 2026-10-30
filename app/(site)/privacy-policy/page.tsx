@@ -1,8 +1,13 @@
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { PRIVACY } from "../components/content.ts";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { PRIVACY } from "../../../components/content.ts";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — Favor Care",
+  description:
+    "How Favor Care collects, uses, and protects your personal information.",
+};
 
 // Privacy policy — cloned verbatim from the WP page (staging = canonical):
 // no hero band, just a centered 48px/40px title over white, then a single
@@ -11,17 +16,10 @@ import { PRIVACY } from "../components/content.ts";
 // keeps the standard site chrome (documented quirk — clone-diff masks
 // chrome for this page). WP's section headings carry a trailing
 // zero-width space — kept in content.
-export default define.page(function PrivacyPage() {
+export default function PrivacyPage() {
   return (
     <>
-      <Head>
-        <title>Privacy Policy — Favor Care</title>
-        <meta
-          name="description"
-          content="How Favor Care collects, uses, and protects your personal information."
-        />
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1} className="bg-white">
         <section className="px-2.5 pb-24 pt-14 md:px-5 lg:px-0">
           <div className="mx-auto w-full max-w-[780px]">
@@ -55,4 +53,4 @@ export default define.page(function PrivacyPage() {
       <Footer />
     </>
   );
-});
+}

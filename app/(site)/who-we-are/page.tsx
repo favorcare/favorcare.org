@@ -1,16 +1,20 @@
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
-import { PageHero } from "../components/PageHero.tsx";
-import { SectionHeading } from "../components/layout/SectionHeading.tsx";
-import { Button } from "../components/Button.tsx";
-import { HeroLead, PageTitle } from "../components/PageTitle.tsx";
-import { cx } from "../components/cx.ts";
-import { Gallery } from "../components/Gallery.tsx";
-import { TeamGrid } from "../components/TeamGrid.tsx";
-import { frame, gutter } from "../components/layout/Container.tsx";
-import { ABOUT } from "../components/content.ts";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
+import { PageHero } from "../../../components/PageHero.tsx";
+import { SectionHeading } from "../../../components/layout/SectionHeading.tsx";
+import { Button } from "../../../components/Button.tsx";
+import { HeroLead, PageTitle } from "../../../components/PageTitle.tsx";
+import { cx } from "../../../components/cx.ts";
+import { Gallery } from "../../../components/Gallery.tsx";
+import { TeamGrid } from "../../../components/TeamGrid.tsx";
+import { frame, gutter } from "../../../components/layout/Container.tsx";
+import { ABOUT } from "../../../components/content.ts";
+
+export const metadata: Metadata = {
+  title: "About us — Favor Care",
+  description: ABOUT.hero.body,
+};
 
 // Who-we-are page cloned from the WP `about` page (post 1831, staging =
 // canonical). Copy is verbatim; geometry follows the measured WP layout at
@@ -23,14 +27,10 @@ import { ABOUT } from "../components/content.ts";
 // Figma embed), and the three get-involved call-to-action cards. WP's
 // 10px hero body on mobile is raised to 14px to keep the copy readable;
 // everything else matches the measured rendering.
-export default define.page(function WhoWeArePage() {
+export default function WhoWeArePage() {
   return (
     <>
-      <Head>
-        <title>About us — Favor Care</title>
-        <meta name="description" content={ABOUT.hero.body} />
-      </Head>
-      <Header />
+            <Header />
       <main id="main-content" tabIndex={-1}>
         {
           /* Hero: the same photo at every breakpoint with the black→yellow
@@ -186,4 +186,4 @@ export default define.page(function WhoWeArePage() {
       <Footer />
     </>
   );
-});
+}

@@ -1,12 +1,17 @@
-import { Head } from "fresh/runtime";
-import { define } from "../../utils.ts";
-import { PageTitle } from "../../components/PageTitle.tsx";
-import { Eyebrow } from "../../components/Eyebrow.tsx";
-import { Button } from "../../components/Button.tsx";
-import { frame } from "../../components/layout/Container.tsx";
-import { cx } from "../../components/cx.ts";
-import TrackView from "../../islands/TrackView.tsx";
-import { CFAC, CFAC_EVENTS } from "../../components/cfac.ts";
+import type { Metadata } from "next";
+import { PageTitle } from "../../../components/PageTitle.tsx";
+import { Eyebrow } from "../../../components/Eyebrow.tsx";
+import { Button } from "../../../components/Button.tsx";
+import { frame } from "../../../components/layout/Container.tsx";
+import { cx } from "../../../components/cx.ts";
+import TrackView from "../../../islands/TrackView.tsx";
+import { CFAC, CFAC_EVENTS } from "../../../components/cfac.ts";
+
+export const metadata: Metadata = {
+  title: `Thank you — ${CFAC.name}`,
+  robots: { index: false, follow: false },
+  description: CFAC.thanks.body,
+};
 
 // The CFAC post-donation landing: the payment provider redirects donors
 // here after checkout. Centered thank-you (no hero photo), what-happens-next
@@ -16,15 +21,10 @@ import { CFAC, CFAC_EVENTS } from "../../components/cfac.ts";
 //
 // noindex: a transactional destination, not content — search has no
 // business sending anyone here.
-export default define.page(function CfacThanksPage() {
+export default function CfacThanksPage() {
   return (
     <>
-      <Head>
-        <title>Thank you — {CFAC.name}</title>
-        <meta name="robots" content="noindex, nofollow" />
-        <meta name="description" content={CFAC.thanks.body} />
-      </Head>
-      <TrackView event={CFAC_EVENTS.success} props={{ fund: "cfac" }} />
+            <TrackView event={CFAC_EVENTS.success} props={{ fund: "cfac" }} />
 
       <section
         className={cx(
@@ -67,4 +67,4 @@ export default define.page(function CfacThanksPage() {
       </section>
     </>
   );
-});
+}

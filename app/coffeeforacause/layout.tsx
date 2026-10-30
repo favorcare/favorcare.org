@@ -1,13 +1,13 @@
-import { define } from "../../utils.ts";
+import type { ReactNode } from "react";
 import { CfacHeader } from "../../components/cfac/Header.tsx";
 import { CfacFooter } from "../../components/cfac/Footer.tsx";
 
 // Coffee for a Cause campaign layout. Wraps every route under
-// /coffeeforacause in the `.cfac` theme scope (assets/styles.css — the
+// /coffeeforacause in the `.cfac` theme scope (app/globals.css — the
 // sub-brand token overrides that re-skin the shared catalog beneath this
 // wrapper) plus the campaign chrome. Any future CFAC page inherits the
 // theme and chrome for free.
-export default define.layout(function CfacLayout({ Component }) {
+export default function CfacLayout({ children }: { children: ReactNode }) {
   return (
     <div className="cfac flex min-h-screen flex-col bg-surface text-on-surface">
       <a
@@ -18,9 +18,9 @@ export default define.layout(function CfacLayout({ Component }) {
       </a>
       <CfacHeader />
       <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
-        <Component />
+        {children}
       </main>
       <CfacFooter />
     </div>
   );
-});
+}
