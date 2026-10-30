@@ -21,7 +21,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const WP_BASE = "https://staging.favorcare.org";
-const FRESH_BASE = "http://127.0.0.1:5173";
+const baseFlag = process.argv.indexOf("--base");
+const FRESH_BASE = baseFlag !== -1
+  ? process.argv[baseFlag + 1]
+  : "http://127.0.0.1:5173";
 const WIDTHS = [360, 768, 1280];
 
 interface Pair {
