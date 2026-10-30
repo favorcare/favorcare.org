@@ -1,6 +1,5 @@
-# CI check for every PR: format + lint + typecheck + unit tests.
-# (Deployment itself runs on Cloudflare Workers Builds — see
-# scripts/ci-cloudflare-build.sh and DEPLOYMENT.md.)
+# CI check for every PR: format + lint + typecheck + unit tests + build.
+# (Deployment is a separate step — see DEPLOYMENT.md.)
 name: check
 
 on:
@@ -14,15 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: denoland/setup-deno@v2
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          deno-version: v2.x
+          node-version: 24
+          cache: pnpm
 
       - name: Install dependencies
-        run: deno install
+        run: pnpm install --frozen-lockfile
 
-      - name: Check (fmt, lint, typecheck)
-        run: deno task check
+      - name: Check (prettier, oxlint, tsc)
+        run: pnpm check
 
       - name: Test
-        run: deno task test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build

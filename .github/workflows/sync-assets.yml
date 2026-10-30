@@ -1,12 +1,12 @@
-# Mirror static/images/ to the Cloudflare R2 media bucket when it changes on
-# main. static/images/ is tracked in git (contributor-friendly clones); this
+# Mirror public/images/ to the Cloudflare R2 media bucket when it changes on
+# main. public/images/ is tracked in git (contributor-friendly clones); this
 # job makes git the source of truth — contributors commit an image and CI
 # publishes it, no local rclone or Cloudflare access needed. Production keeps
-# serving the bucket via the CDN base (ASSET_BASE_URL — see utils/assets.ts).
+# serving the bucket via the CDN base (NEXT_PUBLIC_ASSET_BASE_URL — see utils/assets.ts).
 #
 # Copy is additive (plain `rclone copy`, no --delete) so a stale checkout can
 # never delete from the bucket. Requires repo secrets (same R2 token as the
-# local `deno task assets:push` setup — see migration/runbooks/phase2-r2-assets.md):
+# local `pnpm assets:push` setup — see migration/runbooks/phase2-r2-assets.md):
 #   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
 name: sync-assets
 
@@ -15,7 +15,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "static/images/**"
+      - "public/images/**"
 
 # Serialize runs; additive copies are idempotent, so a queued duplicate is
 # harmless — it just re-copies nothing.
@@ -63,5 +63,5 @@ jobs:
             "access_key_id=${R2_ACCESS_KEY_ID}" \
             "secret_access_key=${R2_SECRET_ACCESS_KEY}"
 
-      - name: Publish static/images/ to R2
-        run: rclone copy -P static/images r2:favorcare-media/images
+      - name: Publish public/images/ to R2
+        run: rclone copy -P public/images r2:favorcare-media/images

@@ -122,3 +122,4 @@ dist/
 
 # Build output + local env
 .env.local
+.next/
