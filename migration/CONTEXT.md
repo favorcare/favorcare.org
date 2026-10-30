@@ -1,4 +1,4 @@
-# migration/CONTEXT.md — the WP→Fresh pipeline working area
+# migration/CONTEXT.md — the WP→vinext pipeline working area
 
 Contract for everything under `migration/`. The program itself — phases, gates,
 open decisions, current status — lives one level up in
@@ -39,9 +39,9 @@ list — not buried in working files.
 
 ## Outputs
 
-- [`inventory.md`](inventory.md) — every WP URL → Fresh route → decision (clone
-  / 301 / 410 / open). **Run state**: edit as decisions land; the Phase 8
-  cutover diff runs against it.
+- [`inventory.md`](inventory.md) — every WP URL → site route → decision (clone /
+  301 / 410 / open). **Run state**: edit as decisions land; the Phase 8 cutover
+  diff runs against it.
 - [`component-map.md`](component-map.md) — census-derived widget→component map
   and page-effort bounds. **Run state**: facts from the last extraction, not
   rules.
@@ -51,8 +51,8 @@ list — not buried in working files.
 ## Check
 
 A phase is done when its **gate** in MIGRATION.md passes (each phase names its
-own). Repo-wide, `deno task check` and `deno task test` must be green;
-visual-parity work (Phase 5 on) also answers to `deno task clone:diff`.
+own). Repo-wide, `pnpm check` and `pnpm test` must be green; visual-parity work
+(Phase 5 on) also answers to `pnpm clone:diff`.
 
 ## File roles
 

@@ -15,22 +15,26 @@ function stripCdnImages(): Plugin {
     ".cloudflare/output/v0/workers/default/assets/images",
     "dist/client/images",
   ];
+  let cdnBase = "";
   return {
     name: "favorcare:strip-cdn-images",
     apply: "build",
     enforce: "post",
+    configResolved(config) {
+      const env = loadEnv(config.mode, process.cwd(), "NEXT_PUBLIC_");
+      cdnBase =
+        process.env.NEXT_PUBLIC_ASSET_BASE_URL ??
+        env.NEXT_PUBLIC_ASSET_BASE_URL ??
+        "";
+    },
     closeBundle: {
       order: "post",
       sequential: true,
       handler() {
-        const env = loadEnv("production", process.cwd(), "NEXT_PUBLIC_");
-        if (!(
-          process.env.NEXT_PUBLIC_ASSET_BASE_URL ??
-          env.NEXT_PUBLIC_ASSET_BASE_URL
-        ))
-          return;
-        for (const dir of CLIENT_DIRS)
+        if (!cdnBase) return;
+        for (const dir of CLIENT_DIRS) {
           rmSync(dir, { recursive: true, force: true });
+        }
       },
     },
   };

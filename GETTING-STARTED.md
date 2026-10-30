@@ -29,18 +29,17 @@ terminal and SSH keys — lives in the
 [Windows track](https://napjose.ph/writing/vibe-coding-setup-windows-wsl)); it
 is one screen per step, written for non-developers. The short version:
 
-| # | What                                                                                                                                             | Check that it worked                         |
-| - | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
-| 1 | Terminal + shell setup, git, and an SSH key added to your GitHub account (series, posts 1–2)                                                     | `ssh -T git@github.com` replies "Hi \<you>!" |
-| 2 | [OpenCode](https://opencode.ai/docs) — `curl -fsSL https://opencode.ai/install \| bash`                                                          | `opencode --version` prints                  |
-| 3 | [OpenCode Console](https://opencode.ai/console) account — free; copy your API key (the walkthrough uses the **free** GLM 5.3 Flash model, so $0) | You have a key pasted somewhere safe         |
-| 4 | [Deno](https://docs.deno.com/runtime/getting_started/installation/) — the runtime this site runs on                                              | `deno --version` prints                      |
+| #   | What                                                                                                                                             | Check that it worked                         |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| 1   | Terminal + shell setup, git, and an SSH key added to your GitHub account (series, posts 1–2)                                                     | `ssh -T git@github.com` replies "Hi \<you>!" |
+| 2   | [OpenCode](https://opencode.ai/docs) — `curl -fsSL https://opencode.ai/install \| bash`                                                          | `opencode --version` prints                  |
+| 3   | [OpenCode Console](https://opencode.ai/console) account — free; copy your API key (the walkthrough uses the **free** GLM 5.3 Flash model, so $0) | You have a key pasted somewhere safe         |
+| 4   | Node + pnpm — `brew install node@24`, then `corepack enable pnpm` (the runtime this site runs on)                                                | `node --version` and `pnpm --version` print  |
 
 > Sources: [OpenCode docs](https://opencode.ai/docs),
 > [Console models / free tier](https://opencode.ai/v2/docs/console/models/),
-> [Deno install](https://docs.deno.com/runtime/getting_started/installation/) ·
-> checked 2026-10-24. Machine-setup steps: clean-VM verification stamps tracked
-> in the series
+> [Node + Corepack](https://nodejs.org/api/corepack.html) · checked 2026-10-24.
+> Machine-setup steps: clean-VM verification stamps tracked in the series
 > [verification log](https://github.com/napjoseph/napjose.ph/blob/main/content/posts/_verification/vibe-series-log.md).
 
 ## Part 1 — Run favorcare.org on your machine
@@ -50,23 +49,24 @@ mkdir -p ~/projects/github.com/favorcare
 cd ~/projects/github.com/favorcare
 git clone git@github.com:favorcare/favorcare.org.git
 cd favorcare.org
-deno task setup   # dependencies + git hygiene (commit template + hook)
-deno task dev     # starts the dev server
+pnpm setup   # dependencies + git hygiene (commit template + hook)
+pnpm dev     # starts the dev server
 ```
 
 Open the URL the terminal prints — Vite's default is <http://localhost:5173>.
-You're looking at the real site, running on your machine. `deno task setup` also
+You're looking at the real site, running on your machine. `pnpm setup` also
 wires the commit-message hook that keeps this repo's history tidy (conventional
 subjects, no AI-attribution trailers) — it has your back later.
 
-> **When this goes wrong: `deno: command not found`** — the terminal predates
-> the Deno install. Open a new terminal window and retry.
+> **When this goes wrong: `pnpm: command not found`** — the terminal predates
+> the Node install, or Corepack isn't enabled (`corepack enable pnpm`). Open a
+> new terminal window and retry.
 >
 > **When this goes wrong: `git@github.com: Permission denied (publickey)`** —
 > your SSH key isn't set up yet; that's series post 2, step 8.
 
 > Verified 2026-10-24 on macOS 26 (existing machine, not a clean VM): clone →
-> `deno task setup` → `deno task dev` → HTTP 200 on `localhost:5173`.
+> `pnpm setup` → `pnpm dev` → HTTP 200 on `localhost:5173`.
 
 ## Part 2 — Watch the agent change the site (practice — then we undo it)
 
@@ -122,7 +122,7 @@ everything in Part 3.
 4. **Run the repo's bar:**
 
    ```sh
-   deno task check && deno task test
+   pnpm check && pnpm test
    ```
 
 5. **Commit and push.** The commit hook enforces the format (conventional
@@ -135,12 +135,12 @@ everything in Part 3.
    ```
 
 6. **Open the pull request** — GitHub prints a link after the push; click it,
-   describe the change in a sentence or two, submit. CI runs `deno task check`
-   and `deno task test` on every PR, a maintainer reviews, and merge = deploy.
+   describe the change in a sentence or two, submit. CI runs `pnpm check` and
+   `pnpm test` on every PR, a maintainer reviews, and merge = deploy.
 
-> **When this goes wrong: `deno task check` fails** — usually formatting. Run
-> `deno fmt`, then re-run check. The agent can do this too: "run deno fmt and
-> fix any check failures."
+> **When this goes wrong: `pnpm check` fails** — usually formatting. Run
+> `pnpm exec prettier --write .`, then re-run check. The agent can do this too:
+> "run prettier --write and fix any check failures."
 >
 > **When this goes wrong: CI is red on your PR** — read the log; nine times out
 > of ten it's the same two commands from step 4 fixing it locally.

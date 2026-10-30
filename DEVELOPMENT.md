@@ -4,50 +4,56 @@ Everything you need to run, build, and extend favorcare.org locally.
 
 ## Prerequisites
 
-- **Deno** — install from
-  <https://docs.deno.com/runtime/getting_started/installation/>. This project
-  runs on Fresh 2 + Vite, which use the Deno runtime.
+- **Node ≥ 22.12** (24 recommended) — `brew install node@24`.
+- **pnpm** — `corepack enable pnpm`; the exact version is pinned by
+  `packageManager` in `package.json`.
 
 ## Getting started
 
 ```sh
-deno task setup  # deps + git hygiene (commit template, commit-msg hook)
-deno task dev    # start the dev server
+pnpm setup  # deps + git hygiene (commit template, commit-msg hook)
+pnpm dev    # start the dev server
 ```
 
 Open the URL printed in the terminal (typically <http://localhost:5173>).
 
 ## Common tasks
 
-| Task                   | Command           |
-| ---------------------- | ----------------- |
-| One-time setup         | `deno task setup` |
-| Develop                | `deno task dev`   |
-| Type / format / lint   | `deno task check` |
-| Unit tests             | `deno task test`  |
-| Format code            | `deno fmt`        |
-| Lint                   | `deno lint`       |
-| Production build       | `deno task build` |
-| Serve production build | `deno task start` |
+| Task                   | Command                          |
+| ---------------------- | -------------------------------- |
+| One-time setup         | `pnpm setup`                     |
+| Develop                | `pnpm dev`                       |
+| Format / lint / types  | `pnpm check`                     |
+| Unit tests             | `pnpm test`                      |
+| Format code            | `pnpm exec prettier --write .`   |
+| Lint                   | `pnpm exec oxlint`               |
+| Production build       | `pnpm build`                     |
+| Serve production build | `pnpm preview` (runs in workerd) |
 
-`deno task check` runs `deno fmt --check && deno lint && deno check` — run it,
-plus `deno task test`, before considering any work done.
+`pnpm check` runs `prettier --check . && oxlint && tsc --noEmit` — run it, plus
+`pnpm test` and `pnpm build`, before considering any work done.
 
 ## Architecture
 
-This is a [**Fresh 2**](https://fresh.deno.dev/) app (Deno runtime + Vite +
-Preact).
+This is a [**vinext**](https://github.com/cloudflare/vinext) app — the Next.js
+App Router API reimplemented on Vite, with React 19 and Tailwind CSS v4, running
+on Cloudflare Workers.
 
-- **File-system routing** — files in `routes/` become pages. `routes/index.tsx`
-  is the home page; `routes/_app.tsx` is the root layout that wraps every page
-  with `<html>`/`<head>`/`<body>`.
-- **`define.*` helpers** — `define.page`, `define.handlers`, and
-  `define.middleware` (from [`utils.ts`](utils.ts)) provide typed routing.
-- **Islands** — components in `islands/` are hydrated on the client. Everything
-  else is server-rendered with zero client JS by default. Put interactivity
-  (forms with state, animated counters, etc.) in islands.
-- **State** — `utils.ts` defines the `State` type shared across middleware,
-  layouts, and routes via `ctx.state`.
+- **File-system routing** — `app/` holds the routes. `app/layout.tsx` is the
+  root layout (`<html>`, fonts, skip link, analytics); `app/(site)/layout.tsx`
+  adds the accreditation popup for favorcare.org pages, while
+  `app/coffeeforacause/` (the campaign sub-brand) sits outside that group with
+  its own layout. `app/(site)/page.tsx` is the home page.
+- **Metadata** — each page exports `metadata` (or `generateMetadata`) instead of
+  a `<Head>` block. Redirects live in `next.config.ts`; unknown URLs render
+  `app/not-found.tsx`.
+- **Server Components by default** — everything renders on the server with zero
+  client JS. A file that starts with `"use client"` is hydrated: all of those
+  live in `islands/`.
+- **Server Actions** — forms that need a backend step (`/signup`) use a
+  `"use server"` action behind a client island (`useActionState`), and degrade
+  to a plain POST without JS.
+- **Env** — public config is build-time `NEXT_PUBLIC_*` (see Analytics below).
 
 ## Styling (Tailwind v4)
 
@@ -57,61 +63,68 @@ Tailwind v4 is configured entirely in CSS — **there is no
 - The Vite plugin is registered in [`vite.config.ts`](vite.config.ts)
   (`@tailwindcss/vite`).
 - Design tokens live in the `@theme` block of
-  [`assets/styles.css`](assets/styles.css), transcribed from
+  [`app/globals.css`](app/globals.css), transcribed from
   [**DESIGN.md**](DESIGN.md). They generate utilities like `bg-primary`,
   `text-on-surface`, and `rounded-full`.
-- **Inter** is loaded via a Google Fonts `<link>` in `routes/_app.tsx`.
+- **Inter** is loaded via a Google Fonts `<link>` in `app/layout.tsx`.
 - **Sub-brands** (Coffee for a Cause) re-theme the shared catalog through a
-  scoped variable override (`.cfac` in `assets/styles.css`) applied by their
+  scoped variable override (`.cfac` in `app/globals.css`) applied by their
   nested layout — see DESIGN.md, "Sub-brand themes". Never hardcode sub-brand
   hexes in components.
 
 To change a color or radius, update the token in **DESIGN.md** first, then
-mirror it in `assets/styles.css`.
+mirror it in `app/globals.css`.
 
 ### Adding a page
 
-Create a file under `routes/`, e.g. `routes/what-we-do/index.tsx`:
+Create `app/(site)/<slug>/page.tsx`, e.g. `app/(site)/what-we-do/page.tsx`:
 
 ```tsx
-import { Head } from "fresh/runtime";
-import { define } from "../utils.ts";
-import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer.tsx";
+import type { Metadata } from "next";
+import { Header } from "../../../components/Header.tsx";
+import { Footer } from "../../../components/Footer.tsx";
 
-export default define.page(function WhatWeDo() {
+export const metadata: Metadata = {
+  title: "What We Do — Favor Care",
+};
+
+export default function WhatWeDoPage() {
   return (
     <>
-      <Head>
-        <title>What We Do — Favor Care</title>
-      </Head>
       <Header />
-      <main>{/* … */}</main>
+      <main id="main-content" tabIndex={-1}>
+        {/* … */}
+      </main>
       <Footer />
     </>
   );
-});
+}
 ```
+
+A page file exports only `default`, `metadata`/`generateMetadata` and
+`generateStaticParams` — helpers belong in `components/` or `utils/`.
 
 ### Adding a component / island
 
 - **First read [COMPONENTS.md](COMPONENTS.md)** — the component catalog and the
   page-building rules. Reuse before you build.
-- **Server component** → `components/Foo.tsx` (imported by routes; no client
-  JS).
-- **Interactive component** → `islands/Foo.tsx` (hydrated on the client; can use
-  `@preact/signals` for state).
+- **Server component** → `components/Foo.tsx` (imported by pages; no client JS).
+  The class prop is `className`.
+- **Interactive component (island)** → `islands/Foo.tsx`, first line
+  `"use client"`; use React hooks for state. Props must be serializable (plus
+  server-rendered `children`).
 - New components get a `/storybook` specimen and a COMPONENTS.md entry in the
   same change.
 
 ## Testing
 
-`deno task test` runs `deno test -A`. Tests live next to the code as `*_test.ts`
-(see [`routes/signup_test.ts`](routes/signup_test.ts)).
+`pnpm test` runs `vitest run`. Tests live next to the code as `*_test.ts` (see
+[`components/signup_test.ts`](components/signup_test.ts)).
 
-- **Pure logic gets tests** — handler helpers, validation, islands math, content
-  helpers. New or changed logic ships with passing tests in the same change.
-- **Server-rendered markup doesn't** — that's covered by `deno task check` and a
+- **Pure logic gets tests** — action/handler helpers, validation, islands math,
+  content helpers. New or changed logic ships with passing tests in the same
+  change.
+- **Server-rendered markup doesn't** — that's covered by `pnpm check` and a
   visual pass on `/storybook`.
 
 ## Copy & content
@@ -123,21 +136,20 @@ live in [`components/content.ts`](components/content.ts) and
 
 ## Assets (images)
 
-`static/images/` is tracked in git and served in production from Cloudflare R2
+`public/images/` is tracked in git and served in production from Cloudflare R2
 (see [MIGRATION.md](MIGRATION.md), Phase 2):
 
-- **Local dev** images resolve from `static/images/` as-is — the tracked files
+- **Local dev** images resolve from `public/images/` as-is — the tracked files
   ship with the clone, no rclone or R2 setup needed.
-- **Adding images**: drop them in `static/images/` and commit. Merging to main
+- **Adding images**: drop them in `public/images/` and commit. Merging to main
   triggers the sync-assets workflow, which publishes the tree to R2
-  (`.github/workflows/sync-assets.yml`). The local `deno task assets:push`
-  remains for manual/hotfix publishes (requires [rclone](https://rclone.io/) and
-  the `favorcare-media` remote — one-time setup documented in
-  `scripts/assets.ts`).
+  (`.github/workflows/sync-assets.yml`). The local `pnpm assets:push` remains
+  for manual/hotfix publishes (requires [rclone](https://rclone.io/) and the
+  `favorcare-media` remote — one-time setup documented in `scripts/assets.ts`).
 - In markup, always reference images through `asset()` from
   [`utils/assets.ts`](utils/assets.ts) — it returns the local path in dev and
-  prefixes `ASSET_BASE_URL` (the R2 custom domain) in production. Root-level
-  files (`/logo-*.svg`, favicon) are not part of this scheme.
+  prefixes `NEXT_PUBLIC_ASSET_BASE_URL` (the R2 custom domain) in production.
+  Root-level files (`/logo-*.svg`, favicon) are not part of this scheme.
 
 ## Analytics & UTM tracking
 
@@ -145,22 +157,20 @@ Three free vendors, all key-driven and independently optional — an unset key
 means that vendor's snippet never renders, and `components/Analytics.tsx`
 returns null (no island, no scripts) when all three are unset:
 
-| Key                          | Vendor                   | Where to get it                                             |
-| ---------------------------- | ------------------------ | ----------------------------------------------------------- |
-| `GA4_MEASUREMENT_ID`         | Google Analytics 4       | GA Admin → Data streams → Web → Measurement ID (`G-…`)      |
-| `MIXPANEL_TOKEN`             | Mixpanel                 | Project → Settings → Project Settings → Project Token       |
-| `CLOUDFLARE_ANALYTICS_TOKEN` | Cloudflare Web Analytics | dash.cloudflare.com → Web Analytics → your site → the token |
+| Key                                      | Vendor                   | Where to get it                                             |
+| ---------------------------------------- | ------------------------ | ----------------------------------------------------------- |
+| `NEXT_PUBLIC_GA4_MEASUREMENT_ID`         | Google Analytics 4       | GA Admin → Data streams → Web → Measurement ID (`G-…`)      |
+| `NEXT_PUBLIC_MIXPANEL_TOKEN`             | Mixpanel                 | Project → Settings → Project Settings → Project Token       |
+| `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` | Cloudflare Web Analytics | dash.cloudflare.com → Web Analytics → your site → the token |
 
 The keys are public identifiers, not secrets. Where they live:
 
-- **Local dev** — copy `.env.example` to `.env` and fill in what you have;
-  `deno task dev` bridges the file into the process env via
-  [`vite.config.ts`](vite.config.ts) (real env vars always win).
-- **Production (Workers)** — fill the values in `wrangler.jsonc` `"vars"`
-  (committed, like `ASSET_BASE_URL`; dashboard-added vars are wiped on every
-  deploy). `server.js` stashes them on `globalThis` for
-  [`utils/analytics.ts`](utils/analytics.ts) — the same pattern as the asset
-  base.
+- **Local dev** — copy `.env.example` to `.env.local` and fill in what you have,
+  then restart `pnpm dev`.
+- **Production (Workers)** — fill the values in the committed `.env.production`
+  (and mirror them in `.env.preview`). They are inlined at **build** time by
+  [`utils/analytics.ts`](utils/analytics.ts), so a change needs a rebuild and
+  redeploy — the same pattern as `NEXT_PUBLIC_ASSET_BASE_URL`.
 
 ### UTM attribution
 
@@ -194,8 +204,8 @@ three fan out to every configured vendor with UTM attribution merged in.
 
 ### Verifying
 
-Set the keys in `.env`, `deno task dev`, then: GA4 → Admin → DebugView, Mixpanel
-→ Live view, Cloudflare → Web Analytics. Click a tracked CTA or run
+Set the keys in `.env.local`, `pnpm dev`, then: GA4 → Admin → DebugView,
+Mixpanel → Live view, Cloudflare → Web Analytics. Click a tracked CTA or run
 `favorcareTrack("demo")` in the console. With no keys set, view-source shows no
 analytics markup at all.
 
@@ -250,14 +260,15 @@ secrets, manual deploys, rollback) is in [**DEPLOYMENT.md**](DEPLOYMENT.md).
   `plan-change`, `new-component`, `new-page`, `new-post` (anatomy and how to add
   one in [Repo skills](#repo-skills) below).
 - **Docs lookup** — `.mcp.json` provides the project-scope `context7` MCP server
-  (live Fresh/Deno/Tailwind/Cloudflare docs). Claude Code picks it up
+  (live vinext/Next.js/React/Tailwind docs). Claude Code picks it up
   automatically; recent OpenCode versions read the same file, otherwise add the
   same server under the `mcp` key of `opencode.json`.
-- **Commit hygiene** — `deno task setup` wires the `.gitmessage` template and
-  the `.githooks/commit-msg` hook (conventional subjects, no AI attribution
+- **Commit hygiene** — `pnpm setup` wires the `.gitmessage` template and the
+  `.githooks/commit-msg` hook (conventional subjects, no AI attribution
   trailers). Both are local to each clone.
-- **CI** — every PR runs `deno task check` + `deno task test`
-  (`.github/workflows/check.yml`); deploys stay on Cloudflare Workers Builds.
+- **CI** — every PR runs `pnpm check`, `pnpm test` and `pnpm build`
+  (`.github/workflows/check.yml`); deploys are described in
+  [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ### Repo skills
 
@@ -313,4 +324,4 @@ Cloudflare Workers cutover — is planned phase-by-phase in
 - Utility/footer links for Careers, Press, Privacy, Terms, Accessibility, and
   Donation Policy are `"#"` placeholders in `components/navigation.ts`.
 - ~~A `privacy-policy` route still needs to be built~~ shipped in PR #32
-  (`routes/privacy-policy.tsx`).
+  (`app/(site)/privacy-policy/page.tsx`).

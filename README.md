@@ -1,66 +1,66 @@
 # Favor Care
 
-![Favor Care logo](static/favicon.png)
+![Favor Care logo](public/favicon.png)
 
 The official website for **Favor Care** — a faith-driven Philippine nonprofit
 bringing education, health, and hope to families in need. This is a fresh
 rebuild of [favorcare.org](https://favorcare.org), which previously ran on
 WordPress + Elementor.
 
-Built with **Deno · Fresh · Tailwind CSS v4 · Preact**.
+Built with **vinext (Next.js App Router on Vite) · React 19 · Tailwind CSS v4**,
+on Node + pnpm.
 
 ## Quick start
 
-1. **Install Deno** — see the
-   [official guide](https://docs.deno.com/runtime/getting_started/installation/).
+1. **Install Node ≥ 22.12 (24 recommended) and pnpm** — `brew install node@24`,
+   then `corepack enable pnpm`.
 2. Install dependencies and one-time git hygiene (commit-message template +
    commit-msg hook; the project uses `nodeModulesDir: manual`):
 
    ```sh
-   deno task setup
+   pnpm setup
    ```
 
 3. Start the dev server:
 
    ```sh
-   deno task dev
+   pnpm dev
    ```
 
 4. Open the URL printed in the terminal (typically <http://localhost:5173>).
 
 ## Scripts
 
-| Command                     | Description                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------ |
-| `deno task setup`           | One-time setup: deps, commit template, commit-msg hook.                        |
-| `deno task dev`             | Start the Vite dev server with hot reload.                                     |
-| `deno task build`           | Production build into `_fresh/`.                                               |
-| `deno task start`           | Serve the production build (`deno serve -A _fresh/server.js`).                 |
-| `deno task deploy`          | Build, then deploy to Cloudflare Workers (see [DEPLOYMENT.md](DEPLOYMENT.md)). |
-| `deno task deploy:dry-run`  | Build and validate the Worker bundle without deploying.                        |
-| `deno task check`           | Run `deno fmt --check`, `deno lint`, and `deno check`.                         |
-| `deno task test`            | Run the unit tests (`deno test -A`).                                           |
-| `deno task assets:pull`     | Bootstrap/parity check: pull `static/images/` from R2 (rclone).                |
-| `deno task assets:push`     | Manual publish to R2 (normally done by CI on merge to main).                   |
-| `deno task clone:reference` | Screenshot the WordPress reference (needs Playwright chromium).                |
-| `deno task clone:diff`      | Visual-diff the Fresh pages against the reference screenshots.                 |
-| `deno task update`          | Run the Fresh updater.                                                         |
+| Command                | Description                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| `pnpm setup`           | One-time setup: deps, commit template, commit-msg hook.                        |
+| `pnpm dev`             | Start the Vite dev server with hot reload.                                     |
+| `pnpm build`           | Production build into `.cloudflare/output/`.                                   |
+| `pnpm preview`         | Serve the production build locally in workerd.                                 |
+| `pnpm deploy`          | Build, then deploy to Cloudflare Workers (see [DEPLOYMENT.md](DEPLOYMENT.md)). |
+| `pnpm deploy:preview`  | Build and deploy a preview version.                                            |
+| `pnpm check`           | Run `prettier --check`, `oxlint`, and `tsc --noEmit`.                          |
+| `pnpm test`            | Run the unit tests (`vitest run`).                                             |
+| `pnpm assets:pull`     | Bootstrap/parity check: pull `public/images/` from R2 (rclone).                |
+| `pnpm assets:push`     | Manual publish to R2 (normally done by CI on merge to main).                   |
+| `pnpm clone:reference` | Screenshot the WordPress reference (needs Playwright chromium).                |
+| `pnpm clone:diff`      | Visual-diff the site pages against the reference screenshots.                  |
 
 ## Project structure
 
 ```
-routes/         File-system routes (pages); _app.tsx is the root layout
-components/     Reusable Preact server components
-islands/        Client-side interactive components (hydrated)
-static/         Static assets served as-is (logos, favicon, images/ — tracked in git; CI mirrors to R2)
-assets/         Global styles — the Tailwind v4 theme lives in styles.css
+app/            Pages (App Router): layout.tsx root, (site)/ pages, coffeeforacause/; globals.css = Tailwind v4 theme
+components/     Reusable server components
+islands/        Client-side interactive components ("use client", hydrated)
+public/         Static assets served as-is (logos, favicon, images/ — tracked in git; CI mirrors to R2)
 scripts/        One-off tooling: setup, R2 asset sync, WP clone-diff
-migration/      WordPress → Fresh migration notes and runbooks
+migration/      WordPress → vinext migration notes and runbooks
 ideas/          IA reference (proposed.svg) and the retired v1 design
-utils.ts        define.page / handlers / middleware helpers + the shared State
-vite.config.ts  Build config — Fresh + Tailwind plugins; Cloudflare joins when CF=1
-wrangler.jsonc  Cloudflare Workers config
-main.ts         Fresh app entry — registers static files + file routes
+utils/          Env-driven helpers (asset URLs, analytics, UTM)
+vite.config.ts  Build config — vinext + Tailwind + Cloudflare plugins
+cloudflare.config.ts  Cloudflare Workers config
+next.config.ts  Redirects
+.env.production Public build-time config (NEXT_PUBLIC_*)
 ```
 
 ## Documentation
@@ -76,8 +76,8 @@ main.ts         Fresh app entry — registers static files + file routes
 - **[BRAND.md](BRAND.md)** — brand voice and content style. How we write.
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** — Cloudflare Workers deployment, previews,
   secrets, rollback.
-- **[MIGRATION.md](MIGRATION.md)** — the WordPress → Fresh migration plan, phase
-  by phase.
+- **[MIGRATION.md](MIGRATION.md)** — the WordPress → vinext migration plan,
+  phase by phase.
 - **[AGENTS.md](AGENTS.md)** — guidance for AI coding agents (Claude Code
   v2.1.277+ reads it directly).
 
@@ -90,10 +90,10 @@ machine setup, your first agent edit, your first pull request.
 1. **Branch, never `main`.** Work on a short-lived branch — `feat/…`, `fix/…`,
    `docs/…` — and open a PR. A merge to `main` deploys, so nothing is ever
    pushed to `main` directly.
-2. **Check before you push.** Run `deno task check` and `deno task test`; CI
-   runs both on every PR (`.github/workflows/check.yml`).
-3. **Conventional commits.** `deno task setup` installs the commit template and
-   the commit-msg hook that enforce the format.
+2. **Check before you push.** Run `pnpm check` and `pnpm test`; CI runs both on
+   every PR (`.github/workflows/check.yml`).
+3. **Conventional commits.** `pnpm setup` installs the commit template and the
+   commit-msg hook that enforce the format.
 4. **Docs travel with code.** Token changes update DESIGN.md first; component
    changes update COMPONENTS.md and `/storybook` in the same PR.
 

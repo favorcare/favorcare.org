@@ -1,9 +1,10 @@
 ---
 name: new-post
-description: Publish a news article or story the repo way — real copy and
-  photos from the stakeholder, one Post entry in components/posts.ts, images
-  mirrored under static/images/posts/. Use when adding or editing a news
-  story, update, or article (anything on /posts).
+description:
+  Publish a news article or story the repo way — real copy and photos from the
+  stakeholder, one Post entry in components/posts.ts, images mirrored under
+  public/images/posts/. Use when adding or editing a news story, update, or
+  article (anything on /posts).
 ---
 
 # New post (article)
@@ -17,8 +18,8 @@ stats. If a fact is missing, ask; don't fill gaps.
 
 ## 2. Mirror the photos
 
-- Stakeholder images go under `static/images/posts/<slug>/` (hero can live at
-  `static/images/posts/<slug>-hero.jpg` — see existing posts). Files are tracked
+- Stakeholder images go under `public/images/posts/<slug>/` (hero can live at
+  `public/images/posts/<slug>-hero.jpg` — see existing posts). Files are tracked
   in git; CI mirrors them to the R2 bucket on merge.
 - Reference every image through `asset()` from `utils/assets.ts` — dev serves it
   locally, prod serves the CDN. Never hotlink favorcare.org (the WordPress box
@@ -36,7 +37,7 @@ One entry in the `POSTS` array (newest first is handled by date sort —
 - `date` — ISO `YYYY-MM-DD`, sort order only; the page shows no date.
 - `tag` — one of the tags already in use (e.g. `Medical Missions`); the
   archive's filter tabs build themselves from the tags in use
-  (`routes/posts/index.tsx`), so a genuinely new tag appears automatically —
+  (`app/(site)/posts/page.tsx`), so a genuinely new tag appears automatically —
   confirm that's intended.
 - `hero` / `heroAlt` — `asset(...)` path + alt text.
 - `blocks` — the article body, in order, using the `ArticleBlock` model
@@ -46,7 +47,7 @@ One entry in the `POSTS` array (newest first is handled by date sort —
 
 ## 4. Verify
 
-`deno task check`; then `deno task dev` → `/posts` (new card appears, tag tab
-filters correctly) and `/posts/<slug>` (hero renders both lines, galleries load,
-no console errors). Copy edits touch no logic, so no new tests are needed — but
-run `deno task test` before the PR anyway.
+`pnpm check`; then `pnpm dev` → `/posts` (new card appears, tag tab filters
+correctly) and `/posts/<slug>` (hero renders both lines, galleries load, no
+console errors). Copy edits touch no logic, so no new tests are needed — but run
+`pnpm test` before the PR anyway.
