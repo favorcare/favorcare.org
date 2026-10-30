@@ -57,10 +57,8 @@ jobs:
 
           slug=$(printf '%s' "$BRANCH" | tr '[:upper:]' '[:lower:]' |
             sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')
-          urls=(
-            "https://${slug}.preview.favorcare.media"
-            "https://${slug}-favorcare-org.favor-care-media-team.workers.dev"
-          )
+          # Only the custom preview domain is linked (not the workers.dev URL).
+          urls=("https://${slug}.preview.favorcare.media")
 
           # Only link URLs that answer (DNS/TLS for a new preview can lag).
           live=()
