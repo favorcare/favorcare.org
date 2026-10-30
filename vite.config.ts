@@ -1,33 +1,54 @@
+import { rmSync } from "node:fs";
 import { defineConfig, loadEnv } from "vite";
-import { fresh } from "@fresh/plugin-vite";
+import type { Plugin } from "vite";
+import vinext from "vinext";
 import tailwindcss from "@tailwindcss/vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
 
-// The Cloudflare plugin is only loaded for deploys (`deno task deploy` sets
-// CF=1 — wrangler then orchestrates the vite build into a Worker bundle).
-// Plain `deno task dev` / `build` / `start` stay on the standard Fresh flow.
-const deploying = Deno.env.get("CF") === "1";
-
-// Vite loads .env into import.meta.env, but not into the OS environment
-// that Deno.env reads (utils/analytics.ts). Bridge the file's keys into the
-// process env for local dev — real env vars always win. Best effort: if
-// setting env fails (permissions), the app still boots, just unconfigured.
-try {
-  for (
-    const [key, value] of Object.entries(
-      loadEnv("development", Deno.cwd(), ""),
-    )
-  ) {
-    if (value !== "" && Deno.env.get(key) === undefined) {
-      Deno.env.set(key, value);
-    }
-  }
-} catch {
-  // .env bridging is a dev convenience, never a requirement.
+// public/images is tracked for contributor clones, but production markup
+// references every image through the R2 CDN base (NEXT_PUBLIC_ASSET_BASE_URL
+// — see utils/assets.ts). When that base is set, drop the repo copies from
+// the Workers Static Assets bundle so deploys stay slim (otherwise ~70 MB of
+// never-served files upload on every deploy).
+function stripCdnImages(): Plugin {
+  const CLIENT_DIRS = [
+    ".cloudflare/output/v0/workers/default/assets/images",
+    "dist/client/images",
+  ];
+  let cdnBase = "";
+  return {
+    name: "favorcare:strip-cdn-images",
+    apply: "build",
+    enforce: "post",
+    configResolved(config) {
+      const env = loadEnv(config.mode, process.cwd(), "NEXT_PUBLIC_");
+      cdnBase =
+        process.env.NEXT_PUBLIC_ASSET_BASE_URL ??
+        env.NEXT_PUBLIC_ASSET_BASE_URL ??
+        "";
+    },
+    closeBundle: {
+      order: "post",
+      sequential: true,
+      handler() {
+        if (!cdnBase) return;
+        for (const dir of CLIENT_DIRS) {
+          rmSync(dir, { recursive: true, force: true });
+        }
+      },
+    },
+  };
 }
 
+// vinext registers @vitejs/plugin-rsc itself when it finds an app/ directory
+// — never add rsc() here (it fails with "Duplicate @vitejs/plugin-rsc").
 export default defineConfig({
-  plugins: deploying
-    ? [fresh(), tailwindcss(), cloudflare()]
-    : [fresh(), tailwindcss()],
+  plugins: [
+    vinext(),
+    tailwindcss(),
+    cloudflare({
+      viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+    }),
+    stripCdnImages(),
+  ],
 });

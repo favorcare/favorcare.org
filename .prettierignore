@@ -1,0 +1,8 @@
+node_modules
+dist
+.cloudflare
+.vinext
+.claude
+public
+pnpm-lock.yaml
+migration/data

@@ -4,11 +4,11 @@ name: Favor Care
 description: >-
   Design tokens for the Fresh rebuild, transcribed from the live
   WordPress/Elementor site and corrected against what the WP-clone pages
-  actually render (kit #66 globals + per-page measured geometry). Extracted
-  from the DB dump, the compiled kit CSS (post-66.css), and the per-page
-  visual passes (360/768/1280 measurements). The component layer built on
-  these tokens is documented in COMPONENTS.md; the retired gold/purple
-  system lives at ideas/design-v1.md.
+  actually render (kit #66 globals + per-page measured geometry). Extracted from
+  the DB dump, the compiled kit CSS (post-66.css), and the per-page visual
+  passes (360/768/1280 measurements). The component layer built on these tokens
+  is documented in COMPONENTS.md; the retired gold/purple system lives at
+  ideas/design-v1.md.
 logo:
   src: /logo-black.svg
 colors:
@@ -58,17 +58,21 @@ typography:
   # The page scales actually shipped by the WP-clone pages (measured at
   # 360/768/1280), not the kit's named display styles.
   hero-title: 38px / 56px (768) / 70px (1280) · bold or semibold per page
-  section-title: 28px / 39px (768) / 56px (1280) · bold (subpages) or semibold + tracking-tight (homepage)
+  section-title:
+    28px / 39px (768) / 56px (1280) · bold (subpages) or semibold +
+    tracking-tight (homepage)
   card-title: 25px / 30px (768) / 36px (1280) · bold
   give-now-jumbo: 34–42px mobile / 76px (768+) · bold
   card-body: 14px / 15px (768) / 18px (1280) · leading-relaxed
   newsletter-title: 28px / 36px (768) · bold (contact page dialect)
   body: 16px · line-height 1.5 (accessibility floor)
-  label: 12px / 14px (768) · bold · uppercase · tracking-wider (the gold eyebrow)
+  label:
+    12px / 14px (768) · bold · uppercase · tracking-wider (the gold eyebrow)
 rounded:
   card: 30px (--radius-card → rounded-card)
   button: full pill
-  jumbo-button: 30px or 50px (give-now dialects; 50px is --radius-jumbo → rounded-jumbo)
+  jumbo-button:
+    30px or 50px (give-now dialects; 50px is --radius-jumbo → rounded-jumbo)
   gallery-media: 30px
   overlay-close: full
   note: kit globals say 0 — the page templates override with the radii above

@@ -6,9 +6,9 @@ import type { Post } from "./posts.ts";
 // plain — no border or background, matching WP.
 export function PostCard({ post }: { post: Post }) {
   return (
-    <article class="flex flex-col">
-      <h3 class="text-[26px] font-bold leading-[26px] text-primary">
-        <a href={`/posts/${post.slug}`} class="hover:underline">
+    <article className="flex flex-col">
+      <h3 className="text-[26px] font-bold leading-[26px] text-primary">
+        <a href={`/posts/${post.slug}`} className="hover:underline">
           {post.title}
         </a>
       </h3>
@@ -16,9 +16,9 @@ export function PostCard({ post }: { post: Post }) {
         src={post.hero}
         alt={post.heroAlt}
         loading="lazy"
-        class="mt-[18px] aspect-15/8 w-full object-cover"
+        className="mt-[18px] aspect-15/8 w-full object-cover"
       />
-      <p class="mt-3 text-base leading-6 text-primary">
+      <p className="mt-3 text-base leading-6 text-primary">
         {post.description}
       </p>
     </article>

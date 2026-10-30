@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { cx } from "../cx.ts";
 
 export type HeadingTone = "primary" | "white" | "black";
@@ -10,8 +10,8 @@ export type HeadingSize = "section" | "card" | "jumbo" | "56" | "32";
 //  - section: 28 / 39 / 56 px (the dominant scale)
 //  - card:    25 / 30 / 36 px (what-we-do + give-now cards)
 //  - jumbo:   76 px from md up (give-now page titles; set the mobile size
-//             via `class` — pages measure 34 or 42 px)
-//  - 56:      56 px from md up (give-now tax card; mobile via `class`)
+//             via `className` — pages measure 34 or 42 px)
+//  - 56:      56 px from md up (give-now tax card; mobile via `className`)
 //  - 32:      flat 32 px (give-now US/AU section titles)
 // Two weight dialects exist on WP: `bold` (subpages) and `semibold`
 // (homepage + get-involved cards). Omit `align` to inherit the parent's
@@ -42,7 +42,7 @@ const SIZES: Record<HeadingSize, string> = {
 };
 
 export interface SectionHeadingProps {
-  title: ComponentChildren;
+  title: ReactNode;
   tone?: HeadingTone;
   weight?: HeadingWeight;
   /** Text alignment; omit to inherit from the parent. */
@@ -53,24 +53,22 @@ export interface SectionHeadingProps {
   /** Adds `tracking-tight` (the homepage semibold dialect). */
   tracking?: boolean;
   /** Page-specific additions: margins, measures, `invisible`, lg tweaks. */
-  class?: string;
+  className?: string;
 }
 
-export function SectionHeading(
-  {
-    title,
-    tone = "primary",
-    weight = "bold",
-    align,
-    size = "section",
-    leading = "none",
-    tracking,
-    class: extra,
-  }: SectionHeadingProps,
-) {
+export function SectionHeading({
+  title,
+  tone = "primary",
+  weight = "bold",
+  align,
+  size = "section",
+  leading = "none",
+  tracking,
+  className: extra,
+}: SectionHeadingProps) {
   return (
     <h2
-      class={cx(
+      className={cx(
         leading === "tight" ? "leading-tight" : "leading-none",
         SIZES[size],
         WEIGHTS[weight],

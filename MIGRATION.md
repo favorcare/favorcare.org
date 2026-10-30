@@ -1,13 +1,13 @@
-# WordPress → Deno Fresh Migration Plan (favorcare.org)
+# WordPress → vinext Migration Plan (favorcare.org)
 
 > **For agentic workers:** Execute phase-by-phase; each phase ends at a
 > verifiable gate. Steps use checkbox (`- [ ]`) tracking.
 
 **Goal:** Replace the WordPress + Elementor Pro + WooCommerce site at
-favorcare.org with the existing Deno Fresh 2 repo, as a **visual clone** of the
-current design, with a **native donation checkout**, hosted on **Cloudflare
-Workers** (retargeted from Deno Deploy — see Phase 8), media on **Cloudflare
-R2**.
+favorcare.org with this repo (originally Deno Fresh 2; now vinext — see
+"Platform move"), as a **visual clone** of the current design, with a **native
+donation checkout**, hosted on **Cloudflare Workers** (retargeted from Deno
+Deploy — see Phase 8), media on **Cloudflare R2**.
 
 **Architecture:** Fresh routes/components (already scaffolded on
 `feat/site-pages`) are re-skinned to Elementor-extracted tokens; content comes
@@ -15,9 +15,28 @@ from the WP DB dump (not DOM scraping); legacy media URLs keep working via a
 same-path Cloudflare→R2 route; donations run through server-side PayMongo
 session creation + signature-verified webhooks persisted to durable storage.
 
-**Tech stack:** Deno Fresh 2, Preact, Tailwind v4, Cloudflare R2 + DNS, Deno
-Deploy, PayMongo API, Resend (email), Mailchimp API, Playwright (clone
-verification).
+**Tech stack:** vinext (Next.js App Router on Vite), React 19, Node + pnpm,
+Tailwind v4, Cloudflare R2 + DNS, Deno Deploy, PayMongo API, Resend (email),
+Mailchimp API, Playwright (clone verification).
+
+## Platform move: Deno + Fresh 2 → vinext (Node + pnpm)
+
+> Historical phases below were written against the Fresh/Deno stack and keep
+> their original wording (`deno task …`, `_fresh/`, `server.js`,
+> `wrangler.jsonc`). Their equivalents now: `pnpm …`, `.cloudflare/output/`, no
+> worker entry file, `cloudflare.config.ts` — see [DEPLOYMENT.md](DEPLOYMENT.md)
+> and [DEVELOPMENT.md](DEVELOPMENT.md).
+
+- [x] Toolchain: Node 24 + pnpm, Vitest, oxlint, Prettier, `tsc`.
+- [x] Preact → React 19; islands → `"use client"`; `routes/` → `app/`; `<Head>`
+      → metadata; `/signup` POST → Server Action.
+- [x] Env: `server.js` globalThis bridge → build-time `NEXT_PUBLIC_*`
+      (`.env.production`).
+- [x] Verified: unit tests 57 (was 52), per-route preview pass, no-JS `/signup`,
+      pixel parity against the Fresh baseline screenshots.
+- [ ] **Human:** preview deploy, switch Workers Builds commands (or add the
+      GitHub Action), merge, confirm production — checklist in
+      [DEPLOYMENT.md](DEPLOYMENT.md).
 
 **Feasibility verdict: YES** — 7 core pages, 3 posts, 8 donation products. The
 two real cost centers are (a) the full visual restyle of ~30 existing components
@@ -135,8 +154,8 @@ remains open in `migration/inventory.md`.)_
 - [ ] New markup references final canonical URLs directly;
       `Cache-Control: immutable` + CF cache rule.
 - [x] Re-runnable rclone wrapper for deltas. _(Landed 2026-10-11:
-      `scripts/assets.ts` + `deno task assets:pull|assets:push` — plain `copy`,
-      no `--delete`.)_
+      `scripts/assets.ts` + `pnpm assets:pull|assets:push` — plain `copy`, no
+      `--delete`.)_
 
 **Asset-serving architecture (added 2026-10-11; assets re-tracked in git
 2026-10-20):**

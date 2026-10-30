@@ -15,7 +15,7 @@
 // placeholder the team must replace before launch; grep for "TBD".
 //
 // The palette values mirrored here live in the `.cfac` scope block of
-// assets/styles.css (see DESIGN.md, "Sub-brand themes") — sampled from the
+// app/globals.css (see DESIGN.md, "Sub-brand themes") — sampled from the
 // campaign deck's art; cfac_test.ts holds the AA-contrast gate.
 
 export interface CfacCta {
@@ -43,13 +43,11 @@ export const CFAC = {
     beats: [
       {
         label: "THE REALITY",
-        body:
-          "Most giving asks you to add something new to your life — a donation, a pledge, a sacrifice. Coffee for a Cause asks for nothing new at all. It takes the cup you were already going to drink and lets it carry hope to someone who has none.",
+        body: "Most giving asks you to add something new to your life — a donation, a pledge, a sacrifice. Coffee for a Cause asks for nothing new at all. It takes the cup you were already going to drink and lets it carry hope to someone who has none.",
       },
       {
         label: "THE HOPE",
-        body:
-          "Generosity stops being an occasion and becomes a habit. By pouring meaning into the most ordinary, daily ritual there is, your ordinary cup becomes someone’s extraordinary tomorrow.",
+        body: "Generosity stops being an occasion and becomes a habit. By pouring meaning into the most ordinary, daily ritual there is, your ordinary cup becomes someone’s extraordinary tomorrow.",
       },
     ],
   },
@@ -111,8 +109,7 @@ export const CFAC = {
   },
   thanks: {
     title: "Thank you for pouring hope.",
-    body:
-      "TBD — one warm sentence confirming the gift and what it sets in motion.",
+    body: "TBD — one warm sentence confirming the gift and what it sets in motion.",
     next: [
       "TBD — what happens next, step 1 (e.g. receipt/email confirmation).",
       "TBD — when and how the donor sees impact (story, photo, report).",
@@ -144,7 +141,7 @@ export function cfacDonateProps(location: string): Record<string, string> {
 
 /**
  * The CFAC palette as rendered — one entry per token the `.cfac` scope
- * overrides (assets/styles.css). Hexes are sampled from the campaign deck's
+ * overrides (app/globals.css). Hexes are sampled from the campaign deck's
  * art (see the scope block comment); the storybook's CFAC group renders
  * these swatches inside the live scope, and cfac_test.ts gates the
  * contrast pairs.

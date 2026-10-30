@@ -96,8 +96,12 @@ function parseTuples(payload: string): string[][] {
       // delimiter; trim any wrapping whitespace.
       let j = i + 1;
       while (
-        j < n && payload[j] !== "'" && payload[j] !== "," && payload[j] !== ")"
-      ) j++;
+        j < n &&
+        payload[j] !== "'" &&
+        payload[j] !== "," &&
+        payload[j] !== ")"
+      )
+        j++;
       field += payload.slice(i, j).trim();
       i = j;
     }
@@ -336,9 +340,9 @@ const kitSettingsRaw = metaByPost.get(kitId)?.["_elementor_page_settings"];
 if (typeof kitSettingsRaw !== "string") {
   throw new Error(
     `no _elementor_page_settings for kit ${kitId} — parser captured ` +
-      `${metaByPost.size} posts, options: ${
-        Object.keys(elementorOptions).join(", ")
-      }`,
+      `${metaByPost.size} posts, options: ${Object.keys(elementorOptions).join(
+        ", ",
+      )}`,
   );
 }
 const kit = phpUnserialize(kitSettingsRaw) as Record<string, unknown>;
@@ -479,11 +483,11 @@ console.log(
 console.log(`\nPublished, by widget count:`);
 for (const c of [...live].sort((a, b) => b.widgets - a.widgets)) {
   console.log(
-    `  ${String(c.widgets).padStart(3)} widgets, ${
-      String(c.sections).padStart(2)
-    } sections, ${
-      String(c.textChars).padStart(5)
-    } chars — ${c.slug} [${c.type}]`,
+    `  ${String(c.widgets).padStart(3)} widgets, ${String(c.sections).padStart(
+      2,
+    )} sections, ${String(c.textChars).padStart(
+      5,
+    )} chars — ${c.slug} [${c.type}]`,
   );
 }
 console.log(`\nAll distinct widget types across published entities:`);
@@ -497,9 +501,9 @@ for (const [k, v] of Object.entries(totals).sort((a, b) => b[1] - a[1])) {
   console.log(`  ${String(v).padStart(3)}  ${k}`);
 }
 console.log(
-  `\nKit typography keys: ${
-    Object.keys((kit.system_typography ?? {}) as object).join(", ")
-  }`,
+  `\nKit typography keys: ${Object.keys(
+    (kit.system_typography ?? {}) as object,
+  ).join(", ")}`,
 );
 console.log(
   `snippets rows: ${snippets.flat().length}, redirects: ${redirects.length}`,

@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { cx } from "./cx.ts";
 
 export type PageTitleTone = "white" | "primary";
@@ -33,26 +33,24 @@ export interface PageTitleProps {
   weight?: PageTitleWeight;
   size?: PageTitleSize;
   /** Page-specific additions (margins, measures). */
-  class?: string;
-  children: ComponentChildren;
+  className?: string;
+  children: ReactNode;
 }
 
 /**
  * The page `<h1>`: centered, leading-none, on the measured 38/56/70 scale.
  * Pair it with `HeroLead` inside a `PageHero`.
  */
-export function PageTitle(
-  {
-    tone = "white",
-    weight = "bold",
-    size = "hero",
-    class: extra,
-    children,
-  }: PageTitleProps,
-) {
+export function PageTitle({
+  tone = "white",
+  weight = "bold",
+  size = "hero",
+  className: extra,
+  children,
+}: PageTitleProps) {
   return (
     <h1
-      class={cx(
+      className={cx(
         "text-center leading-none",
         SIZES[size],
         WEIGHTS[weight],
@@ -70,7 +68,7 @@ export interface HeroLeadProps {
    *  get-involved/signup 280/560/784 measure), never stacks — who-we-are
    *  measures 260/460/630, what-we-do 260/560/784. */
   measureClass?: string;
-  children: ComponentChildren;
+  children: ReactNode;
 }
 
 /**
@@ -81,7 +79,7 @@ export interface HeroLeadProps {
 export function HeroLead({ measureClass, children }: HeroLeadProps) {
   return (
     <p
-      class={cx(
+      className={cx(
         "mx-auto mt-4 text-center text-sm leading-relaxed text-white",
         "md:text-[15px] md:leading-[26px] lg:text-lg lg:leading-relaxed",
         measureClass ?? "max-w-[280px] md:max-w-[560px] lg:max-w-[784px]",

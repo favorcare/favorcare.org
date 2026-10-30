@@ -18,73 +18,80 @@ import {
   Menu,
   Plus,
   X,
-} from "lucide-preact";
+} from "lucide-react";
 import { siFacebook, siInstagram, siYoutube } from "simple-icons";
 
 export interface IconProps {
   /** Rendered width/height in px (icons are square). */
   size?: number;
-  class?: string;
+  className?: string;
 }
 
-export function CloseIcon({ size = 24, class: cls }: IconProps) {
-  return <X aria-hidden="true" size={size} strokeWidth={2} class={cls} />;
+export function CloseIcon({ size = 24, className: cls }: IconProps) {
+  return <X aria-hidden="true" size={size} strokeWidth={2} className={cls} />;
 }
 
-export function MenuIcon({ size = 24, class: cls }: IconProps) {
-  return <Menu aria-hidden="true" size={size} strokeWidth={2} class={cls} />;
-}
-
-export function ChevronLeftIcon({ size = 30, class: cls }: IconProps) {
+export function MenuIcon({ size = 24, className: cls }: IconProps) {
   return (
-    <ChevronLeft aria-hidden="true" size={size} strokeWidth={2.5} class={cls} />
+    <Menu aria-hidden="true" size={size} strokeWidth={2} className={cls} />
   );
 }
 
-export function ChevronRightIcon({ size = 30, class: cls }: IconProps) {
+export function ChevronLeftIcon({ size = 30, className: cls }: IconProps) {
+  return (
+    <ChevronLeft
+      aria-hidden="true"
+      size={size}
+      strokeWidth={2.5}
+      className={cls}
+    />
+  );
+}
+
+export function ChevronRightIcon({ size = 30, className: cls }: IconProps) {
   return (
     <ChevronRight
       aria-hidden="true"
       size={size}
       strokeWidth={2.5}
-      class={cls}
+      className={cls}
     />
   );
 }
 
-export function PlusIcon({ size = 14, class: cls }: IconProps) {
+export function PlusIcon({ size = 14, className: cls }: IconProps) {
   return (
     <Plus
       aria-hidden="true"
       size={size}
       strokeWidth={2}
       absoluteStrokeWidth
-      class={cls}
+      className={cls}
     />
   );
 }
 
-export function MailIcon({ size = 22, class: cls }: IconProps) {
+export function MailIcon({ size = 22, className: cls }: IconProps) {
   return (
     <Mail
       aria-hidden="true"
       size={size}
       strokeWidth={2}
       absoluteStrokeWidth
-      class={cls}
+      className={cls}
     />
   );
 }
 
 /** The Coffee for a Cause campaign glyph (stroke, currentColor). */
-export function CoffeeIcon({ size = 24, class: cls }: IconProps) {
+export function CoffeeIcon({ size = 24, className: cls }: IconProps) {
   return (
     <Coffee
       aria-hidden="true"
       size={size}
       strokeWidth={2}
       absoluteStrokeWidth
-      class={cls}
+      className={cls}
     />
   );
 }
@@ -97,9 +104,11 @@ const BRANDS: Record<BrandName, { path: string }> = {
   youtube: siYoutube,
 };
 
-export function BrandIcon(
-  { name, size = 22, class: cls }: IconProps & { name: BrandName },
-) {
+export function BrandIcon({
+  name,
+  size = 22,
+  className: cls,
+}: IconProps & { name: BrandName }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -107,7 +116,7 @@ export function BrandIcon(
       height={size}
       fill="currentColor"
       aria-hidden="true"
-      class={cls}
+      className={cls}
     >
       <path d={BRANDS[name].path} />
     </svg>

@@ -1,5 +1,5 @@
 // Design-token data for the /storybook brand reference. The values mirror
-// the `@theme` block in assets/styles.css (itself transcribed from
+// the `@theme` block in app/globals.css (itself transcribed from
 // DESIGN.md); tokens_test.ts fails if the two drift. Every `cls` is a
 // literal class string so Tailwind's source scan generates it.
 
@@ -238,8 +238,8 @@ export function relativeLuminance(hex: string): number {
 
 /** WCAG contrast ratio between two `#rrggbb` colors (1–21). */
 export function contrastRatio(a: string, b: string): number {
-  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) =>
-    y - x
+  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort(
+    (x, y) => y - x,
   );
   return (hi + 0.05) / (lo + 0.05);
 }

@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ReactNode } from "react";
 import { cx } from "./cx.ts";
 
 export type ButtonVariant =
@@ -59,7 +59,11 @@ const SHAPES: Record<ButtonShape, string> = {
 /** Class string for a Button's look — reused by non-Button controls that
  *  must match the pill system (e.g. Popup's trigger on get-involved). */
 export function buttonClasses(
-  { variant = "yellow", size = "md", shape = "pill" }: {
+  {
+    variant = "yellow",
+    size = "md",
+    shape = "pill",
+  }: {
     variant?: ButtonVariant;
     size?: ButtonSize;
     shape?: ButtonShape;
@@ -93,33 +97,31 @@ export interface ButtonProps {
   /** String props attached to the `track` event (JSON-encoded into
    * `data-track-props`). Only meaningful together with `track`. */
   trackProps?: Record<string, string>;
-  class?: string;
-  children?: ComponentChildren;
+  className?: string;
+  children?: ReactNode;
 }
 
-export function Button(
-  {
-    variant = "yellow",
-    size = "md",
-    shape = "pill",
-    href,
-    target,
-    rel,
-    type = "button",
-    tabIndex,
-    disabled,
-    track,
-    trackProps,
-    class: extra,
-    children,
-  }: ButtonProps,
-) {
+export function Button({
+  variant = "yellow",
+  size = "md",
+  shape = "pill",
+  href,
+  target,
+  rel,
+  type = "button",
+  tabIndex,
+  disabled,
+  track,
+  trackProps,
+  className: extra,
+  children,
+}: ButtonProps) {
   const className = buttonClasses({ variant, size, shape }, extra);
   const trackAttrs = track
     ? {
-      "data-track": track,
-      "data-track-props": trackProps && JSON.stringify(trackProps),
-    }
+        "data-track": track,
+        "data-track-props": trackProps && JSON.stringify(trackProps),
+      }
     : {};
   if (href !== undefined) {
     return (
@@ -128,7 +130,7 @@ export function Button(
         target={target}
         rel={rel}
         tabIndex={tabIndex}
-        class={className}
+        className={className}
         {...trackAttrs}
       >
         {children}
@@ -140,7 +142,7 @@ export function Button(
       type={type}
       tabIndex={tabIndex}
       disabled={disabled}
-      class={className}
+      className={className}
       {...trackAttrs}
     >
       {children}

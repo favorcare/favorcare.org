@@ -1,9 +1,9 @@
-// Sync static/images/ with the Cloudflare R2 media bucket.
+// Sync public/images/ with the Cloudflare R2 media bucket.
 //
-//   deno task assets:pull   # R2 -> static/images (bucket-parity check)
-//   deno task assets:push   # static/images -> R2 (manual publish)
+//   pnpm assets:pull   # R2 -> public/images (bucket-parity check)
+//   pnpm assets:push   # public/images -> R2 (manual publish)
 //
-// static/images/ is tracked in git: clones get images for free, and merges
+// public/images/ is tracked in git: clones get images for free, and merges
 // to main are published automatically by .github/workflows/sync-assets.yml.
 // These tasks remain for bootstrapping a bucket and manual/hotfix pushes.
 //
@@ -26,33 +26,36 @@
 // Both directions are plain `rclone copy` — no --delete — so neither the
 // bucket nor the local tree can lose files through this script.
 
-const BUCKET = Deno.env.get("R2_BUCKET") ?? "r2:favorcare-media/images";
-const LOCAL_DIR = "static/images";
+import { spawn } from "node:child_process";
 
-const command = Deno.args[0];
+const BUCKET = process.env.R2_BUCKET ?? "r2:favorcare-media/images";
+const LOCAL_DIR = "public/images";
+
+const command = process.argv[2];
 if (command !== "pull" && command !== "push") {
   console.error(
-    `usage: deno task assets:pull | deno task assets:push\n` +
+    `usage: pnpm assets:pull | pnpm assets:push\n` +
       `  pull  ${BUCKET} -> ${LOCAL_DIR} (set up local dev)\n` +
       `  push  ${LOCAL_DIR} -> ${BUCKET} (publish new images)`,
   );
-  Deno.exit(64);
+  process.exit(64);
 }
 
-const [src, dst] = command === "pull"
-  ? [BUCKET, LOCAL_DIR]
-  : [LOCAL_DIR, BUCKET];
+const [src, dst] =
+  command === "pull" ? [BUCKET, LOCAL_DIR] : [LOCAL_DIR, BUCKET];
 
-const rclone = new Deno.Command("rclone", {
-  args: ["copy", "-P", src, dst],
-  stdin: "null",
-}).spawn();
+const code = await new Promise<number>((resolve) => {
+  const rclone = spawn("rclone", ["copy", "-P", src, dst], {
+    stdio: ["ignore", "inherit", "inherit"],
+  });
+  rclone.on("error", () => resolve(127));
+  rclone.on("close", (c) => resolve(c ?? 1));
+});
 
-const status = await rclone.status;
-if (!status.success) {
+if (code !== 0) {
   console.error(
-    `\nrclone exited ${status.code}. Is rclone installed and the ` +
+    `\nrclone exited ${code}. Is rclone installed and the ` +
       `"favorcare-media" remote configured? See the header of this file.`,
   );
-  Deno.exit(status.code);
+  process.exit(code);
 }

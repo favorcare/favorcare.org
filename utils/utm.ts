@@ -58,8 +58,13 @@ export function parseUtms(search: string): Partial<Record<UtmKey, string>> {
 
 /** True when a touch carries no attribution at all. */
 export function isEmptyUtm(touch: UtmTouch): boolean {
-  return !touch.source && !touch.medium && !touch.campaign && !touch.term &&
-    !touch.content;
+  return (
+    !touch.source &&
+    !touch.medium &&
+    !touch.campaign &&
+    !touch.term &&
+    !touch.content
+  );
 }
 
 /**
@@ -95,8 +100,9 @@ export function readUtm(store: UtmStore, key: string): UtmTouch | null {
   if (!raw) return null;
   try {
     const value = JSON.parse(raw) as UtmTouch;
-    return typeof value === "object" && value !== null &&
-        typeof value.ts === "number"
+    return typeof value === "object" &&
+      value !== null &&
+      typeof value.ts === "number"
       ? value
       : null;
   } catch {

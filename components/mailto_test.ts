@@ -1,7 +1,8 @@
 // Unit tests for the mailto composition helpers behind MailtoForm. The
 // first group proves the pre-consolidation ContactForm subject and body are
 // reproducible through composeMailto/formFields/composeSubject.
-import { assertEquals } from "@std/assert";
+import { test } from "vitest";
+import { deepStrictEqual } from "node:assert/strict";
 import { CONTACT } from "./content.ts";
 import {
   composeMailto,
@@ -31,9 +32,9 @@ function parse(href: string) {
 // dropped here and in composeMailto.
 function legacy(data: FormData) {
   const field = (name: string) => String(data.get(name) ?? "").trim();
-  const subject = `Website contact — ${field("first-name")} ${
-    field("last-name")
-  }`.trim();
+  const subject = `Website contact — ${field("first-name")} ${field(
+    "last-name",
+  )}`.trim();
   const body = [
     `Name: ${field("first-name")} ${field("last-name")}`.trim(),
     `Email: ${field("email")}`,
@@ -41,7 +42,9 @@ function legacy(data: FormData) {
     field("newsletter") === "on" ? "Subscribed to the newsletter" : null,
     "",
     field("message"),
-  ].filter((line) => line !== null).join("\n");
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
   return { subject, body };
 }
 
@@ -49,10 +52,13 @@ function legacy(data: FormData) {
 function contactHref(data: FormData): string {
   return composeMailto({
     recipient: CONTACT.form.recipient,
-    subject: composeSubject({
-      prefix: CONTACT.form.subjectPrefix,
-      nameFields: ["first-name", "last-name"],
-    }, data),
+    subject: composeSubject(
+      {
+        prefix: CONTACT.form.subjectPrefix,
+        nameFields: ["first-name", "last-name"],
+      },
+      data,
+    ),
     fields: formFields(data, CONTACT.form.labels, ["newsletter"]),
     note: String(data.get("message") ?? ""),
   });
@@ -66,29 +72,32 @@ const typed = {
   message: "How can I help?\nSee you Sunday.",
 };
 
-Deno.test("composeSubject reproduces 'Website contact — First Last'", () => {
+test("composeSubject reproduces 'Website contact — First Last'", () => {
   const data = form(typed);
-  assertEquals(
-    composeSubject({
-      prefix: CONTACT.form.subjectPrefix,
-      nameFields: ["first-name", "last-name"],
-    }, data),
+  deepStrictEqual(
+    composeSubject(
+      {
+        prefix: CONTACT.form.subjectPrefix,
+        nameFields: ["first-name", "last-name"],
+      },
+      data,
+    ),
     legacy(data).subject,
   );
-  assertEquals(legacy(data).subject, "Website contact — Maria Cruz");
+  deepStrictEqual(legacy(data).subject, "Website contact — Maria Cruz");
 });
 
-Deno.test("composeMailto reproduces the legacy ContactForm body", () => {
+test("composeMailto reproduces the legacy ContactForm body", () => {
   const data = form(typed);
   const { to, subject, body } = parse(contactHref(data));
-  assertEquals(to, CONTACT.form.recipient);
-  assertEquals(subject, legacy(data).subject);
-  assertEquals(body, legacy(data).body);
+  deepStrictEqual(to, CONTACT.form.recipient);
+  deepStrictEqual(subject, legacy(data).subject);
+  deepStrictEqual(body, legacy(data).body);
 });
 
-Deno.test("the opted-in newsletter line reads as a labeled Yes", () => {
+test("the opted-in newsletter line reads as a labeled Yes", () => {
   const data = form({ ...typed, newsletter: "on" });
-  assertEquals(
+  deepStrictEqual(
     parse(contactHref(data)).body,
     [
       "Name: Maria Cruz",
@@ -102,17 +111,20 @@ Deno.test("the opted-in newsletter line reads as a labeled Yes", () => {
   );
 });
 
-Deno.test("only declared checkboxes map 'on' to Yes", () => {
+test("only declared checkboxes map 'on' to Yes", () => {
   const data = form({ phone: "on", newsletter: "on" });
-  assertEquals(
+  deepStrictEqual(
     formFields(data, { phone: "Phone", newsletter: "Opt-in" }, ["newsletter"]),
-    [{ label: "Phone", value: "on" }, { label: "Opt-in", value: "Yes" }],
+    [
+      { label: "Phone", value: "on" },
+      { label: "Opt-in", value: "Yes" },
+    ],
   );
 });
 
-Deno.test("composeMailto skips blank values (an empty phone drops out)", () => {
+test("composeMailto skips blank values (an empty phone drops out)", () => {
   const data = form({ ...typed, phone: "  " });
-  assertEquals(
+  deepStrictEqual(
     parse(contactHref(data)).body,
     [
       "Name: Maria Cruz",
@@ -124,31 +136,33 @@ Deno.test("composeMailto skips blank values (an empty phone drops out)", () => {
   );
 });
 
-Deno.test("composeMailto percent-encodes the subject and body", () => {
+test("composeMailto percent-encodes the subject and body", () => {
   const href = composeMailto({
     recipient: "info@favorcare.org",
     subject: "Hi & bye — ok?",
     fields: [{ label: "Name", value: "A&B=C" }],
   });
-  assertEquals(
+  deepStrictEqual(
     href,
     "mailto:info@favorcare.org?subject=Hi%20%26%20bye%20%E2%80%94%20ok%3F&body=Name%3A%20A%26B%3DC",
   );
 });
 
-Deno.test("composeMailto omits the blank line when there are no fields", () => {
-  const { body } = parse(composeMailto({
-    recipient: "a@b.co",
-    subject: "s",
-    fields: [{ label: "Name", value: "" }],
-    note: "just a note",
-  }));
-  assertEquals(body, "just a note");
+test("composeMailto omits the blank line when there are no fields", () => {
+  const { body } = parse(
+    composeMailto({
+      recipient: "a@b.co",
+      subject: "s",
+      fields: [{ label: "Name", value: "" }],
+      note: "just a note",
+    }),
+  );
+  deepStrictEqual(body, "just a note");
 });
 
-Deno.test("formFields keeps label order, trims, and joins a+b keys", () => {
+test("formFields keeps label order, trims, and joins a+b keys", () => {
   const data = form({ b: " two ", a: "one", c: "x", d: "y" });
-  assertEquals(
+  deepStrictEqual(
     formFields(data, { "c+d": "Joined", b: "B", a: "A", missing: "Gone" }),
     [
       { label: "Joined", value: "x y" },
@@ -159,9 +173,12 @@ Deno.test("formFields keeps label order, trims, and joins a+b keys", () => {
   );
 });
 
-Deno.test("composeSubject handles literal, named, and nameless subjects", () => {
+test("composeSubject handles literal, named, and nameless subjects", () => {
   const subject: MailtoSubject = { prefix: "Sign up", nameFields: ["n"] };
-  assertEquals(composeSubject("Plain", form({})), "Plain");
-  assertEquals(composeSubject(subject, form({ n: " Ana " })), "Sign up — Ana");
-  assertEquals(composeSubject(subject, form({ n: " " })), "Sign up");
+  deepStrictEqual(composeSubject("Plain", form({})), "Plain");
+  deepStrictEqual(
+    composeSubject(subject, form({ n: " Ana " })),
+    "Sign up — Ana",
+  );
+  deepStrictEqual(composeSubject(subject, form({ n: " " })), "Sign up");
 });

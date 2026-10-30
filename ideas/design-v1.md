@@ -2,8 +2,9 @@
 version: alpha
 name: Favor Care
 description: >-
-  A faith-driven nonprofit design system centered on warmth, accessibility, and hopeful action. The brand combines a
-  vibrant golden accent with deep, grounded neutrals to communicate both urgency and compassion in service delivery.
+  A faith-driven nonprofit design system centered on warmth, accessibility, and
+  hopeful action. The brand combines a vibrant golden accent with deep, grounded
+  neutrals to communicate both urgency and compassion in service delivery.
 logo:
   src: https://favorcare.org/wp-content/uploads/2022/12/cropped-cropped-FAVOR-CARE-LOGO-BLACK-1-180x180.png
 colors:
