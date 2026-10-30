@@ -22,7 +22,7 @@ pnpm build          # production build -> .cloudflare/output/ (Workers bundle + 
 pnpm preview        # serve the production build locally in workerd
 pnpm check          # prettier --check + oxlint + tsc --noEmit  (run before claiming done)
 pnpm test           # unit tests (vitest run) — run before claiming done
-pnpm deploy:preview # preview deploy (human step — see DEPLOYMENT.md)
+pnpm deploy:preview # Worker Preview for the branch (human step — see DEPLOYMENT.md)
 ```
 
 ## Sources of truth — do not invent
@@ -185,6 +185,9 @@ docs/         Untracked local scratch (agent plans, fieldnotes); never in git.
   `generateStaticParams` — put helpers in `components/` or `utils/`.
 - The dev server port is printed in the terminal — don't assume one. Test
   hydration against `pnpm preview`, not `pnpm dev`.
+- Previews are `vinext-cloudflare previews deploy` (`pnpm deploy:preview`).
+  Never `deploy --preview`/`--env …` for a preview: it only picks a Vite mode
+  and still overwrites Production.
 - `pnpm preview` serves local images only if built without the CDN base: move
   `.env.production` aside for the QA build (the default build strips
   `public/images` from the bundle).

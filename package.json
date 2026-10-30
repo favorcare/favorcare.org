@@ -11,7 +11,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "vinext-cloudflare deploy",
-    "deploy:preview": "vinext-cloudflare deploy --preview",
+    "deploy:preview": "vinext-cloudflare previews deploy",
     "check": "prettier --check . && oxlint && tsc --noEmit",
     "test": "vitest run",
     "setup": "node scripts/setup.ts",

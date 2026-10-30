@@ -38,7 +38,7 @@ on Node + pnpm.
 | `pnpm build`           | Production build into `.cloudflare/output/`.                                   |
 | `pnpm preview`         | Serve the production build locally in workerd.                                 |
 | `pnpm deploy`          | Build, then deploy to Cloudflare Workers (see [DEPLOYMENT.md](DEPLOYMENT.md)). |
-| `pnpm deploy:preview`  | Build and deploy a preview version.                                            |
+| `pnpm deploy:preview`  | Upload a Worker Preview for the current branch (Production untouched).         |
 | `pnpm check`           | Run `prettier --check`, `oxlint`, and `tsc --noEmit`.                          |
 | `pnpm test`            | Run the unit tests (`vitest run`).                                             |
 | `pnpm assets:pull`     | Bootstrap/parity check: pull `public/images/` from R2 (rclone).                |

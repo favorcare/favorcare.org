@@ -9,10 +9,15 @@ deployed with the `cf` CLI through `vinext-cloudflare deploy`.
 - `pnpm build` runs `vite build`: vinext + the Cloudflare Vite plugin emit the
   Worker bundle and the static assets into `.cloudflare/output/` (git-ignored).
 - `pnpm deploy` = `vinext-cloudflare deploy`: validates, builds every Vite
-  environment, and uploads that output with `cf`. `pnpm deploy:preview` does the
-  same in Vite mode `preview` for a preview URL.
-- Public config is **build-time**: `.env.production` (and `.env.preview`, which
-  must mirror it) holds
+  environment, and uploads that output with `cf`. It replaces the live
+  (Production) deployment.
+- `pnpm deploy:preview` = `vinext-cloudflare previews deploy`: builds the same
+  output and uploads a **Worker Preview** named after the Git branch — a
+  non-live version with its own URL (`*-favorcare-org.<subdomain>.workers.dev`),
+  updated by every push to that branch. Production is untouched. **Never use
+  `vinext-cloudflare deploy --preview` for previews:** `--preview` only selects
+  the Vite mode `preview`; it still deploys to Production.
+- Public config is **build-time**: `.env.production` holds
   `NEXT_PUBLIC_ASSET_BASE_URL=https://assets.favorcare.media` and the analytics
   IDs. Change a value, rebuild, redeploy.
 - When the asset base is set, the build strips `public/images/` from the Static
@@ -29,8 +34,9 @@ Authentication is the human's: `cf auth login` locally, or
 
 ### One-time: switch the production pipeline (vinext cutover)
 
-1. `pnpm deploy:preview` from a clean checkout of the cutover branch → open the
-   preview URL and smoke test every route (home, who-we-are, what-we-do,
+1. Open the branch's Worker Preview URL (Workers Builds log, the Worker's
+   Previews section, or the PR comment; or `pnpm deploy:preview` locally after
+   `cf auth login`) and smoke test every route (home, who-we-are, what-we-do,
    get-involved, contact, givenow, posts + a post, signup, coffeeforacause,
    privacy-policy) and the `/signup` form.
 2. In the Cloudflare dashboard (Workers → `favorcare-org` → Settings → Builds),
@@ -38,7 +44,9 @@ Authentication is the human's: `cf auth login` locally, or
    `pnpm deploy`. Check that Workers Builds' injected credentials work for `cf`.
    **Fallback if they don't:** add a GitHub Action that runs `pnpm deploy` with
    repo secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` on push to
-   `main`, and disconnect the Workers Builds trigger.
+   `main`, and disconnect the Workers Builds trigger. In the same Builds
+   settings, set **Preview command** to `pnpm deploy:preview` and turn on
+   **Builds for Preview branches**.
 3. Merge the PR → confirm the production deploy and re-check the routes above.
 4. Remove the old `vars` (`ASSET_BASE_URL`, analytics IDs) — they now live in
    `.env.production`, not on the Worker.

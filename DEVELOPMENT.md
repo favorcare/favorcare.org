@@ -167,8 +167,8 @@ The keys are public identifiers, not secrets. Where they live:
 
 - **Local dev** — copy `.env.example` to `.env.local` and fill in what you have,
   then restart `pnpm dev`.
-- **Production (Workers)** — fill the values in the committed `.env.production`
-  (and mirror them in `.env.preview`). They are inlined at **build** time by
+- **Production (Workers)** — fill the values in the committed `.env.production`.
+  They are inlined at **build** time by
   [`utils/analytics.ts`](utils/analytics.ts), so a change needs a rebuild and
   redeploy — the same pattern as `NEXT_PUBLIC_ASSET_BASE_URL`.
 
