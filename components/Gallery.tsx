@@ -105,6 +105,7 @@ export function Gallery({ images, variant, mobileOrder }: GalleryProps) {
           const [mobile, md] = tileOrder(i, mobileOrder);
           return (
             <img
+              key={img.src}
               src={img.src}
               alt={img.alt}
               className={cx(

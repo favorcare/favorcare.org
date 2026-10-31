@@ -42,7 +42,10 @@ export default function CfacThanksPage() {
 
         <ul className="mx-auto mt-10 flex max-w-[620px] flex-col gap-4 text-left">
           {CFAC.thanks.next.map((step) => (
-            <li className="flex items-start gap-3 rounded-card bg-surface-container-lowest p-5">
+            <li
+              key={step}
+              className="flex items-start gap-3 rounded-card bg-surface-container-lowest p-5"
+            >
               <span
                 className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-bold text-on-primary"
                 aria-hidden="true"

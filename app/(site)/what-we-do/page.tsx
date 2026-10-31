@@ -48,7 +48,10 @@ export default function WhatWeDoPage() {
             the slideshow vertically paired against the copy; stacked
             slideshow-first below md. */}
         {WHAT_WE_DO.programs.map((p, i) => (
-          <section className={cx(gutter(), "pt-5 first:pt-9 md:pt-20")}>
+          <section
+            key={p.label}
+            className={cx(gutter(), "pt-5 first:pt-9 md:pt-20")}
+          >
             <div
               className={cx(
                 frame(),

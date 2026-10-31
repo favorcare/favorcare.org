@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import { Header } from "../../../components/Header.tsx";
 import { Footer } from "../../../components/Footer.tsx";
@@ -85,10 +86,10 @@ export default function GiveNowPage() {
             <BankCard title={GIVENOW.ph.checks.title} className="md:flex-1">
               <p className="text-left text-base text-black">
                 {GIVENOW.ph.checks.payable.split("\u00a0").map((line, i, a) => (
-                  <>
+                  <Fragment key={i}>
                     {line}
                     {i < a.length - 1 && <br />}
-                  </>
+                  </Fragment>
                 ))}
               </p>
               <p className="text-left text-base text-black">
