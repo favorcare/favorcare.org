@@ -117,7 +117,10 @@ export default function WhoWeArePage() {
             <SectionHeading title={ABOUT.valuesTitle} align="left-center-md" />
             <div className="mt-6 space-y-4 text-center text-primary">
               {ABOUT.values.map((v) => (
-                <p className="text-[20px] leading-5 md:leading-6 lg:text-[28px] lg:leading-9">
+                <p
+                  key={v}
+                  className="text-[20px] leading-5 md:leading-6 lg:text-[28px] lg:leading-9"
+                >
                   {v}
                 </p>
               ))}

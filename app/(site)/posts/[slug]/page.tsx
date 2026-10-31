@@ -99,8 +99,10 @@ function Block({ block }: { block: ArticleBlock }) {
     case "text":
       return (
         <>
-          {block.paragraphs.map((p) => (
-            <p className="text-base leading-6 text-primary">{p}</p>
+          {block.paragraphs.map((p, i) => (
+            <p key={i} className="text-base leading-6 text-primary">
+              {p}
+            </p>
           ))}
         </>
       );

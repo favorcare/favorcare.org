@@ -14,7 +14,10 @@ export function TeamGrid({ members }: TeamGridProps) {
   return (
     <ul className="mt-8 flex flex-col items-center gap-6 md:mt-[70px] md:grid md:grid-cols-2 md:gap-x-2.5 md:gap-y-[30px] md:px-[42px] lg:gap-x-7 lg:gap-y-10 lg:px-[46px]">
       {members.map((m) => (
-        <li className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left">
+        <li
+          key={m.name}
+          className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left"
+        >
           <img
             src={m.photo}
             alt={m.photoAlt}
