@@ -1,71 +1,49 @@
 import type { Metadata } from "next";
-import { PageTitle } from "../../../components/PageTitle.tsx";
-import { Eyebrow } from "../../../components/Eyebrow.tsx";
-import { Button } from "../../../components/Button.tsx";
-import { frame } from "../../../components/layout/Container.tsx";
-import { cx } from "../../../components/cx.ts";
+import { CfacButton } from "../../../components/campaigns/cfac/CfacButton.tsx";
+import { ArrowLeftIcon, CheckIcon } from "../../../components/icons.tsx";
 import TrackView from "../../../islands/TrackView.tsx";
-import { CFAC, CFAC_EVENTS } from "../../../components/cfac.ts";
+import {
+  CFAC,
+  CFAC_EVENTS,
+} from "../../../components/campaigns/cfac/content.ts";
 
 export const metadata: Metadata = {
   title: `Thank you — ${CFAC.name}`,
   robots: { index: false, follow: false },
-  description: CFAC.thanks.body,
+  description: CFAC.thanks.lead,
 };
 
-// The CFAC post-donation landing: the payment provider redirects donors
-// here after checkout. Centered thank-you (no hero photo), what-happens-next
-// steps, and the conversion event — TrackView fires cfac_donate_success
-// once on mount so vendors can count completed gifts with UTM attribution
-// (no donor PII in event props — MIGRATION.md rule).
+// The CFAC post-donation landing (cloned from cfac-landing-page's
+// thanks-page.html): PayMongo redirects donors here after checkout. Gold
+// check badge, thank-you copy, and Return to Site. TrackView fires
+// cfac_donate_success once on mount so vendors can count completed gifts
+// with UTM attribution (no donor PII in event props — MIGRATION.md rule).
 //
-// noindex: a transactional destination, not content — search has no
-// business sending anyone here.
+// noindex: a transactional destination, not content.
 export default function CfacThanksPage() {
+  const { thanks } = CFAC;
   return (
     <>
       <TrackView event={CFAC_EVENTS.success} props={{ fund: "cfac" }} />
 
-      <section
-        className={cx(
-          frame("page"),
-          "flex flex-1 flex-col items-center py-20 text-center md:py-24",
-        )}
-      >
-        <Eyebrow>{CFAC.provenance}</Eyebrow>
-        <PageTitle tone="primary" className="mt-4">
-          {CFAC.thanks.title}
-        </PageTitle>
-        <p className="mx-auto mt-5 max-w-[620px] text-base leading-relaxed text-on-surface lg:text-lg">
-          {CFAC.thanks.body}
-        </p>
-
-        <ul className="mx-auto mt-10 flex max-w-[620px] flex-col gap-4 text-left">
-          {CFAC.thanks.next.map((step) => (
-            <li
-              key={step}
-              className="flex items-start gap-3 rounded-card bg-surface-container-lowest p-5"
-            >
-              <span
-                className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-bold text-on-primary"
-                aria-hidden="true"
-              >
-                ✓
-              </span>
-              <span className="text-base leading-relaxed text-on-surface">
-                {step}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-12 flex flex-col items-center gap-4 md:flex-row">
-          <Button variant="black" size="md" href="/coffeeforacause">
-            Back to the campaign
-          </Button>
-          <Button variant="outline-black" size="md" href="/">
-            favorcare.org
-          </Button>
+      <section className="flex flex-1 items-center justify-center px-4 py-24 md:py-32">
+        <div className="mx-auto max-w-2xl text-center">
+          <div className="mb-8 flex justify-center">
+            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-yellow text-primary">
+              <CheckIcon size={48} />
+            </div>
+          </div>
+          <h1 className="mb-6 text-3xl font-bold text-primary md:text-4xl">
+            {thanks.title}
+          </h1>
+          <p className="mb-4 text-lg text-on-surface-variant">{thanks.lead}</p>
+          <p className="mb-12 text-base leading-relaxed text-on-surface-variant">
+            {thanks.body}
+          </p>
+          <CfacButton variant="dark" href={thanks.cta.href} className="gap-2">
+            <ArrowLeftIcon size={20} />
+            {thanks.cta.label}
+          </CfacButton>
         </div>
       </section>
     </>

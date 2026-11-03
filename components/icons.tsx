@@ -11,15 +11,22 @@
 // hold a true 2px at any size; `MailIcon` (new, no filled predecessor)
 // does the same.
 import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
   ChevronLeft,
   ChevronRight,
   Coffee,
+  Eye,
+  HandHeart,
+  Heart,
   Mail,
+  MapPin,
   Menu,
   Plus,
   X,
 } from "lucide-react";
-import { siFacebook, siInstagram, siYoutube } from "simple-icons";
+import { siFacebook, siInstagram, siTiktok, siYoutube } from "simple-icons";
 
 export interface IconProps {
   /** Rendered width/height in px (icons are square). */
@@ -109,11 +116,62 @@ export function CoffeeIcon({ size = 24, className: cls }: IconProps) {
   );
 }
 
-export type BrandName = "facebook" | "instagram" | "youtube";
+/** Map pin for address rows (CFAC contact card). */
+export function MapPinIcon({ size = 22, className: cls }: IconProps) {
+  return (
+    <MapPin aria-hidden="true" size={size} strokeWidth={2} className={cls} />
+  );
+}
+
+/** Check mark (CFAC thank-you badge). */
+export function CheckIcon({ size = 24, className: cls }: IconProps) {
+  return (
+    <Check aria-hidden="true" size={size} strokeWidth={2.5} className={cls} />
+  );
+}
+
+/** Arrows for "Return to Site" / "Send Message" style CTAs. */
+export function ArrowLeftIcon({ size = 20, className: cls }: IconProps) {
+  return (
+    <ArrowLeft aria-hidden="true" size={size} strokeWidth={2} className={cls} />
+  );
+}
+
+export function ArrowRightIcon({ size = 20, className: cls }: IconProps) {
+  return (
+    <ArrowRight
+      aria-hidden="true"
+      size={size}
+      strokeWidth={2}
+      className={cls}
+    />
+  );
+}
+
+/** The CFAC How It Works step glyphs — see the need / feel the impact /
+ *  take action. */
+export function EyeIcon({ size = 28, className: cls }: IconProps) {
+  return <Eye aria-hidden="true" size={size} strokeWidth={2} className={cls} />;
+}
+
+export function HeartIcon({ size = 28, className: cls }: IconProps) {
+  return (
+    <Heart aria-hidden="true" size={size} strokeWidth={2} className={cls} />
+  );
+}
+
+export function HandHeartIcon({ size = 28, className: cls }: IconProps) {
+  return (
+    <HandHeart aria-hidden="true" size={size} strokeWidth={2} className={cls} />
+  );
+}
+
+export type BrandName = "facebook" | "instagram" | "tiktok" | "youtube";
 
 const BRANDS: Record<BrandName, { path: string }> = {
   facebook: siFacebook,
   instagram: siInstagram,
+  tiktok: siTiktok,
   youtube: siYoutube,
 };
 

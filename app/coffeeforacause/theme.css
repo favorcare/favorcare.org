@@ -1,0 +1,66 @@
+/*
+ * Sub-brand theme scope: Coffee for a Cause (CFAC).
+ *
+ * Every component is styled with token utilities (bg-primary, text-on-surface,
+ * rounded-card…), and in Tailwind v4 those utilities resolve the `--color-*`
+ * custom properties at the element they land on. Re-declaring the variables
+ * inside `.cfac` therefore re-skins everything beneath the wrapper — the
+ * campaign components in components/campaigns/cfac/ and any shared catalog
+ * piece they reuse — with no hardcoded hex. Un-overridden tokens (error,
+ * tertiary, article-yellow, radii, fonts) keep the site values.
+ *
+ * Imported by app/coffeeforacause/layout.tsx (every CFAC route) and by the
+ * /storybook CFAC group. Plain custom properties only — no Tailwind
+ * directives — so the global @theme (and tokens_test.ts) is untouched.
+ *
+ * Design-token rule unchanged: DESIGN.md documents this scope first
+ * ("Sub-brand themes"); this block mirrors it.
+ *
+ * VALUES: the campaign team's design — favorcare/cfac-landing-page
+ * (tailwind.config.js `fg-*` colors, live on the WP staging site). Gold on
+ * near-black with warm-grey creams. All text pairs hold AA (≥ 4.5:1,
+ * enforced by components/campaigns/cfac/content_test.ts).
+ */
+.cfac {
+  /* fg-dark: headings, body ink, the dark DONATE pill, footer bands. */
+  --color-black: #1b1c1c;
+  --color-primary: #1b1c1c;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2d2d2d;
+  --color-on-primary-container: #f6f3f1;
+  --color-primary-hover: #000000;
+  --color-primary-active: #2d2d2d;
+
+  /* fg-gold: the nav bar, primary CTAs, selected chips, carousel dots.
+     Same value as the site's Link Yellow — gold is a fill, never text on
+     white (DESIGN.md rule holds). */
+  --color-yellow: #ffb428;
+
+  /* Links read as ink in the sample (privacy, contact rows); hover warms to
+     fg-brown-dark rather than the site's yellow (illegible on white). */
+  --color-link: #1b1c1c;
+  --color-link-hover: #50453e;
+
+  /* White page, warm-grey bands (fg-bg-light / -input / -alt), and the
+     fg-border hairline. */
+  --color-background: #ffffff;
+  --color-on-background: #1b1c1c;
+  --color-surface: #ffffff;
+  --color-surface-dim: #f6f3f1;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-lowest: #f8f3f0;
+  --color-surface-container-low: #f6f3f1;
+  --color-surface-container: #f2edea;
+  --color-surface-container-high: #e8dfda;
+  --color-surface-container-highest: #d4c3be;
+  --color-on-surface: #1b1c1c;
+  --color-on-surface-variant: #50453e;
+  --color-outline: #6b7280;
+  --color-outline-variant: #d4c3be;
+
+  --color-secondary: #f2edea;
+  --color-on-secondary: #1b1c1c;
+  --color-secondary-container: #f6f3f1;
+  --color-on-secondary-container: #1b1c1c;
+  --color-light: #f6f3f1;
+}

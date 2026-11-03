@@ -1,5 +1,5 @@
 ---
-version: "2.3 (WordPress base, as-built; + CFAC sub-brand scope)"
+version: "2.4 (WordPress base, as-built; + per-campaign theme scopes)"
 name: Favor Care
 description: >-
   Design tokens for the Fresh rebuild, transcribed from the live
@@ -175,34 +175,48 @@ this system.
 
 ## Sub-brand themes
 
-Campaigns that need their own look (so far: **Coffee for a Cause**) reuse the
-component catalog and change only the token _values_ inside a scoped wrapper:
+Standalone campaign pages (so far: **Coffee for a Cause**) get their own look
+and their own components, while still resolving every color through tokens. Each
+campaign follows one pattern:
+
+```
+app/<slug>/layout.tsx           wraps every route in <div class="<slug>"> + imports theme.css
+app/<slug>/theme.css            the scope block: semantic token remaps (plain CSS vars)
+components/campaigns/<slug>/    the campaign's own components + content.ts (+ content_test.ts)
+public/images/campaigns/<slug>/ campaign photos and logos (served via asset())
+```
 
 - **Mechanism** — Tailwind v4 utilities resolve `var(--color-*)` at the element
-  they land on, so re-declaring the variables inside a class (the `.cfac` block
-  at the end of `assets/styles.css`) re-skins every component beneath it. No
-  component edits, no hardcoded hex. The block lives _after_ the `@layer` base
-  so `tokens_test.ts`'s `@theme` parity check is untouched, and un-overridden
-  tokens (error, tertiary, radii, fonts) keep site values.
-- **Application** — `routes/coffeeforacause/_layout.tsx` wraps every CFAC route
-  in `<div class="cfac …">`, so `/coffeeforacause` and `/coffeeforacause/thanks`
-  (and any future campaign page in the folder) inherit the theme and the
-  campaign chrome.
-- **What CFAC remaps today** (sampled from the campaign team's published art —
-  the "Where your cup goes" deck + Social Campaign Brief in Favor Care's
-  TeamBrain; treatment: warm + hopeful + playful): near-black → deep forest
-  green `#14291b` (primary), black → darkest forest `#0e1f15` (bands, pill
-  labels), Link Yellow → marigold `#f7a708` (accent), link red → forest
-  `#2f6b44`, and the cream surface ramp shifted to the deck's warm creams
-  (`#fbf4e4` surface). No official spec sheet exists yet, so these are sampled
-  approximations normalized for token use — swap hexes in place if the team
-  publishes one. Font stays Inter until the team names the deck's rounded
-  display face.
+  they land on, so re-declaring the _semantic_ variables (primary, yellow,
+  surface-\*, outline-\*…) inside the campaign class re-skins everything beneath
+  it — the campaign's components and any shared catalog piece they reuse. No
+  hardcoded hex in components; no campaign-only `@theme` entries. `theme.css`
+  holds plain custom properties only, so the global `@theme` (and
+  `tokens_test.ts`'s parity check) is untouched; un-overridden tokens (error,
+  tertiary, radii, fonts) keep site values. The `/storybook` page imports the
+  same `theme.css` for its campaign group.
+- **Components** — a campaign's distinct UI (its button language, section
+  layouts, chrome) lives in `components/campaigns/<slug>/`, prefixed with the
+  campaign name (`CfacButton`, `CfacHero`…), so it never leaks into or
+  constrains the site catalog. Shared primitives (`VideoEmbed`, `MailtoForm`,
+  `icons.tsx`, `posts.ts`) are still reused where they fit.
+- **CFAC values** (`app/coffeeforacause/theme.css`) — from the campaign team's
+  design, `favorcare/cfac-landing-page` (`tailwind.config.js` `fg-*` colors;
+  live on the WP staging site): gold `#ffb428` → `yellow` (same as Link Yellow),
+  dark `#1b1c1c` → `primary`/`black` (ink, dark pill, bands), white page, warm
+  greys `#f6f3f1` (`surface-container-low`, bands), `#f8f3f0`
+  (`surface-container-lowest`, inputs), `#f2edea` (`surface-container`), brown
+  `#50453e` (`on-surface-variant`, secondary copy), border `#d4c3be`
+  (`outline-variant`), muted `#6b7280` (`outline`, fine print on white only).
+  Links read as ink and hover to brown (gold hover is illegible on white). Font
+  stays Inter, as in the design.
 - **Guardrails** — the a11y floors apply unchanged (body ≥16px/1.5, touch
-  targets ≥48px, Link-Yellow-class accents never as body text on white). Every
-  scoped text/background pair must clear **4.5:1**; `components/cfac_test.ts`
-  enforces it, and the `/storybook` "CFAC theme" group renders the scope live
-  with measured ratios.
+  targets ≥48px, gold never as text on white). Every scoped text/background pair
+  must clear **4.5:1**; `components/campaigns/cfac/content_test.ts` enforces it,
+  and the `/storybook` "CFAC campaign" group renders the scope live with
+  measured ratios. Where the design falls below a floor (white-on-gold nav
+  hover, 12–14px body copy) the port deviates and says so in the component
+  docstring.
 
 ## Do's and Don'ts
 
@@ -227,4 +241,5 @@ component catalog and change only the token _values_ inside a scoped wrapper:
 - Don't use the v1 gold/purple/green palette or glow shadows — retired with
   `ideas/design-v1.md`.
 - Don't hardcode CFAC (or any sub-brand) hexes in components — sub-brand colors
-  live in the scope block (`assets/styles.css`) and DESIGN.md only.
+  live in the campaign's scope block (`app/<slug>/theme.css`) and DESIGN.md
+  only.
