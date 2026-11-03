@@ -31,12 +31,19 @@ import { TeamGrid } from "../../../components/TeamGrid.tsx";
 
 // Icons + real content (specimens render with real copy, never lorem)
 import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
   BrandIcon,
+  CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   CloseIcon,
   CoffeeIcon,
+  EyeIcon,
+  HandHeartIcon,
+  HeartIcon,
   MailIcon,
+  MapPinIcon,
   MenuIcon,
   PlusIcon,
 } from "../../../components/icons.tsx";
@@ -52,9 +59,33 @@ import {
   SIGNUP,
   WHAT_WE_DO,
 } from "../../../components/content.ts";
-import { CFAC_COLORS, CFAC_CONTRAST_PAIRS } from "../../../components/cfac.ts";
-import { CfacFooter } from "../../../components/cfac/Footer.tsx";
-import { CfacHeader } from "../../../components/cfac/Header.tsx";
+// Campaign: Coffee for a Cause (components/campaigns/cfac/ + its scope)
+import "../../coffeeforacause/theme.css";
+import {
+  CFAC,
+  CFAC_COLORS,
+  CFAC_CONTRAST_PAIRS,
+} from "../../../components/campaigns/cfac/content.ts";
+import { CfacButton } from "../../../components/campaigns/cfac/CfacButton.tsx";
+import { CfacSectionIntro } from "../../../components/campaigns/cfac/SectionIntro.tsx";
+import { CfacField } from "../../../components/campaigns/cfac/Field.tsx";
+import { CfacLockup } from "../../../components/campaigns/cfac/Lockup.tsx";
+import { CfacHeader } from "../../../components/campaigns/cfac/Header.tsx";
+import { CfacFooter } from "../../../components/campaigns/cfac/Footer.tsx";
+import { CfacHero } from "../../../components/campaigns/cfac/Hero.tsx";
+import { CfacIntro } from "../../../components/campaigns/cfac/Intro.tsx";
+import { CfacStories } from "../../../components/campaigns/cfac/Stories.tsx";
+import { CfacHowItWorks } from "../../../components/campaigns/cfac/HowItWorks.tsx";
+import { CfacFaq } from "../../../components/campaigns/cfac/Faq.tsx";
+import { CfacDonateForm } from "../../../components/campaigns/cfac/DonateForm.tsx";
+import { CfacGive } from "../../../components/campaigns/cfac/Give.tsx";
+import { CfacPillars } from "../../../components/campaigns/cfac/Pillars.tsx";
+import {
+  CfacArticleCard,
+  CfacArticles,
+} from "../../../components/campaigns/cfac/Articles.tsx";
+import { CfacContact } from "../../../components/campaigns/cfac/Contact.tsx";
+import CfacPhotoStrip from "../../../islands/CfacPhotoStrip.tsx";
 import { listPosts } from "../../../components/posts.ts";
 import {
   COLOR_GROUPS,
@@ -99,7 +130,7 @@ const SECTIONS = [
   { id: "islands", label: "Islands" },
   { id: "forms", label: "Forms" },
   { id: "chrome", label: "Chrome" },
-  { id: "cfac", label: "CFAC theme" },
+  { id: "cfac", label: "CFAC campaign" },
   { id: "analytics", label: "Analytics" },
 ] as const;
 
@@ -166,13 +197,13 @@ const BUTTON_MATRIX = [
 // Literal class table for the CFAC swatches — Tailwind can't see dynamic
 // `bg-${token}` names, same reason Gallery maps literal grid-cols tables.
 const CFAC_SWATCH: Record<string, string> = {
-  black: "bg-black",
-  primary: "bg-primary",
   yellow: "bg-yellow",
+  primary: "bg-primary",
   surface: "bg-surface",
-  "surface-container": "bg-surface-container",
-  "on-surface": "bg-on-surface",
-  link: "bg-link",
+  "surface-container-low": "bg-surface-container-low",
+  "surface-container-lowest": "bg-surface-container-lowest",
+  "on-surface-variant": "bg-on-surface-variant",
+  "outline-variant": "bg-outline-variant",
 };
 
 export default function StorybookPage() {
@@ -546,6 +577,13 @@ export default function StorybookPage() {
                 <PlusIcon size={14} />
                 <MailIcon size={22} />
                 <CoffeeIcon size={24} />
+                <MapPinIcon size={22} />
+                <CheckIcon size={24} />
+                <ArrowLeftIcon size={20} />
+                <ArrowRightIcon size={20} />
+                <EyeIcon size={28} />
+                <HeartIcon size={28} />
+                <HandHeartIcon size={28} />
               </div>
             </Specimen>
             <Specimen label="Brand glyphs (simple-icons, fill)" dark>
@@ -553,6 +591,7 @@ export default function StorybookPage() {
                 <BrandIcon name="facebook" size={22} />
                 <BrandIcon name="instagram" size={22} />
                 <BrandIcon name="youtube" size={22} />
+                <BrandIcon name="tiktok" size={22} />
                 <BrandIcon name="facebook" size={32} />
                 <BrandIcon name="instagram" size={32} />
               </div>
@@ -897,16 +936,16 @@ export default function StorybookPage() {
             </p>
           </Group>
 
-          {/* The Coffee for a Cause sub-brand: everything renders inside
-              a live `.cfac` scope, so these specimens show exactly what
+          {/* The Coffee for a Cause campaign: everything renders inside a
+              live `.cfac` scope, so these specimens show exactly what
               /coffeeforacause sees. */}
           <Group
             id="cfac"
-            title="CFAC theme"
-            intro="The Coffee for a Cause sub-brand (routes/coffeeforacause/): a scoped token override in assets/styles.css re-skins the shared catalog inside any .cfac wrapper — no component edits, no hardcoded hex. PLACEHOLDER palette pending the brand kit; DESIGN.md 'Sub-brand themes' documents the mechanism, cfac_test.ts gates the contrast."
+            title="CFAC campaign"
+            intro="Coffee for a Cause (app/coffeeforacause/): the campaign's own components (components/campaigns/cfac/) inside its token scope (app/coffeeforacause/theme.css). Cloned from the team's design, favorcare/cfac-landing-page. DESIGN.md 'Sub-brand themes' documents the pattern; content_test.ts gates the contrast."
           >
-            <div className="cfac space-y-6">
-              <Specimen label="Scoped palette (CFAC_COLORS — utilities resolve through the scope, hexes from the override block)">
+            <div className="cfac space-y-6 bg-surface text-on-surface">
+              <Specimen label="Scoped palette (CFAC_COLORS — utilities resolve through the scope)">
                 <ul className="flex flex-wrap gap-5">
                   {CFAC_COLORS.map((c) => (
                     <li key={c.token} className="flex items-center gap-3">
@@ -932,7 +971,7 @@ export default function StorybookPage() {
                   {CFAC_CONTRAST_PAIRS.map((p) => (
                     <li
                       key={p.label}
-                      className="flex items-center justify-between gap-3 rounded-card bg-surface-container-lowest px-4 py-2 text-sm"
+                      className="flex items-center justify-between gap-3 rounded-card bg-surface-container-low px-4 py-2 text-sm"
                     >
                       <span className="text-on-surface">{p.label}</span>
                       <span className="font-bold text-primary">
@@ -942,39 +981,95 @@ export default function StorybookPage() {
                   ))}
                 </ul>
               </Specimen>
-              <Specimen label="Buttons — the shared catalog, re-skinned by the scope">
+              <Specimen label="CfacButton — gold / dark / outline-white × cta / pill / block (+ disabled)">
                 <div className="flex flex-wrap items-center gap-4">
-                  <Button variant="yellow" size="md">
+                  <CfacButton>Help a Child Learn Today</CfacButton>
+                  <CfacButton variant="dark" size="pill">
                     DONATE
-                  </Button>
-                  <Button variant="black" size="md">
-                    Back to the campaign
-                  </Button>
-                  <Button variant="outline-black" size="md">
-                    favorcare.org
-                  </Button>
+                  </CfacButton>
+                  <span className="rounded-lg bg-primary p-3">
+                    <CfacButton variant="outline-white">
+                      Be Part of the Favor Care Community
+                    </CfacButton>
+                  </span>
+                </div>
+                <div className="mt-4 grid max-w-md gap-3">
+                  <CfacButton size="block">Send Message</CfacButton>
+                  <CfacButton size="block" disabled>
+                    Donate Now
+                  </CfacButton>
                 </div>
               </Specimen>
-              <Specimen label="Type & labels in scope (Eyebrow, SectionHeading, links)">
-                <div className="space-y-3">
-                  <Eyebrow>A fundraising campaign of Favor Care</Eyebrow>
-                  <SectionHeading
-                    title="One cup can change a story."
-                    size="card"
+              <Specimen label="CfacSectionIntro · CfacField · CfacLockup">
+                <div className="space-y-6">
+                  <CfacSectionIntro
+                    title={CFAC.howItWorks.title}
+                    subtitle={CFAC.howItWorks.subtitle}
                   />
-                  <p className="text-base">
-                    <a href="#cfac">A roast-toned link</a> hovers to caramel,
-                    like the site's red→yellow pair.
-                  </p>
+                  <div className="grid max-w-xl gap-4 md:grid-cols-2">
+                    <CfacField
+                      name="storybook-first"
+                      label="First Name"
+                      labelStyle="caps"
+                      placeholder="Jane"
+                      required
+                    />
+                    <CfacField
+                      name="storybook-tin"
+                      label="Tax Identification Number (TIN) *"
+                      placeholder="000-000-000-000"
+                    />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-6">
+                    <span className="rounded-lg bg-yellow p-4">
+                      <CfacLockup tone="dark" size="nav" />
+                    </span>
+                    <span className="rounded-lg bg-primary p-4">
+                      <CfacLockup tone="light" size="footer" />
+                    </span>
+                  </div>
                 </div>
               </Specimen>
-              <Specimen label="Campaign chrome — CfacHeader / CfacFooter render inside the scope exactly as on /coffeeforacause">
+              <Specimen label="Chrome — CfacHeader (burger below xl = CfacMobileNav island) / CfacFooter">
                 <div className="overflow-hidden rounded-[10px]">
                   <CfacHeader />
                   <div className="bg-surface p-5 text-sm text-on-surface-variant">
                     …page content…
                   </div>
                   <CfacFooter />
+                </div>
+              </Specimen>
+              <Specimen label="CfacPhotoStrip island (the community photo carousel)">
+                <CfacPhotoStrip
+                  photos={CFAC.stories.items[0].photos}
+                  label="Storybook photo strip"
+                />
+              </Specimen>
+              <Specimen label="CfacFaq — rich-answer accordion cards">
+                <div className="max-w-xl">
+                  <CfacFaq items={CFAC.give.faqs.slice(0, 2)} />
+                </div>
+              </Specimen>
+              <Specimen label="CfacDonateForm — static until the cfac-donations wiring PR (chips + certificate toggle work with JS off)">
+                <div className="max-w-xl">
+                  <CfacDonateForm />
+                </div>
+              </Specimen>
+              <Specimen label="CfacArticleCard">
+                <div className="max-w-sm">
+                  <CfacArticleCard post={listPosts()[0]} />
+                </div>
+              </Specimen>
+              <Specimen label="Sections, in page order — CfacHero · CfacIntro · CfacStories · CfacHowItWorks · CfacGive · CfacPillars · CfacArticles · CfacContact">
+                <div className="overflow-hidden rounded-[10px] border border-outline-variant/40">
+                  <CfacHero />
+                  <CfacIntro />
+                  <CfacStories />
+                  <CfacHowItWorks />
+                  <CfacGive />
+                  <CfacPillars />
+                  <CfacArticles />
+                  <CfacContact />
                 </div>
               </Specimen>
               <Specimen label="TrackView — fires a named event once on mount (the thanks-page conversion seam; renders nothing)">

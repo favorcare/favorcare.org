@@ -67,10 +67,10 @@ Tailwind v4 is configured entirely in CSS — **there is no
   [**DESIGN.md**](DESIGN.md). They generate utilities like `bg-primary`,
   `text-on-surface`, and `rounded-full`.
 - **Inter** is loaded via a Google Fonts `<link>` in `app/layout.tsx`.
-- **Sub-brands** (Coffee for a Cause) re-theme the shared catalog through a
-  scoped variable override (`.cfac` in `app/globals.css`) applied by their
-  nested layout — see DESIGN.md, "Sub-brand themes". Never hardcode sub-brand
-  hexes in components.
+- **Sub-brands** (Coffee for a Cause) get their own components
+  (`components/campaigns/<slug>/`) and a scoped variable override
+  (`app/<slug>/theme.css`, e.g. `.cfac`) applied by their nested layout — see
+  DESIGN.md, "Sub-brand themes". Never hardcode sub-brand hexes in components.
 
 To change a color or radius, update the token in **DESIGN.md** first, then
 mirror it in `app/globals.css`.

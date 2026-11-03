@@ -8,15 +8,24 @@ import { BRAND } from "../../../components/content.ts";
 
 const STORY_PATH = "app/(site)/storybook/page.tsx";
 
-// Rendered inside Header rather than as their own specimens.
-const CHROME_ONLY = new Set(["Navbar", "MobileNav"]);
+// Rendered inside a header (site or campaign) rather than as their own
+// specimens.
+const CHROME_ONLY = new Set(["Navbar", "MobileNav", "CfacMobileNav"]);
+
+// Every campaign's component folder (components/campaigns/<slug>/).
+async function campaignDirs(): Promise<string[]> {
+  const root = "components/campaigns";
+  return (await readdir(root, { withFileTypes: true }))
+    .filter((e) => e.isDirectory())
+    .map((e) => `${root}/${e.name}`);
+}
 
 async function componentExports(): Promise<string[]> {
   const names: string[] = [];
   for (const dir of [
     "components",
     "components/layout",
-    "components/cfac",
+    ...(await campaignDirs()),
     "islands",
   ]) {
     for (const entry of await readdir(dir, { withFileTypes: true })) {

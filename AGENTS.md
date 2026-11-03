@@ -153,6 +153,8 @@ app/          Pages (App Router). layout.tsx = root layout; (site)/ = favorcare.
               pages + accreditation popup; coffeeforacause/ = campaign sub-brand.
 components/   Reusable server components — see COMPONENTS.md for the catalog.
 components/layout/  Container/frame + SectionHeading.
+components/campaigns/<slug>/  A campaign's own components + content.ts; its
+              theme scope is app/<slug>/theme.css (DESIGN.md "Sub-brand themes").
 components/icons.tsx  The only icon seam (lucide + simple-icons).
 islands/      Client-hydrated components ("use client").
 public/       Assets served as-is — logos, favicon, and the tracked
